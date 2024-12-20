@@ -234,6 +234,12 @@ public class RedmiBuds5ProProtocol extends GBDeviceProtocol {
 
         SharedPreferences preferences = getDevicePrefs().getPreferences();
         Editor editor = preferences.edit();
+
+        if (configPayload.length < 3) {
+            LOG.debug("Invalid config payload: {}", hexdump(configPayload));
+            return;
+        }
+
         Config config = Config.fromCode(configPayload[2]);
         switch (config) {
             case GESTURES:
