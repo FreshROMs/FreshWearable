@@ -30,9 +30,9 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceSupport;
-import nodomain.freeyourgadget.gadgetbridge.service.devices.redmibuds5pro.RedmiBuds5ProDeviceSupport;
+import nodomain.freeyourgadget.gadgetbridge.service.devices.redmibuds.RedmiBudsDeviceSupport;
 
-public class RedmiBuds5ProCoordinator extends AbstractDeviceCoordinator {
+public class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
     @Override
     protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws GBException {
 
@@ -46,17 +46,17 @@ public class RedmiBuds5ProCoordinator extends AbstractDeviceCoordinator {
     @NonNull
     @Override
     public Class<? extends DeviceSupport> getDeviceSupportClass() {
-        return RedmiBuds5ProDeviceSupport.class;
+        return RedmiBudsDeviceSupport.class;
     }
 
     @Override
     public int getDeviceNameResource() {
-        return R.string.devicetype_redmi_buds_5_pro;
+        return R.string.devicetype_redmi_buds;
     }
 
     @Override
     protected Pattern getSupportedDeviceName() {
-        return Pattern.compile("Redmi Buds 5 Pro");
+        return Pattern.compile("Redmi Buds.*");
     }
 
     @Override
@@ -80,9 +80,9 @@ public class RedmiBuds5ProCoordinator extends AbstractDeviceCoordinator {
     @Override
     public DeviceSpecificSettings getDeviceSpecificSettings(final GBDevice device) {
         final DeviceSpecificSettings deviceSpecificSettings = new DeviceSpecificSettings();
-        deviceSpecificSettings.addRootScreen(R.xml.devicesettings_redmibuds5pro_headphones);
-        deviceSpecificSettings.addRootScreen(R.xml.devicesettings_redmibuds5pro_gestures);
-        deviceSpecificSettings.addRootScreen(R.xml.devicesettings_redmibuds5pro_sound);
+        deviceSpecificSettings.addRootScreen(R.xml.devicesettings_redmibuds_headphones);
+        deviceSpecificSettings.addRootScreen(R.xml.devicesettings_redmibuds_gestures);
+        deviceSpecificSettings.addRootScreen(R.xml.devicesettings_redmibuds_sound);
         return deviceSpecificSettings;
     }
 
