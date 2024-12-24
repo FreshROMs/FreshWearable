@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory>
+        <PreferenceScreen
+            android:layout="@layout/preference_checkbox"
+            android:icon="@drawable/ic_settings_buds_device_specific_settings"
+            android:key="pref_screen_watch_settings"
+            android:persistent="false"
+            android:title="Earbuds settings">
+        </PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>
