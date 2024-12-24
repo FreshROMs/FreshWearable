@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+    <!-- Left earbud -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:id="@+id/header_battery_level_buds_left_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="4.0dip"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_nothing_ear_l"
+            android:alpha="0.6"
+            app:tint="?textColorPrimary" />
+
+        <TextView
+            android:id="@+id/header_battery_level_buds_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textFontWeight="600"
+            android:textSize="15sp"
+            android:drawableStart="@drawable/ic_bolt"
+            android:text="100%" />
+    </LinearLayout>
+
+    <!-- Case -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="14.0dip"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:id="@+id/header_battery_level_case_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8.0dip"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_buds_pro_case"
+            android:alpha="0.6"
+            app:tint="?textColorPrimary" />
+
+        <TextView
+            android:id="@+id/header_battery_level_case"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textFontWeight="600"
+            android:textSize="15sp"
+            android:drawableStart="@drawable/ic_bolt"
+            android:text="100%" />
+    </LinearLayout>
+
+    <!-- Right earbud, flip ImageView horizontally -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:id="@+id/header_battery_level_buds_right_image"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="2.0dip"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_nothing_ear_r"
+            android:alpha="0.6"
+            app:tint="?textColorPrimary" />
+
+        <TextView
+            android:id="@+id/header_battery_level_buds_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textFontWeight="600"
+            android:textSize="15sp"
+            android:drawableStart="@drawable/ic_bolt"
+            android:text="100%" />
+    </LinearLayout>
+</LinearLayout>
