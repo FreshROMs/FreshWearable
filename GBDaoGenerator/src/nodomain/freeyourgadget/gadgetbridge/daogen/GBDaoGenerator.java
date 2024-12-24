@@ -263,6 +263,7 @@ public class GBDaoGenerator {
         device.addIntProperty("type").notNull().javaDocGetterAndSetter("The DeviceType key, i.e. the GBDevice's type.").codeBeforeGetterAndSetter("@Deprecated");
         device.addStringProperty("typeName").notNull().javaDocGetterAndSetter("The DeviceType enum name, for example SONY_WH_1000XM3");
         device.addStringProperty("model").javaDocGetterAndSetter("An optional model, further specifying the kind of device.");
+        device.addIntProperty("variant").javaDocGetterAndSetter("An optional variant, further specifying the kind of device.");
         device.addStringProperty("alias");
         device.addStringProperty("parentFolder").javaDocGetterAndSetter("Folder name containing this device.");
         Property deviceId = deviceAttributes.addLongProperty("deviceId").notNull().getProperty();
