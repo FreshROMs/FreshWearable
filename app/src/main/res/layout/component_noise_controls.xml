@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="16.0dp"
+    android:paddingVertical="24.0dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20.0dip"
+        android:clickable="true"
+        android:focusable="true">
+
+        <LinearLayout
+            android:id="@+id/noise_controls_anc_on_icon_view"
+            android:layout_width="48.0dip"
+            android:layout_height="48.0dip"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/noise_controls_anc_on_icon"
+                android:layout_width="48.0dip"
+                android:layout_height="48.0dip"
+                android:src="@drawable/component_noise_controls_anc_on" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="6.0dip"
+            android:layout_gravity="center_vertical"
+            android:background="@color/oui_list_divider_color"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <LinearLayout
+            android:id="@+id/noise_controls_anc_off_icon_view"
+            android:layout_width="48.0dip"
+            android:layout_height="48.0dip"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/noise_controls_anc_off_icon"
+                android:layout_width="48.0dip"
+                android:layout_height="48.0dip"
+                android:src="@drawable/component_noise_controls_anc_off" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="6.0dip"
+            android:layout_gravity="center_vertical"
+            android:background="@color/oui_list_divider_color" />
+
+        <LinearLayout
+            android:id="@+id/noise_controls_ambient_sound_icon_view"
+            android:layout_width="48.0dip"
+            android:layout_height="48.0dip"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:id="@+id/noise_controls_ambient_sound_icon"
+                android:layout_width="48.0dip"
+                android:layout_height="48.0dip"
+                android:src="@drawable/component_noise_controls_ambient_sound" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8.0dip">
+
+        <TextView
+            android:id="@+id/noise_controls_anc_on_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/prefs_active_noise_cancelling"
+            android:textAlignment="center"
+            android:textColor="@color/oui_primary_text_color"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/noise_controls_anc_off_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="@string/off"
+            android:textAlignment="center"
+            android:textColor="@color/oui_primary_text_color"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/noise_controls_ambient_sound_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/prefs_ambient_sound"
+            android:textAlignment="center"
+            android:textColor="@color/oui_primary_text_color"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

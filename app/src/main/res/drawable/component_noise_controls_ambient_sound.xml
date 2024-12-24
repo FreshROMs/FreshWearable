@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_enabled="true">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="?colorPrimary" />
+                    <size android:width="24.0dip" android:height="24.0dip" />
+                </shape>
+            </item>
+            <item android:drawable="@drawable/ic_buds_ambient_sound_enabled"
+                android:gravity="center" android:height="24.0dip" android:width="24.0dip" />
+        </layer-list>
+    </item>
+    <item android:state_enabled="false">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="@color/oui_list_divider_color" />
+                    <size android:width="24.0dip" android:height="24.0dip" />
+                </shape>
+            </item>
+            <item android:drawable="@drawable/ic_buds_ambient_sound"
+                android:gravity="center" android:height="24.0dip" android:width="24.0dip" />
+        </layer-list>
+    </item>
+</selector>
