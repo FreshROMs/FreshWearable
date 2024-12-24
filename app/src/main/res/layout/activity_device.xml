@@ -7,7 +7,6 @@
         android:id="@+id/activity_device"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/activity_device_app_bar"
             style="?attr/appBarLayoutStyle"
@@ -46,7 +45,6 @@
                     app:layout_collapseMode="pin" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
-
         </com.google.android.material.appbar.AppBarLayout>
 
         <dev.oneuiproject.oneui.widget.RoundedFrameLayout
@@ -56,12 +54,12 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <dev.oneuiproject.oneui.widget.ScrollAwareFloatingActionButton
             android:id="@+id/activity_device_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
-            android:src="@drawable/ic_oui_apps"
+            android:src="@drawable/ic_fab_device_list"
             android:layout_margin="24dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

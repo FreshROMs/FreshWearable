@@ -54,9 +54,9 @@ import java.util.Map;
 import java.util.Objects;
 
 import dev.oneuiproject.oneui.utils.DeviceLayoutUtil;
+import dev.oneuiproject.oneui.widget.ScrollAwareFloatingActionButton;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.activities.PermissionsActivity;
-import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.R;
@@ -71,7 +71,6 @@ import nodomain.freeyourgadget.gadgetbridge.util.PermissionsUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.DeviceSettingsFragment;
 import xyz.tenseventyseven.fresh.wearable.components.DeviceHeader;
-import xyz.tenseventyseven.fresh.wearable.models.MenuEntryPoints;
 
 //TODO: extend AbstractGBActivity, but it requires actionbar that is not available
 public class DashboardActivity extends AppCompatActivity implements ActivityCommon {
@@ -205,6 +204,7 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
         setupIntentListeners();
         showOnboardingFlow();
         showChangelog(savedInstanceState);
+        setupFAB();
 
         // Finally, connect to the device
         initDeviceConnection(null);
@@ -274,12 +274,15 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
             loadDeviceSettings();
             mDeviceHeader.setDevice(mCurrentDevice);
             refreshToolbar();
-
-            findViewById(R.id.activity_device_fab).setOnClickListener(v -> {
-                // TODO: Open device picker activity
-                startActivity(new Intent(this, SettingsActivity.class));
-            });
         }
+    }
+
+    private void setupFAB() {
+        ScrollAwareFloatingActionButton fab = findViewById(R.id.activity_device_fab);
+        fab.setOnClickListener(v -> {
+            // TODO: Open device picker activity
+            startActivity(new Intent(this, DiscoveryActivity.class));
+        });
     }
 
     private void refreshToolbar() {
