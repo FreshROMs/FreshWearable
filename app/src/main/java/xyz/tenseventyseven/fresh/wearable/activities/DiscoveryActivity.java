@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge.activities.discovery;
+package xyz.tenseventyseven.fresh.wearable.activities;
 
 import static nodomain.freeyourgadget.gadgetbridge.util.GB.toast;
 
@@ -66,6 +66,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.StringRes;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuProvider;
@@ -84,10 +85,12 @@ import java.util.Set;
 
 import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.activities.DebugActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsActivity;
-import nodomain.freeyourgadget.gadgetbridge.adapter.DeviceCandidateAdapter;
+import xyz.tenseventyseven.fresh.wearable.activities.discovery.DiscoveryPairingPreferenceActivity;
+import xyz.tenseventyseven.fresh.wearable.activities.discovery.GBScanEvent;
+import xyz.tenseventyseven.fresh.wearable.activities.discovery.GBScanEventProcessor;
+import xyz.tenseventyseven.fresh.wearable.adapters.DeviceCandidateAdapter;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconAdapter;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconItem;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -102,12 +105,12 @@ import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
 
-public class DiscoveryActivityV2 extends CommonActivityAbstract implements AdapterView.OnItemClickListener,
+public class DiscoveryActivity extends CommonActivityAbstract implements AdapterView.OnItemClickListener,
         AdapterView.OnItemLongClickListener,
         BondingInterface,
         GBScanEventProcessor.Callback,
         MenuProvider {
-    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryActivityV2.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DiscoveryActivity.class);
 
     private final Handler handler = new Handler();
 
@@ -303,7 +306,7 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
 
         try {
             if (!ensureBluetoothReady()) {
-                toast(DiscoveryActivityV2.this, getString(R.string.discovery_enable_bluetooth), Toast.LENGTH_SHORT, GB.ERROR);
+                toast(DiscoveryActivity.this, getString(R.string.discovery_enable_bluetooth), Toast.LENGTH_SHORT, GB.ERROR);
                 return false;
             }
 
@@ -346,7 +349,7 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
             startButton.setText(getString(R.string.discovery_stop_scanning));
         } else {
             startButton.setText(getString(R.string.discovery_start_scanning));
-            bluetoothProgress.setVisibility(View.GONE);
+            bluetoothProgress.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -490,15 +493,10 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
         final ScanSettings.Builder builder = new ScanSettings.Builder()
                 .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            builder.setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES);
-            builder.setMatchMode(ScanSettings.MATCH_MODE_AGGRESSIVE);
-            builder.setNumOfMatches(ScanSettings.MATCH_NUM_ONE_ADVERTISEMENT);
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            builder.setPhy(ScanSettings.PHY_LE_ALL_SUPPORTED);
-        }
+        builder.setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES);
+        builder.setMatchMode(ScanSettings.MATCH_MODE_AGGRESSIVE);
+        builder.setNumOfMatches(ScanSettings.MATCH_NUM_ONE_ADVERTISEMENT);
+        builder.setPhy(ScanSettings.PHY_LE_ALL_SUPPORTED);
 
         return builder.build();
     }
@@ -539,7 +537,7 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
         }
         // if we need location permissions, request both together to avoid a bunch of dialogs
         if (wantedPermissions.size() > 0) {
-            toast(DiscoveryActivityV2.this, getString(R.string.error_no_location_access), Toast.LENGTH_SHORT, GB.ERROR);
+            toast(DiscoveryActivity.this, getString(R.string.error_no_location_access), Toast.LENGTH_SHORT, GB.ERROR);
             ActivityCompat.requestPermissions(this, wantedPermissions.toArray(new String[0]), 0);
             wantedPermissions.clear();
         }
@@ -547,7 +545,7 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_BACKGROUND_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 LOG.error("No permission to access background location!");
-                toast(DiscoveryActivityV2.this, getString(R.string.error_no_location_access), Toast.LENGTH_SHORT, GB.ERROR);
+                toast(DiscoveryActivity.this, getString(R.string.error_no_location_access), Toast.LENGTH_SHORT, GB.ERROR);
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_BACKGROUND_LOCATION}, 0);
             }
         }
@@ -555,12 +553,12 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
                 LOG.error("No permission to access Bluetooth scanning!");
-                toast(DiscoveryActivityV2.this, getString(R.string.error_no_bluetooth_scan), Toast.LENGTH_SHORT, GB.ERROR);
+                toast(DiscoveryActivity.this, getString(R.string.error_no_bluetooth_scan), Toast.LENGTH_SHORT, GB.ERROR);
                 wantedPermissions.add(Manifest.permission.BLUETOOTH_SCAN);
             }
             if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                 LOG.error("No permission to access Bluetooth connection!");
-                toast(DiscoveryActivityV2.this, getString(R.string.error_no_bluetooth_connect), Toast.LENGTH_SHORT, GB.ERROR);
+                toast(DiscoveryActivity.this, getString(R.string.error_no_bluetooth_connect), Toast.LENGTH_SHORT, GB.ERROR);
                 wantedPermissions.add(Manifest.permission.BLUETOOTH_CONNECT);
             }
         }
@@ -583,16 +581,16 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
             }
         }
 
-        LocationManager locationManager = (LocationManager) DiscoveryActivityV2.this.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) DiscoveryActivity.this.getSystemService(Context.LOCATION_SERVICE);
         try {
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
                 // Do nothing
                 LOG.debug("Some location provider is enabled, assuming location is enabled");
             } else {
-                toast(DiscoveryActivityV2.this, getString(R.string.require_location_provider), Toast.LENGTH_LONG, GB.ERROR);
-                DiscoveryActivityV2.this.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                toast(DiscoveryActivity.this, getString(R.string.require_location_provider), Toast.LENGTH_LONG, GB.ERROR);
+                DiscoveryActivity.this.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
                 // We can't be sure location was enabled, cancel scan start and wait for new user action
-                toast(DiscoveryActivityV2.this, getString(R.string.error_location_enabled_mandatory), Toast.LENGTH_SHORT, GB.ERROR);
+                toast(DiscoveryActivity.this, getString(R.string.error_location_enabled_mandatory), Toast.LENGTH_SHORT, GB.ERROR);
                 return;
             }
         } catch (final Exception ex) {
@@ -709,19 +707,19 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
         }
 
         final DeviceCoordinator coordinator = deviceType.getDeviceCoordinator();
-        final GBDevice device = DeviceHelper.getInstance().toSupportedDevice(deviceCandidate);
-        if (coordinator.getSupportedDeviceSpecificSettings(device) == null) {
+        if (coordinator.getBondingStyle() != DeviceCoordinator.BONDING_STYLE_REQUIRE_KEY) {
             return true;
         }
+
+        final GBDevice device = DeviceHelper.getInstance().toSupportedDevice(deviceCandidate);
 
         final Intent startIntent;
         startIntent = new Intent(this, DeviceSettingsActivity.class);
         startIntent.putExtra(GBDevice.EXTRA_DEVICE, device);
         if (coordinator.getBondingStyle() == DeviceCoordinator.BONDING_STYLE_REQUIRE_KEY) {
             startIntent.putExtra(DeviceSettingsActivity.MENU_ENTRY_POINT, DeviceSettingsActivity.MENU_ENTRY_POINTS.AUTH_SETTINGS);
-        } else {
-            startIntent.putExtra(DeviceSettingsActivity.MENU_ENTRY_POINT, DeviceSettingsActivity.MENU_ENTRY_POINTS.DEVICE_SETTINGS);
         }
+
         startActivity(startIntent);
         return true;
     }
@@ -731,7 +729,7 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
 
         final Map<String, Pair<Long, Integer>> allDevices = DebugActivity.getAllSupportedDevices(getApplicationContext());
 
-        final LinearLayout linearLayout = new LinearLayout(DiscoveryActivityV2.this);
+        final LinearLayout linearLayout = new LinearLayout(DiscoveryActivity.this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
 
         final ArrayList<SpinnerWithIconItem> deviceListArray = new ArrayList<>();
@@ -739,13 +737,13 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
             deviceListArray.add(new SpinnerWithIconItem(item.getKey(), item.getValue().first, item.getValue().second));
         }
         final SpinnerWithIconAdapter deviceListAdapter = new SpinnerWithIconAdapter(
-                DiscoveryActivityV2.this,
+                DiscoveryActivity.this,
                 R.layout.spinner_with_image_layout,
                 R.id.spinner_item_text,
                 deviceListArray
         );
 
-        final Spinner deviceListSpinner = new Spinner(DiscoveryActivityV2.this);
+        final Spinner deviceListSpinner = new Spinner(DiscoveryActivity.this);
         deviceListSpinner.setAdapter(deviceListAdapter);
         deviceListSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -760,19 +758,19 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
         });
         linearLayout.addView(deviceListSpinner);
 
-        final LinearLayout macLayout = new LinearLayout(DiscoveryActivityV2.this);
+        final LinearLayout macLayout = new LinearLayout(DiscoveryActivity.this);
         macLayout.setOrientation(LinearLayout.HORIZONTAL);
         macLayout.setPadding(20, 0, 20, 0);
         linearLayout.addView(macLayout);
 
-        new MaterialAlertDialogBuilder(DiscoveryActivityV2.this)
+        new AlertDialog.Builder(DiscoveryActivity.this)
                 .setCancelable(true)
                 .setTitle(R.string.add_test_device)
                 .setView(linearLayout)
                 .setPositiveButton(R.string.ok, (dialog, which) -> {
                     if (selectedUnsupportedDeviceKey != DebugActivity.SELECT_DEVICE) {
                         DebugActivity.createTestDevice(
-                                DiscoveryActivityV2.this,
+                                DiscoveryActivity.this,
                                 selectedUnsupportedDeviceKey,
                                 deviceCandidate.getMacAddress(),
                                 deviceCandidate.getName()
@@ -846,7 +844,7 @@ public class DiscoveryActivityV2 extends CommonActivityAbstract implements Adapt
     public boolean onMenuItemSelected(@NonNull final MenuItem menuItem) {
         final int itemId = menuItem.getItemId();
         if (itemId == R.id.prefs_discovery_pairing) {
-            final Intent intent = new Intent(DiscoveryActivityV2.this, DiscoveryPairingPreferenceActivity.class);
+            final Intent intent = new Intent(DiscoveryActivity.this, DiscoveryPairingPreferenceActivity.class);
             startActivity(intent);
             return true;
         }

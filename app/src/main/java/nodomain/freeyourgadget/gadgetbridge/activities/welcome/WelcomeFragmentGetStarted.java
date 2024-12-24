@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DataManagementActivity;
-import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
+import xyz.tenseventyseven.fresh.wearable.activities.DiscoveryActivity;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
 public class WelcomeFragmentGetStarted extends Fragment {
@@ -46,7 +46,7 @@ public class WelcomeFragmentGetStarted extends Fragment {
         View view = inflater.inflate(R.layout.fragment_welcome_get_started, container, false);
 
         Button firstDevice = view.findViewById(R.id.welcome_button_add_device);
-        firstDevice.setOnClickListener(firstDeviceButton -> startActivity(new Intent(requireActivity(), DiscoveryActivityV2.class)));
+        firstDevice.setOnClickListener(firstDeviceButton -> startActivity(new Intent(requireActivity(), DiscoveryActivity.class)));
         Button restore = view.findViewById(R.id.welcome_button_restore);
         restore.setOnClickListener(restoreButton -> startActivity(new Intent(requireActivity(), DataManagementActivity.class)));
         Button toApp = view.findViewById(R.id.welcome_button_to_app);

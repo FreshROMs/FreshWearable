@@ -45,7 +45,7 @@ import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AboutUserPreferencesActivity;
 import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
-import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
+import xyz.tenseventyseven.fresh.wearable.activities.DiscoveryActivity;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -82,7 +82,7 @@ public class MiBandPairingActivity extends CommonActivityAbstract implements Bon
 
         if (deviceCandidate == null) {
             Toast.makeText(this, getString(R.string.message_cannot_pair_no_mac), Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, DiscoveryActivityV2.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(this, DiscoveryActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
 
             finish();
             return;

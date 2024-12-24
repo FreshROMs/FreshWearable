@@ -88,10 +88,10 @@ public class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
     public BatteryConfig[] getBatteryConfig(GBDevice device) {
         List<BatteryConfig> batteryConfigs = new ArrayList<>();
 
-        if (supports(RedmiBudsCapabilities.ReportsBattery)) {
-            batteryConfigs.add(new BatteryConfig(0, R.drawable.ic_nothing_ear_l, R.string.menuitem_headphone));
-        } else if (supports(RedmiBudsCapabilities.ReportsCaseBattery)) {
+        if (supports(RedmiBudsCapabilities.ReportsCaseBattery)) {
             batteryConfigs.add(new BatteryConfig(0, R.drawable.ic_tws_case, R.string.battery_case));
+        } else if (supports(RedmiBudsCapabilities.ReportsBattery)) {
+            batteryConfigs.add(new BatteryConfig(0, R.drawable.ic_nothing_ear_l, R.string.menuitem_headphone));
         }
 
         if (supports(RedmiBudsCapabilities.ReportsLeftEarbudBattery)) {
@@ -230,7 +230,7 @@ public class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
 
     @Override
     public int getDefaultIconResource() {
-        return R.drawable.ic_device_nothingear;
+        return dev.oneuiproject.oneui.R.drawable.ic_oui_buds_pro;
     }
 
     @Override

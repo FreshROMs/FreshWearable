@@ -1,68 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2">
+    android:orientation="vertical"
+    tools:context=".activities.DiscoveryActivity">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:weightSum="1">
+        android:layout_marginTop="48.0dip"
+        android:layout_marginHorizontal="32.0dip">
+        <ImageView
+            android:layout_width="36.0dip"
+            android:layout_height="36.0dip"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_oui_search"
+            android:tint="@color/oui_btn_colored_background"
+            tools:ignore="UseAppTint" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="12.0dip"
+            android:layout_marginHorizontal="12.0dip"
+            android:textAppearance="@style/TextAppearance.Fresh.Onboarding.Scanner"
+            android:text="Scanning for devices to add..." />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:layout_marginTop="24.0dip"
+            android:layout_marginBottom="13.0dip"
+            android:textAppearance="@style/TextAppearance.Fresh.Onboarding.Scanner.Description"
+            android:text="Make sure the device you want to add is turned on. Your device might not appear if it's connected to a different device." />
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/discovery_start"
-            android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical">
+
+        <ProgressBar
+            android:id="@+id/discovery_progressbar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/discovery_start_scanning" />
+            android:indeterminate="true"
+            android:indeterminateOnly="true" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:gravity="center_vertical">
-
-            <ProgressBar
-                android:id="@+id/discovery_progressbar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:indeterminate="true"
-                android:indeterminateOnly="true"
-                android:visibility="gone" />
-
-        </LinearLayout>
-
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:id="@+id/discovery_device_candidates_list"
-            android:layout_gravity="bottom|top"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/discovery_note"
-            android:id="@+id/discovery_note"
-            android:textStyle="bold"
-            android:textColor="@color/secondarytext"
-            android:gravity="center_horizontal|bottom" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/discovery_connected_devices_hint"
-            android:id="@+id/discovery_hint"
-            android:textColor="@color/secondarytext"
-            android:textIsSelectable="true" />
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/discovery_device_candidates_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="-16.0dip"
+        android:divider="@drawable/discovery_list_divider"
+        android:listSelector="@android:color/transparent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/discovery_start"
+        style="@style/Theme.Fresh.Button.Onboarding"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12.0dip"
+        android:text="@string/discovery_start_scanning"
+        android:layout_marginHorizontal="36.0dip" />
 </LinearLayout>

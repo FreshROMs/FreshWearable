@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="8.0dip"
+        android:layout_marginHorizontal="24.0dip"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/header_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textFontWeight="600"
+            android:fontFamily="sec"
+            android:text="Paired devices"
+            android:padding="8dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="14.0dp"
+        android:paddingHorizontal="32.0dip"
+        android:background="?attr/listChoiceBackgroundIndicator">
+
+        <ImageView
+            android:id="@+id/item_image"
+            android:layout_width="28.0dip"
+            android:layout_height="28.0dip"
+            android:layout_marginEnd="20.0dp"
+            android:layout_gravity="center_vertical"
+            android:tint="@color/secondarytext"
+            android:src="@drawable/ic_oui_galaxy_watch"
+            tools:ignore="UseAppTint" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:text="Device Name" />
+
+            <TextView
+                android:id="@+id/item_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Device Status"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

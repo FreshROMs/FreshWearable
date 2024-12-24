@@ -47,7 +47,7 @@ import java.util.Objects;
 import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
-import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
+import xyz.tenseventyseven.fresh.wearable.activities.DiscoveryActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.GBDeviceAdapterv2;
 import nodomain.freeyourgadget.gadgetbridge.database.DBAccess;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -190,14 +190,14 @@ public class DevicesFragment extends Fragment {
         refreshPairedDevices();
 
         if (GB.isBluetoothEnabled() && deviceList.isEmpty() && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            startActivity(new Intent(getActivity(), DiscoveryActivityV2.class));
+            startActivity(new Intent(getActivity(), DiscoveryActivity.class));
         }
 
         return currentView;
     }
 
     private void launchDiscoveryActivity() {
-        startActivity(new Intent(getActivity(), DiscoveryActivityV2.class));
+        startActivity(new Intent(getActivity(), DiscoveryActivity.class));
     }
 
     private void showFabIfNeccessary() {

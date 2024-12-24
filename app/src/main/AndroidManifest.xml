@@ -190,7 +190,7 @@
             android:label="@string/activity_db_management_backup_restore_label"
             android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.DataManagementActivity" />
         <activity
-            android:name="nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryPairingPreferenceActivity"
+            android:name=".activities.discovery.DiscoveryPairingPreferenceActivity"
             android:label="@string/activity_prefs_discovery_pairing"
             android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
@@ -614,7 +614,7 @@
             android:parentActivityName=".activities.DashboardActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name="nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2"
+            android:name=".activities.DiscoveryActivity"
             android:label="@string/title_activity_discovery"
             android:parentActivityName=".activities.DashboardActivity" />
         <activity

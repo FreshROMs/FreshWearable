@@ -17,11 +17,9 @@
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
@@ -41,7 +39,7 @@ public abstract class AbstractSettingsActivityV2 extends CommonActivityAbstract 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_settings);
+        setContentView(R.layout.activity_device_sub_settings);
         if (savedInstanceState == null) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentTag());
             if (fragment == null) {

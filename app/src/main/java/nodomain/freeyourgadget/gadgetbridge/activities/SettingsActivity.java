@@ -64,7 +64,7 @@ import xyz.tenseventyseven.fresh.wearable.BuildConfig;
 import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsPreferencesActivity;
-import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryPairingPreferenceActivity;
+import xyz.tenseventyseven.fresh.wearable.activities.discovery.DiscoveryPairingPreferenceActivity;
 import nodomain.freeyourgadget.gadgetbridge.database.PeriodicExporter;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.TimeChangeReceiver;
 import nodomain.freeyourgadget.gadgetbridge.model.Weather;

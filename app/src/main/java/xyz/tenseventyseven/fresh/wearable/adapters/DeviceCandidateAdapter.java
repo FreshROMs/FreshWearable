@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge.adapter;
+package xyz.tenseventyseven.fresh.wearable.adapters;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -55,27 +56,23 @@ public class DeviceCandidateAdapter extends ArrayAdapter<GBDeviceCandidate> {
         GBDeviceCandidate device = getItem(position);
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_with_details, parent, false);
+            view = inflater.inflate(R.layout.item_with_header, parent, false);
         }
+
+        LinearLayout headerContainer = view.findViewById(R.id.header_container);
+        TextView headerText = view.findViewById(R.id.header_text);
         ImageView deviceImageView = view.findViewById(R.id.item_image);
         TextView deviceNameLabel = view.findViewById(R.id.item_name);
-        TextView deviceAddressLabel = view.findViewById(R.id.item_details);
         TextView deviceStatus = view.findViewById(R.id.item_status);
 
         DeviceType deviceType = DeviceHelper.getInstance().resolveDeviceType(device);
-
         DeviceCoordinator coordinator = deviceType.getDeviceCoordinator();
 
         String name = formatDeviceCandidate(device);
         deviceNameLabel.setText(name);
-        deviceAddressLabel.setText(device.getMacAddress());
         deviceImageView.setImageResource(coordinator.getDefaultIconResource());
 
         final List<String> statusLines = new ArrayList<>();
-        if (device.isBonded()) {
-            statusLines.add(getContext().getString(R.string.device_is_currently_bonded));
-        }
-
         if (!deviceType.isSupported()) {
             statusLines.add(getContext().getString(R.string.device_unsupported));
         }
@@ -87,10 +84,24 @@ public class DeviceCandidateAdapter extends ArrayAdapter<GBDeviceCandidate> {
             statusLines.add(getContext().getString(R.string.device_requires_key));
         }
 
-        deviceStatus.setText(TextUtils.join("\n", statusLines));
+        if (!statusLines.isEmpty()) {
+            deviceStatus.setVisibility(View.VISIBLE);
+            deviceStatus.setText(TextUtils.join("\n", statusLines));
+        }
+
+        // Add header based on device status
+        if (position == 0 || !getItem(position - 1).isBonded() && device.isBonded()) {
+            headerText.setText("Paired devices");
+            headerContainer.setVisibility(View.VISIBLE);
+        } else if (position == 0 || getItem(position - 1).isBonded() && !device.isBonded()) {
+            headerText.setText("Available devices");
+            headerContainer.setVisibility(View.VISIBLE);
+        } else {
+            headerContainer.setVisibility(View.GONE);
+        }
+
         return view;
     }
-
     private String formatDeviceCandidate(GBDeviceCandidate device) {
         if (device.getRssi() > GBDevice.RSSI_UNKNOWN) {
             return context.getString(R.string.device_with_rssi, device.getName(), GB.formatRssi(device.getRssi()));

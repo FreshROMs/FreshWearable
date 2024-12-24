@@ -42,7 +42,7 @@ import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.R;
 import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
-import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
+import xyz.tenseventyseven.fresh.wearable.activities.DiscoveryActivity;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
@@ -172,7 +172,7 @@ public class PebblePairingActivity extends CommonActivityAbstract implements Bon
         if (success) {
             startActivity(new Intent(this, DashboardActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } else {
-            startActivity(new Intent(this, DiscoveryActivityV2.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(this, DiscoveryActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }
 
         // If it's not a LE Pebble, initiate a connection when bonding is complete
