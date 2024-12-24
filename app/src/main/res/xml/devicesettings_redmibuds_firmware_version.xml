@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <EditTextPreference
+        android:defaultValue="@string/unknown"
+        android:enabled="false"
+        android:icon="@drawable/ic_developer_mode"
+        android:key="pref_redmi_buds_firmware_version"
+        android:shouldDisableView="false"
+        android:title="Firmware version"
+        app:useSimpleSummaryProvider="true" />
+
+</androidx.preference.PreferenceScreen>

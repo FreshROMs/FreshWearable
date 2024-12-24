@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#00af9a" />
+            <size android:width="28.0dip" android:height="28.0dip" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_main_battery_notifications" android:gravity="center"
+            android:height="22.0dip" android:width="22.0dip" />
+</layer-list>

@@ -16,11 +16,19 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.service.devices.redmibuds;
 
+import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+
+import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
+import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
+import nodomain.freeyourgadget.gadgetbridge.service.AbstractHeadphoneDeviceSupport;
+import nodomain.freeyourgadget.gadgetbridge.service.HeadphoneHelper;
 import nodomain.freeyourgadget.gadgetbridge.service.serial.AbstractSerialDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.serial.GBDeviceIoThread;
 import nodomain.freeyourgadget.gadgetbridge.service.serial.GBDeviceProtocol;
 
-public class RedmiBudsDeviceSupport extends AbstractSerialDeviceSupport {
+public class RedmiBudsDeviceSupport extends AbstractHeadphoneDeviceSupport {
     @Override
     protected GBDeviceProtocol createDeviceProtocol() {
         return new RedmiBudsProtocol(getDevice());
@@ -34,9 +42,8 @@ public class RedmiBudsDeviceSupport extends AbstractSerialDeviceSupport {
     }
 
     @Override
-    public boolean connect() {
-        getDeviceIOThread().start();
-        return true;
+    public void onSetCallState(CallSpec callSpec) {
+        // headphoneHelper.onSetCallState(callSpec);
     }
 
     @Override

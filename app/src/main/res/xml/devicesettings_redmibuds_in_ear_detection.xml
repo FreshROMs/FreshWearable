@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceScreen
+        android:layout="@layout/preference_checkbox"
+        android:icon="@drawable/ic_settings_buds_in_ear_detection"
+        android:key="pref_redmi_buds_wearing_detection_screen"
+        android:title="In-ear detection">
+
+        <dev.oneuiproject.oneui.preference.SwitchBarPreference
+            android:defaultValue="false"
+            android:key="pref_redmi_buds_wearing_detection" />
+
+        <EditTextPreference
+            android:layout="@layout/preference_summary"
+            android:key="pref_auto_reply_calls_summary"
+            android:persistent="false"
+            app:selectable="false"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:enableCopying="false"
+            android:summary="In-ear detection automatically pauses playback when the earbuds are removed and resumes it when they are placed back in your ears, ensuring a seamless listening experience." />
+    </PreferenceScreen>
+</PreferenceScreen>

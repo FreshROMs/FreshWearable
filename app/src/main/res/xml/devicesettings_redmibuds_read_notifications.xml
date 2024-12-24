@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceScreen
+        android:layout="@layout/preference_checkbox"
+        android:icon="@drawable/ic_settings_buds_notifications"
+        android:key="pref_speak_notifications"
+        android:title="Read notifications aloud">
+        <dev.oneuiproject.oneui.preference.SwitchBarPreference
+            android:defaultValue="false"
+            android:key="pref_speak_notifications_aloud"
+            app:allowDividerBelow="false" />
+
+        <EditTextPreference
+            android:layout="@layout/preference_summary"
+            android:key="pref_auto_reply_calls_summary"
+            android:persistent="false"
+            app:selectable="false"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:enableCopying="false"
+            android:summary="Get notifications read aloud to stay informed without checking your device, perfect for when you're on the go or multitasking." />
+
+        <PreferenceCategory android:title="">
+            <SwitchPreference
+                android:defaultValue="false"
+                android:key="pref_speak_notifications_focus_exclusive"
+                android:summaryOff="@string/pref_speak_notifications_focus_exclusive_summary_off"
+                android:summaryOn="@string/pref_speak_notifications_focus_exclusive_summary_on"
+                android:title="@string/pref_speak_notifications_focus_exclusive_title" />
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+</PreferenceScreen>

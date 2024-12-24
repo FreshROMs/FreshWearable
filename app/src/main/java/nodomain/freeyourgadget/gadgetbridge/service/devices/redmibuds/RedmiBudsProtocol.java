@@ -32,15 +32,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventSendBytes;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventUpdateDeviceState;
+import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventUpdatePreferences;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventVersionInfo;
-import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds5pro.prefs.Configuration.Config;
-import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds5pro.prefs.Configuration.StrengthTarget;
-import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds5pro.prefs.Gestures.InteractionType;
-import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds5pro.prefs.Gestures.Position;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.prefs.Configuration.Config;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.prefs.Configuration.StrengthTarget;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.prefs.Gestures.InteractionType;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.prefs.Gestures.Position;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice.State;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
@@ -79,7 +81,7 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
                 return encodeSetAmbientSoundControl();
             case PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH:
                 return encodeSetEffectStrength(config, StrengthTarget.ANC);
-            case PREF_REDMI_BUDS_TRANSPARENCY_STRENGTH:
+            case PREF_REDMI_BUDS_AMBIENT_SOUND_STRENGTH:
                 return encodeSetEffectStrength(config, StrengthTarget.TRANSPARENCY);
             case PREF_REDMI_BUDS_ADAPTIVE_NOISE_CANCELLING:
                 return encodeSetBooleanConfig(config, Config.ADAPTIVE_ANC);
@@ -129,7 +131,14 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
             case PREF_REDMI_BUDS_EQUALIZER_BAND_12k:
             case PREF_REDMI_BUDS_EQUALIZER_BAND_16k:
                 return encodeSetCustomEqualizer();
-
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_AMBIENT:
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_AMBIENT:
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_ANC:
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_ANC:
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_OFF:
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_OFF:
+                // This is handled by the settings customizer, so we can just ignore it here
+                return null;
             default:
                 LOG.debug("Unsupported config: {}", config);
         }
@@ -167,6 +176,7 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
 
     public byte[] encodeSetLongGestureMode(String config, Position position) {
         Prefs prefs = getDevicePrefs();
+        LOG.debug("Setting long tap mode for {} to {}", position, prefs.getString(config, "7"));
         byte value = (byte) Integer.parseInt(prefs.getString(config, "7"));
         byte[] payload = new byte[]{0x04, 0x00, 0x0a, (byte) 0xFF, (byte) 0xFF};
         if (position == Position.LEFT) {
@@ -191,7 +201,7 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
 
     public byte[] encodeSetEffectStrength(String pref, StrengthTarget effect) {
         Prefs prefs = getDevicePrefs();
-        byte mode = (byte) Integer.parseInt(prefs.getString(pref, "0"));
+        byte mode = (byte) prefs.getInt(pref, 0);
         return new Message(MessageType.PHONE_REQUEST, Opcode.SET_CONFIG, sequenceNumber++, new byte[]{0x04, 0x00, 0x0b, effect.value, mode}).encode();
     }
 
@@ -230,6 +240,40 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
         return new Message(MessageType.PHONE_REQUEST, Opcode.ANC, sequenceNumber++, new byte[]{0x02, 0x04, mode}).encode();
     }
 
+    private void updateAmbientModeSettings(SharedPreferences preferences, Editor editor) {
+        int left = Integer.parseInt(preferences.getString(PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_LEFT, "7"));
+        int right = Integer.parseInt(preferences.getString(PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_RIGHT, "7"));
+
+        /*
+         *  Now we set the actual preference based on the selection
+         *  Each action (off, transparency, anc) represent a bit in the value
+         *  First bit is for off, second for anc, third for transparency
+         *  There must be at least two bits set for a valid value
+         *
+         *  0b011 - ANC, ANC off (3)
+         *  0b101 - Transparency, ANC off (5)
+         *  0b110 - ANC, Transparency (6)
+         *  0b111 - ANC, ANC off, Transparency (7)
+         *
+         * We will use the integer sum of the bits to set the value to the actual preference.
+         */
+        boolean leftOff = (left & 0b001) != 0;
+        boolean leftAnc = (left & 0b010) != 0;
+        boolean leftAmbient = (left & 0b100) != 0;
+
+        boolean rightOff = (right & 0b001) != 0;
+        boolean rightAnc = (right & 0b010) != 0;
+        boolean rightAmbient = (right & 0b100) != 0;
+
+        editor.putBoolean(PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_AMBIENT, leftAmbient);
+        editor.putBoolean(PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_ANC, leftAnc);
+        editor.putBoolean(PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_OFF, leftOff);
+
+        editor.putBoolean(PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_AMBIENT, rightAmbient);
+        editor.putBoolean(PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_ANC, rightAnc);
+        editor.putBoolean(PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_OFF, rightOff);
+    }
+
     public void decodeGetConfig(byte[] configPayload) {
 
         SharedPreferences preferences = getDevicePrefs().getPreferences();
@@ -243,6 +287,10 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
         Config config = Config.fromCode(configPayload[2]);
         switch (config) {
             case GESTURES:
+                if (configPayload.length < 16) {
+                    LOG.debug("Invalid gestures config payload: {}", hexdump(configPayload));
+                    break;
+                }
                 editor.putString(PREF_REDMI_BUDS_CONTROL_SINGLE_TAP_LEFT, Integer.toString(configPayload[4]));
                 editor.putString(PREF_REDMI_BUDS_CONTROL_SINGLE_TAP_RIGHT, Integer.toString(configPayload[5]));
 
@@ -267,13 +315,14 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
             case LONG_GESTURES:
                 editor.putString(PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_LEFT, Integer.toString(configPayload[3]));
                 editor.putString(PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_RIGHT, Integer.toString(configPayload[4]));
+                updateAmbientModeSettings(preferences, editor);
                 break;
             case EFFECT_STRENGTH:
                 byte mode = configPayload[4];
                 if (configPayload[3] == StrengthTarget.ANC.value) {
-                    editor.putString(PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH, Integer.toString(mode));
+                    editor.putInt(PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH, mode);
                 } else if (configPayload[3] == StrengthTarget.TRANSPARENCY.value) {
-                    editor.putString(PREF_REDMI_BUDS_TRANSPARENCY_STRENGTH, Integer.toString(mode));
+                    editor.putString(PREF_REDMI_BUDS_AMBIENT_SOUND_STRENGTH, Integer.toString(mode));
                 }
                 break;
             case ADAPTIVE_ANC:
@@ -312,18 +361,23 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
         batteryEvent.state = (batteryInfo & 128) != 0 ? BatteryState.BATTERY_CHARGING : BatteryState.BATTERY_NORMAL;
         batteryEvent.batteryIndex = index;
         batteryEvent.level = (batteryInfo & 127);
-        LOG.debug("Battery {}: {}", index, batteryEvent.level);
+        LOG.debug("Battery {}: {} state: {}", index, batteryEvent.level, batteryEvent.state);
         return batteryEvent;
     }
 
     private GBDeviceEvent[] decodeDeviceInfo(byte[] deviceInfoPayload) {
-
         List<GBDeviceEvent> events = new ArrayList<>();
+
+        final GBDeviceEventUpdatePreferences eventUpdatePreferences = new GBDeviceEventUpdatePreferences(
+                DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_FIRMWARE_VERSION, null
+        );
+        events.add(eventUpdatePreferences);
 
         GBDeviceEventVersionInfo info = new GBDeviceEventVersionInfo();
         byte[] fw = new byte[4];
         byte[] vidPid = new byte[4];
         byte[] batteryData = new byte[3];
+        int hwVariant = -1;
         int i = 0;
         while (i < deviceInfoPayload.length) {
             byte len = deviceInfoPayload[i];
@@ -338,6 +392,12 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
                 case 0x07:
                     System.arraycopy(deviceInfoPayload, i + 2, batteryData, 0, 3);
                     break;
+                case 0x0D: // Device color
+                    hwVariant = deviceInfoPayload[i + 2];
+                    break;
+                default:
+                    // Show unimplemented device info at index
+                    LOG.debug("Unimplemented device info at index {}: {}", index, hexdump(Arrays.copyOfRange(deviceInfoPayload, i, i + len + 1)));
             }
             i += len + 1;
         }
@@ -346,9 +406,15 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
         String fwVersion2 = ((fw[2] >> 4) & 0xF) + "." + (fw[2] & 0xF) + "." + ((fw[3] >> 4) & 0xF) + "." + (fw[3] & 0xF);
         String hwVersion = String.format("VID: 0x%02X%02X, PID: 0x%02X%02X", vidPid[0], vidPid[1], vidPid[2], vidPid[3]);
 
+        eventUpdatePreferences.withPreference(
+                DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_FIRMWARE_VERSION,
+                fwVersion1
+        );
+
         info.fwVersion = fwVersion1;
         info.fwVersion2 = fwVersion2;
         info.hwVersion = hwVersion;
+        info.hwVariant = hwVariant;
 
         events.add(parseBatteryInfo(batteryData[0], 1));
         events.add(parseBatteryInfo(batteryData[1], 2));
@@ -372,6 +438,8 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
                     break;
                 case 0x0A:
                     editor.putBoolean(PREF_REDMI_BUDS_WEARING_DETECTION, deviceRunInfoPayload[i + 2] == 0x00);
+                default:
+                    LOG.debug("Unimplemented device run info at index {}: {}", index, hexdump(Arrays.copyOfRange(deviceRunInfoPayload, i, i + len + 1)));
             }
             editor.apply();
             i += len + 1;
@@ -426,6 +494,9 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
                             0011
                             wearing left, wearing right, left in case, right in case
                      */
+                    byte position = notifyPayload[i + 3];
+                    // Make byte a 4-bit number
+                    LOG.debug("Earbuds position: {}", Integer.toBinaryString(position));
                     break;
                 case 0x0B:
                     SharedPreferences preferences = getDevicePrefs().getPreferences();
@@ -436,9 +507,9 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
 
                     byte mode = notifyPayload[i + 4];
                     if (notifyPayload[i + 3] == 0x01) {
-                        editor.putString(PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH, Integer.toString(mode));
+                        editor.putInt(PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH, mode);
                     } else {
-                        editor.putString(PREF_REDMI_BUDS_TRANSPARENCY_STRENGTH, Integer.toString(mode));
+                        editor.putString(PREF_REDMI_BUDS_AMBIENT_SOUND_STRENGTH, Integer.toString(mode));
                     }
 
                     editor.apply();

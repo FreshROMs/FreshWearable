@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory>
+        <PreferenceScreen
+            android:layout="@layout/preference_checkbox"
+            android:icon="@drawable/ic_settings_buds_equalizer"
+            android:key="pref_sony_equalizer"
+            android:summary="@string/unknown"
+            android:title="@string/pref_header_equalizer">
+
+            <xyz.tenseventyseven.fresh.wearable.components.EqualizerPreviewPreference
+                app:watchKey="pref_redmi_buds_equalizer_preset"
+                app:drawableEntries="@array/redmi_buds_equalizer_v1_presets_drawables"
+                app:graphEntries="@array/redmi_buds_equalizer_v1_presets_values" />
+
+            <PreferenceCategory>
+                <xyz.tenseventyseven.fresh.wearable.components.ButtonGroupPreference
+                    app:entries="@array/redmi_buds_equalizer_v1_presets_names"
+                    app:entryValues="@array/redmi_buds_equalizer_v1_presets_values"
+                    android:defaultValue="0"
+                    android:key="pref_redmi_buds_equalizer_preset" />
+
+                <xyz.tenseventyseven.fresh.wearable.components.EqualizerDescriptionPreference
+                    app:watchKey="pref_redmi_buds_equalizer_preset"
+                    app:drawableEntries="@array/redmi_buds_equalizer_v1_presets_descriptions"
+                    app:graphEntries="@array/redmi_buds_equalizer_v1_presets_values"
+                    app:selectable="false"
+                    app:allowDividerAbove="false"
+                    app:allowDividerBelow="false"
+                    app:enableCopying="false" />
+            </PreferenceCategory>
+
+<!--            <ListPreference-->
+<!--                android:entries="@array/redmi_buds_equalizer_v1_presets_names"-->
+<!--                android:entryValues="@array/redmi_buds_equalizer_v1_presets_values"-->
+<!--                android:icon="@drawable/ic_graphic_eq"-->
+<!--                android:defaultValue="0"-->
+<!--                android:key="pref_redmi_buds_equalizer_preset"-->
+<!--                android:summary="%s"-->
+<!--                android:title="@string/prefs_equalizer_preset" />-->
+
+        </PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>

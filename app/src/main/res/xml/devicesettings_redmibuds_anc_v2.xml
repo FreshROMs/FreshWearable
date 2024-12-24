@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <xyz.tenseventyseven.fresh.wearable.components.NoiseControlPreference
+        android:key="pref_redmi_buds_ambient_sound_control"
+        android:title="@string/prefs_noise_control"
+        app:ancValue="1"
+        app:offValue="0"
+        app:transparencyValue="2"
+        android:defaultValue="0" />
+
+
+    <dev.oneuiproject.oneui.preference.SeekBarPreferencePro
+        android:defaultValue="1"
+        android:key="pref_redmi_buds_noise_cancelling_strength"
+        android:max="2"
+        android:min="0"
+        android:title="@string/prefs_buds_active_noise_cancelling_level"
+        app:leftLabelName="@string/redmi_buds_anc_light"
+        app:rightLabelName="@string/redmi_buds_anc_deep"
+        app:defaultValue="1"
+        app:centerBasedSeekBar="true"
+        app:showSeekBarValue="false"
+        app:showTickMark="false"
+        app:seamlessSeekBar="true" />
+
+    <DropDownPreference
+        android:defaultValue="0"
+        android:entries="@array/redmi_buds_transparency_strength_names"
+        android:entryValues="@array/redmi_buds_transparency_strength_values"
+        android:key="pref_redmi_buds_ambient_sound_strength"
+        android:summary="%s"
+        android:title="@string/redmi_buds_transparency_strength" />
+
+</PreferenceScreen>

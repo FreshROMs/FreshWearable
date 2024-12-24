@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <xyz.tenseventyseven.fresh.wearable.components.NoiseControlPreference
+        android:key="pref_redmi_buds_ambient_sound_control"
+        android:title="@string/prefs_noise_control"
+        app:ancValue="1"
+        app:offValue="0"
+        app:transparencyValue="2"
+        android:defaultValue="0" />
+</PreferenceScreen>

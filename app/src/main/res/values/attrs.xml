@@ -22,4 +22,26 @@
     <attr name="deviceIconOnPrimary" format="color" />
     <attr name="deviceIconLight" format="color" />
     <attr name="deviceIconDark" format="color" />
+
+    <declare-styleable name="NoiseControlPreference">
+        <attr name="ancValue" format="string" />
+        <attr name="offValue" format="string" />
+        <attr name="transparencyValue" format="string" />
+        <attr name="selectedValue" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="ButtonGroupPreference">
+        <attr name="entries" format="reference" /> <!-- Array of display names -->
+        <attr name="entryValues" format="reference" /> <!-- Array of corresponding values -->
+    </declare-styleable>
+
+    <declare-styleable name="EqualizerPreviewPreference">
+        <attr name="watchKey" format="string" /> <!-- Key to watch for changes -->
+        <attr name="drawableEntries" format="reference" /> <!-- Array of drawable names -->
+        <attr name="graphEntries" format="reference" /> <!-- Array of corresponding values -->
+    </declare-styleable>
+
+    <declare-styleable name="ImagePreference">
+        <attr name="preferenceImage" format="reference" />
+    </declare-styleable>
 </resources>

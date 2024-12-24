@@ -1888,6 +1888,11 @@
     <string name="devicetype_redmiwatch3active">Redmi Watch 3 Active</string>
     <string name="devicetype_redmiwatch3">Redmi Watch 3</string>
     <string name="devicetype_redmi_buds">Redmi Buds</string>
+    <string name="devicetype_redmi_buds_6_lite">Redmi Buds 6</string>
+    <string name="devicetype_redmi_buds_5">Redmi Buds 5</string>
+    <string name="devicetype_redmi_buds_5_pro">Redmi Buds 5 Pro</string>
+    <string name="devicetype_redmi_buds_4">Redmi Buds 4</string>
+    <string name="devicetype_redmi_buds_4_active">Redmi Buds 4 Active</string>
     <string name="devicetype_redmi_smart_band_2">Redmi Smart Band 2</string>
     <string name="devicetype_redmi_watch_2">Redmi Watch 2</string>
     <string name="devicetype_redmi_watch_2_lite">Redmi Watch 2 Lite</string>
@@ -2563,6 +2568,7 @@
     <string name="prefs_active_noise_cancelling_light">Light Active Noise Cancelling</string>
     <string name="prefs_active_noise_cancelling_transparency">Transparency</string>
     <string name="prefs_active_noise_cancelling_level">Active Noise Cancelling Level</string>
+    <string name="prefs_buds_active_noise_cancelling_level">Active noise cancelling level</string>
     <string name="prefs_active_noise_cancelling_level_high">High</string>
     <string name="prefs_active_noise_cancelling_level_low">Low</string>
     <string name="prefs_active_noise_cancelling_summary">Block noises of the surroundings</string>
@@ -2635,18 +2641,18 @@
     <string name="redmi_buds_anc_balanced">Balanced</string>
     <string name="redmi_buds_anc_light">Light</string>
     <string name="redmi_buds_anc_deep">Deep</string>
-    <string name="redmi_buds_transparency_strength">Transparency Strength</string>
-    <string name="redmi_buds_transparency_regular">Regular</string>
-    <string name="redmi_buds_transparency_voice">Enhance Voices</string>
-    <string name="redmi_buds_transparency_ambient">Enhance Ambient Sounds</string>
+    <string name="redmi_buds_transparency_strength">Ambient sound mode</string>
+    <string name="redmi_buds_transparency_regular">Natural</string>
+    <string name="redmi_buds_transparency_voice">Enhance voice</string>
+    <string name="redmi_buds_transparency_ambient">Enhance ambient sound</string>
     <string name="redmi_buds_combo_anc_off">ANC / Off</string>
     <string name="redmi_buds_combo_transparency_off">Transparency / Off</string>
     <string name="redmi_buds_combo_anc_transparency">ANC / Transparency</string>
     <string name="redmi_buds_combo_all">ANC / Transparency / Off</string>
     <string name="redmi_buds_double_connection">Double Connection</string>
     <string name="redmi_buds_double_connection_description">Allow the earbuds to connect to two devices at the same time</string>
-<!--    <string name="redmi_buds_spatial_audio">Spatial Audio</string>-->
-<!--    <string name="redmi_buds_spatial_audio_mode">Spatial Audio Mode</string>-->
+    <!--    <string name="redmi_buds_spatial_audio">Spatial Audio</string>-->
+    <!--    <string name="redmi_buds_spatial_audio_mode">Spatial Audio Mode</string>-->
     <string name="redmi_buds_adaptive_sound">Adaptive Sound</string>
     <string name="redmi_buds_adaptive_sound_description">Adjusts the sound according to the ear shape and the environment</string>
     <string name="redmi_buds_equalizer_preset_standard">Standard</string>
@@ -2740,8 +2746,8 @@
     <string name="pref_adaptive_volume_control_title">Adaptive volume control</string>
     <string name="pref_adaptive_noise_cancelling_title">Adaptive ANC</string>
     <string name="pref_adaptive_noise_cancelling_summary">Set the strength of the ANC automatically depending on the ambient sound level</string>
-<!--    <string name="pref_personalized_noise_cancelling_title">Personalized ANC</string>-->
-<!--    <string name="pref_personalized_noise_cancelling_summary">Set whether to use personalized active noise cancelling</string>-->
+    <!--    <string name="pref_personalized_noise_cancelling_title">Personalized ANC</string>-->
+    <!--    <string name="pref_personalized_noise_cancelling_summary">Set whether to use personalized active noise cancelling</string>-->
     <string name="sony_speak_to_chat">Speak-to-chat</string>
     <string name="sony_speak_to_chat_summary">Turn off noise cancelling automatically when you start talking.</string>
     <string name="sony_speak_to_chat_sensitivity">Voice Detection Sensitivity</string>
@@ -3555,4 +3561,5 @@
     <string name="permission_external_storage_summary">Using images, ringtones, app files and more</string>
     <string name="permission_query_all_packages_title">Query all packages</string>
     <string name="permission_query_all_packages_summary">Reading names and icons of all installed apps</string>
+    <string name="fresh_wearable_app_name">Fresh Wearable</string>
 </resources>

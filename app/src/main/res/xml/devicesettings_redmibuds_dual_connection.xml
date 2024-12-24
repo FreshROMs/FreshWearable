@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory>
+        <PreferenceScreen
+            android:layout="@layout/preference_checkbox"
+            android:icon="@drawable/ic_settings_buds_dual_connection"
+            android:key="pref_dual_connection_view"
+            android:title="Dual connection">
+            <dev.oneuiproject.oneui.preference.SwitchBarPreference
+                android:defaultValue="false"
+                android:key="pref_redmi_buds_double_connection" />
+
+            <EditTextPreference
+                android:layout="@layout/preference_summary"
+                android:key="pref_auto_reply_calls_summary"
+                android:persistent="false"
+                app:selectable="false"
+                app:allowDividerAbove="false"
+                app:allowDividerBelow="false"
+                app:enableCopying="false"
+                android:summary="Switch quickly to another paired device without disconnecting your earbuds or turning on pairing mode again. This works with any nearby device that was previously paired with your earbuds." />
+        </PreferenceScreen>
+    </PreferenceCategory>
+</PreferenceScreen>

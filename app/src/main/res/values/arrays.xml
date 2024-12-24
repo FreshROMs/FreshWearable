@@ -3382,8 +3382,8 @@
 
     <string-array name="redmi_buds_ambient_sound_control_names">
         <item>@string/sony_ambient_sound_off</item>
-        <item>@string/sony_ambient_sound_noise_cancelling</item>
-        <item>@string/prefs_active_noise_cancelling_transparency</item>
+        <item>@string/prefs_ambient_sound</item>
+        <item>@string/prefs_active_noise_cancelling</item>
     </string-array>
 
     <string-array name="redmi_buds_ambient_sound_control_values">
@@ -3467,6 +3467,16 @@
         <item>@string/redmi_buds_combo_all</item>
     </string-array>
 
+    <!--
+        Each action (off, transparency, anc) represent a bit in the value
+        First bit is for off, second for anc, third for transparency
+        There must be at least two bits set for a valid value
+
+        0b011 - ANC, ANC off (3)
+        0b101 - Transparency, ANC off (5)
+        0b110 - ANC, Transparency (6)
+        0b111 - ANC, ANC off, Transparency (7)
+    -->
     <string-array name="redmi_buds_long_button_settings_values">
         <item>3</item>
         <item>5</item>
@@ -3487,19 +3497,47 @@
 <!--    </string-array>-->
 
     <string-array name="redmi_buds_equalizer_presets_names">
-        <item>@string/redmi_buds_equalizer_preset_standard</item>
-        <item>@string/redmi_buds_equalizer_preset_treble</item>
-        <item>@string/redmi_buds_equalizer_preset_bass</item>
-        <item>@string/redmi_buds_equalizer_preset_voice</item>
+        <item>@string/balanced</item>
+        <item>@string/pref_title_equalizer_bass_boost</item>
+        <item>@string/pref_title_equalizer_clear</item>
+        <item>@string/pref_title_equalizer_trebble</item>
         <item>@string/redmi_buds_equalizer_preset_custom</item>
+    </string-array>
+
+    <string-array name="redmi_buds_equalizer_v1_presets_names">
+        <item>@string/balanced</item>
+        <item>@string/pref_title_equalizer_bass_boost</item>
+        <item>@string/pref_title_equalizer_clear</item>
+        <item>@string/pref_title_equalizer_trebble</item>
+    </string-array>
+
+    <string-array name="redmi_buds_equalizer_v1_presets_drawables">
+        <item>@drawable/equalizer_graph_dynamic</item>
+        <item>@drawable/equalizer_graph_bass_boost</item>
+        <item>@drawable/equalizer_graph_clear</item>
+        <item>@drawable/equalizer_graph_treble_boost</item>
+    </string-array>
+
+    <string-array name="redmi_buds_equalizer_v1_presets_descriptions">
+        <item>A natural sound with well-balanced frequencies.</item>
+        <item>Powerful lows add punch.</item>
+        <item>Clean and precise. Good for speech.</item>
+        <item>Vivid and spacious. Good for instrumental music.</item>
     </string-array>
 
     <string-array name="redmi_buds_equalizer_presets_values">
         <item>0</item>
-        <item>6</item>
         <item>5</item>
         <item>1</item>
+        <item>6</item>
         <item>10</item>
+    </string-array>
+
+    <string-array name="redmi_buds_equalizer_v1_presets_values">
+        <item>0</item>
+        <item>5</item>
+        <item>1</item>
+        <item>6</item>
     </string-array>
 
     <string-array name="redmi_buds_equalizer_offsets_names">

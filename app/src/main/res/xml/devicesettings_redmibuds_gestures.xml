@@ -1,123 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory
-        android:key="pref_key_header_redmibuds5pro_system"
-        android:title="@string/pref_header_system">
-
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory>
         <PreferenceScreen
-            android:icon="@drawable/ic_touch"
-            android:key="pref_screen_redmibuds5pro_touch_options"
-            android:persistent="false"
-            android:title="@string/prefs_galaxy_touch_options">
+            android:icon="@drawable/ic_settings_buds_touch_controls"
+            android:key="pref_screen_redmibuds_touch_options"
+            android:title="@string/prefs_touch_lock_buds2"
+            android:layout="@layout/preference_checkbox">
+            <EditTextPreference
+                android:layout="@layout/preference_summary"
+                android:key="pref_touch_controls_summary"
+                android:persistent="false"
+                app:selectable="false"
+                app:allowDividerAbove="false"
+                app:allowDividerBelow="false"
+                app:enableCopying="false"
+                android:summary="Control your earbuds effortlessly with intuitive touch gestures. Use single tap, double tap, triple tap, or tap and hold to play or pause music, skip tracks, adjust volume, answer calls, or activate your voice assistant, all without reaching for your device." />
 
-            <PreferenceCategory android:title="@string/single_tap">
-                <ListPreference
+            <PreferenceCategory android:title="Left earbud">
+                <DropDownPreference
                     android:entries="@array/redmi_buds_single_button_function_names"
                     android:entryValues="@array/redmi_buds_single_button_function_values"
-                    android:icon="@drawable/ic_filter_1"
                     android:defaultValue="8"
                     android:key="pref_redmi_buds_control_single_tap_left"
                     android:summary="%s"
-                    android:title="@string/prefs_left" />
-                <ListPreference
+                    android:title="@string/single_tap" />
+                <DropDownPreference
+                    android:entries="@array/redmi_buds_button_function_names"
+                    android:entryValues="@array/redmi_buds_button_function_values"
+                    android:defaultValue="1"
+                    android:key="pref_redmi_buds_control_double_tap_left"
+                    android:summary="%s"
+                    android:title="@string/double_tap" />
+                <DropDownPreference
+                    android:entries="@array/redmi_buds_button_function_names"
+                    android:entryValues="@array/redmi_buds_button_function_values"
+                    android:defaultValue="2"
+                    android:key="pref_redmi_buds_control_triple_tap_left"
+                    android:summary="%s"
+                    android:title="@string/triple_tap" />
+                <PreferenceScreen
+                    android:key="pref_redmi_buds_control_long_tap_left_summary"
+                    android:title="Touch and Hold"
+                    android:summary="@string/unknown">
+                    <EditTextPreference
+                        android:layout="@layout/preference_summary"
+                        android:key="pref_touch_controls_summary"
+                        android:persistent="false"
+                        app:selectable="false"
+                        app:allowDividerAbove="false"
+                        app:allowDividerBelow="false"
+                        app:enableCopying="false"
+                        android:summary="Customize the long-press gesture on your earbuds to suit your needs. Choose between toggling Active Noise Cancellation (ANC), Transparency Mode, or turning them off, or set it to activate your voice assistant for quick commands." />
+
+                    <PreferenceCategory>
+                        <DropDownPreference
+                            android:entries="@array/redmi_buds_long_button_mode_names"
+                            android:entryValues="@array/redmi_buds_long_button_mode_values"
+                            android:defaultValue="6"
+                            android:key="pref_redmi_buds_control_long_tap_mode_left"
+                            android:summary="%s"
+                            android:title="Touch and hold mode" />
+                    </PreferenceCategory>
+
+                    <PreferenceCategory android:key="pref_redmi_buds_control_long_tap_settings_left_category"
+                        android:title="@string/sony_ambient_sound_control_button_modes">
+<!--                        <ListPreference-->
+<!--                            android:entries="@array/redmi_buds_long_button_settings_names"-->
+<!--                            android:entryValues="@array/redmi_buds_long_button_settings_values"-->
+<!--                            android:defaultValue="7"-->
+<!--                            android:key="pref_redmi_buds_control_long_tap_settings_left"-->
+<!--                            android:summary="%s"-->
+<!--                            android:title="@string/sony_ambient_sound_control_button_modes" />-->
+
+                        <CheckBoxPreference
+                            android:defaultValue="true"
+                            android:key="pref_redmi_buds_control_long_tap_settings_left_anc"
+                            android:icon="@drawable/ic_active_noise_cancelling"
+                            android:title="@string/prefs_active_noise_cancelling" />
+                        <CheckBoxPreference
+                            android:defaultValue="true"
+                            android:key="pref_redmi_buds_control_long_tap_settings_left_ambient"
+                            android:icon="@drawable/ic_ambient_sound"
+                            android:title="@string/prefs_ambient_sound" />
+                        <CheckBoxPreference
+                            android:defaultValue="false"
+                            android:key="pref_redmi_buds_control_long_tap_settings_left_off"
+                            android:icon="@drawable/ic_anc_off"
+                            android:title="@string/off" />
+                    </PreferenceCategory>
+                    <PreferenceCategory android:key="pref_redmi_buds_control_long_tap_voice_left">
+                        <EditTextPreference
+                            android:layout="@layout/preference_summary"
+                            android:persistent="false"
+                            app:selectable="false"
+                            app:allowDividerAbove="false"
+                            app:allowDividerBelow="false"
+                            app:enableCopying="false"
+                            android:summary="A valid voice assistant must be installed on your device to use this feature." />
+                    </PreferenceCategory>
+                </PreferenceScreen>
+            </PreferenceCategory>
+
+            <PreferenceCategory android:title="Right earbud">
+                <DropDownPreference
                     android:entries="@array/redmi_buds_single_button_function_names"
                     android:entryValues="@array/redmi_buds_single_button_function_values"
                     android:defaultValue="8"
                     android:key="pref_redmi_buds_control_single_tap_right"
                     android:summary="%s"
-                    android:title="@string/prefs_right" />
-            </PreferenceCategory>
-
-            <PreferenceCategory android:title="@string/double_tap">
-                <ListPreference
-                    android:entries="@array/redmi_buds_button_function_names"
-                    android:entryValues="@array/redmi_buds_button_function_values"
-                    android:icon="@drawable/ic_filter_2"
-                    android:defaultValue="1"
-                    android:key="pref_redmi_buds_control_double_tap_left"
-                    android:summary="%s"
-                    android:title="@string/prefs_left" />
-                <ListPreference
+                    android:title="@string/single_tap" />
+                <DropDownPreference
                     android:entries="@array/redmi_buds_button_function_names"
                     android:entryValues="@array/redmi_buds_button_function_values"
                     android:defaultValue="1"
                     android:key="pref_redmi_buds_control_double_tap_right"
                     android:summary="%s"
-                    android:title="@string/prefs_right" />
-            </PreferenceCategory>
-
-            <PreferenceCategory android:title="@string/triple_tap">
-                <ListPreference
-                    android:entries="@array/redmi_buds_button_function_names"
-                    android:entryValues="@array/redmi_buds_button_function_values"
-                    android:icon="@drawable/ic_filter_3"
-                    android:defaultValue="2"
-                    android:key="pref_redmi_buds_control_triple_tap_left"
-                    android:summary="%s"
-                    android:title="@string/prefs_left" />
-                <ListPreference
+                    android:title="@string/double_tap" />
+                <DropDownPreference
                     android:entries="@array/redmi_buds_button_function_names"
                     android:entryValues="@array/redmi_buds_button_function_values"
                     android:defaultValue="3"
                     android:key="pref_redmi_buds_control_triple_tap_right"
                     android:summary="%s"
-                    android:title="@string/prefs_right" />
-            </PreferenceCategory>
+                    android:title="@string/triple_tap" />
+                <PreferenceScreen
+                    android:key="pref_redmi_buds_control_long_tap_right_summary"
+                    android:title="Touch and Hold"
+                    android:summary="@string/unknown">
+                    <EditTextPreference
+                        android:layout="@layout/preference_summary"
+                        android:key="pref_touch_controls_summary"
+                        android:persistent="false"
+                        app:selectable="false"
+                        app:allowDividerAbove="false"
+                        app:allowDividerBelow="false"
+                        app:enableCopying="false"
+                        android:summary="Customize the long-press gesture on your earbuds to suit your needs. Choose between toggling Active Noise Cancellation (ANC), Transparency Mode, or turning them off, or set it to activate your voice assistant for quick commands." />
 
-            <PreferenceCategory android:title="@string/long_press">
-                <ListPreference
-                    android:entries="@array/redmi_buds_long_button_mode_names"
-                    android:entryValues="@array/redmi_buds_long_button_mode_values"
-                    android:icon="@drawable/ic_touch"
-                    android:defaultValue="6"
-                    android:key="pref_redmi_buds_control_long_tap_mode_left"
-                    android:summary="%s"
-                    android:title="@string/sony_button_mode_left" />
-                <ListPreference
-                    android:entries="@array/redmi_buds_long_button_settings_names"
-                    android:entryValues="@array/redmi_buds_long_button_settings_values"
-                    android:defaultValue="7"
-                    android:key="pref_redmi_buds_control_long_tap_settings_left"
-                    android:summary="%s"
-                    android:title="@string/sony_ambient_sound_control_button_modes" />
-                <ListPreference
-                    android:entries="@array/redmi_buds_long_button_mode_names"
-                    android:entryValues="@array/redmi_buds_long_button_mode_values"
-                    android:icon="@drawable/ic_touch"
-                    android:defaultValue="6"
-                    android:key="pref_redmi_buds_control_long_tap_mode_right"
-                    android:summary="%s"
-                    android:title="@string/sony_button_mode_right" />
-                <ListPreference
-                    android:entries="@array/redmi_buds_long_button_settings_names"
-                    android:entryValues="@array/redmi_buds_long_button_settings_values"
-                    android:defaultValue="7"
-                    android:key="pref_redmi_buds_control_long_tap_settings_right"
-                    android:summary="%s"
-                    android:title="@string/sony_ambient_sound_control_button_modes" />
+                    <PreferenceCategory>
+                        <DropDownPreference
+                            android:entries="@array/redmi_buds_long_button_mode_names"
+                            android:entryValues="@array/redmi_buds_long_button_mode_values"
+                            android:defaultValue="6"
+                            android:key="pref_redmi_buds_control_long_tap_mode_right"
+                            android:summary="%s"
+                            android:title="Touch and hold mode" />
+                    </PreferenceCategory>
+
+                    <PreferenceCategory android:key="pref_redmi_buds_control_long_tap_settings_right_category"
+                        android:title="@string/sony_ambient_sound_control_button_modes">
+<!--                        <ListPreference-->
+<!--                            android:entries="@array/redmi_buds_long_button_settings_names"-->
+<!--                            android:entryValues="@array/redmi_buds_long_button_settings_values"-->
+<!--                            android:defaultValue="7"-->
+<!--                            android:key="pref_redmi_buds_control_long_tap_settings_right"-->
+<!--                            android:summary="%s"-->
+<!--                            android:title="@string/sony_ambient_sound_control_button_modes" />-->
+
+                        <CheckBoxPreference
+                            android:defaultValue="true"
+                            android:key="pref_redmi_buds_control_long_tap_settings_right_anc"
+                            android:icon="@drawable/ic_active_noise_cancelling"
+                            android:title="@string/prefs_active_noise_cancelling" />
+                        <CheckBoxPreference
+                            android:defaultValue="true"
+                            android:key="pref_redmi_buds_control_long_tap_settings_right_ambient"
+                            android:icon="@drawable/ic_ambient_sound"
+                            android:title="@string/prefs_ambient_sound" />
+                        <CheckBoxPreference
+                            android:defaultValue="false"
+                            android:key="pref_redmi_buds_control_long_tap_settings_right_off"
+                            android:icon="@drawable/ic_anc_off"
+                            android:title="@string/off" />
+                    </PreferenceCategory>
+                    <PreferenceCategory android:key="pref_redmi_buds_control_long_tap_voice_right">
+                        <EditTextPreference
+                            android:layout="@layout/preference_summary"
+                            android:persistent="false"
+                            app:selectable="false"
+                            app:allowDividerAbove="false"
+                            app:allowDividerBelow="false"
+                            app:enableCopying="false"
+                            android:summary="A valid voice assistant must be installed on your device to use this feature." />
+                    </PreferenceCategory>
+                </PreferenceScreen>
             </PreferenceCategory>
         </PreferenceScreen>
-
-        <SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:key="pref_redmi_buds_wearing_detection"
-            android:layout="@layout/preference_checkbox"
-            android:icon="@drawable/ic_pause"
-            android:summary="@string/nothing_prefs_inear_summary"
-            android:title="@string/nothing_prefs_inear_title"/>
-
-        <SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:icon="@drawable/ic_phone"
-            android:key="pref_redmi_buds_auto_reply_phonecall"
-            android:summary="@string/pref_auto_reply_calls_summary"
-            android:title="@string/pref_auto_reply_calls_title"/>
-
-        <SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:key="pref_redmi_buds_double_connection"
-            android:summary="@string/redmi_buds_double_connection_description"
-            android:title="@string/redmi_buds_double_connection"/>
-
     </PreferenceCategory>
-</androidx.preference.PreferenceScreen>
+</PreferenceScreen>
