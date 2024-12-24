@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 
 /**
  * Adapter for displaying generic ItemWithDetails instances.

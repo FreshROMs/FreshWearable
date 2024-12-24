@@ -23,8 +23,8 @@ import android.widget.Toast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 public abstract class DBAccess extends AsyncTask {
@@ -47,7 +47,7 @@ public abstract class DBAccess extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] params) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             doInBackground(db);
         } catch (Exception e) {
             LOG.error("Error during DBAccess for {}", mTask, e);

@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminActivitySampleProvider;
@@ -30,7 +30,6 @@ import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder;
-import nodomain.freeyourgadget.gadgetbridge.service.btle.actions.SetDeviceStateAction;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.GarminSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.GarminTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.communicator.CobsCoDec;
@@ -410,7 +409,7 @@ public class CommunicatorV2 implements ICommunicator {
 
     private void broadcastRealtimeActivity(final int hr, final int steps) {
         final GarminActivitySample sample;
-        try (final DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (final DBHandler dbHandler = WearableApplication.acquireDB()) {
             final DaoSession session = dbHandler.getDaoSession();
 
             final GBDevice gbDevice = mSupport.getDevice();

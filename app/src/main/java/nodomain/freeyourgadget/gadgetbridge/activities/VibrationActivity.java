@@ -22,11 +22,12 @@ import android.widget.SeekBar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 
-public class VibrationActivity extends AbstractGBActivity {
+public class VibrationActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(VibrationActivity.class);
     private SeekBar seekBar;
 
@@ -42,7 +43,7 @@ public class VibrationActivity extends AbstractGBActivity {
                 if (progress > 0) { // 1-16
                     progress = progress * 16 - 1; // max 255
                 }
-                GBApplication.deviceService().onSetConstantVibration(progress);
+                WearableApplication.deviceService().onSetConstantVibration(progress);
             }
 
             @Override

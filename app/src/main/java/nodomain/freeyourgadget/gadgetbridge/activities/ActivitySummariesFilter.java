@@ -51,8 +51,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconAdapter;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconItem;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -63,9 +63,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 
-public class ActivitySummariesFilter extends AbstractGBActivity {
+public class ActivitySummariesFilter extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ActivitySummariesFilter.class);
     private static final String DATE_FILTER_FROM = "dateFromFilter";
     private static final String DATE_FILTER_TO = "dateToFilter";
@@ -96,10 +97,10 @@ public class ActivitySummariesFilter extends AbstractGBActivity {
         nameContainsFilter = bundle.getString("nameContainsFilter");
 
         Context appContext = this.getApplicationContext();
-        if (appContext instanceof GBApplication) {
+        if (appContext instanceof WearableApplication) {
             setContentView(R.layout.sport_activity_filter);
         }
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(appContext);
+        BACKGROUND_COLOR = WearableApplication.getBackgroundColor(appContext);
 
         allDevices = getAllDevices(appContext);
 
@@ -383,12 +384,12 @@ public class ActivitySummariesFilter extends AbstractGBActivity {
 
     public LinkedHashMap<String, Pair<Long, Integer>> getAllDevices(Context appContext) {
         DaoSession daoSession;
-        GBApplication gbApp = (GBApplication) appContext;
+        WearableApplication gbApp = (WearableApplication) appContext;
         LinkedHashMap<String, Pair<Long, Integer>> newMap = new LinkedHashMap<>(1);
         List<? extends GBDevice> devices = gbApp.getDeviceManager().getDevices();
         newMap.put(getString(R.string.activity_summaries_all_devices), new Pair<>(ALL_DEVICES, R.drawable.ic_device_default_disabled));
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             daoSession = handler.getDaoSession();
             for (GBDevice device : devices) {
                 DeviceCoordinator coordinator = device.getType().getDeviceCoordinator();

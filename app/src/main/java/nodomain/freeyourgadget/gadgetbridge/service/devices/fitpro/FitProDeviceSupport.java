@@ -113,8 +113,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -551,8 +551,8 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
         short todayMax = (short) (weatherSpec.todayMaxTemp - 273);
         short todayMin = (short) (weatherSpec.todayMinTemp - 273);
         byte weatherUnit = 0;
-        String units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
-        if (units.equals(GBApplication.getContext().getString(R.string.p_unit_imperial))) {
+        String units = WearableApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, WearableApplication.getContext().getString(R.string.p_unit_metric));
+        if (units.equals(WearableApplication.getContext().getString(R.string.p_unit_imperial))) {
             todayMax = (short) (todayMax * 1.8f + 32);
             todayMin = (short) (todayMin * 1.8f + 32);
             weatherUnit = 1;
@@ -647,7 +647,7 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
 
     public FitProDeviceSupport setLanguage(TransactionBuilder builder) {
         LOG.debug("FitPro set language");
-        String localeString = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("language", "auto");
+        String localeString = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("language", "auto");
         if (localeString == null || localeString.equals("auto")) {
             String language = Locale.getDefault().getLanguage();
             String country = Locale.getDefault().getCountry();
@@ -726,8 +726,8 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
         int weightKg = activityUser.getWeightKg();
 
         byte distanceUnit = UNIT_METRIC;
-        String units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
-        if (units.equals(GBApplication.getContext().getString(R.string.p_unit_imperial))) {
+        String units = WearableApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, WearableApplication.getContext().getString(R.string.p_unit_metric));
+        if (units.equals(WearableApplication.getContext().getString(R.string.p_unit_imperial))) {
             distanceUnit = UNIT_IMPERIAL;
         }
 
@@ -808,7 +808,7 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
 
     public FitProDeviceSupport setVibrations(TransactionBuilder builder) {
         LOG.debug("FitPro set enable vibrations");
-        boolean vibrations = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_VIBRATION_ENABLE, false);
+        boolean vibrations = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_VIBRATION_ENABLE, false);
         byte[] enable = VALUE_SET_DEVICE_VIBRATIONS_ENABLE;
         if (!vibrations) {
             enable = VALUE_SET_DEVICE_VIBRATIONS_DISABLE;
@@ -825,7 +825,7 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
 
     public FitProDeviceSupport setNotifications(TransactionBuilder builder) {
         LOG.debug("FitPro set enable notifications");
-        boolean notifications = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_NOTIFICATION_ENABLE, false);
+        boolean notifications = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_NOTIFICATION_ENABLE, false);
         byte[] enable = VALUE_SET_NOTIFICATIONS_ENABLE_ON;
         if (!notifications) {
             enable = VALUE_SET_NOTIFICATIONS_ENABLE_OFF;
@@ -989,13 +989,13 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
 
     public FitProDeviceSupport setAutoHeartRate(TransactionBuilder builder) {
         LOG.debug("FitPro set automatic heartrate measurements");
-        boolean prefAutoheartrateSwitch = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean("pref_autoheartrate_switch", false);
+        boolean prefAutoheartrateSwitch = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean("pref_autoheartrate_switch", false);
         LOG.info("Setting autoheartrate to " + prefAutoheartrateSwitch);
 
-        boolean sleep = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean("pref_autoheartrate_sleep", false);
-        String start = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("pref_autoheartrate_start", "06:00");
-        String end = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("pref_autoheartrate_end", "23:00");
-        String interval = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("pref_autoheartrate_interval", "2");
+        boolean sleep = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean("pref_autoheartrate_sleep", false);
+        String start = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("pref_autoheartrate_start", "06:00");
+        String end = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("pref_autoheartrate_end", "23:00");
+        String interval = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("pref_autoheartrate_interval", "2");
 
         int intervalInt = Integer.parseInt(interval);
         int sleepInt = sleep ? 1 : 0;
@@ -1033,14 +1033,14 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
 
     public FitProDeviceSupport setLongSitReminder(TransactionBuilder builder) {
         LOG.debug("FitPro set inactivity warning");
-        boolean prefLongsitSwitch = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_INACTIVITY_ENABLE, false);
+        boolean prefLongsitSwitch = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_INACTIVITY_ENABLE, false);
         LOG.info("Setting long sit warning to " + prefLongsitSwitch);
 
         if (prefLongsitSwitch) {
 
-            String inactivity = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_INACTIVITY_THRESHOLD_EXTENDED, "4");
-            String start = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_INACTIVITY_START, "08:00");
-            String end = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_INACTIVITY_END, "16:00");
+            String inactivity = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_INACTIVITY_THRESHOLD_EXTENDED, "4");
+            String start = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_INACTIVITY_START, "08:00");
+            String end = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_INACTIVITY_END, "16:00");
             Calendar startCalendar = GregorianCalendar.getInstance();
             Calendar endCalendar = GregorianCalendar.getInstance();
             DateFormat df = new SimpleDateFormat("HH:mm");
@@ -1076,12 +1076,12 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
 
     public FitProDeviceSupport setDoNotDisturb(TransactionBuilder builder) {
         LOG.debug("FitPro set DND");
-        String dnd = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("do_not_disturb_no_auto", "off");
+        String dnd = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("do_not_disturb_no_auto", "off");
         LOG.info("Setting DND to " + dnd);
         int dndInt = dnd.equals("scheduled") ? 1 : 0;
 
-        String start = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("do_not_disturb_no_auto_start", "22:00");
-        String end = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("do_not_disturb_no_auto_end", "06:00");
+        String start = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("do_not_disturb_no_auto_start", "22:00");
+        String end = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("do_not_disturb_no_auto_end", "06:00");
 
         Calendar startCalendar = GregorianCalendar.getInstance();
         Calendar endCalendar = GregorianCalendar.getInstance();
@@ -1116,12 +1116,12 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
 
     public FitProDeviceSupport setSleepTime(TransactionBuilder builder) {
         LOG.debug("FitPro set sleep times");
-        String sleepTime = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("prefs_enable_sleep_time", "off");
+        String sleepTime = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("prefs_enable_sleep_time", "off");
         LOG.info("Setting sleep times to " + sleepTime);
         int sleepTimeInt = sleepTime.equals("scheduled") ? 1 : 0;
 
-        String start = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("prefs_sleep_time_start", "22:00");
-        String end = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("prefs_sleep_time_end", "06:00");
+        String start = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("prefs_sleep_time_start", "22:00");
+        String end = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("prefs_sleep_time_end", "06:00");
 
         Calendar startCalendar = GregorianCalendar.getInstance();
         Calendar endCalendar = GregorianCalendar.getInstance();
@@ -1154,7 +1154,7 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
     public FitProDeviceSupport setWearLocation(TransactionBuilder builder) {
         LOG.debug("FitPro set wearing location");
         byte location = VALUE_SET_ARM_LEFT;
-        String setLocation = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_WEARLOCATION, "left");
+        String setLocation = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_WEARLOCATION, "left");
         if ("right".equals(setLocation)) {
             location = VALUE_SET_ARM_RIGHT;
         }
@@ -1164,14 +1164,14 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
 
     public FitProDeviceSupport setDisplayOnLift(TransactionBuilder builder) {
         LOG.debug("FitPro set display on lift");
-        String displayLift = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("activate_display_on_lift_wrist", "off");
+        String displayLift = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("activate_display_on_lift_wrist", "off");
 
         int displayLiftInt = displayLift.equals("scheduled") ? 1 : 0;
 
         LOG.info("Setting activate display on lift wrist to:" + displayLift + ": " + displayLiftInt);
 
-        String start = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("display_on_lift_start", "08:00");
-        String end = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("display_on_lift_end", "16:00");
+        String start = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("display_on_lift_start", "08:00");
+        String end = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("display_on_lift_end", "16:00");
 
         Calendar startCalendar = GregorianCalendar.getInstance();
         Calendar endCalendar = GregorianCalendar.getInstance();
@@ -1305,7 +1305,7 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private boolean addGBActivitySamples(List<FitProActivitySample> samples) {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
 
             User user = DBHelper.getUser(dbHandler.getDaoSession());
             Device device = DBHelper.getDevice(this.getDevice(), dbHandler.getDaoSession());
@@ -1400,7 +1400,7 @@ public class FitProDeviceSupport extends AbstractBTLEDeviceSupport {
 
     private int getStepsOnDay(Calendar dayStart, Calendar dayEnd) {
         //this is for day data values, not used in Gb, handleStepData uses 5min data which is better
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
 
             FitProSampleProvider provider = new FitProSampleProvider(this.getDevice(), dbHandler.getDaoSession());
 

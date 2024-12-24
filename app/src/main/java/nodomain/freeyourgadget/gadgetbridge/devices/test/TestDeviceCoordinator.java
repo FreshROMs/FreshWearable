@@ -23,20 +23,17 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
@@ -87,7 +84,7 @@ public class TestDeviceCoordinator extends AbstractDeviceCoordinator {
     @Override
     protected void deleteDevice(@NonNull final GBDevice gbDevice,
                                 @NonNull final Device device,
-                                @NonNull final DaoSession session) throws GBException {
+                                @NonNull final DaoSession session) throws WearableException {
         // Nothing to do
     }
 
@@ -677,11 +674,11 @@ public class TestDeviceCoordinator extends AbstractDeviceCoordinator {
         // HACK: Avoid the refactor of adding a device as a parameter on all functions
         // This means that it's only possible to have a single test device
 
-        if (GBApplication.app() == null || GBApplication.app().getDeviceManager() == null) {
+        if (WearableApplication.app() == null || WearableApplication.app().getDeviceManager() == null) {
             return null;
         }
 
-        final List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        final List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         for (GBDevice device : devices) {
             if (DeviceType.TEST == device.getType()) {
                 return device;
@@ -692,6 +689,6 @@ public class TestDeviceCoordinator extends AbstractDeviceCoordinator {
     }
 
     protected static Prefs getPrefs(final GBDevice device) {
-        return new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        return new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
     }
 }

@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiDailySummarySampleProvider;
@@ -106,7 +106,7 @@ public class DailySummaryParser extends XiaomiActivityParser {
 
         LOG.debug("Persisting 1 daily summary sample");
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
             final GBDevice device = support.getDevice();
 

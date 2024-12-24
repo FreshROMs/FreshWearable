@@ -29,9 +29,8 @@ import org.slf4j.LoggerFactory;
 import java.util.Random;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.Huami2021Service;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiService;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -200,7 +199,7 @@ public class InitOperation2021 extends InitOperation implements Huami2021Handler
             GB.toast(getContext(), R.string.authentication_failed_check_key, Toast.LENGTH_LONG, GB.WARN);
             final GBDevice device = getDevice();
             if (device != null) {
-                GBApplication.deviceService(device).disconnect();
+                WearableApplication.deviceService(device).disconnect();
             }
         } else {
             LOG.warn("Unhandled auth payload: {}", GB.hexdump(payload));

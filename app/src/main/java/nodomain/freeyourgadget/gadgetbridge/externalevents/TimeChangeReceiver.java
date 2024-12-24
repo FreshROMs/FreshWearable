@@ -34,8 +34,8 @@ import java.time.zone.ZoneRules;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -52,7 +52,7 @@ public class TimeChangeReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        final Prefs prefs = GBApplication.getPrefs();
+        final Prefs prefs = WearableApplication.getPrefs();
         final String action = intent.getAction();
         if (action == null) {
             LOG.warn("Null action");
@@ -80,7 +80,7 @@ public class TimeChangeReceiver extends BroadcastReceiver {
 
         final Date newTime = GregorianCalendar.getInstance().getTime();
         LOG.info("Time/Timezone changed or periodic sync, syncing with device: {} ({}), {}", DateTimeUtils.formatDate(newTime), newTime.toGMTString(), intent.getAction());
-        GBApplication.deviceService().onSetTime();
+        WearableApplication.deviceService().onSetTime();
 
         // Reschedule the next DST change (since the timezone may have changed) or periodic sync
         scheduleNextDstChangeOrPeriodicSync(context);
@@ -150,7 +150,7 @@ public class TimeChangeReceiver extends BroadcastReceiver {
     }
 
     public static void ifEnabledScheduleNextDstChangeOrPeriodicSync(final Context context) {
-        if (GBApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
+        if (WearableApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
             scheduleNextDstChangeOrPeriodicSync(context);
         }
     }

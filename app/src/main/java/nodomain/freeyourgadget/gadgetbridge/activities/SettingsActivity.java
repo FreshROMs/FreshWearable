@@ -60,9 +60,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsPreferencesActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryPairingPreferenceActivity;
 import nodomain.freeyourgadget.gadgetbridge.database.PeriodicExporter;
@@ -106,7 +106,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             setInputTypeFor("auto_export_interval", InputType.TYPE_CLASS_NUMBER);
             setInputTypeFor("auto_fetch_interval_limit", InputType.TYPE_CLASS_NUMBER);
 
-            Prefs prefs = GBApplication.getPrefs();
+            Prefs prefs = WearableApplication.getPrefs();
             Preference pref = findPreference("pref_category_activity_personal");
             if (pref != null) {
                 pref.setOnPreferenceClickListener(preference -> {
@@ -130,7 +130,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                 pref.setOnPreferenceChangeListener((preference, newVal) -> {
                     if (Boolean.TRUE.equals(newVal)) {
                         TimeChangeReceiver.scheduleNextDstChangeOrPeriodicSync(requireContext());
-                        GBApplication.deviceService().onSetTime();
+                        WearableApplication.deviceService().onSetTime();
                     }
                     return true;
                 });
@@ -144,7 +144,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                         if (doEnable) {
                             FileUtils.getExternalFilesDir(); // ensures that it is created
                         }
-                        GBApplication.setupLogging(doEnable);
+                        WearableApplication.setupLogging(doEnable);
                     } catch (IOException ex) {
                         GB.toast(requireContext().getApplicationContext(),
                                 getString(R.string.error_creating_directory_for_logfiles, ex.getLocalizedMessage()),
@@ -156,7 +156,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                 });
 
                 // If we didn't manage to initialize file logging, disable the preference
-                if (!GBApplication.getLogging().isFileLoggerInitialized()) {
+                if (!WearableApplication.getLogging().isFileLoggerInitialized()) {
                     pref.setEnabled(false);
                     pref.setSummary(R.string.pref_write_logfiles_not_available);
                 }
@@ -178,7 +178,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                 pref.setOnPreferenceChangeListener((preference, newVal) -> {
                     String newLang = newVal.toString();
                     try {
-                        GBApplication.setLanguage(newLang);
+                        WearableApplication.setLanguage(newLang);
                         requireActivity().recreate();
                     } catch (Exception ex) {
                         GB.toast(requireContext().getApplicationContext(),
@@ -209,7 +209,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             final Preference unit = findPreference(PREF_MEASUREMENT_SYSTEM);
             if (unit != null) {
                 unit.setOnPreferenceChangeListener((preference, newVal) -> {
-                    invokeLater(() -> GBApplication.deviceService().onSendConfiguration(PREF_MEASUREMENT_SYSTEM));
+                    invokeLater(() -> WearableApplication.deviceService().onSendConfiguration(PREF_MEASUREMENT_SYSTEM));
                     return true;
                 });
             }
@@ -263,7 +263,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             if (pref != null) {
                 pref.setOnPreferenceChangeListener((preference, newVal) -> {
                     // reset city id and force a new lookup
-                    GBApplication.getPrefs().getPreferences().edit().putString("weather_cityid", null).apply();
+                    WearableApplication.getPrefs().getPreferences().edit().putString("weather_cityid", null).apply();
                     Intent intent = new Intent("GB_UPDATE_WEATHER");
                     intent.setPackage(BuildConfig.APPLICATION_ID);
                     requireContext().sendBroadcast(intent);
@@ -294,11 +294,11 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                             requireContext().getApplicationContext().getString(R.string.pref_summary_auto_export_interval),
                             Integer.valueOf((String) autoExportInterval));
                     preference.setSummary(summary);
-                    boolean auto_export_enabled = GBApplication.getPrefs().getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
+                    boolean auto_export_enabled = WearableApplication.getPrefs().getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
                     PeriodicExporter.scheduleAlarm(requireContext().getApplicationContext(), Integer.valueOf((String) autoExportInterval), auto_export_enabled);
                     return true;
                 });
-                int autoExportInterval = GBApplication.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
+                int autoExportInterval = WearableApplication.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
                 String summary = String.format(
                         requireContext().getApplicationContext().getString(R.string.pref_summary_auto_export_interval),
                         autoExportInterval);
@@ -308,7 +308,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             pref = findPreference(GBPrefs.AUTO_EXPORT_ENABLED);
             if (pref != null) {
                 pref.setOnPreferenceChangeListener((preference, autoExportEnabled) -> {
-                    int autoExportInterval = GBApplication.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
+                    int autoExportInterval = WearableApplication.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
                     PeriodicExporter.scheduleAlarm(requireContext().getApplicationContext(), autoExportInterval, (boolean) autoExportEnabled);
                     return true;
                 });
@@ -324,7 +324,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                     return true;
                 });
 
-                int autoFetchInterval = GBApplication.getPrefs().getInt("auto_fetch_interval_limit", 0);
+                int autoFetchInterval = WearableApplication.getPrefs().getInt("auto_fetch_interval_limit", 0);
                 String summary = String.format(
                         requireContext().getApplicationContext().getString(R.string.pref_auto_fetch_limit_fetches_summary),
                         autoFetchInterval);
@@ -462,7 +462,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                     selectionListSpinner.setAdapter(spinnerArrayAdapter);
                     fitnessAppSelectionListSpinnerFirstRun = 0;
                     addListenerOnSpinnerDeviceSelection(selectionListSpinner);
-                    Prefs prefs1 = GBApplication.getPrefs();
+                    Prefs prefs1 = WearableApplication.getPrefs();
                     String packageName = prefs1.getString("opentracks_packagename", "de.dennisguse.opentracks");
                     // Set the spinner to the selected package name by default
                     for (int i = 0; i < appListArray.length; i++) {
@@ -482,7 +482,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                             .setTitle(R.string.pref_title_opentracks_packagename)
                             .setView(outerLayout)
                             .setPositiveButton(R.string.ok, (dialog, which) -> {
-                                SharedPreferences.Editor editor = GBApplication.getPrefs().getPreferences().edit();
+                                SharedPreferences.Editor editor = WearableApplication.getPrefs().getPreferences().edit();
                                 editor.putString("opentracks_packagename", fitnessAppEditText.getText().toString());
                                 editor.apply();
                             })
@@ -515,15 +515,15 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             if (requestCode == EXPORT_LOCATION_FILE_REQUEST_CODE && intent != null) {
                 Uri uri = intent.getData();
                 requireContext().getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                GBApplication.getPrefs().getPreferences()
+                WearableApplication.getPrefs().getPreferences()
                         .edit()
                         .putString(GBPrefs.AUTO_EXPORT_LOCATION, uri.toString())
                         .apply();
                 String summary = getAutoExportLocationSummary();
                 findPreference(GBPrefs.AUTO_EXPORT_LOCATION).setSummary(summary);
-                boolean autoExportEnabled = GBApplication
+                boolean autoExportEnabled = WearableApplication
                         .getPrefs().getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
-                int autoExportPeriod = GBApplication
+                int autoExportPeriod = WearableApplication
                         .getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
                 PeriodicExporter.scheduleAlarm(requireContext().getApplicationContext(), autoExportPeriod, autoExportEnabled);
             }
@@ -533,7 +533,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
         Either returns the file path of the selected document, or the display name, or an empty string
          */
         public String getAutoExportLocationSummary() {
-            String autoExportLocation = GBApplication.getPrefs().getString(GBPrefs.AUTO_EXPORT_LOCATION, null);
+            String autoExportLocation = WearableApplication.getPrefs().getString(GBPrefs.AUTO_EXPORT_LOCATION, null);
             if (autoExportLocation == null) {
                 return "";
             }
@@ -569,7 +569,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             String longitude = String.format(Locale.US, "%.6g", location.getLongitude());
             LOG.info("got location. Lat: {} Lng: {}", latitude, longitude);
             GB.toast(requireContext(), getString(R.string.toast_aqurired_networklocation), 2000, 0);
-            GBApplication.getPrefs().getPreferences()
+            WearableApplication.getPrefs().getPreferences()
                     .edit()
                     .putString("location_latitude", latitude)
                     .putString("location_longitude", longitude)
@@ -581,7 +581,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
          */
         private void sendThemeChangeIntent() {
             Intent intent = new Intent();
-            intent.setAction(GBApplication.ACTION_THEME_CHANGE);
+            intent.setAction(WearableApplication.ACTION_THEME_CHANGE);
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent);
         }
     }

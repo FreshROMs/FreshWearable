@@ -28,7 +28,6 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,13 +36,13 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.fossil_hr.image.AssetImage;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.fossil_hr.image.AssetImageFactory;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class ImageEditActivity extends AbstractGBActivity implements View.OnTouchListener {
+public class ImageEditActivity extends CommonActivityAbstract implements View.OnTouchListener {
     static final public int RESULT_CODE_EDIT_SUCCESS = 0;
 
     ImageView overlay;

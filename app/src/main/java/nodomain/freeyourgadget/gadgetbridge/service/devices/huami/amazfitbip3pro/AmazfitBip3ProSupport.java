@@ -21,7 +21,7 @@ import android.net.Uri;
 
 import java.io.IOException;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.amazfitbip3pro.AmazfitBip3ProFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;

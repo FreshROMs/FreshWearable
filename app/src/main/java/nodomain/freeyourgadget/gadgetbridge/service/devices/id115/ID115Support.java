@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.id115.ID115Constants;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -163,7 +163,7 @@ public class ID115Support extends AbstractBTLEDeviceSupport {
     }
 
     ID115Support setWrist(TransactionBuilder builder) {
-        String value = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_WEARLOCATION,
+        String value = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_WEARLOCATION,
                 "left");
 
         byte wrist;
@@ -181,7 +181,7 @@ public class ID115Support extends AbstractBTLEDeviceSupport {
     }
 
     ID115Support setScreenOrientation(TransactionBuilder builder) {
-        String value = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_SCREEN_ORIENTATION,
+        String value = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_SCREEN_ORIENTATION,
                 "horizontal");
 
         byte orientation;

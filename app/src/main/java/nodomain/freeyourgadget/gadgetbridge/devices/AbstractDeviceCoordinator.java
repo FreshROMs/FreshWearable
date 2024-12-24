@@ -19,7 +19,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.devices;
 
-import static nodomain.freeyourgadget.gadgetbridge.GBApplication.getPrefs;
+import static xyz.tenseventyseven.fresh.wearable.WearableApplication.getPrefs;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothClass;
@@ -48,9 +48,9 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.HeartRateCapability;
@@ -146,10 +146,10 @@ public abstract class AbstractDeviceCoordinator implements DeviceCoordinator {
     }
 
     @Override
-    public final void deleteDevice(final GBDevice gbDevice) throws GBException {
+    public final void deleteDevice(final GBDevice gbDevice) throws WearableException {
         LOG.info("will try to delete device: {}", gbDevice.getName());
         if (gbDevice.isConnected() || gbDevice.isConnecting()) {
-            GBApplication.deviceService(gbDevice).disconnect();
+            WearableApplication.deviceService(gbDevice).disconnect();
         }
         Prefs prefs = getPrefs();
 
@@ -161,9 +161,9 @@ public abstract class AbstractDeviceCoordinator implements DeviceCoordinator {
             prefs.getPreferences().edit().putStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, lastDeviceAddresses).apply();
         }
 
-        GBApplication.deleteDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        WearableApplication.deleteDeviceSpecificSharedPrefs(gbDevice.getAddress());
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             DaoSession session = dbHandler.getDaoSession();
             Device device = DBHelper.findDevice(gbDevice, session);
             if (device != null) {
@@ -179,7 +179,7 @@ public abstract class AbstractDeviceCoordinator implements DeviceCoordinator {
                 LOG.info("device to delete not found in db: {}", gbDevice);
             }
         } catch (Exception e) {
-            throw new GBException("Error deleting device: " + e.getMessage(), e);
+            throw new WearableException("Error deleting device: " + e.getMessage(), e);
         }
     }
 
@@ -189,9 +189,9 @@ public abstract class AbstractDeviceCoordinator implements DeviceCoordinator {
      * @param gbDevice the GBDevice
      * @param device   the corresponding database Device
      * @param session  the session to use
-     * @throws GBException if there was an error deleting device-specific resources
+     * @throws WearableException if there was an error deleting device-specific resources
      */
-    protected abstract void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws GBException;
+    protected abstract void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws WearableException;
 
     @Override
     public boolean allowFetchActivityData(GBDevice device) {

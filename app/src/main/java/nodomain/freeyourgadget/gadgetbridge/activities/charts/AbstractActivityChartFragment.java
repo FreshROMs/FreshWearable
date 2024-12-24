@@ -36,8 +36,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -105,11 +105,11 @@ public abstract class AbstractActivityChartFragment<D extends ChartsData> extend
 
     @Override
     protected void init() {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         TypedValue runningColor = new TypedValue();
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(getContext());
-        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = GBApplication.getTextColor(getContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(getContext());
+        BACKGROUND_COLOR = WearableApplication.getBackgroundColor(getContext());
+        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = WearableApplication.getTextColor(getContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(getContext());
         if (prefs.getBoolean("chart_heartrate_color", false)) {
             HEARTRATE_COLOR = ContextCompat.getColor(getContext(), R.color.chart_heartrate_alternative);
         }else{

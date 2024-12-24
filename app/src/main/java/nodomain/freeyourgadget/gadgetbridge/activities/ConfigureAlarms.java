@@ -25,7 +25,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,23 +34,21 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.GBAlarmListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
-import nodomain.freeyourgadget.gadgetbridge.entities.Device;
-import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
 import nodomain.freeyourgadget.gadgetbridge.util.AlarmUtils;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 
-public class ConfigureAlarms extends AbstractGBActivity {
+public class ConfigureAlarms extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureAlarms.class);
 
     private static final int REQ_CONFIGURE_ALARM = 1;
@@ -123,7 +120,7 @@ public class ConfigureAlarms extends AbstractGBActivity {
         DeviceCoordinator coordinator = getGbDevice().getDeviceCoordinator();
         int supportedNumAlarms = coordinator.getAlarmSlotCount(getGbDevice());
         if (supportedNumAlarms > alarms.size()) {
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = WearableApplication.acquireDB()) {
                 DaoSession daoSession = db.getDaoSession();
                 for (int position = 0; position < supportedNumAlarms; position++) {
                     boolean found = false;
@@ -168,7 +165,7 @@ public class ConfigureAlarms extends AbstractGBActivity {
     }
 
     private void sendAlarmsToDevice() {
-        GBApplication.deviceService(gbDevice).onSetAlarms(mGBAlarmListAdapter.getAlarmList());
+        WearableApplication.deviceService(gbDevice).onSetAlarms(mGBAlarmListAdapter.getAlarmList());
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {

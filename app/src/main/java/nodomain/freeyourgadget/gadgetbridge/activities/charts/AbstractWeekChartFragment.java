@@ -48,8 +48,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.TimeSampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -160,7 +160,7 @@ public abstract class AbstractWeekChartFragment extends AbstractActivityChartFra
             average_line.setTextColor(Color.RED);
         }
         if (average > 0) {
-            if (GBApplication.getPrefs().getBoolean("charts_show_average", true)) {
+            if (WearableApplication.getPrefs().getBoolean("charts_show_average", true)) {
                 barChart.getAxisLeft().addLimitLine(average_line);
             }
         }
@@ -330,7 +330,7 @@ public abstract class AbstractWeekChartFragment extends AbstractActivityChartFra
     }
 
     private int getRangeDays(){
-        if (GBApplication.getPrefs().getBoolean("charts_range", true)) {
+        if (WearableApplication.getPrefs().getBoolean("charts_range", true)) {
             return 30;}
         else{
             return 7;

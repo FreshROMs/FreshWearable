@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridConstants;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.opentracks.OpenTracksController;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
@@ -49,8 +49,8 @@ public class WorkoutRequestHandler {
             //noinspection DataFlowIssue fp, never null
             OpenTracksController.startRecording(context, activityKind);
         } else if (workoutRequest.optString("type").equals("req_distance")) {
-            long timeSecs = Math.round(GBApplication.app().getOpenTracksObserver().getTimeMillisChange() / 1000f);
-            float distanceCM = GBApplication.app().getOpenTracksObserver().getDistanceMeterChange() * 100;
+            long timeSecs = Math.round(WearableApplication.app().getOpenTracksObserver().getTimeMillisChange() / 1000f);
+            float distanceCM = WearableApplication.app().getOpenTracksObserver().getDistanceMeterChange() * 100;
             LOG.info("Workout distance requested, returning {} cm, {} sec", distanceCM, timeSecs);
             workoutResponse.put("workoutApp._.config.gps", new JSONObject()
                     .put("distance", distanceCM)

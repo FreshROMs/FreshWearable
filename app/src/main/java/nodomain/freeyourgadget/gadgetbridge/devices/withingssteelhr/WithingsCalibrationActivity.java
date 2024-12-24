@@ -28,14 +28,14 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.withingssteelhr.WithingsSteelHRDeviceSupport;
 
-public class WithingsCalibrationActivity extends AbstractGBActivity {
+public class WithingsCalibrationActivity extends CommonActivityAbstract {
 
     enum Hands {
         HOURS((short)1),
@@ -62,7 +62,7 @@ public class WithingsCalibrationActivity extends AbstractGBActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withings_calibration);
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getSelectedDevices();
         for(GBDevice device : devices){
             if(device.getType() == DeviceType.WITHINGS_STEEL_HR ){
                 this.device = device;

@@ -44,8 +44,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
 import nodomain.freeyourgadget.gadgetbridge.adapter.GBDeviceAdapterv2;
@@ -75,8 +75,8 @@ public class DevicesFragment extends Fragment {
             final GBDevice device = intent.getParcelableExtra(GBDevice.EXTRA_DEVICE);
             switch (Objects.requireNonNull(action)) {
                 case DeviceManager.ACTION_DEVICES_CHANGED:
-                case GBApplication.ACTION_NEW_DATA:
-                    if (action.equals(GBApplication.ACTION_NEW_DATA)) {
+                case WearableApplication.ACTION_NEW_DATA:
+                    if (action.equals(WearableApplication.ACTION_NEW_DATA)) {
                         createRefreshTask("get activity data", requireContext(), device).execute();
                     }
                     if (device != null) {
@@ -111,7 +111,7 @@ public class DevicesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View currentView = inflater.inflate(R.layout.fragment_devices, container, false);
 
-        deviceManager = ((GBApplication) getActivity().getApplication()).getDeviceManager();
+        deviceManager = ((WearableApplication) getActivity().getApplication()).getDeviceManager();
 
         deviceListView = currentView.findViewById(R.id.deviceListView);
         deviceListView.setHasFixedSize(true);
@@ -182,7 +182,7 @@ public class DevicesFragment extends Fragment {
         registerForContextMenu(deviceListView);
 
         IntentFilter filterLocal = new IntentFilter();
-        filterLocal.addAction(GBApplication.ACTION_NEW_DATA);
+        filterLocal.addAction(WearableApplication.ACTION_NEW_DATA);
         filterLocal.addAction(DeviceManager.ACTION_DEVICES_CHANGED);
         filterLocal.addAction(DeviceService.ACTION_REALTIME_SAMPLES);
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(mReceiver, filterLocal);
@@ -201,7 +201,7 @@ public class DevicesFragment extends Fragment {
     }
 
     private void showFabIfNeccessary() {
-        if (GBApplication.getPrefs().getBoolean("display_add_device_fab", true)) {
+        if (WearableApplication.getPrefs().getBoolean("display_add_device_fab", true)) {
             fab.show();
         } else {
             if (deviceManager.getDevices().size() < 1) {
@@ -263,7 +263,7 @@ public class DevicesFragment extends Fragment {
 
         private void updateDevice(final DBHandler db, final GBDevice gbDevice) {
             final DeviceCoordinator coordinator = gbDevice.getDeviceCoordinator();
-            final boolean showActivityCard = GBApplication.getDevicePrefs(gbDevice).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD, true);
+            final boolean showActivityCard = WearableApplication.getDevicePrefs(gbDevice).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD, true);
             if (coordinator.supportsActivityTracking() && showActivityCard) {
                 final DailyTotals stepsAndSleepData = getSteps(gbDevice, db);
                 deviceActivityHashMap.put(gbDevice.getAddress(), stepsAndSleepData);

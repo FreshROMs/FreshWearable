@@ -45,10 +45,9 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
-import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandConst;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceCandidate;
 
@@ -138,7 +137,7 @@ public class BondingUtil {
         new Handler(mainLooper).postDelayed(new Runnable() {
             @Override
             public void run() {
-                GBApplication.deviceService().disconnect();
+                WearableApplication.deviceService().disconnect();
                 GBDevice device = DeviceHelper.getInstance().toSupportedDevice(candidate);
                 connectToGBDevice(device);
             }
@@ -150,7 +149,7 @@ public class BondingUtil {
      */
     private static void connectToGBDevice(GBDevice device) {
         if (device != null) {
-            GBApplication.deviceService(device).connect(true);
+            WearableApplication.deviceService(device).connect(true);
         } else {
             GB.toast("Unable to connect, can't recognize the device type", Toast.LENGTH_LONG, GB.ERROR);
         }
@@ -170,8 +169,8 @@ public class BondingUtil {
     public static void connectThenComplete(BondingInterface bondingInterface, GBDevice device) {
         toast(bondingInterface.getContext(), bondingInterface.getContext().getString(R.string.discovery_trying_to_connect_to, device.getName()), Toast.LENGTH_SHORT, GB.INFO);
         // Disconnect when LE Pebble so that the user can manually initiate a connection
-        GBApplication.deviceService(device).disconnect();
-        GBApplication.deviceService(device).connect(true);
+        WearableApplication.deviceService(device).disconnect();
+        WearableApplication.deviceService(device).connect(true);
         bondingInterface.onBondingComplete(true);
     }
 

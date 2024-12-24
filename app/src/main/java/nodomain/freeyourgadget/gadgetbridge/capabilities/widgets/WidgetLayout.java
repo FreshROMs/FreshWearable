@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.capabilities.widgets;
 
 import androidx.annotation.StringRes;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 
 public enum WidgetLayout {
     // Square screen layouts, 2x2

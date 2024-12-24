@@ -42,8 +42,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.TimeSampleProvider;
@@ -63,13 +63,13 @@ public class TemperatureChartFragment extends AbstractChartFragment<TemperatureC
 
     @Override
     protected void init() {
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(requireContext());
-        DESCRIPTION_COLOR = GBApplication.getTextColor(requireContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(requireContext());
+        BACKGROUND_COLOR = WearableApplication.getBackgroundColor(requireContext());
+        DESCRIPTION_COLOR = WearableApplication.getTextColor(requireContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(requireContext());
 
     }
     private int getRangeDays() {
-        if (GBApplication.getPrefs().getBoolean("charts_range", true)) {
+        if (WearableApplication.getPrefs().getBoolean("charts_range", true)) {
             return 30;
         } else {
             return 7;

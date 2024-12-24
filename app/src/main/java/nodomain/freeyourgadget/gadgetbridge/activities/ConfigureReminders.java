@@ -43,9 +43,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.GBReminderListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -56,10 +55,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
-import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 
-public class ConfigureReminders extends AbstractGBActivity {
+public class ConfigureReminders extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureReminders.class);
 
     private static final int REQ_CONFIGURE_REMINDER = 1;
@@ -102,7 +101,7 @@ public class ConfigureReminders extends AbstractGBActivity {
             public void onClick(View v) {
                 final DeviceCoordinator coordinator = gbDevice.getDeviceCoordinator();
 
-                int deviceSlots = coordinator.getReminderSlotCount(gbDevice) - GBApplication.getDevicePrefs(gbDevice).getReservedReminderCalendarSlots();
+                int deviceSlots = coordinator.getReminderSlotCount(gbDevice) - WearableApplication.getDevicePrefs(gbDevice).getReservedReminderCalendarSlots();
 
                 if (mGBReminderListAdapter.getItemCount() >= deviceSlots) {
                     // No more free slots
@@ -119,7 +118,7 @@ public class ConfigureReminders extends AbstractGBActivity {
                 }
 
                 final Reminder reminder;
-                try (DBHandler db = GBApplication.acquireDB()) {
+                try (DBHandler db = WearableApplication.acquireDB()) {
                     final DaoSession daoSession = db.getDaoSession();
                     final Device device = DBHelper.getDevice(gbDevice, daoSession);
                     final User user = DBHelper.getUser(daoSession);
@@ -204,7 +203,7 @@ public class ConfigureReminders extends AbstractGBActivity {
 
     private void sendRemindersToDevice() {
         if (gbDevice.isInitialized()) {
-            GBApplication.deviceService(gbDevice).onSetReminders(mGBReminderListAdapter.getReminderList());
+            WearableApplication.deviceService(gbDevice).onSetReminders(mGBReminderListAdapter.getReminderList());
         }
     }
 }

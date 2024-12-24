@@ -30,7 +30,6 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 import java.util.concurrent.CountDownLatch;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 import static android.bluetooth.BluetoothGattCharacteristic.FORMAT_UINT16;

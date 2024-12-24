@@ -23,8 +23,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
@@ -69,7 +69,7 @@ public class XiaomiWorkoutType {
     }
 
     public static Collection<XiaomiWorkoutType> getWorkoutTypesSupportedByDevice(final GBDevice device) {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        final Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
         final List<String> codes = prefs.getList(XiaomiPreferences.PREF_WORKOUT_TYPES, Collections.emptyList());
         final List<XiaomiWorkoutType> ret = new ArrayList<>(codes.size());
 
@@ -79,8 +79,8 @@ public class XiaomiWorkoutType {
             ret.add(new XiaomiWorkoutType(
                     codeInt,
                     codeNameStringRes != -1 ?
-                            GBApplication.getContext().getString(codeNameStringRes) :
-                            GBApplication.getContext().getString(R.string.widget_unknown_workout, code)
+                            WearableApplication.getContext().getString(codeNameStringRes) :
+                            WearableApplication.getContext().getString(R.string.widget_unknown_workout, code)
             ));
         }
 

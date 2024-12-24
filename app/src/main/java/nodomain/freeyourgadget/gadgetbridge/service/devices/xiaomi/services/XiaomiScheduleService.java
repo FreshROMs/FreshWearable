@@ -35,7 +35,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -216,7 +216,7 @@ public class XiaomiScheduleService extends AbstractXiaomiService {
 
         // Persist unknown reminders
         // We assume that reminders are not modifiable from the watch, unlike alarms
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             final Device device = DBHelper.getDevice(getSupport().getDevice(), daoSession);
             final User user = DBHelper.getUser(daoSession);

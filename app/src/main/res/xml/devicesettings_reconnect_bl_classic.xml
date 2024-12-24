@@ -4,7 +4,6 @@
         android:title="@string/connection_over_bt_classic" />
 
     <SwitchPreferenceCompat
-        android:icon="@drawable/ic_bluetooth"
         android:key="prefs_key_device_reconnect_on_acl"
         android:layout="@layout/preference_checkbox"
         android:title="@string/autoconnect_from_device_title"

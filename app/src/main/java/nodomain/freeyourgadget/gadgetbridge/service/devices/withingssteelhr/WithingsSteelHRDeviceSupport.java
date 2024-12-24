@@ -43,8 +43,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiConst;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -120,7 +120,7 @@ public class WithingsSteelHRDeviceSupport extends AbstractBTLEDeviceSupport {
     public static final String HANDS_CALIBRATION_CMD = "withings_hands_calibration";
     public static final String START_HANDS_CALIBRATION_CMD = "start_withings_hands_calibration";
     public static final String STOP_HANDS_CALIBRATION_CMD = "stop_withings_hands_calibration";
-    private static Prefs prefs = GBApplication.getPrefs();
+    private static Prefs prefs = WearableApplication.getPrefs();
     private MessageBuilder messageBuilder;
     private LiveWorkoutHandler liveWorkoutHandler;
     private ActivitySampleHandler activitySampleHandler;
@@ -176,7 +176,7 @@ public class WithingsSteelHRDeviceSupport extends AbstractBTLEDeviceSupport {
             }
         };
 
-        LocalBroadcastManager.getInstance(GBApplication.getContext()).registerReceiver(commandReceiver, commandFilter);
+        LocalBroadcastManager.getInstance(WearableApplication.getContext()).registerReceiver(commandReceiver, commandFilter);
     }
 
     @Override
@@ -560,13 +560,13 @@ public class WithingsSteelHRDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void saveLastSyncTimestamp(@NonNull long timestamp) {
-        SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).edit();
+        SharedPreferences.Editor editor = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).edit();
         editor.putLong(LAST_ACTIVITY_SYNC, timestamp);
         editor.apply();
     }
 
     private long getLastSyncTimestamp() {
-        SharedPreferences settings = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences settings = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         long lastSyncTime =  settings.getLong(LAST_ACTIVITY_SYNC, 0);
         if (lastSyncTime > 0) {
             return lastSyncTime;
@@ -639,7 +639,7 @@ public class WithingsSteelHRDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void setWorkoutActivityTypes() {
-        final SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        final SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
 
         final List<String> allActivityTypes = Arrays.asList(getContext().getResources().getStringArray(R.array.pref_withings_steel_activity_types_values));
         final List<String> defaultActivityTypes = Arrays.asList(getContext().getResources().getStringArray(R.array.pref_withings_steel_activity_types_default));
@@ -703,7 +703,7 @@ public class WithingsSteelHRDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private Locale getLocale() {
-        String localeString = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress())
+        String localeString = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress())
                 .getString(PREF_LANGUAGE, PREF_LANGUAGE_AUTO);
 
         if (localeString.equals(PREF_LANGUAGE_AUTO)) {
@@ -732,9 +732,9 @@ public class WithingsSteelHRDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private short getUnit() {
-        String units = prefs.getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
+        String units = prefs.getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, WearableApplication.getContext().getString(R.string.p_unit_metric));
 
-        if (units.equals(GBApplication.getContext().getString(R.string.p_unit_metric))) {
+        if (units.equals(WearableApplication.getContext().getString(R.string.p_unit_metric))) {
             return UserUnitConstants.UNIT_KM;
         } else {
             return UserUnitConstants.UNIT_MILES;

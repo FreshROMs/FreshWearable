@@ -26,7 +26,7 @@ import androidx.annotation.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.EventHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
@@ -65,7 +65,7 @@ public class GBLocationListener implements LocationListener {
 
         previousLocation = location;
 
-        GBApplication.deviceService(device).onSetGpsLocation(location);
+        WearableApplication.deviceService(device).onSetGpsLocation(location);
     }
 
     @Override

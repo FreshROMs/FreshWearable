@@ -27,8 +27,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandConst;
@@ -52,7 +52,7 @@ public class AlarmUtils {
      */
     public static nodomain.freeyourgadget.gadgetbridge.model.Alarm createSingleShot(int index, boolean smartWakeup, boolean snooze, Calendar calendar) {
         // TODO: add interval setting?
-        return new Alarm(-1, -1, index, true, smartWakeup, null, snooze, Alarm.ALARM_ONCE, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, GBApplication.getContext().getString(R.string.quick_alarm), GBApplication.getContext().getString(R.string.quick_alarm_description));
+        return new Alarm(-1, -1, index, true, smartWakeup, null, snooze, Alarm.ALARM_ONCE, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, WearableApplication.getContext().getString(R.string.quick_alarm), WearableApplication.getContext().getString(R.string.quick_alarm_description));
     }
 
     /**
@@ -61,7 +61,7 @@ public class AlarmUtils {
      * @param position
      */
     public static Alarm createDefaultAlarm(GBDevice gbDevice, int position) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             DaoSession daoSession = db.getDaoSession();
             return createDefaultAlarm(daoSession, gbDevice, position);
         } catch (Exception e) {
@@ -129,11 +129,11 @@ public class AlarmUtils {
      */
     @NonNull
     public static List<Alarm> readAlarmsFromPrefs(GBDevice gbDevice) {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         Set<String> stringAlarms = prefs.getStringSet(MiBandConst.PREF_MIBAND_ALARMS, new HashSet<String>());
         List<Alarm> alarms = new ArrayList<>(stringAlarms.size());
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             DaoSession daoSession = db.getDaoSession();
             User user = DBHelper.getUser(daoSession);
             Device device = DBHelper.getDevice(gbDevice, daoSession);
@@ -176,7 +176,7 @@ public class AlarmUtils {
     public static List<Alarm> mergeOneshotToDeviceAlarms(GBDevice gbDevice, Alarm oneshot, int position) {
         List<Alarm> all_alarms = new ArrayList<>();
         try {
-            DBHandler db = GBApplication.acquireDB();
+            DBHandler db = WearableApplication.acquireDB();
             DaoSession daoSession = db.getDaoSession();
             Device device = DBHelper.getDevice(gbDevice, daoSession);
             User user = DBHelper.getUser(daoSession);
@@ -185,7 +185,7 @@ public class AlarmUtils {
             oneshot.setUserId(user.getId());
             daoSession.insertOrReplace(oneshot);
             all_alarms = DBHelper.getAlarms(gbDevice);
-            GBApplication.releaseDB();
+            WearableApplication.releaseDB();
         } catch (Exception e) {
             GB.log("error storing one shot quick alarm", GB.ERROR, e);
         }

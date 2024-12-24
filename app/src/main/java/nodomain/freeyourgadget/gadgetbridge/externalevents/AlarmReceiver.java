@@ -34,8 +34,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
@@ -44,7 +44,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     private static final Logger LOG = LoggerFactory.getLogger(AlarmReceiver.class);
 
     public AlarmReceiver() {
-        Context context = GBApplication.getContext();
+        Context context = WearableApplication.getContext();
         Intent intent = new Intent("DAILY_ALARM");
         intent.setPackage(BuildConfig.APPLICATION_ID);
         PendingIntent pendingIntent = PendingIntentUtils.getBroadcast(context, 0, intent, 0, false);
@@ -75,10 +75,10 @@ public class AlarmReceiver extends BroadcastReceiver {
          */
         byte id_tomorrow = (byte) ((dateTimeTomorrow.getTimeInMillis() / (1000L * 60L * 60L * 24L)) % 3);
 
-        GBApplication.deviceService().onDeleteCalendarEvent(CalendarEventSpec.TYPE_SUNRISE, id_tomorrow);
-        GBApplication.deviceService().onDeleteCalendarEvent(CalendarEventSpec.TYPE_SUNSET, id_tomorrow);
+        WearableApplication.deviceService().onDeleteCalendarEvent(CalendarEventSpec.TYPE_SUNRISE, id_tomorrow);
+        WearableApplication.deviceService().onDeleteCalendarEvent(CalendarEventSpec.TYPE_SUNSET, id_tomorrow);
 
-        GBPrefs gbPrefs = GBApplication.getPrefs();
+        GBPrefs gbPrefs = WearableApplication.getPrefs();
         float[] longlat = gbPrefs.getLongLat(context);
         float longitude = longlat[0];
         float latitude = longlat[1];
@@ -99,7 +99,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (sunriseTransitSetTomorrow.getSunrise() != null) {
             calendarEventSpec.id = id_tomorrow;
             calendarEventSpec.timestamp = (int) (sunriseTransitSetTomorrow.getSunrise().toInstant().getEpochSecond());
-            GBApplication.deviceService().onAddCalendarEvent(calendarEventSpec);
+            WearableApplication.deviceService().onAddCalendarEvent(calendarEventSpec);
         }
 
         calendarEventSpec.type = CalendarEventSpec.TYPE_SUNSET;
@@ -107,7 +107,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (sunriseTransitSetTomorrow.getSunset() != null) {
             calendarEventSpec.id = id_tomorrow;
             calendarEventSpec.timestamp = (int) (sunriseTransitSetTomorrow.getSunset().toInstant().getEpochSecond());
-            GBApplication.deviceService().onAddCalendarEvent(calendarEventSpec);
+            WearableApplication.deviceService().onAddCalendarEvent(calendarEventSpec);
         }
     }
 }

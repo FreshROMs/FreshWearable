@@ -38,9 +38,9 @@ import java.util.EnumSet;
 import java.util.List;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
@@ -103,7 +103,7 @@ public class MiBandCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     @Override
-    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws GBException {
+    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws WearableException {
         Long deviceId = device.getId();
         QueryBuilder<?> qb = session.getMiBandActivitySampleDao().queryBuilder();
         qb.where(MiBandActivitySampleDao.Properties.DeviceId.eq(deviceId)).buildDelete().executeDeleteWithoutDetachingEntities();
@@ -193,7 +193,7 @@ public class MiBandCoordinator extends AbstractBLEDeviceCoordinator {
      */
     public static UserInfo getConfiguredUserInfo(String miBandAddress) throws IllegalArgumentException {
         ActivityUser activityUser = new ActivityUser();
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
 
         UserInfo info = UserInfo.create(
                 miBandAddress,
@@ -209,7 +209,7 @@ public class MiBandCoordinator extends AbstractBLEDeviceCoordinator {
 
     public static int getWearLocation(String deviceAddress) throws IllegalArgumentException {
         int location = 0; //left hand
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(deviceAddress));
+        Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(deviceAddress));
         if ("right".equals(prefs.getString(DeviceSettingsPreferenceConst.PREF_WEARLOCATION, "left"))) {
             location = 1; // right hand
         }
@@ -217,17 +217,17 @@ public class MiBandCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     public static int getDeviceTimeOffsetHours(String deviceAddress) throws IllegalArgumentException {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(deviceAddress));
+        Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(deviceAddress));
 		return prefs.getInt(MiBandConst.PREF_MIBAND_DEVICE_TIME_OFFSET_HOURS, 0);
 	}
 
     public static boolean getHeartrateSleepSupport(String deviceAddress) throws IllegalArgumentException {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(deviceAddress));
+        Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(deviceAddress));
         return prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_HEARTRATE_USE_FOR_SLEEP_DETECTION, false);
     }
 
     public static int getReservedAlarmSlots(String miBandAddress) throws IllegalArgumentException {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(miBandAddress));
+        Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(miBandAddress));
         return prefs.getInt(DeviceSettingsPreferenceConst.PREF_RESERVER_ALARMS_CALENDAR, 0);
     }
 

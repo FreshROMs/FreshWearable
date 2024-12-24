@@ -35,8 +35,8 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ActivityChartsActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -80,7 +80,7 @@ public abstract class AbstractDashboardWidget extends Fragment {
     }
 
     protected List<GBDevice> getSupportedDevices(final DashboardFragment.DashboardData dashboardData) {
-        return GBApplication.app().getDeviceManager().getDevices()
+        return WearableApplication.app().getDeviceManager().getDevices()
                 .stream()
                 .filter(dev -> dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress()))
                 .filter(this::isSupportedBy)
@@ -112,7 +112,7 @@ public abstract class AbstractDashboardWidget extends Fragment {
         }
 
         if (devices.isEmpty()) {
-            GB.toast(GBApplication.getContext(), R.string.no_supported_devices_found, Toast.LENGTH_LONG, GB.WARN);
+            GB.toast(WearableApplication.getContext(), R.string.no_supported_devices_found, Toast.LENGTH_LONG, GB.WARN);
             return;
         }
 

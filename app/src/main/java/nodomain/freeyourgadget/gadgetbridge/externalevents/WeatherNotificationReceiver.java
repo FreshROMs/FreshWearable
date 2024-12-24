@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.Weather;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;
 import ru.gelin.android.weather.notification.ParcelableWeather2;
@@ -58,7 +58,7 @@ public class WeatherNotificationReceiver extends BroadcastReceiver {
 
             ArrayList<WeatherSpec> weatherSpecs = new ArrayList<>(Collections.singletonList(weatherSpec));
             Weather.getInstance().setWeatherSpec(weatherSpecs);
-            GBApplication.deviceService().onSendWeather(weatherSpecs);
+            WearableApplication.deviceService().onSendWeather(weatherSpecs);
         }
     }
 }

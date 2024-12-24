@@ -23,6 +23,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public class DeviceSettingsActivity extends AbstractSettingsActivityV2 {
     public static final String MENU_ENTRY_POINT = "MENU_ENTRY_POINT";
+    public static final String EXTRA_SCREEN_KEY = "EXTRA_SCREEN_KEY";
 
     public enum MENU_ENTRY_POINTS {
         DEVICE_SETTINGS,
@@ -38,8 +39,9 @@ public class DeviceSettingsActivity extends AbstractSettingsActivityV2 {
     @Override
     protected PreferenceFragmentCompat newFragment() {
         final GBDevice device = getIntent().getParcelableExtra(GBDevice.EXTRA_DEVICE);
-        final MENU_ENTRY_POINTS menu_entry = (MENU_ENTRY_POINTS) getIntent().getSerializableExtra(MENU_ENTRY_POINT);
+        final MENU_ENTRY_POINTS menuEntry = (MENU_ENTRY_POINTS) getIntent().getSerializableExtra(MENU_ENTRY_POINT);
+        final String screenKey = getIntent().getStringExtra(EXTRA_SCREEN_KEY);
 
-        return DeviceSpecificSettingsFragment.newInstance(device, menu_entry);
+        return DeviceSpecificSettingsFragment.newInstance(device, menuEntry, screenKey);
     }
 }

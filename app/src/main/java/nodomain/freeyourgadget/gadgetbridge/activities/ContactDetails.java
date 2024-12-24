@@ -31,16 +31,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Contact;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public class ContactDetails extends AbstractGBActivity {
+public class ContactDetails extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ContactDetails.class);
 
     private Contact contact;

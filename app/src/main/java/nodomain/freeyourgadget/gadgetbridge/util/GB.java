@@ -19,7 +19,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.util;
 
-import static nodomain.freeyourgadget.gadgetbridge.GBApplication.isRunningOreoOrLater;
+import static xyz.tenseventyseven.fresh.wearable.WearableApplication.isRunningOreoOrLater;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.EXTRA_RECORDED_DATA_TYPES;
 
 import android.app.Activity;
@@ -54,11 +54,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBEnvironment;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.Environment;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventScreenshot;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -170,7 +170,7 @@ public class GB {
     }
 
     private static PendingIntent getContentIntent(Context context) {
-        Intent notificationIntent = new Intent(context, ControlCenterv2.class);
+        Intent notificationIntent = new Intent(context, DashboardActivity.class);
         notificationIntent.setPackage(BuildConfig.APPLICATION_ID);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -189,7 +189,7 @@ public class GB {
                     .setShowWhen(false)
                     .setOngoing(true);
 
-            if (!GBApplication.isRunningTwelveOrLater()) {
+            if (!WearableApplication.isRunningTwelveOrLater()) {
                 builder.setColor(context.getResources().getColor(R.color.accent));
             }
         }else if(devices.size() == 1) {
@@ -208,7 +208,7 @@ public class GB {
                     .setShowWhen(false)
                     .setOngoing(true);
 
-            if (!GBApplication.isRunningTwelveOrLater()) {
+            if (!WearableApplication.isRunningTwelveOrLater()) {
                 builder.setColor(context.getResources().getColor(R.color.accent));
             }
 
@@ -261,7 +261,7 @@ public class GB {
                     .setShowWhen(false)
                     .setOngoing(true);
 
-            if (!GBApplication.isRunningTwelveOrLater()) {
+            if (!WearableApplication.isRunningTwelveOrLater()) {
                 builder.setColor(context.getResources().getColor(R.color.accent));
             }
 
@@ -277,14 +277,14 @@ public class GB {
 
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
-        if (GBApplication.minimizeNotification()) {
+        if (WearableApplication.minimizeNotification()) {
             builder.setPriority(Notification.PRIORITY_MIN);
         }
         return builder.build();
     }
 
     public static String buildDeviceBatteryString(final Context context, final GBDevice device) {
-        final DevicePrefs devicePrefs = GBApplication.getDevicePrefs(device);
+        final DevicePrefs devicePrefs = WearableApplication.getDevicePrefs(device);
         final List<Integer> batteryLevels = new ArrayList<>();
         final StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 3; i++) {
@@ -315,13 +315,13 @@ public class GB {
                 .setShowWhen(false)
                 .setOngoing(true);
 
-        if (!GBApplication.isRunningTwelveOrLater()) {
+        if (!WearableApplication.isRunningTwelveOrLater()) {
             builder.setColor(context.getResources().getColor(R.color.accent));
         }
 
         // A small bug: When "Reconnect only to connected devices" is disabled, the intent will be added even when there are no devices in GB
         // Not sure whether it is worth the complexity to fix this
-        if (!GBApplication.getPrefs().getBoolean(GBPrefs.RECONNECT_ONLY_TO_CONNECTED, true) || !GBApplication.getPrefs().getStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, Collections.emptySet()).isEmpty()) {
+        if (!WearableApplication.getPrefs().getBoolean(GBPrefs.RECONNECT_ONLY_TO_CONNECTED, true) || !WearableApplication.getPrefs().getStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, Collections.emptySet()).isEmpty()) {
             Intent deviceCommunicationServiceIntent = new Intent(context, DeviceCommunicationService.class);
             deviceCommunicationServiceIntent.setPackage(BuildConfig.APPLICATION_ID);
             deviceCommunicationServiceIntent.setAction(DeviceService.ACTION_CONNECT);
@@ -331,7 +331,7 @@ public class GB {
 
         builder.setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
 
-        if (GBApplication.minimizeNotification()) {
+        if (WearableApplication.minimizeNotification()) {
             builder.setPriority(Notification.PRIORITY_MIN);
         }
         return builder.build();
@@ -362,7 +362,7 @@ public class GB {
     }
 
     public static boolean supportsBluetoothLE() {
-        return GBApplication.getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE);
+        return WearableApplication.getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE);
     }
 
     public static final char[] HEX_CHARS = "0123456789ABCDEF".toCharArray();
@@ -423,7 +423,7 @@ public class GB {
      * @param severity    either INFO, WARNING, ERROR
      */
     public static void toast(String message, int displayTime, int severity) {
-        toast(GBApplication.getContext(), message, displayTime, severity, null);
+        toast(WearableApplication.getContext(), message, displayTime, severity, null);
     }
 
     /**
@@ -436,7 +436,7 @@ public class GB {
      * @param severity    either INFO, WARNING, ERROR
      */
     public static void toast(String message, int displayTime, int severity, Throwable ex) {
-        toast(GBApplication.getContext(), message, displayTime, severity, ex);
+        toast(WearableApplication.getContext(), message, displayTime, severity, ex);
     }
 
     /**
@@ -468,7 +468,7 @@ public class GB {
      */
     public static void toast(final Context context, final String message, final int displayTime, final int severity, final Throwable ex) {
         log(message, severity, ex); // log immediately, not delayed
-        if (GBEnvironment.env().isLocalTest()) {
+        if (Environment.env().isLocalTest()) {
             return;
         }
         Looper mainLooper = Looper.getMainLooper();
@@ -506,7 +506,7 @@ public class GB {
 
     private static Notification createTransferNotification(String title, String text, boolean ongoing,
                                                            int percentage, Context context) {
-        Intent notificationIntent = new Intent(context, ControlCenterv2.class);
+        Intent notificationIntent = new Intent(context, DashboardActivity.class);
         notificationIntent.setPackage(BuildConfig.APPLICATION_ID);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -545,7 +545,7 @@ public class GB {
 
     private static Notification createInstallNotification(String text, boolean ongoing,
                                                           int percentage, Context context) {
-        Intent notificationIntent = new Intent(context, ControlCenterv2.class);
+        Intent notificationIntent = new Intent(context, DashboardActivity.class);
         notificationIntent.setPackage(BuildConfig.APPLICATION_ID);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -576,7 +576,7 @@ public class GB {
     }
 
     private static Notification createBatteryLowNotification(String text, String bigText, Context context) {
-        Intent notificationIntent = new Intent(context, ControlCenterv2.class);
+        Intent notificationIntent = new Intent(context, DashboardActivity.class);
         notificationIntent.setPackage(BuildConfig.APPLICATION_ID);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -599,7 +599,7 @@ public class GB {
     }
 
     private static Notification createBatteryFullNotification(String text, String bigText, Context context) {
-        Intent notificationIntent = new Intent(context, ControlCenterv2.class);
+        Intent notificationIntent = new Intent(context, DashboardActivity.class);
         notificationIntent.setPackage(BuildConfig.APPLICATION_ID);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -622,7 +622,7 @@ public class GB {
     }
 
     public static void updateBatteryLowNotification(String text, String bigText, Context context) {
-        if (GBEnvironment.env().isLocalTest()) {
+        if (Environment.env().isLocalTest()) {
             return;
         }
         Notification notification = createBatteryLowNotification(text, bigText, context);
@@ -634,7 +634,7 @@ public class GB {
     }
 
     public static void updateBatteryFullNotification(String text, String bigText, Context context) {
-        if (GBEnvironment.env().isLocalTest()) {
+        if (Environment.env().isLocalTest()) {
             return;
         }
         Notification notification = createBatteryFullNotification(text, bigText, context);
@@ -665,7 +665,7 @@ public class GB {
     }
 
     public static void updateExportFailedNotification(String text, Context context) {
-        if (GBEnvironment.env().isLocalTest()) {
+        if (Environment.env().isLocalTest()) {
             return;
         }
         Notification notification = createExportFailedNotification(text, context);
@@ -679,19 +679,19 @@ public class GB {
     }
 
     public static void signalActivityDataFinish(final GBDevice device) {
-        final Intent intent = new Intent(GBApplication.ACTION_NEW_DATA);
+        final Intent intent = new Intent(WearableApplication.ACTION_NEW_DATA);
         intent.putExtra(GBDevice.EXTRA_DEVICE, device);
 
-        LocalBroadcastManager.getInstance(GBApplication.getContext()).sendBroadcast(intent);
+        LocalBroadcastManager.getInstance(WearableApplication.getContext()).sendBroadcast(intent);
 
-        if (!GBApplication.getPrefs().getBoolean("intent_api_broadcast_activity_sync", false)) {
+        if (!WearableApplication.getPrefs().getBoolean("intent_api_broadcast_activity_sync", false)) {
             return;
         }
 
         LOG.info("Broadcasting activity sync finish");
 
         final Intent activitySyncFinishIntent = new Intent(ACTION_ACTIVITY_SYNC);
-        GBApplication.getContext().sendBroadcast(activitySyncFinishIntent);
+        WearableApplication.getContext().sendBroadcast(activitySyncFinishIntent);
     }
 
     public static boolean checkPermission(final Context context, final String permission) {

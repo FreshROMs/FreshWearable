@@ -21,16 +21,17 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeFragmentPermissions;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.onboarding.PermissionsFragment;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public class PermissionsActivity extends AbstractGBActivity {
+public class PermissionsActivity extends CommonActivityAbstract {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permissions);
 
-        WelcomeFragmentPermissions permissionsFragment = new WelcomeFragmentPermissions();
+        PermissionsFragment permissionsFragment = new PermissionsFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragment_container, permissionsFragment).commit();

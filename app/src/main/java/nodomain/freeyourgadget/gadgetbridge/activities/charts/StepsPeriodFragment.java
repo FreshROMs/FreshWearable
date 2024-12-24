@@ -29,8 +29,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -83,7 +83,7 @@ public class StepsPeriodFragment extends StepsFragment<StepsPeriodFragment.Steps
         distanceAvg = rootView.findViewById(R.id.distance_avg);
         stepsTotal = rootView.findViewById(R.id.steps_total);
         distanceTotal = rootView.findViewById(R.id.distance_total);
-        STEPS_GOAL = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
+        STEPS_GOAL = WearableApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
         setupStepsChart();
         refresh();
 
@@ -133,11 +133,11 @@ public class StepsPeriodFragment extends StepsFragment<StepsPeriodFragment.Steps
 
     @Override
     protected void init() {
-        TEXT_COLOR = GBApplication.getTextColor(requireContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(requireContext());
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(getContext());
-        DESCRIPTION_COLOR = GBApplication.getTextColor(getContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(getContext());
+        TEXT_COLOR = WearableApplication.getTextColor(requireContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(requireContext());
+        BACKGROUND_COLOR = WearableApplication.getBackgroundColor(getContext());
+        DESCRIPTION_COLOR = WearableApplication.getTextColor(getContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(getContext());
     }
 
     @Override

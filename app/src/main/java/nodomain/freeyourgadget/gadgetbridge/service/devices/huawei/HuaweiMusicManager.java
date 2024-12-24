@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceMusicData;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceMusicUpdate;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiMusicUtils;

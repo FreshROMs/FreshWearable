@@ -51,15 +51,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.DashboardUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
-public class DashboardCalendarActivity extends AbstractGBActivity {
+public class DashboardCalendarActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(DashboardCalendarActivity.class);
     public static String EXTRA_TIMESTAMP = "dashboard_calendar_chosen_day";
     private final ConcurrentHashMap<Calendar, TextView> dayCells = new ConcurrentHashMap<>();
@@ -100,7 +100,7 @@ public class DashboardCalendarActivity extends AbstractGBActivity {
             cal.setTimeInMillis(receivedTimestamp);
         }
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         showAllDevices = prefs.getBoolean("dashboard_devices_all", true);
         showDeviceList = prefs.getStringSet("dashboard_devices_multiselect", new HashSet<>());
 
@@ -279,7 +279,7 @@ public class DashboardCalendarActivity extends AbstractGBActivity {
                     GradientDrawable borderDrawable = new GradientDrawable();
                     borderDrawable.setShape(GradientDrawable.OVAL);
                     borderDrawable.setColor(Color.TRANSPARENT);
-                    borderDrawable.setStroke(5, GBApplication.getTextColor(getApplicationContext()));
+                    borderDrawable.setStroke(5, WearableApplication.getTextColor(getApplicationContext()));
                     LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{backgroundDrawable, borderDrawable});
                     text.setBackground(layerDrawable);
                 } else {

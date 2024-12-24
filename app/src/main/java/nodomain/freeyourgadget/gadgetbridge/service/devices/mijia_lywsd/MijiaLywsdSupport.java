@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.SimpleTimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventVersionInfo;
 import nodomain.freeyourgadget.gadgetbridge.devices.mijia_lywsd.AbstractMijiaLywsdCoordinator;
@@ -91,7 +91,7 @@ public class MijiaLywsdSupport extends AbstractBTLEDeviceSupport {
         requestDeviceInfo(builder);
 
         final boolean supportsSetTime = getCoordinator().supportsSetTime();
-        if (supportsSetTime && GBApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
+        if (supportsSetTime && WearableApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
             setTime(builder);
         }
 
@@ -212,7 +212,7 @@ public class MijiaLywsdSupport extends AbstractBTLEDeviceSupport {
                 return;
         }
 
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         prefs.edit()
              .putInt(PREF_MIJIA_LYWSD_COMFORT_CHARACTERISTIC_LENGTH, value.length)
@@ -293,7 +293,7 @@ public class MijiaLywsdSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onSendConfiguration(String config) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
 
         try {
             TransactionBuilder builder = performInitialized("Sending configuration for option: " + config);

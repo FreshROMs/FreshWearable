@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.CaloriesDailyFragment;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -49,7 +49,7 @@ public class DashboardCaloriesActiveGoalWidget extends AbstractGaugeWidget {
     @Override
     protected void draw(final DashboardFragment.DashboardData dashboardData) {
         setText(String.valueOf(dashboardData.getActiveCaloriesTotal()));
-        final int colorCalories = ContextCompat.getColor(GBApplication.getContext(), R.color.calories_color);
+        final int colorCalories = ContextCompat.getColor(WearableApplication.getContext(), R.color.calories_color);
         drawSimpleGauge(
                 colorCalories,
                 dashboardData.getActiveCaloriesGoalFactor()

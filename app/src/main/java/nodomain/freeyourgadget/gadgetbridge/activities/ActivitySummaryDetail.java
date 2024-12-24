@@ -30,7 +30,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
-import android.text.format.DateUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -78,8 +77,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.entries.ActivitySummaryEntry;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.entries.ActivitySummarySimpleEntry;
@@ -98,8 +97,9 @@ import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.SwipeEvents;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public class ActivitySummaryDetail extends AbstractGBActivity {
+public class ActivitySummaryDetail extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ActivitySummaryDetail.class);
     BaseActivitySummary currentItem = null;
     private GBDevice gbDevice;
@@ -124,7 +124,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
     public static Bitmap getScreenShot(View view, int height, int width, Context context) {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(GBApplication.getWindowBackgroundColor(context));
+        canvas.drawColor(WearableApplication.getWindowBackgroundColor(context));
         view.draw(canvas);
         return bitmap;
     }
@@ -135,7 +135,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
         super.onCreate(savedInstanceState);
 
         final Context appContext = this.getApplicationContext();
-        if (appContext instanceof GBApplication) {
+        if (appContext instanceof WearableApplication) {
             setContentView(R.layout.activity_summary_details);
         }
 
@@ -406,7 +406,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setGravity(Gravity.CENTER);
         linearLayout.setPadding(dpToPx(15), dpToPx(15), dpToPx(15), dpToPx(15));
-        linearLayout.setBackgroundColor(GBApplication.getWindowBackgroundColor(ActivitySummaryDetail.this));
+        linearLayout.setBackgroundColor(WearableApplication.getWindowBackgroundColor(ActivitySummaryDetail.this));
         int marginLeft = 0;
         int marginTop = 0;
         int marginBottom = 0;
@@ -720,7 +720,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
 
     @Nullable
     private static GBDevice getGBDevice(final Device findDevice) {
-        return GBApplication.app().getDeviceManager().getDevices()
+        return WearableApplication.app().getDeviceManager().getDevices()
                 .stream()
                 .filter(d -> d.getAddress().equalsIgnoreCase(findDevice.getIdentifier()))
                 .findFirst()

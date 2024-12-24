@@ -27,20 +27,16 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.SparseBooleanArray;
 import android.util.TypedValue;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.DatePicker;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -56,8 +52,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.ActivitySummariesAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -371,7 +367,7 @@ public class ActivitySummariesActivity extends AbstractListActivity<BaseActivity
                 date.set(year, monthOfYear, dayOfMonth);
 
                 long timestamp = date.getTimeInMillis() - 1000;
-                SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(mGBDevice.getAddress()).edit();
+                SharedPreferences.Editor editor = WearableApplication.getDeviceSpecificSharedPrefs(mGBDevice.getAddress()).edit();
                 editor.remove("lastSportsActivityTimeMillis"); //FIXME: key reconstruction is BAD
                 editor.putLong("lastSportsActivityTimeMillis", timestamp);
                 editor.apply();
@@ -400,7 +396,7 @@ public class ActivitySummariesActivity extends AbstractListActivity<BaseActivity
     private void fetchTrackData() {
         if (mGBDevice.isInitialized() && !mGBDevice.isBusy()) {
             swipeLayout.setRefreshing(true);
-            GBApplication.deviceService(mGBDevice).onFetchRecordedData(RecordedDataTypes.TYPE_GPS_TRACKS);
+            WearableApplication.deviceService(mGBDevice).onFetchRecordedData(RecordedDataTypes.TYPE_GPS_TRACKS);
         } else {
             swipeLayout.setRefreshing(false);
             if (!mGBDevice.isInitialized()) {
@@ -462,7 +458,7 @@ public class ActivitySummariesActivity extends AbstractListActivity<BaseActivity
     }
 
     private long getDeviceId(GBDevice device) {
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             Device dbDevice = DBHelper.findDevice(device, handler.getDaoSession());
             return dbDevice.getId();
         } catch (Exception e) {

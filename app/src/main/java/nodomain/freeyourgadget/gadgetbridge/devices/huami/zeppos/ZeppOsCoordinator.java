@@ -33,14 +33,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.HeartRateCapability;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.password.PasswordCapabilityImpl;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.SampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.devices.Vo2MaxSampleProvider;
@@ -273,7 +273,7 @@ public abstract class ZeppOsCoordinator extends HuamiCoordinator {
     @Override
     protected void deleteDevice(@NonNull final GBDevice gbDevice,
                                 @NonNull final Device device,
-                                @NonNull final DaoSession session) throws GBException {
+                                @NonNull final DaoSession session) throws WearableException {
         final Long deviceId = device.getId();
 
         session.getHuamiExtendedActivitySampleDao().queryBuilder()

@@ -32,12 +32,11 @@ import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.hplus.HPlusConstants;
-import nodomain.freeyourgadget.gadgetbridge.devices.hplus.HPlusCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.hplus.HPlusHealthSampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.HPlusHealthActivityOverlay;
@@ -272,7 +271,7 @@ class HPlusHandlerThread extends GBDeviceIoThread {
 
             List<Integer> notWornSlots = new ArrayList<>();
 
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = WearableApplication.acquireDB()) {
                 HPlusHealthSampleProvider provider = new HPlusHealthSampleProvider(getDevice(), dbHandler.getDaoSession());
                 List<HPlusHealthActivitySample> samples = new ArrayList<>();
 
@@ -335,7 +334,7 @@ class HPlusHandlerThread extends GBDeviceIoThread {
                     overlayDao.insertOrReplaceInTx(overlayList);
                 }
 
-            } catch (GBException ex) {
+            } catch (WearableException ex) {
                 LOG.info((ex.getMessage()));
             } catch (Exception ex) {
                 LOG.info(ex.getMessage());
@@ -366,7 +365,7 @@ class HPlusHandlerThread extends GBDeviceIoThread {
 
         mLastSleepDayReceived.setTimeInMillis(record.bedTimeStart * 1000L);
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             DaoSession session = dbHandler.getDaoSession();
             Long userId = DBHelper.getUser(session).getId();
             Long deviceId = DBHelper.getDevice(getDevice(), session).getId();
@@ -427,7 +426,7 @@ class HPlusHandlerThread extends GBDeviceIoThread {
 
         getDevice().setBatteryLevel(record.battery);
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             HPlusHealthSampleProvider provider = new HPlusHealthSampleProvider(getDevice(), dbHandler.getDaoSession());
 
             HPlusHealthActivitySample sample = createSample(dbHandler, record.timestamp);
@@ -453,7 +452,7 @@ class HPlusHandlerThread extends GBDeviceIoThread {
 
 
             //TODO: Handle Active Time. With Overlay?
-        } catch (GBException ex) {
+        } catch (WearableException ex) {
             LOG.info((ex.getMessage()));
         } catch (Exception ex) {
             LOG.info(ex.getMessage());
@@ -478,7 +477,7 @@ class HPlusHandlerThread extends GBDeviceIoThread {
             return false;
         }
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             HPlusHealthSampleProvider provider = new HPlusHealthSampleProvider(getDevice(), dbHandler.getDaoSession());
 
             HPlusHealthActivitySample sample = createSample(dbHandler, record.timestamp);
@@ -493,7 +492,7 @@ class HPlusHandlerThread extends GBDeviceIoThread {
 
             sample.setProvider(provider);
             provider.addGBActivitySample(sample);
-        } catch (GBException ex) {
+        } catch (WearableException ex) {
             LOG.info((ex.getMessage()));
         } catch (Exception ex) {
             LOG.info(ex.getMessage());

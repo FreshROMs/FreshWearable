@@ -24,8 +24,8 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractBLClassicDeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.SampleProvider;
@@ -122,7 +122,7 @@ public abstract class GalaxyBudsGenericCoordinator extends AbstractBLClassicDevi
 
     @Override
     protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device
-            device, @NonNull DaoSession session) throws GBException {
+            device, @NonNull DaoSession session) throws WearableException {
 
     }
 

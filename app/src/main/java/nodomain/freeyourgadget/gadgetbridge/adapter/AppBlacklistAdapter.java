@@ -46,12 +46,12 @@ import java.util.List;
 import java.util.Set;
 
 import androidx.recyclerview.widget.RecyclerView;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.NotificationFilterActivity;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-import static nodomain.freeyourgadget.gadgetbridge.GBApplication.packageNameToPebbleMsgSender;
+import static xyz.tenseventyseven.fresh.wearable.WearableApplication.packageNameToPebbleMsgSender;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +83,7 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
             if (name == null) {
                 name = ai.packageName;
             }
-            if (GBApplication.appIsNotifBlacklisted(ai.packageName) || GBApplication.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(ai.packageName))) {
+            if (WearableApplication.appIsNotifBlacklisted(ai.packageName) || WearableApplication.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(ai.packageName))) {
                 // sort blacklisted first by prefixing with a '!'
                 name = "!" + name;
             }
@@ -115,17 +115,17 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
         holder.deviceAppNameLabel.setText(mNameMap.get(appInfo));
         holder.deviceImageView.setImageDrawable(appInfo.loadIcon(mPm));
 
-        holder.blacklist_checkbox.setChecked(GBApplication.appIsNotifBlacklisted(appInfo.packageName));
-        holder.blacklist_pebble_checkbox.setChecked(GBApplication.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(appInfo.packageName)));
+        holder.blacklist_checkbox.setChecked(WearableApplication.appIsNotifBlacklisted(appInfo.packageName));
+        holder.blacklist_pebble_checkbox.setChecked(WearableApplication.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(appInfo.packageName)));
 
         holder.blacklist_pebble_checkbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((CheckedTextView) view).toggle();
                 if (((CheckedTextView) view).isChecked()) {
-                    GBApplication.addAppToPebbleBlacklist(appInfo.packageName);
+                    WearableApplication.addAppToPebbleBlacklist(appInfo.packageName);
                 } else {
-                    GBApplication.removeFromAppsPebbleBlacklist(appInfo.packageName);
+                    WearableApplication.removeFromAppsPebbleBlacklist(appInfo.packageName);
                 }
 
             }
@@ -136,9 +136,9 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
                 CheckedTextView checkBox = (v.findViewById(R.id.item_checkbox));
                 checkBox.toggle();
                 if (checkBox.isChecked()) {
-                    GBApplication.addAppToNotifBlacklist(appInfo.packageName);
+                    WearableApplication.addAppToNotifBlacklist(appInfo.packageName);
                 } else {
-                    GBApplication.removeFromAppsNotifBlacklist(appInfo.packageName);
+                    WearableApplication.removeFromAppsNotifBlacklist(appInfo.packageName);
                 }
             }
         });
@@ -147,7 +147,7 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
             @Override
             public void onClick(View view) {
 
-                if (GBApplication.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
+                if (WearableApplication.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
                     if (holder.blacklist_checkbox.isChecked()) {
                         GB.toast(mContext, mContext.getString(R.string.toast_app_must_not_be_selected), Toast.LENGTH_SHORT, GB.INFO);
                     } else {
@@ -215,13 +215,13 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
         for (ApplicationInfo ai : allApps) {
             apps_blacklist.add(ai.packageName);
         }
-        GBApplication.setAppsNotifBlackList(apps_blacklist);
+        WearableApplication.setAppsNotifBlackList(apps_blacklist);
         notifyDataSetChanged();
     }
 
     public void uncheckAllApplications() {
         Set<String> apps_blacklist = new HashSet<>();
-        GBApplication.setAppsNotifBlackList(apps_blacklist);
+        WearableApplication.setAppsNotifBlackList(apps_blacklist);
         notifyDataSetChanged();
     }
 

@@ -69,9 +69,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.model.GenericItem;
@@ -81,7 +81,7 @@ import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.adapter.foss
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.buttonconfig.ConfigPayload;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class QHybridConfigActivity extends AbstractGBActivity {
+public class QHybridConfigActivity extends CommonActivityAbstract {
     PackageAdapter adapter;
     ArrayList<NotificationConfiguration> list;
     PackageConfigHelper helper;
@@ -117,7 +117,7 @@ public class QHybridConfigActivity extends AbstractGBActivity {
             }
         });
 
-        prefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+        prefs = WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress());
         timeOffsetView = findViewById(R.id.qhybridTimeOffset);
         timeOffsetView.setOnClickListener(new View.OnClickListener() {
             @Override

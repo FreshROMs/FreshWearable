@@ -27,7 +27,7 @@ import android.os.Looper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCallControl;
@@ -50,12 +50,14 @@ public class HeadphoneHelper {
     public HeadphoneHelper(Context context, GBDevice device, Callback callback) {
         this.device = device;
         this.callback = callback;
-        final SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(this.device.getAddress());
+        final SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(this.device.getAddress());
         gbTextToSpeech = new GBTextToSpeech(context, new UtteranceProgressListener(),
                 prefs.getBoolean(PREF_SPEAK_NOTIFICATIONS_FOCUS_EXCLUSIVE, false) ?
                         AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE :
                         AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK
         );
+
+        LOG.debug("HeadphoneHelper created.");
     }
 
     public void dispose() {
@@ -63,7 +65,7 @@ public class HeadphoneHelper {
     }
 
     public void onSetCallState(CallSpec callSpec) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+        SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress());
 
         if (!prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_AUTO_REPLY_INCOMING_CALL, false))
                 return;
@@ -97,10 +99,14 @@ public class HeadphoneHelper {
     }
 
     public void onNotification(NotificationSpec notificationSpec) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+        SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+
+        LOG.debug("Notification received: {}", notificationSpec);
 
         if (!prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_SPEAK_NOTIFICATIONS_ALOUD, false))
             return;
+
+        LOG.debug("Speaking notification: {}", notificationSpec);
 
         if (gbTextToSpeech.isConnected()) {
             String notificationSpeller = new StringBuilder()
@@ -119,7 +125,7 @@ public class HeadphoneHelper {
      */
     public boolean onSendConfiguration(String config) {
         if (PREF_SPEAK_NOTIFICATIONS_FOCUS_EXCLUSIVE.equals(config)) {
-            final SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+            final SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress());
             gbTextToSpeech.setAudioFocus(prefs.getBoolean(PREF_SPEAK_NOTIFICATIONS_FOCUS_EXCLUSIVE, false) ?
                     AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_EXCLUSIVE :
                     AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK);
@@ -140,7 +146,7 @@ public class HeadphoneHelper {
 
             gbTextToSpeech.abandonFocus();
             if (utteranceId.equals("call")) {
-                SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(HeadphoneHelper.this.device.getAddress());
+                SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(HeadphoneHelper.this.device.getAddress());
                 final int delayMillis = Integer.parseInt(prefs.getString(DeviceSettingsPreferenceConst.PREF_AUTO_REPLY_INCOMING_CALL_DELAY, "15")) * 1000;
 
 

@@ -42,8 +42,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
@@ -158,7 +158,7 @@ public class ActivityListingChartFragment extends AbstractActivityChartFragment<
         Date activityDate = new Date(tsDateTo * 1000L);
         stepsDateView.setText(DateTimeUtils.formatDate(activityDate, DateUtils.FORMAT_SHOW_WEEKDAY));
 
-        if (GBApplication.getPrefs().getBoolean("charts_show_ongoing_activity", true)) {
+        if (WearableApplication.getPrefs().getBoolean("charts_show_ongoing_activity", true)) {
             if (mcd.getOngoingSession() != null && DateUtils.isToday(activityDate.getTime())) {
                 showOngoingActivitySnackbar(mcd.getOngoingSession());
             }

@@ -15,9 +15,9 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySummaryEntries;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
@@ -32,8 +32,8 @@ public class WorkoutValueFormatter {
     private final DecimalFormat df = new DecimalFormat("#.##");
 
     public WorkoutValueFormatter() {
-        this.units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
-        this.UNIT_IMPERIAL = GBApplication.getContext().getString(R.string.p_unit_imperial);
+        this.units = WearableApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, WearableApplication.getContext().getString(R.string.p_unit_metric));
+        this.UNIT_IMPERIAL = WearableApplication.getContext().getString(R.string.p_unit_imperial);
     }
 
     public void toggleRawData() {
@@ -42,7 +42,7 @@ public class WorkoutValueFormatter {
 
     public String formatValue(final Object rawValue, String unit) {
         if (rawValue == null) {
-            return GBApplication.getContext().getString(R.string.stats_empty_value);
+            return WearableApplication.getContext().getString(R.string.stats_empty_value);
         }
 
         if (ActivitySummaryEntries.UNIT_RAW_STRING.equals(unit)) {
@@ -148,12 +148,12 @@ public class WorkoutValueFormatter {
 
     public String getStringResourceByName(String aString) {
         String packageName = BuildConfig.APPLICATION_ID;
-        int resId = GBApplication.getContext().getResources().getIdentifier(aString, "string", packageName);
+        int resId = WearableApplication.getContext().getResources().getIdentifier(aString, "string", packageName);
         if (resId == 0) {
             //LOG.warn("SportsActivity " + "Missing string in strings:" + aString);
             return aString;
         } else {
-            return GBApplication.getContext().getString(resId);
+            return WearableApplication.getContext().getString(resId);
         }
     }
 }

@@ -28,7 +28,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.Alarms;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.AccountRelated;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.App;
@@ -810,7 +810,7 @@ public class HuaweiPacket {
             int length = packet.position() - start;
             if (length != packetSize - footerLength) {
                 // TODO: exception?
-                LOG.error(String.format(GBApplication.getLanguage(), "Packet lengths don't match! %d != %d", length, packetSize + headerLength));
+                LOG.error(String.format(WearableApplication.getLanguage(), "Packet lengths don't match! %d != %d", length, packetSize + headerLength));
             }
 
             byte[] complete = new byte[length];

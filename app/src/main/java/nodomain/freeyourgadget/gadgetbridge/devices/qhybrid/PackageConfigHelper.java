@@ -24,7 +24,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.misfit.PlayNotificationRequest;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -58,7 +58,7 @@ public class PackageConfigHelper {
         values.put(DB_VIBRATION, settings.getVibration().getValue());
         values.put(DB_RESPECT_SILENT, settings.getRespectSilentMode());
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             SQLiteDatabase database = db.getDatabase();
 
             if (settings.getId() == -1) {
@@ -71,7 +71,7 @@ public class PackageConfigHelper {
     }
 
     public ArrayList<NotificationConfiguration> getNotificationConfigurations() throws Exception {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             SQLiteDatabase database = db.getDatabase();
 
             try (Cursor cursor = database.query(DB_TABLE, new String[]{"*"}, null, null, null, null, null)) {
@@ -107,7 +107,7 @@ public class PackageConfigHelper {
     public NotificationConfiguration getNotificationConfiguration(String appName) throws Exception {
         if(appName == null) return null;
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             SQLiteDatabase database = db.getDatabase();
 
             try (Cursor c = database.query(DB_TABLE, new String[]{"*"}, DB_APPNAME + "=?", new String[]{appName}, null, null, null)) {
@@ -130,7 +130,7 @@ public class PackageConfigHelper {
     }
 
     private void initDB() throws Exception {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             SQLiteDatabase database = db.getDatabase();
 
             database.execSQL("CREATE TABLE IF NOT EXISTS notifications(" +
@@ -148,7 +148,7 @@ public class PackageConfigHelper {
         Log.d("DB", "deleting id " + packageSettings.getId());
         if(packageSettings.getId() == -1) return;
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             SQLiteDatabase database = db.getDatabase();
             database.delete(DB_TABLE, DB_ID + "=?", new String[]{String.valueOf(packageSettings.getId())});
         }

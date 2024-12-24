@@ -14,27 +14,27 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge;
+package xyz.tenseventyseven.fresh.wearable;
 
 /**
  * Some more or less useful utility methods to aid local (non-device) testing.
  */
-public class GBEnvironment {
+public class Environment {
 // DO NOT USE A LOGGER HERE. Will break LoggingTest!
 //    private static final Logger LOG = LoggerFactory.getLogger(GBEnvironment.class);
 
-    private static GBEnvironment environment;
+    private static Environment environment;
     private boolean localTest;
     private boolean deviceTest;
 
-    public static GBEnvironment createLocalTestEnvironment() {
-        GBEnvironment env = new GBEnvironment();
+    public static Environment createLocalTestEnvironment() {
+        Environment env = new Environment();
         env.localTest = true;
         return env;
     }
 
-    static GBEnvironment createDeviceEnvironment() {
-        return new GBEnvironment();
+    static Environment createDeviceEnvironment() {
+        return new Environment();
     }
 
     public final boolean isTest() {
@@ -45,7 +45,7 @@ public class GBEnvironment {
         return localTest;
     }
 
-    public static synchronized GBEnvironment env() {
+    public static synchronized Environment env() {
         return environment;
     }
 
@@ -53,7 +53,7 @@ public class GBEnvironment {
         return environment != null;
     }
 
-    public synchronized static void setupEnvironment(GBEnvironment env) {
+    public synchronized static void setupEnvironment(Environment env) {
         environment = env;
     }
 }

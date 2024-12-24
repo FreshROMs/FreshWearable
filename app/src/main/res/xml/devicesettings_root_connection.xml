@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:icon="@drawable/ic_mtu"
+        android:layout="@layout/preference_checkbox"
+        android:icon="@drawable/ic_settings_advanced_connection"
         android:key="pref_screen_connection"
         android:persistent="false"
-        android:title="@string/pref_header_connection">
+        android:title="Advanced connection options">
     </PreferenceScreen>
 </androidx.preference.PreferenceScreen>

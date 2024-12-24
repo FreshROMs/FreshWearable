@@ -48,8 +48,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.SleepAnalysis.SleepSession;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.GaugeDrawer;
@@ -91,7 +91,7 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
     private int mSmartAlarmTo = -1;
     private int mTimestampFrom = -1;
     private int mSmartAlarmGoneOff = -1;
-    Prefs prefs = GBApplication.getPrefs();
+    Prefs prefs = WearableApplication.getPrefs();
     private boolean CHARTS_SLEEP_RANGE_24H = prefs.getBoolean("chart_sleep_range_24h", false);
     private boolean SHOW_CHARTS_AVERAGE = prefs.getBoolean("charts_show_average", true);
     private int sleepLinesLimit = prefs.getInt("chart_sleep_lines_limit", 6);
@@ -188,10 +188,10 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
 
     protected void sleepStagesGaugeUpdate(MySleepChartsData pieData) {
         int[] colors = new int[] {
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_light_sleep_light),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_deep_sleep_light),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_rem_sleep_light),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_awake_sleep_light),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.chart_light_sleep_light),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.chart_deep_sleep_light),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.chart_rem_sleep_light),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.chart_awake_sleep_light),
         };
         long total = pieData.getTotalSleep() + pieData.getTotalAwake();
         float[] segments = new float[] {
@@ -203,11 +203,11 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
         final int width = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 300,
-                GBApplication.getContext().getResources().getDisplayMetrics()
+                WearableApplication.getContext().getResources().getDisplayMetrics()
         );
         String lowerText = "";
         if (supportsSleepScore()) {
-            lowerText = GBApplication.getContext().getString(R.string.sleep_score_value, pieData.getSleepScore());
+            lowerText = WearableApplication.getContext().getString(R.string.sleep_score_value, pieData.getSleepScore());
         }
         sleepStagesGauge.setImageBitmap(GaugeDrawer.drawCircleGaugeSegmented(
                 width,

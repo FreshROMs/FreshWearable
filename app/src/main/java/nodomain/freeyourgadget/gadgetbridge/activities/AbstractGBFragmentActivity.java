@@ -24,6 +24,8 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+
 /**
  * A base activity that supports paging through fragments by swiping.
  * Subclasses will have to add a ViewPager to their layout and add something
@@ -37,7 +39,7 @@ import androidx.viewpager.widget.PagerAdapter;
  *
  * @see AbstractGBFragment
  */
-public abstract class AbstractGBFragmentActivity extends AbstractGBActivity {
+public abstract class AbstractGBFragmentActivity extends CommonActivityAbstract {
     /**
      * The {@link PagerAdapter} that will provide
      * fragments for each of the sections. We use a

@@ -41,8 +41,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.GBWorldClockListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -53,9 +53,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.entities.WorldClock;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 
-public class ConfigureWorldClocks extends AbstractGBActivity {
+public class ConfigureWorldClocks extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureWorldClocks.class);
 
     private static final int REQ_CONFIGURE_WORLD_CLOCK = 1;
@@ -104,7 +105,7 @@ public class ConfigureWorldClocks extends AbstractGBActivity {
                 }
 
                 final WorldClock worldClock;
-                try (DBHandler db = GBApplication.acquireDB()) {
+                try (DBHandler db = WearableApplication.acquireDB()) {
                     final DaoSession daoSession = db.getDaoSession();
                     final Device device = DBHelper.getDevice(gbDevice, daoSession);
                     final User user = DBHelper.getUser(daoSession);
@@ -214,7 +215,7 @@ public class ConfigureWorldClocks extends AbstractGBActivity {
 
     private void sendWorldClocksToDevice() {
         if (gbDevice.isInitialized()) {
-            GBApplication.deviceService(gbDevice).onSetWorldClocks(mGBWorldClockListAdapter.getWorldClockList());
+            WearableApplication.deviceService(gbDevice).onSetWorldClocks(mGBWorldClockListAdapter.getWorldClockList());
         }
     }
 }

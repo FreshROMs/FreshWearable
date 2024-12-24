@@ -95,10 +95,10 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.TreeMap;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.Widget;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.Widget;
 import nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconAdapter;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconItem;
@@ -130,8 +130,9 @@ import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public class DebugActivity extends AbstractGBActivity {
+public class DebugActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(DebugActivity.class);
 
     private static Bundle dataLossSave;
@@ -231,7 +232,7 @@ public class DebugActivity extends AbstractGBActivity {
                     notificationSpec.attachedActions.add(replyAction);
                 }
 
-                GBApplication.deviceService().onNotification(notificationSpec);
+                WearableApplication.deviceService().onNotification(notificationSpec);
             }
         });
 
@@ -242,7 +243,7 @@ public class DebugActivity extends AbstractGBActivity {
                 CallSpec callSpec = new CallSpec();
                 callSpec.command = CallSpec.CALL_INCOMING;
                 callSpec.number = editContent.getText().toString();
-                GBApplication.deviceService().onSetCallState(callSpec);
+                WearableApplication.deviceService().onSetCallState(callSpec);
             }
         });
         Button outgoingCallButton = findViewById(R.id.outgoingCallButton);
@@ -252,7 +253,7 @@ public class DebugActivity extends AbstractGBActivity {
                 CallSpec callSpec = new CallSpec();
                 callSpec.command = CallSpec.CALL_OUTGOING;
                 callSpec.number = editContent.getText().toString();
-                GBApplication.deviceService().onSetCallState(callSpec);
+                WearableApplication.deviceService().onSetCallState(callSpec);
             }
         });
 
@@ -262,7 +263,7 @@ public class DebugActivity extends AbstractGBActivity {
             public void onClick(View v) {
                 CallSpec callSpec = new CallSpec();
                 callSpec.command = CallSpec.CALL_START;
-                GBApplication.deviceService().onSetCallState(callSpec);
+                WearableApplication.deviceService().onSetCallState(callSpec);
             }
         });
         Button endCallButton = findViewById(R.id.endCallButton);
@@ -271,7 +272,7 @@ public class DebugActivity extends AbstractGBActivity {
             public void onClick(View v) {
                 CallSpec callSpec = new CallSpec();
                 callSpec.command = CallSpec.CALL_END;
-                GBApplication.deviceService().onSetCallState(callSpec);
+                WearableApplication.deviceService().onSetCallState(callSpec);
             }
         });
 
@@ -279,7 +280,7 @@ public class DebugActivity extends AbstractGBActivity {
         rebootButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GBApplication.deviceService().onReset(GBDeviceProtocol.RESET_FLAGS_REBOOT);
+                WearableApplication.deviceService().onReset(GBDeviceProtocol.RESET_FLAGS_REBOOT);
             }
         });
 
@@ -294,7 +295,7 @@ public class DebugActivity extends AbstractGBActivity {
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                GBApplication.deviceService().onReset(GBDeviceProtocol.RESET_FLAGS_FACTORY_RESET);
+                                WearableApplication.deviceService().onReset(GBDeviceProtocol.RESET_FLAGS_FACTORY_RESET);
                             }
                         })
                         .setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
@@ -311,7 +312,7 @@ public class DebugActivity extends AbstractGBActivity {
             @Override
             public void onClick(View v) {
                 GB.toast("Measuring heart rate, please wait...", Toast.LENGTH_LONG, GB.INFO);
-                GBApplication.deviceService().onHeartRateTest();
+                WearableApplication.deviceService().onHeartRateTest();
             }
         });
 
@@ -323,8 +324,8 @@ public class DebugActivity extends AbstractGBActivity {
                 final Calendar currentDate = Calendar.getInstance();
                 Context context = getApplicationContext();
 
-                if (context instanceof GBApplication) {
-                    GBApplication gbApp = (GBApplication) context;
+                if (context instanceof WearableApplication) {
+                    WearableApplication gbApp = (WearableApplication) context;
                     final List<GBDevice> devices = gbApp.getDeviceManager().getSelectedDevices();
                     if(devices.size() == 0){
                         GB.toast("Device not selected/connected", Toast.LENGTH_LONG, GB.INFO);
@@ -340,7 +341,7 @@ public class DebugActivity extends AbstractGBActivity {
                             GB.toast("Setting lastSyncTimeMillis: " + timestamp, Toast.LENGTH_LONG, GB.INFO);
 
                             for(GBDevice device : devices){
-                                SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).edit();
+                                SharedPreferences.Editor editor = WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress()).edit();
                                 editor.remove("lastSyncTimeMillis"); //FIXME: key reconstruction is BAD
                                 editor.putLong("lastSyncTimeMillis", timestamp);
                                 editor.apply();
@@ -387,7 +388,7 @@ public class DebugActivity extends AbstractGBActivity {
                 }
 
                 final ArrayList<WeatherSpec> specs = new ArrayList<>(Weather.getInstance().getWeatherSpecs());
-                GBApplication.deviceService().onSendWeather(specs);
+                WearableApplication.deviceService().onSendWeather(specs);
             }
         });
 
@@ -434,7 +435,7 @@ public class DebugActivity extends AbstractGBActivity {
                 musicSpec.trackCount = 5;
                 musicSpec.trackNr = 2;
 
-                GBApplication.deviceService().onSetMusicInfo(musicSpec);
+                WearableApplication.deviceService().onSetMusicInfo(musicSpec);
 
                 MusicStateSpec stateSpec = new MusicStateSpec();
                 stateSpec.position = 0;
@@ -443,7 +444,7 @@ public class DebugActivity extends AbstractGBActivity {
                 stateSpec.repeat = 1;
                 stateSpec.shuffle = 1;
 
-                GBApplication.deviceService().onSetMusicState(stateSpec);
+                WearableApplication.deviceService().onSetMusicState(stateSpec);
             }
         });
 
@@ -451,7 +452,7 @@ public class DebugActivity extends AbstractGBActivity {
         setTimeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GBApplication.deviceService().onSetTime();
+                WearableApplication.deviceService().onSetTime();
             }
         });
 
@@ -475,7 +476,7 @@ public class DebugActivity extends AbstractGBActivity {
         fetchDebugLogsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GBApplication.deviceService().onFetchRecordedData(RecordedDataTypes.TYPE_DEBUGLOGS);
+                WearableApplication.deviceService().onFetchRecordedData(RecordedDataTypes.TYPE_DEBUGLOGS);
             }
         });
 
@@ -543,10 +544,10 @@ public class DebugActivity extends AbstractGBActivity {
                         .setTitle(R.string.debugactivity_confirm_remove_device_preferences_title)
                         .setMessage(R.string.debugactivity_confirm_remove_device_preferences)
                         .setPositiveButton(R.string.ok, (dialog, which) -> {
-                            final GBApplication gbApp = (GBApplication) getApplicationContext();
+                            final WearableApplication gbApp = (WearableApplication) getApplicationContext();
                             final List<GBDevice> devices = gbApp.getDeviceManager().getSelectedDevices();
                             for(final GBDevice device : devices){
-                                GBApplication.deleteDeviceSpecificSharedPrefs(device.getAddress());
+                                WearableApplication.deleteDeviceSpecificSharedPrefs(device.getAddress());
                             }
                         })
                         .setNegativeButton(R.string.Cancel, (dialog, which) -> {})
@@ -636,14 +637,14 @@ public class DebugActivity extends AbstractGBActivity {
 
         CheckBox activity_list_debug_extra_time_range = findViewById(R.id.activity_list_debug_extra_time_range);
         activity_list_debug_extra_time_range.setAllCaps(true);
-        boolean activity_list_debug_extra_time_range_value = GBApplication.getPrefs().getPreferences().getBoolean("activity_list_debug_extra_time_range", false);
+        boolean activity_list_debug_extra_time_range_value = WearableApplication.getPrefs().getPreferences().getBoolean("activity_list_debug_extra_time_range", false);
         activity_list_debug_extra_time_range.setChecked(activity_list_debug_extra_time_range_value);
 
         activity_list_debug_extra_time_range.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                GBApplication.getPrefs().getPreferences().getBoolean("activity_list_debug_extra_time_range", false);
-                SharedPreferences.Editor editor = GBApplication.getPrefs().getPreferences().edit();
+                WearableApplication.getPrefs().getPreferences().getBoolean("activity_list_debug_extra_time_range", false);
+                SharedPreferences.Editor editor = WearableApplication.getPrefs().getPreferences().edit();
                 editor.putBoolean("activity_list_debug_extra_time_range", b).apply();
             }
         });
@@ -682,7 +683,7 @@ public class DebugActivity extends AbstractGBActivity {
                     return;
                 }
 
-                final CompanionDeviceManager manager = (CompanionDeviceManager) GBApplication.getContext().getSystemService(Context.COMPANION_DEVICE_SERVICE);
+                final CompanionDeviceManager manager = (CompanionDeviceManager) WearableApplication.getContext().getSystemService(Context.COMPANION_DEVICE_SERVICE);
                 final List<String> associations = new ArrayList<>(manager.getAssociations());
                 Collections.sort(associations);
                 String companionDevicesList = String.format(Locale.ROOT, "%d companion devices", associations.size());
@@ -740,7 +741,7 @@ public class DebugActivity extends AbstractGBActivity {
                         LOG.debug("openTracksObserver debug watch dialog running");
                         handler.postDelayed(this, delay); //schedule next execution
 
-                        OpenTracksContentObserver openTracksObserver = GBApplication.app().getOpenTracksObserver();
+                        OpenTracksContentObserver openTracksObserver = WearableApplication.app().getOpenTracksObserver();
                         if (openTracksObserver == null) {
                             LOG.debug("openTracksObserver is null");
                             alert.cancel();
@@ -811,7 +812,7 @@ public class DebugActivity extends AbstractGBActivity {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private void pairCurrentAsCompanion() {
-        final GBApplication gbApp = (GBApplication) getApplicationContext();
+        final WearableApplication gbApp = (WearableApplication) getApplicationContext();
         final List<GBDevice> devices = gbApp.getDeviceManager().getSelectedDevices();
         if (devices.size() != 1) {
             GB.toast("Please connect to a single device that you want to pair as companion", Toast.LENGTH_LONG, GB.WARN);
@@ -953,16 +954,16 @@ public class DebugActivity extends AbstractGBActivity {
     }
 
     private void testNewFunctionality() {
-        GBApplication.deviceService().onTestNewFunction();
+        WearableApplication.deviceService().onTestNewFunction();
     }
 
     private void shareLog() {
-        String fileName = GBApplication.getLogPath();
+        String fileName = WearableApplication.getLogPath();
         if (fileName != null && fileName.length() > 0) {
             // Flush the logs, so that we ensure latest lines are also there
-            GBApplication.getLogging().setImmediateFlush(true);
+            WearableApplication.getLogging().setImmediateFlush(true);
             LOG.debug("Flushing logs before sharing");
-            GBApplication.getLogging().setImmediateFlush(false);
+            WearableApplication.getLogging().setImmediateFlush(false);
 
             File logFile = new File(fileName);
             if (!logFile.exists()) {
@@ -1062,7 +1063,7 @@ public class DebugActivity extends AbstractGBActivity {
             }
         };
         try (
-            DBHandler db = GBApplication.acquireDB()) {
+            DBHandler db = WearableApplication.acquireDB()) {
             DaoSession daoSession = db.getDaoSession();
             GBDevice gbDevice = new GBDevice(deviceMac, deviceName, "", null, deviceType);
             gbDevice.setFirmwareVersion("N/A");
@@ -1221,7 +1222,7 @@ public class DebugActivity extends AbstractGBActivity {
 
     public static Map<String, Pair<Long, Integer>> getAllSupportedDevices(Context appContext) {
         LinkedHashMap<String, Pair<Long, Integer>> newMap = new LinkedHashMap<>(1);
-        GBApplication app = (GBApplication) appContext;
+        WearableApplication app = (WearableApplication) appContext;
         for (DeviceType deviceType : DeviceType.values()) {
             DeviceCoordinator coordinator = deviceType.getDeviceCoordinator();
             int icon = coordinator.getDefaultIconResource();

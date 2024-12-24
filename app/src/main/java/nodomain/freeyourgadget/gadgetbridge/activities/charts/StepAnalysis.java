@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
@@ -38,9 +38,9 @@ public class StepAnalysis {
         LOG.debug("get all samples activity sessions: {}", samples.size());
         List<ActivitySession> result = new ArrayList<>();
         ActivityUser activityUser = new ActivityUser();
-        final int MIN_SESSION_LENGTH = 60 * GBApplication.getPrefs().getInt("chart_list_min_session_length", 5);
-        final int MAX_IDLE_PHASE_LENGTH = 60 * GBApplication.getPrefs().getInt("chart_list_max_idle_phase_length", 5);
-        final int MIN_STEPS_PER_MINUTE = GBApplication.getPrefs().getInt("chart_list_min_steps_per_minute", 40);
+        final int MIN_SESSION_LENGTH = 60 * WearableApplication.getPrefs().getInt("chart_list_min_session_length", 5);
+        final int MAX_IDLE_PHASE_LENGTH = 60 * WearableApplication.getPrefs().getInt("chart_list_max_idle_phase_length", 5);
+        final int MIN_STEPS_PER_MINUTE = WearableApplication.getPrefs().getInt("chart_list_min_steps_per_minute", 40);
         int stepLengthCm = activityUser.getStepLengthCm();
         final double STEP_LENGTH_M = stepLengthCm * 0.01;
         final double MIN_SESSION_INTENSITY = Math.max(0, Math.min(1, MIN_STEPS_PER_MINUTE * 0.01));
@@ -240,7 +240,7 @@ public class StepAnalysis {
     }
 
     private ActivityKind detect_activity_kind(int session_length, int activeSteps, int heartRateAverage, float intensity) {
-        final int MIN_STEPS_PER_MINUTE_FOR_RUN = GBApplication.getPrefs().getInt("chart_list_min_steps_per_minute_for_run", 120);
+        final int MIN_STEPS_PER_MINUTE_FOR_RUN = WearableApplication.getPrefs().getInt("chart_list_min_steps_per_minute_for_run", 120);
         int spm = (int) (activeSteps / (session_length / 60));
         if (spm > MIN_STEPS_PER_MINUTE_FOR_RUN) {
             return ActivityKind.RUNNING;

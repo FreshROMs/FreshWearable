@@ -27,8 +27,8 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.SharedPreferences;
 import android.os.Handler;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -90,7 +90,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
         builder.write(writeCharacteristic, Message.encodeGetBatteryStatus());
         builder.write(writeCharacteristic, Message.encodeGetFirmwareVersion());
 
-        if (GBApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
+        if (WearableApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
             builder.write(writeCharacteristic, makeSetDateTimeMessage());
         }
         // sync all preferences to device
@@ -387,7 +387,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private boolean getDevicePrefsNotificationEnabled() {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        final Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         return prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_NOTIFICATION_ENABLE, false);
     }
 
@@ -409,7 +409,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private byte[] makeSetSystemDataMessage() {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        final Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         final String localeString = prefs.getString(DeviceSettingsPreferenceConst.PREF_LANGUAGE, DeviceSettingsPreferenceConst.PREF_LANGUAGE_AUTO);
 
         String language;
@@ -426,7 +426,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private byte[] makeSetUnitMessage() {
-        final Prefs prefs = GBApplication.getPrefs();
+        final Prefs prefs = WearableApplication.getPrefs();
         String unit = prefs.getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, "metric");
 
         return Message.encodeSetUnit(unit.equals("metric"));
@@ -443,7 +443,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private byte[] makeSetDoNotDisturbMessage() {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        final Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
 
         final String enabled = prefs.getString(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_NOAUTO, "off");
         if (!enabled.equals(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_SCHEDULED)) {
@@ -469,7 +469,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private byte[] makeSetAutoHeartRate() {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        final Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
 
         final boolean enabled = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_AUTOHEARTRATE_SWITCH, false);
         if (!enabled) {
@@ -504,7 +504,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private byte[] makeSetHydrationReminderMessage() {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        final Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
 
         boolean enabled = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_HYDRATION_SWITCH, false);
         final String intervalStr = prefs.getString(DeviceSettingsPreferenceConst.PREF_HYDRATION_PERIOD, "60");
@@ -532,7 +532,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private byte[] makeSetLiftWristMessage() {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        final Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         final String enabled = prefs.getString(DeviceSettingsPreferenceConst.PREF_ACTIVATE_DISPLAY_ON_LIFT, "off");
 
         final boolean isEnabled = !enabled.equals("off");
@@ -554,7 +554,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void handleCameraRemote(GBDeviceEventCameraRemote.Event eventType) {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        final Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         if (!prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_CAMERA_REMOTE, false))
             return;
 
@@ -571,7 +571,7 @@ public final class HamaFit6900DeviceSupport extends AbstractBTLEDeviceSupport {
 
     private void handleFindPhone(boolean start) {
         if (start) {
-            SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+            SharedPreferences sharedPreferences = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
             String findPhone = sharedPreferences.getString(PREF_FIND_PHONE, getContext().getString(R.string.p_off));
             if (findPhone.equals("off"))
                 return;

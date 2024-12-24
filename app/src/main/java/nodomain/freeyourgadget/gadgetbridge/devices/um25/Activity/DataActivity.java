@@ -30,14 +30,13 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.um25.Data.MeasurementData;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.um25.Support.UM25Support;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class DataActivity extends AbstractGBActivity {
+public class DataActivity extends CommonActivityAbstract {
     private HashMap<Integer, TextView> valueViews = new HashMap<>(ValueDisplay.values().length);
 
     private TextView chargeDurationTextView;

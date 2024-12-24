@@ -28,17 +28,15 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.casio.CasioConstants;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.AbstractBTLEOperation;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.casio.Casio2C2DSupport;
-import nodomain.freeyourgadget.gadgetbridge.service.devices.casio.gbx100.CasioGBX100DeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.miband.operations.OperationStatus;
 import nodomain.freeyourgadget.gadgetbridge.util.BcdUtil;
-import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
 import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst.PREF_AUTOLIGHT;
 import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst.PREF_KEY_VIBRATION;
@@ -113,7 +111,7 @@ public class SetConfigurationOperation  extends AbstractBTLEOperation<CasioGBX10
                     data[5] = BcdUtil.toBcd8((weight - (weight % 100)) / 100);
                 }
                 if (option == CasioConstants.ConfigurationOption.OPTION_WRIST || all) {
-                    String location = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getString(PREF_WEARLOCATION, "left");
+                    String location = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getString(PREF_WEARLOCATION, "left");
                     if (location == "right") {
                         data[1] = (byte) (data[1] | 0x02);
                     } else {
@@ -201,9 +199,9 @@ public class SetConfigurationOperation  extends AbstractBTLEOperation<CasioGBX10
                 }
                 return true;
             } else if(data[0] == Casio2C2DSupport.FEATURE_SETTING_FOR_BASIC) {
-                SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+                SharedPreferences sharedPreferences = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
-                String timeformat = GBApplication.getDevicePrefs(getDevice()).getTimeFormat();
+                String timeformat = WearableApplication.getDevicePrefs(getDevice()).getTimeFormat();
 
                 if(timeformat.equals(getContext().getString(R.string.p_timeformat_24h))) {
                     data[1]  |= 0x01;

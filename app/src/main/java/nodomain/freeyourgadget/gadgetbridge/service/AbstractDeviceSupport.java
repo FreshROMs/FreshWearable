@@ -56,9 +56,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.CameraActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.FindPhoneActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AbstractAppManagerFragment;
@@ -382,6 +382,9 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
         if (infoEvent.fwVersion != null) {
             gbDevice.setFirmwareVersion(infoEvent.fwVersion);
         }
+        if (infoEvent.hwVariant != -1) {
+            gbDevice.setVariant(infoEvent.hwVariant);
+        }
         if (infoEvent.fwVersion2 != null) {
             gbDevice.setFirmwareVersion2(infoEvent.fwVersion2);
         }
@@ -413,7 +416,7 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
             return;
         }
 
-        savePreferencesEvent.update(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        savePreferencesEvent.update(WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         gbDevice.sendDeviceUpdateIntent(context);
     }
 
@@ -519,7 +522,7 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
                 break;
             case REPLY:
                 if (deviceEvent.phoneNumber == null) {
-                    deviceEvent.phoneNumber = GBApplication.getIDSenderLookup().lookup((int) (deviceEvent.handle >> 4));
+                    deviceEvent.phoneNumber = WearableApplication.getIDSenderLookup().lookup((int) (deviceEvent.handle >> 4));
                 }
                 if (deviceEvent.phoneNumber != null) {
                     LOG.info("Got notification reply for SMS from " + deviceEvent.phoneNumber + " : " + deviceEvent.reply);
@@ -535,7 +538,7 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
             notificationListenerIntent.putExtra("handle", deviceEvent.handle);
             notificationListenerIntent.putExtra("title", deviceEvent.title);
             if (deviceEvent.reply != null) {
-                SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+                SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
                 String suffix = prefs.getString("canned_reply_suffix", null);
                 if (suffix != null && !Objects.equals(suffix, "")) {
                     deviceEvent.reply += suffix;
@@ -550,10 +553,10 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
         Context context = getContext();
         LOG.info("Got BATTERY_INFO device event");
         gbDevice.setBatteryLevel(deviceEvent.level, deviceEvent.batteryIndex);
-        gbDevice.setBatteryState(deviceEvent.state);
+        gbDevice.setBatteryState(deviceEvent.state, deviceEvent.batteryIndex);
         gbDevice.setBatteryVoltage(deviceEvent.voltage, deviceEvent.batteryIndex);
 
-        final DevicePrefs devicePrefs = GBApplication.getDevicePrefs(gbDevice);
+        final DevicePrefs devicePrefs = WearableApplication.getDevicePrefs(gbDevice);
         final BatteryConfig batteryConfig = gbDevice.getDeviceCoordinator().getBatteryConfig(gbDevice)[deviceEvent.batteryIndex];
 
         if (deviceEvent.level == GBDevice.BATTERY_UNKNOWN) {
@@ -846,7 +849,7 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
     }
 
     public DevicePrefs getDevicePrefs() {
-        return GBApplication.getDevicePrefs(gbDevice);
+        return WearableApplication.getDevicePrefs(gbDevice);
     }
 
     @Override

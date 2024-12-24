@@ -1,28 +1,21 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- light theme -->
-    <style name="GadgetbridgeTheme" parent="Theme.Material3.Light">
-        <item name="textColorPrimary">@color/primarytext_light</item>
-        <item name="textColorSecondary">@color/secondarytext</item>
-        <item name="textColorTertiary">@color/tertiarytext_light</item>
+    <style name="GadgetbridgeTheme" parent="Theme.AppCompat.DayNight">
+        <item name="textColorPrimary">@color/oui_primary_text_color</item>
+        <item name="textColorSecondary">@color/bottom_tip_textview_text_color</item>
+        <item name="textColorTertiary">@color/oui_unclickablepref_link_text_color</item>
 
-        <item name="colorPrimary">@color/primarydark_light</item>
-        <item name="colorPrimaryDark">@color/primarydark_light</item>
-
-        <item name="colorPrimaryContainer">@color/accent</item>
+        <item name="colorPrimaryContainer">@color/sesl_swipe_refresh_color2</item>
         <item name="colorOnPrimaryContainer">@android:color/white</item>
+        <item name="colorSurface">@color/oui_round_and_bgcolor</item>
 
         <item name="elevationOverlayEnabled">false</item>
 
-        <item name="actionBarStyle">@style/GadgetbridgeTheme.RedActionBar</item>
-        <item name="drawerArrowStyle">@style/GadgetbridgeTheme.DrawerButtonStyle</item>
-        <item name="toolbarNavigationButtonStyle">@style/GadgetbridgeTheme.NavigationButtonStyle</item>
-        <item name="actionOverflowButtonStyle">@style/GadgetbridgeTheme.OverflowMenuButton</item>
-        <item name="preferenceTheme">@style/AppPreferenceThemeOverlay</item>
+        <item name="actionBarStyle">@style/ThemeOverlay.AppCompat.ActionBar</item>
 
-        <item name="drawer_header_color">?attr/colorPrimaryDark</item>
-        <item name="drawer_title_color">@android:color/white</item>
-        <item name="cardview_background_color">@color/cardview_light_background</item>
+        <item name="cardview_background_color">@color/oui_background_color</item>
+
         <item name="actionmenu_icon_color">@android:color/white</item>
         <item name="chart_deep_sleep">@color/chart_deep_sleep_light</item>
         <item name="chart_light_sleep">@color/chart_light_sleep_light</item>
@@ -39,9 +32,38 @@
         <item name="deviceIconLight">#1f7fdb</item>
         <item name="deviceIconDark">#4dabf5</item>
 
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
-        <!-- FIXME: SDK 21 to 27 has light navbar on light background -->
-        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+        <item name="android:fontFamily">sec</item>
+
+
+        <item name="android:listChoiceBackgroundIndicator">?attr/listChoiceBackgroundIndicator</item>
+
+        <item name="android:statusBarColor">@color/oui_round_and_bgcolor</item>
+        <item name="android:windowBackground">@color/oui_round_and_bgcolor</item>
+        <item name="android:navigationBarColor">@color/oui_round_and_bgcolor</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+
+<!--        <item name="android:windowSplashScreenBackground" app:targetApi="s">@color/oui_round_and_bgcolor</item>-->
+<!--        <item name="android:windowSplashScreenAnimatedIcon" app:targetApi="s">@color/oui_round_and_bgcolor</item>-->
+
+        <item name="collapsingToolbarLayoutStyle">@style/Widget.Design.Light.CollapsingToolbar</item>
+        <item name="bottomNavigationStyle">@style/Widget.Design.Light.BottomNavigationView</item>
+        <item name="tabStyle">@style/OneUI.TabLayoutStyle.Light</item>
+
+        <item name="seekBarPreferenceProStyle">@style/OneUI.SeekBarPreferencePro</item>
+
+        <item name="floatingActionButtonStyle">@style/OneUI.FloatingActionButton</item>
+
+        <item name="bottomNavigationTextStyle">@style/Widget.Design.Light.BottomNavigationView.Text</item>
+
+        <item name="alertDialogTheme">@style/OneUI.ThemeOverlay.AlertDialog.Light</item>
+
+        <item name="bottomSheetDialogTheme">@style/OneUI.BottomSheetDialog.Light</item>
+        <item name="bottomSheetDragHandleStyle">@style/OneUI.BottomSheet.DragHandle</item>
+        <item name="drawerBackgroundColor">@color/drawer_background_color</item>
+
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Light.Button</item>
+        <item name="android:spinnerStyle">@style/Widget.AppCompat.Light.Spinner</item>
+        <item name="android:editTextStyle">@style/Widget.AppCompat.Light.EditText</item>
     </style>
 
     <!-- dark theme -->
@@ -196,13 +218,48 @@
         <item name="android:textColorPrimary">?attr/colorOnSecondaryContainer</item>
     </style>
 
-    <!-- splash screen -->
-    <style name="SplashTheme" parent="GadgetbridgeTheme.NoActionBar">
-        <item name="android:statusBarColor">@color/primarydark_dark</item>
-        <item name="android:navigationBarColor">@color/primarydark_dark</item>
-        <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
-        <item name="android:windowBackground">@drawable/splash</item>
+    <!-- Main App Theme -->
+    <style name="Theme.FreshWearable" parent="@style/OneUITheme">
+        <item name="android:fontFamily">sec</item>
     </style>
+
+    <style name="TextAppearance.Fresh.Onboarding.AppName" parent="@style/TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">sec</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Fresh.Onboarding.Feature.Title" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">sec</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">16.0dip</item>
+    </style>
+
+    <style name="TextAppearance.Fresh.Onboarding.Feature.Description" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">sec</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Fresh.Onboarding.Button" parent="@style/TextAppearance.AppCompat.Widget.Button">
+        <item name="android:fontFamily">sec</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontWeight">800</item>
+    </style>
+
+    <style name="Theme.Fresh.Button.Onboarding" parent="@style/OneUI.ButtonStyleColored">
+        <item name="android:textAppearance">@style/TextAppearance.Fresh.Onboarding.Button</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="buttonCornerRadius">100dp</item>
+    </style>
+
+    <style name="Theme.Fresh.Button.Equalizer" parent="@style/OneUI.ButtonStyleColored">
+        <item name="buttonCornerRadius">100dp</item>
+    </style>
+
+    <!-- splash screen -->
+    <style name="SplashTheme" parent="Theme.FreshWearable" />
 
     <!-- preferences screens -->
     <style name="AppPreferenceThemeOverlay" parent="@style/PreferenceThemeOverlay">

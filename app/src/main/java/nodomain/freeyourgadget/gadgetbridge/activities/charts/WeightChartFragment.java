@@ -22,8 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -42,8 +40,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -74,10 +72,10 @@ public class WeightChartFragment extends AbstractChartFragment<WeightChartFragme
 
     @Override
     protected void init() {
-        GBPrefs prefs = GBApplication.getPrefs();
+        GBPrefs prefs = WearableApplication.getPrefs();
 
-        colorBackground = GBApplication.getBackgroundColor(requireContext());
-        colorSecondaryText = GBApplication.getSecondaryTextColor(requireContext());
+        colorBackground = WearableApplication.getBackgroundColor(requireContext());
+        colorSecondaryText = WearableApplication.getSecondaryTextColor(requireContext());
 
         if (prefs.getBoolean("charts_range", true))
             totalDays = 30;

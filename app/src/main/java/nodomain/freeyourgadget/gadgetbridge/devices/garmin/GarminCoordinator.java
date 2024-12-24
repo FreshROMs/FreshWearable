@@ -13,9 +13,9 @@ import java.util.Map;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
@@ -62,11 +62,11 @@ public abstract class GarminCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     @Override
-    protected void deleteDevice(@NonNull final GBDevice gbDevice, @NonNull final Device device, @NonNull final DaoSession session) throws GBException {
+    protected void deleteDevice(@NonNull final GBDevice gbDevice, @NonNull final Device device, @NonNull final DaoSession session) throws WearableException {
         deleteAllActivityData(device, session);
     }
 
-    public void deleteAllActivityData(@NonNull final Device device, @NonNull final DaoSession session) throws GBException {
+    public void deleteAllActivityData(@NonNull final Device device, @NonNull final DaoSession session) throws WearableException {
         final Long deviceId = device.getId();
 
         final Map<AbstractDao<?, ?>, Property> daoMap = new HashMap<AbstractDao<?, ?>, Property>() {{
@@ -376,7 +376,7 @@ public abstract class GarminCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     protected static Prefs getPrefs(final GBDevice device) {
-        return new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        return new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
     }
 
     @Override

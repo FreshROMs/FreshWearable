@@ -50,8 +50,8 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBAccess;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -405,7 +405,7 @@ public class StepStreaksDashboard extends MaterialDialogFragment {
     public static Bitmap getScreenShot(View view, int height, int width, Context context) {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(GBApplication.getWindowBackgroundColor(context));
+        canvas.drawColor(WearableApplication.getWindowBackgroundColor(context));
         view.draw(canvas);
         return bitmap;
     }

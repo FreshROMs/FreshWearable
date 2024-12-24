@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge.activities.welcome;
+package xyz.tenseventyseven.fresh.wearable.activities.onboarding;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -28,6 +28,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,37 +41,27 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.util.PermissionsUtils;
+import xyz.tenseventyseven.fresh.wearable.activities.OnboardingActivity;
 
-public class WelcomeFragmentPermissions extends Fragment {
-    private static final Logger LOG = LoggerFactory.getLogger(WelcomeFragmentPermissions.class);
+public class PermissionsFragment extends Fragment {
+    private static final Logger LOG = LoggerFactory.getLogger(PermissionsFragment.class);
 
     private RecyclerView permissionsListView;
     private PermissionAdapter permissionAdapter;
-    private Button requestAllButton;
     private List<String> requestingPermissions = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_welcome_permissions, container, false);
+        View view = inflater.inflate(R.layout.fragment_onboarding_permissions, container, false);
 
-        requestAllButton = view.findViewById(R.id.button_request_all);
-        requestAllButton.setOnClickListener(v -> {
-            List<PermissionsUtils.PermissionDetails> wantedPermissions = PermissionsUtils.getRequiredPermissionsList(requireActivity());
-            requestingPermissions = new ArrayList<>();
-            for (PermissionsUtils.PermissionDetails wantedPermission : wantedPermissions) {
-                requestingPermissions.add(wantedPermission.getPermission());
-            }
-            requestAllPermissions();
-        });
-
-        if (((AppCompatActivity)getActivity()).getSupportActionBar().isShowing()) {
-            // Hide title when the Action Bar is visible (i.e. when not in the first run flow)
-            view.findViewById(R.id.permissions_title).setVisibility(View.GONE);
-        }
+//        if (((AppCompatActivity)getActivity()).getSupportActionBar().isShowing()) {
+//            // Hide title when the Action Bar is visible (i.e. when not in the first run flow)
+//            view.findViewById(R.id.onboarding_permissions_title).setVisibility(View.GONE);
+//        }
 
         // Initialize RecyclerView and data
         permissionsListView = view.findViewById(R.id.permissions_list);
@@ -80,6 +71,23 @@ public class WelcomeFragmentPermissions extends Fragment {
         permissionsListView.setLayoutManager(new LinearLayoutManager(requireContext()));
         permissionsListView.setAdapter(permissionAdapter);
 
+
+        final AppCompatButton nextButton = view.findViewById(R.id.permisisons_continue);
+        nextButton.setOnClickListener(v -> {
+            List<PermissionsUtils.PermissionDetails> wantedPermissions = PermissionsUtils.getRequiredPermissionsList(requireActivity());
+            requestingPermissions = new ArrayList<>();
+            for (PermissionsUtils.PermissionDetails wantedPermission : wantedPermissions) {
+                requestingPermissions.add(wantedPermission.getPermission());
+            }
+            requestAllPermissions();
+
+            if (PermissionsUtils.checkAllPermissions(requireActivity())) {
+                // Move to the next fragment from the viewpager
+                OnboardingActivity activity = (OnboardingActivity) requireActivity();
+                activity.nextFragment();
+            }
+        });
+
         return view;
     }
 
@@ -87,9 +95,6 @@ public class WelcomeFragmentPermissions extends Fragment {
     public void onResume() {
         super.onResume();
         permissionAdapter.notifyDataSetChanged();
-        if (PermissionsUtils.checkAllPermissions(requireActivity())) {
-            requestAllButton.setEnabled(false);
-        }
         if (!requestingPermissions.isEmpty()) {
             requestAllPermissions();
         }
@@ -111,21 +116,25 @@ public class WelcomeFragmentPermissions extends Fragment {
             String[] combinedPermissions = requestingPermissions.toArray(new String[0]);
             requestingPermissions.clear();
             ActivityCompat.requestPermissions(requireActivity(), combinedPermissions, 0);
+        } else {
+            // Move to the next fragment from the viewpager
+            OnboardingActivity activity = (OnboardingActivity) requireActivity();
+            activity.nextFragment();
         }
     }
 
-    private class PermissionHolder extends RecyclerView.ViewHolder {
+    private static class PermissionHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
         TextView summaryTextView;
         ImageView checkmarkImageView;
-        Button requestButton;
+        ImageView permissionIcon;
 
         public PermissionHolder(View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.permission_title);
             summaryTextView = itemView.findViewById(R.id.permission_summary);
+            permissionIcon = itemView.findViewById(R.id.permission_icon);
             checkmarkImageView = itemView.findViewById(R.id.permission_check);
-            requestButton = itemView.findViewById(R.id.permission_request);
         }
     }
 
@@ -151,17 +160,11 @@ public class WelcomeFragmentPermissions extends Fragment {
             PermissionsUtils.PermissionDetails permissionData = permissionList.get(position);
             holder.titleTextView.setText(permissionData.getTitle());
             holder.summaryTextView.setText(permissionData.getSummary());
+            holder.permissionIcon.setImageResource(permissionData.getIcon());
             if (PermissionsUtils.checkPermission(requireContext(), permissionData.getPermission())) {
-                holder.requestButton.setVisibility(View.INVISIBLE);
-                holder.requestButton.setEnabled(false);
                 holder.checkmarkImageView.setVisibility(View.VISIBLE);
             } else {
-                holder.requestButton.setVisibility(View.VISIBLE);
-                holder.requestButton.setEnabled(true);
                 holder.checkmarkImageView.setVisibility(View.GONE);
-                holder.requestButton.setOnClickListener(view -> {
-                    PermissionsUtils.requestPermission(requireActivity(), permissionData.getPermission());
-                });
             }
         }
 

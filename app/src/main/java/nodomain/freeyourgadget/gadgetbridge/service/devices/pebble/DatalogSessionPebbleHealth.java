@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.pebble;
 
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.DevicePrefs;
 
@@ -31,7 +31,7 @@ abstract class DatalogSessionPebbleHealth extends DatalogSession {
     DatalogSessionPebbleHealth(byte id, UUID uuid, int timestamp, int tag, byte itemType, short itemSize, GBDevice device) {
         super(id, uuid, timestamp, tag, itemType, itemSize);
         mDevice = device;
-        devicePrefs = GBApplication.getDevicePrefs(mDevice);
+        devicePrefs = WearableApplication.getDevicePrefs(mDevice);
     }
 
     public GBDevice getDevice() {

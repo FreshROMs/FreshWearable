@@ -42,14 +42,14 @@ import java.util.Comparator;
 import java.util.IdentityHashMap;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 import static android.view.View.GONE;
 
-public class QHybridAppChoserActivity extends AbstractGBActivity {
+public class QHybridAppChoserActivity extends CommonActivityAbstract {
     boolean hasControl = false;
 
     private PackageConfigHelper helper;

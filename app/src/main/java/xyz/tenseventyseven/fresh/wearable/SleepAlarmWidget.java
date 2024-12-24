@@ -15,16 +15,14 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge;
+package xyz.tenseventyseven.fresh.wearable;
 
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -132,7 +130,7 @@ public class SleepAlarmWidget extends AppWidgetProvider {
             Alarm alarm = AlarmUtils.createSingleShot(0, true, false, calendar);
             ArrayList<Alarm> alarms = new ArrayList<>(1);
             alarms.add(alarm);
-            GBApplication.deviceService(deviceForWidget).onSetAlarms(alarms);
+            WearableApplication.deviceService(deviceForWidget).onSetAlarms(alarms);
 
 //          setAlarmViaAlarmManager(context, calendar.getTimeInMillis());
         }

@@ -30,9 +30,9 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.CameraActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
@@ -113,7 +113,7 @@ public class HuaweiCoordinator {
         }
     }
 
-    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws GBException {
+    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws WearableException {
         long deviceId = device.getId();
         QueryBuilder<?> qb = session.getHuaweiActivitySampleDao().queryBuilder();
         qb.where(HuaweiActivitySampleDao.Properties.DeviceId.eq(deviceId)).buildDelete().executeDeleteWithoutDetachingEntities();
@@ -150,11 +150,11 @@ public class HuaweiCoordinator {
     }
 
     private SharedPreferences getCapabilitiesSharedPreferences() {
-        return GBApplication.getContext().getSharedPreferences("huawei_coordinator_capatilities" + parent.getDeviceType().name(), Context.MODE_PRIVATE);
+        return WearableApplication.getContext().getSharedPreferences("huawei_coordinator_capatilities" + parent.getDeviceType().name(), Context.MODE_PRIVATE);
     }
 
     private SharedPreferences getDeviceSpecificSharedPreferences(GBDevice gbDevice) {
-        return GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        return WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
     }
 
     public boolean getForceOption(GBDevice gbDevice, String option) {

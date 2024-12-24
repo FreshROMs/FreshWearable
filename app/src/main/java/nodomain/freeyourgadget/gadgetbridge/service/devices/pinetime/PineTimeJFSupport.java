@@ -59,8 +59,8 @@ import no.nordicsemi.android.dfu.DfuProgressListenerAdapter;
 import no.nordicsemi.android.dfu.DfuServiceController;
 import no.nordicsemi.android.dfu.DfuServiceInitiator;
 import no.nordicsemi.android.dfu.DfuServiceListenerHelper;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -314,7 +314,7 @@ public class PineTimeJFSupport extends AbstractBTLEDeviceSupport implements DfuL
 
         if (bodyOrSubject.length() > 0){
             if (isFirmwareAtLeastVersion0_15()) {
-                if (!GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_PREFIX_NOTIFICATION_WITH_APP, true)) {
+                if (!WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_PREFIX_NOTIFICATION_WITH_APP, true)) {
                     source = null;
                 }
                 int cutLength = Math.max(CutNotificationTitleMinAt, MaxNotificationLength - 3 - bodyOrSubject.length() - (source != null ? source.length() + 2 : 0));
@@ -490,7 +490,7 @@ public class PineTimeJFSupport extends AbstractBTLEDeviceSupport implements DfuL
     protected TransactionBuilder initializeDevice(TransactionBuilder builder) {
         builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.INITIALIZING, getContext()));
         requestDeviceInfo(builder);
-        if (GBApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
+        if (WearableApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
             onSetTime();
         }
         setWorldClocks();
@@ -1171,7 +1171,7 @@ public class PineTimeJFSupport extends AbstractBTLEDeviceSupport implements DfuL
      * @param timeStamp Time stamp (in seconds)  at some point during the requested day.
      */
     private int getStepsOnDay(int timeStamp) {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
 
             Calendar dayStart = Calendar.getInstance();
             Calendar dayEnd = Calendar.getInstance();
@@ -1219,7 +1219,7 @@ public class PineTimeJFSupport extends AbstractBTLEDeviceSupport implements DfuL
 
 
     private void addGBActivitySamples(PineTimeActivitySample[] samples) {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
 
             User user = DBHelper.getUser(dbHandler.getDaoSession());
             Device device = DBHelper.getDevice(this.getDevice(), dbHandler.getDaoSession());

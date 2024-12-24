@@ -45,7 +45,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.AbstractActivityChartFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsData;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsHost;

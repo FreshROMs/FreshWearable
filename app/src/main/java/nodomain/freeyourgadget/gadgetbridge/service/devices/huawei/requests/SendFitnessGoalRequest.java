@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.FitnessData;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.FitnessData.MotionGoal;
@@ -46,7 +46,7 @@ public class SendFitnessGoalRequest extends Request {
     protected List<byte[]> createRequest() throws RequestCreationException {
         try {
             // Hardcoded values till interface for goal
-            int stepGoal = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
+            int stepGoal = WearableApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
             int calorieGoal = 0;
             short durationGoal = 0;
             return new MotionGoal.Request(paramsProvider,

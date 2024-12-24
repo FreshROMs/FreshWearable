@@ -31,8 +31,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huami.HuamiFirmwareType;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
@@ -81,7 +81,7 @@ public abstract class AbstractMiBandFWHelper {
 
     public static String formatFirmwareVersion(int version) {
         if (version == -1) {
-            return GBApplication.getContext().getString(R.string._unknown_);
+            return WearableApplication.getContext().getString(R.string._unknown_);
         }
 
         return String.format(Locale.UK,

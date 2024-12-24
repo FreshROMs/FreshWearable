@@ -34,8 +34,8 @@ import java.util.Date;
 import java.util.List;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.cmfwatchpro.samples.CmfActivitySampleProvider;
@@ -173,7 +173,7 @@ public class CmfActivitySync {
             samples.add(sample);
         }
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             final Device device = DBHelper.getDevice(getDevice(), session);
@@ -214,7 +214,7 @@ public class CmfActivitySync {
             samples.add(sample);
         }
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             final Device device = DBHelper.getDevice(getDevice(), session);
@@ -264,7 +264,7 @@ public class CmfActivitySync {
             stageSamples.add(sample);
         }
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             final Device device = DBHelper.getDevice(getDevice(), session);
@@ -281,7 +281,7 @@ public class CmfActivitySync {
             GB.toast(getContext(), "Error saving sleep session sample", Toast.LENGTH_LONG, GB.ERROR, e);
         }
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             final Device device = DBHelper.getDevice(getDevice(), session);
@@ -321,7 +321,7 @@ public class CmfActivitySync {
             samples.add(sample);
         }
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             final Device device = DBHelper.getDevice(getDevice(), session);
@@ -361,7 +361,7 @@ public class CmfActivitySync {
             samples.add(sample);
         }
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             final Device device = DBHelper.getDevice(getDevice(), session);
@@ -422,7 +422,7 @@ public class CmfActivitySync {
 
             summary.setSummaryData(null); // remove json before saving to database
 
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = WearableApplication.acquireDB()) {
                 final DaoSession session = dbHandler.getDaoSession();
                 final Device device = DBHelper.getDevice(getDevice(), session);
                 final User user = DBHelper.getUser(session);
@@ -466,7 +466,7 @@ public class CmfActivitySync {
             samples.add(sample);
         }
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             final Device device = DBHelper.getDevice(getDevice(), session);
@@ -513,7 +513,7 @@ public class CmfActivitySync {
         }
 
         // Update the summary in the db with the gpx path
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             final DaoSession session = dbHandler.getDaoSession();
             final Device device = DBHelper.getDevice(mSupport.getDevice(), session);
             final User user = DBHelper.getUser(session);
@@ -576,7 +576,7 @@ public class CmfActivitySync {
 
         final List<CmfWorkoutGpsSample> gpsSamples;
         final List<CmfHeartRateSample> hrSamples;
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             final CmfWorkoutGpsSampleProvider gpsSampleProvider = new CmfWorkoutGpsSampleProvider(getDevice(), session);

@@ -60,8 +60,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.TimeSampleProvider;
@@ -88,16 +88,16 @@ public class StressChartFragment extends AbstractChartFragment<StressChartFragme
 
     private String STRESS_AVERAGE_LABEL;
 
-    private final Prefs prefs = GBApplication.getPrefs();
+    private final Prefs prefs = WearableApplication.getPrefs();
 
     private final boolean CHARTS_SLEEP_RANGE_24H = prefs.getBoolean("chart_sleep_range_24h", false);
     private final boolean SHOW_CHARTS_AVERAGE = prefs.getBoolean("charts_show_average", true);
 
     @Override
     protected void init() {
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(requireContext());
-        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = GBApplication.getTextColor(requireContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(requireContext());
+        BACKGROUND_COLOR = WearableApplication.getBackgroundColor(requireContext());
+        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = WearableApplication.getTextColor(requireContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(requireContext());
 
         STRESS_AVERAGE_LABEL = requireContext().getString(R.string.charts_legend_stress_average);
     }
@@ -238,7 +238,7 @@ public class StressChartFragment extends AbstractChartFragment<StressChartFragme
         mStressLevelsPieChart.getDescription().setText("");
         mStressLevelsPieChart.setNoDataText("");
         mStressLevelsPieChart.setTouchEnabled(false);
-        mStressLevelsPieChart.setCenterTextColor(GBApplication.getTextColor(getContext()));
+        mStressLevelsPieChart.setCenterTextColor(WearableApplication.getTextColor(getContext()));
         mStressLevelsPieChart.setCenterTextSize(18f);
         mStressLevelsPieChart.setHoleColor(getContext().getResources().getColor(R.color.transparent));
         mStressLevelsPieChart.setHoleRadius(85);

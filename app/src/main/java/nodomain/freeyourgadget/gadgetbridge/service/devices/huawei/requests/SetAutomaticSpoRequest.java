@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.FitnessData;
@@ -39,7 +39,7 @@ public class SetAutomaticSpoRequest extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        boolean automaticSpoEnabled = GBApplication
+        boolean automaticSpoEnabled = WearableApplication
                 .getDeviceSpecificSharedPrefs(supportProvider.getDevice().getAddress())
                 .getBoolean(DeviceSettingsPreferenceConst.PREF_SPO_AUTOMATIC_ENABLE, false);
         if (automaticSpoEnabled)

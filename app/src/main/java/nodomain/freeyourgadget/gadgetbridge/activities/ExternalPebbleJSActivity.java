@@ -41,8 +41,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import nodomain.freeyourgadget.gadgetbridge.devices.pebble.PebbleCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -55,10 +55,11 @@ import nodomain.freeyourgadget.gadgetbridge.service.devices.pebble.webview.JSInt
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.WebViewSingleton;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_CONNECT;
 
-public class ExternalPebbleJSActivity extends AbstractGBActivity {
+public class ExternalPebbleJSActivity extends CommonActivityAbstract {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExternalPebbleJSActivity.class);
 
@@ -91,7 +92,7 @@ public class ExternalPebbleJSActivity extends AbstractGBActivity {
                 }
 
                 //first check if we are still connected to a pebble
-                DeviceManager deviceManager = ((GBApplication) getApplication()).getDeviceManager();
+                DeviceManager deviceManager = ((WearableApplication) getApplication()).getDeviceManager();
                 List<GBDevice> deviceList = deviceManager.getDevices();
                 for (GBDevice device : deviceList) {
                     if (device.getState() == GBDevice.State.INITIALIZED && device.getType().equals(DeviceType.PEBBLE)) {
@@ -101,7 +102,7 @@ public class ExternalPebbleJSActivity extends AbstractGBActivity {
                 }
                 if (currentDevice == null) {
                     //then try to reconnect to one of last connected Pebble devices
-                    Set<String> lastDeviceAddresses = GBApplication.getPrefs().getStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, Collections.emptySet());
+                    Set<String> lastDeviceAddresses = WearableApplication.getPrefs().getStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, Collections.emptySet());
                     for (GBDevice device : deviceList) {
                         if (!device.isConnected() && device.getType() == DeviceType.PEBBLE && lastDeviceAddresses.contains(device.getAddress())) {
                             Intent intent = new Intent(this, DeviceCommunicationService.class)

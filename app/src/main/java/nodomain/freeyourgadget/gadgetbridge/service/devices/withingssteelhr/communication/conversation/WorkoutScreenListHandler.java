@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.withingssteelhr.WithingsSteelHRDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.withingssteelhr.activity.WithingsActivityType;
@@ -59,7 +59,7 @@ public class WorkoutScreenListHandler extends AbstractResponseHandler {
 
         String workoutActivityTypes = TextUtils.join(",", prefValues);
         GBDevice device = support.getDevice();
-        final SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+        final SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress());
         prefs.edit().putString("workout_activity_types_sortable", workoutActivityTypes).apply();
     }
 }

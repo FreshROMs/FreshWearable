@@ -39,8 +39,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetLayout;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetManager;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetPart;
@@ -48,7 +48,7 @@ import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetScreen;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetType;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
-public class WidgetScreensListActivity extends AbstractGBActivity {
+public class WidgetScreensListActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(WidgetScreensListActivity.class);
 
     private WidgetScreenListAdapter mGBWidgetScreenListAdapter;

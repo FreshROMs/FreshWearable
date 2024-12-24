@@ -30,8 +30,8 @@ import androidx.fragment.app.Fragment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DataManagementActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
@@ -51,7 +51,7 @@ public class WelcomeFragmentGetStarted extends Fragment {
         restore.setOnClickListener(restoreButton -> startActivity(new Intent(requireActivity(), DataManagementActivity.class)));
         Button toApp = view.findViewById(R.id.welcome_button_to_app);
         toApp.setOnClickListener(toAppButton -> {
-            Prefs prefs = GBApplication.getPrefs();
+            Prefs prefs = WearableApplication.getPrefs();
             prefs.getPreferences().edit().putBoolean("first_run", false).apply();
             requireActivity().finish();
         });

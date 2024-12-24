@@ -34,7 +34,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.vesc.VescCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -180,7 +180,7 @@ public class VescDeviceSupport extends VescBaseDeviceSupport {
 
 
     void handleBatteryVoltage(float voltage){
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         float minimalVoltage = Float.parseFloat(prefs.getString(DeviceSettingsPreferenceConst.PREF_VESC_MINIMUM_VOLTAGE, "-1"));
         float maximalVoltage = Float.parseFloat(prefs.getString(DeviceSettingsPreferenceConst.PREF_VESC_MAXIMUM_VOLTAGE, "-1"));
 

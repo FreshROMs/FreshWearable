@@ -37,9 +37,9 @@ import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.entities.Device;
@@ -120,14 +120,14 @@ public class ZipBackupExportJob extends AbstractZipBackupJob {
     private static void exportPreferences(final ZipOutputStream zipOut) throws IOException {
         LOG.debug("Exporting global preferences");
 
-        final SharedPreferences globalPreferences = GBApplication.getPrefs().getPreferences();
+        final SharedPreferences globalPreferences = WearableApplication.getPrefs().getPreferences();
         exportPreferences(zipOut, globalPreferences, PREFS_GLOBAL_FILENAME);
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             final List<Device> activeDevices = DBHelper.getActiveDevices(dbHandler.getDaoSession());
             for (Device dbDevice : activeDevices) {
                 LOG.debug("Exporting device preferences for {}", dbDevice.getIdentifier());
-                final SharedPreferences devicePrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                final SharedPreferences devicePrefs = WearableApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                 if (devicePrefs != null) {
                     exportPreferences(zipOut, devicePrefs, String.format(Locale.ROOT, PREFS_DEVICE_FILENAME, dbDevice.getIdentifier()));
                 }
@@ -154,7 +154,7 @@ public class ZipBackupExportJob extends AbstractZipBackupJob {
         LOG.debug("Exporting database");
 
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             final DBHelper helper = new DBHelper(context);
             helper.exportDB(dbHandler, baos);
         } catch (final Exception e) {

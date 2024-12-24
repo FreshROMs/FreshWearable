@@ -36,8 +36,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsUtils;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.password.PasswordCapabilityImpl;
@@ -262,7 +262,7 @@ public class XiaomiSystemService extends AbstractXiaomiService implements Xiaomi
     }
 
     public void setLanguage() {
-        String localeString = GBApplication.getDeviceSpecificSharedPrefs(getSupport().getDevice().getAddress()).getString(
+        String localeString = WearableApplication.getDeviceSpecificSharedPrefs(getSupport().getDevice().getAddress()).getString(
                 DeviceSettingsPreferenceConst.PREF_LANGUAGE, DeviceSettingsPreferenceConst.PREF_LANGUAGE_AUTO
         );
         if (DeviceSettingsPreferenceConst.PREF_LANGUAGE_AUTO.equals(localeString)) {

@@ -23,15 +23,16 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 /**
  * Receive any shared plaintext and forward it directly to the devices as a notification.
  */
-public class TextReceiverActivity extends AbstractGBActivity {
+public class TextReceiverActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(TextReceiverActivity.class);
 
     @Override
@@ -74,7 +75,7 @@ public class TextReceiverActivity extends AbstractGBActivity {
         notificationSpec.type = NotificationType.UNKNOWN;
         notificationSpec.pebbleColor = notificationSpec.type.color;
 
-        GBApplication.deviceService().onNotification(notificationSpec);
+        WearableApplication.deviceService().onNotification(notificationSpec);
         finish();
     }
 }

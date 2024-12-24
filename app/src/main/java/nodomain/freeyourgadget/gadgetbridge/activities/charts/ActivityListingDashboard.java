@@ -40,8 +40,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBAccess;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -111,7 +111,7 @@ public class ActivityListingDashboard extends MaterialDialogFragment {
         LinearLayout battery_status_date_to_layout = getView().findViewById(R.id.battery_status_date_to_layout);
         final SeekBar battery_status_time_span_seekbar = getView().findViewById(R.id.battery_status_time_span_seekbar);
 
-        boolean activity_list_debug_extra_time_range_value = GBApplication.getPrefs().getPreferences().getBoolean("activity_list_debug_extra_time_range", false);
+        boolean activity_list_debug_extra_time_range_value = WearableApplication.getPrefs().getPreferences().getBoolean("activity_list_debug_extra_time_range", false);
 
         if (!activity_list_debug_extra_time_range_value) {
             battery_status_time_span_seekbar.setMax(3);

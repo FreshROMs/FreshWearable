@@ -2,7 +2,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
         android:key="pref_force_connection_type"
-        android:icon="@drawable/ic_bluetooth"
         android:title="@string/pref_force_connection_type_title"
         android:summary="@string/pref_force_connection_type_description"
         android:entries="@array/pref_force_connection_type"

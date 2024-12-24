@@ -4,7 +4,6 @@
         android:title="@string/prefs_title_ble_intent_api" />
 
     <SwitchPreferenceCompat
-        android:icon="@drawable/ic_bluetooth"
         android:key="prefs_device_ble_api_characteristic_read_write"
         android:layout="@layout/preference_checkbox"
         android:title="@string/prefs_title_gatt_client_allow_gatt_interactions"
@@ -12,7 +11,6 @@
         android:defaultValue="false" />
 
     <SwitchPreferenceCompat
-        android:icon="@drawable/ic_bluetooth"
         android:key="prefs_device_ble_api_characteristic_notify"
         android:layout="@layout/preference_checkbox"
         android:title="@string/prefs_title_gatt_client_notification_intents"

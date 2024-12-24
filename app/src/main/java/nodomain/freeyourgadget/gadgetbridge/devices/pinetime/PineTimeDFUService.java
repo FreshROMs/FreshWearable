@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.pinetime;
 import android.app.Activity;
 
 import no.nordicsemi.android.dfu.DfuBaseService;
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
 import nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity;
 
 public class PineTimeDFUService extends DfuBaseService {

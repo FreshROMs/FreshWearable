@@ -54,8 +54,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 
 public class AndroidUtils {
     private static final Logger LOG = LoggerFactory.getLogger(AndroidUtils.class);
@@ -121,9 +121,9 @@ public class AndroidUtils {
      */
     public static String getTextColorHex(Context context) {
         int color;
-        if (DynamicColors.isDynamicColorAvailable() && GBApplication.areDynamicColorsEnabled()) {
+        if (DynamicColors.isDynamicColorAvailable() && WearableApplication.areDynamicColorsEnabled()) {
             Context dynamicColorContext;
-            if (GBApplication.isDarkThemeEnabled()) {
+            if (WearableApplication.isDarkThemeEnabled()) {
                 dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.GadgetbridgeThemeDynamicDark);
             } else {
                 dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.GadgetbridgeThemeDynamicLight);
@@ -133,7 +133,7 @@ public class AndroidUtils {
             TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
             color = ta.getColor(0, 0);
             ta.recycle();
-        } else if (GBApplication.isDarkThemeEnabled()) {
+        } else if (WearableApplication.isDarkThemeEnabled()) {
             color = context.getResources().getColor(R.color.primarytext_dark);
         } else {
             color = context.getResources().getColor(R.color.primarytext_light);
@@ -147,9 +147,9 @@ public class AndroidUtils {
      */
     public static String getBackgroundColorHex(Context context) {
         int color;
-        if (DynamicColors.isDynamicColorAvailable() && GBApplication.areDynamicColorsEnabled()) {
+        if (DynamicColors.isDynamicColorAvailable() && WearableApplication.areDynamicColorsEnabled()) {
             Context dynamicColorContext;
-            if (GBApplication.isDarkThemeEnabled()) {
+            if (WearableApplication.isDarkThemeEnabled()) {
                 dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.GadgetbridgeThemeDynamicDark);
             } else {
                 dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.GadgetbridgeThemeDynamicLight);
@@ -159,7 +159,7 @@ public class AndroidUtils {
             TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
             color = ta.getColor(0, 0);
             ta.recycle();
-        } else if (GBApplication.isDarkThemeEnabled()) {
+        } else if (WearableApplication.isDarkThemeEnabled()) {
             color = context.getResources().getColor(androidx.cardview.R.color.cardview_dark_background);
         } else {
             color = context.getResources().getColor(androidx.cardview.R.color.cardview_light_background);
@@ -169,7 +169,7 @@ public class AndroidUtils {
 
     public static int getBackgroundColor(Context context) {
         int color;
-        if (GBApplication.isDarkThemeEnabled()) {
+        if (WearableApplication.isDarkThemeEnabled()) {
             color = context.getResources().getColor(androidx.cardview.R.color.cardview_dark_background);
         } else {
             color = context.getResources().getColor(androidx.cardview.R.color.cardview_light_background);
@@ -328,17 +328,17 @@ public class AndroidUtils {
     public static void openWebsite(String url){
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        GBApplication.getContext().startActivity(i);
+        WearableApplication.getContext().startActivity(i);
     }
 
     public static void openApp(String packageName) throws ClassNotFoundException {
-        Context context = GBApplication.getContext();
+        Context context = WearableApplication.getContext();
 
         Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         if(launchIntent == null){
             throw new ClassNotFoundException("App " + packageName + " cannot be found");
         }
-        GBApplication.getContext().startActivity(launchIntent);
+        WearableApplication.getContext().startActivity(launchIntent);
     }
 
     public static PowerManager.WakeLock acquirePartialWakeLock(Context context, String tag, long timeout) {

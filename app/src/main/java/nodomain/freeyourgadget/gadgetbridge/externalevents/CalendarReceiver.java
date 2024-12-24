@@ -42,8 +42,8 @@ import java.util.Hashtable;
 import java.util.List;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.entities.CalendarSyncState;
@@ -139,7 +139,7 @@ public class CalendarReceiver extends ContentObserver {
     }
 
     public void syncCalendar(List<CalendarEvent> eventList) {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             DaoSession session = dbHandler.getDaoSession();
             syncCalendar(eventList, session);
         } catch (Exception e1) {
@@ -247,15 +247,15 @@ public class CalendarReceiver extends ContentObserver {
                 calendarEventSpec.calName = calendarEvent.getUniqueCalName();
                 calendarEventSpec.color = calendarEvent.getColor();
                 if (syncState == EventState.NEEDS_UPDATE) {
-                    GBApplication.deviceService(mGBDevice).onDeleteCalendarEvent(CalendarEventSpec.TYPE_UNKNOWN, i);
+                    WearableApplication.deviceService(mGBDevice).onDeleteCalendarEvent(CalendarEventSpec.TYPE_UNKNOWN, i);
                 }
-                GBApplication.deviceService(mGBDevice).onAddCalendarEvent(calendarEventSpec);
+                WearableApplication.deviceService(mGBDevice).onAddCalendarEvent(calendarEventSpec);
                 es.setState(EventState.SYNCED);
                 eventState.put(i, es);
                 // update db
                 session.insertOrReplace(new CalendarSyncState(null, deviceId, i, es.event.hashCode()));
             } else if (syncState == EventState.NEEDS_DELETE) {
-                GBApplication.deviceService(mGBDevice).onDeleteCalendarEvent(CalendarEventSpec.TYPE_UNKNOWN, i);
+                WearableApplication.deviceService(mGBDevice).onDeleteCalendarEvent(CalendarEventSpec.TYPE_UNKNOWN, i);
                 eventState.remove(i);
                 // delete from db for current device only
                 QueryBuilder<CalendarSyncState> qb = session.getCalendarSyncStateDao().queryBuilder();
@@ -274,6 +274,6 @@ public class CalendarReceiver extends ContentObserver {
     public static void forceSync() {
         final Intent intent = new Intent(ACTION_FORCE_SYNC);
         intent.setPackage(BuildConfig.APPLICATION_ID);
-        GBApplication.getContext().sendBroadcast(intent);
+        WearableApplication.getContext().sendBroadcast(intent);
     }
 }

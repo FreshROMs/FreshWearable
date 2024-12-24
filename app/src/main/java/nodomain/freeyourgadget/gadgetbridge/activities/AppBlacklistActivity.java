@@ -26,11 +26,12 @@ import androidx.appcompat.widget.SearchView;
 import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppBlacklistAdapter;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 
-public class AppBlacklistActivity extends AbstractGBActivity {
+public class AppBlacklistActivity extends CommonActivityAbstract {
     private AppBlacklistAdapter appBlacklistAdapter;
 
     @Override

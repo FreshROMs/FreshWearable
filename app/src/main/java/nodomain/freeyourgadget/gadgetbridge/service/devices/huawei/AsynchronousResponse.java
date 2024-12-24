@@ -36,8 +36,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.CameraActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
@@ -137,7 +137,7 @@ public class AsynchronousResponse {
             if (!(response instanceof FindPhone.Response))
                 throw new Request.ResponseTypeMismatchException(response, FindPhone.Response.class);
 
-            SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(support.getDeviceMac());
+            SharedPreferences sharedPreferences = WearableApplication.getDeviceSpecificSharedPrefs(support.getDeviceMac());
 
             String findPhone = sharedPreferences.getString(DeviceSettingsPreferenceConst.PREF_FIND_PHONE, support.getContext().getString(R.string.p_off));
 
@@ -182,7 +182,7 @@ public class AsynchronousResponse {
     }
 
     private boolean dndActive() {
-        SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(support.getDeviceMac());
+        SharedPreferences sharedPreferences = WearableApplication.getDeviceSpecificSharedPrefs(support.getDeviceMac());
 
         String dndSwitch = sharedPreferences.getString(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB, "off");
         if (dndSwitch.equals(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_OFF))
@@ -205,7 +205,7 @@ public class AsynchronousResponse {
         } else {
             @SuppressLint("SimpleDateFormat") SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
             try {
-                Date currentTime = dateFormat.parse(String.format(GBApplication.getLanguage(), "%d:%d",
+                Date currentTime = dateFormat.parse(String.format(WearableApplication.getLanguage(), "%d:%d",
                         Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
                         Calendar.getInstance().get(Calendar.MINUTE)));
                 Date start = dateFormat.parse(startStr);
@@ -362,7 +362,7 @@ public class AsynchronousResponse {
             if (!(response instanceof Calls.AnswerCallResponse))
                 throw new Request.ResponseTypeMismatchException(response, Calls.AnswerCallResponse.class);
 
-            SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(support.getDevice().getAddress());
+            SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(support.getDevice().getAddress());
 
             GBDeviceEventCallControl callControlEvent = new GBDeviceEventCallControl();
             switch (((Calls.AnswerCallResponse) response).action) {
@@ -717,7 +717,7 @@ public class AsynchronousResponse {
                 }
             }
 
-            if (GBApplication.getDevicePrefs(this.support.getDevice()).getBatteryPollingEnabled()) {
+            if (WearableApplication.getDevicePrefs(this.support.getDevice()).getBatteryPollingEnabled()) {
                 if (!this.support.startBatteryRunnerDelayed()) {
                     GB.toast(this.support.getContext(), R.string.battery_polling_failed_start, Toast.LENGTH_SHORT, GB.ERROR);
                     LOG.error("Failed to start the battery polling");

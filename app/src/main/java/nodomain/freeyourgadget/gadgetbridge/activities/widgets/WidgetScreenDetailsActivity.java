@@ -35,8 +35,8 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetLayout;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetManager;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetPart;
@@ -46,7 +46,7 @@ import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetType;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class WidgetScreenDetailsActivity extends AbstractGBActivity {
+public class WidgetScreenDetailsActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(WidgetScreenDetailsActivity.class);
 
     private WidgetScreen widgetScreen;

@@ -33,14 +33,15 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.AbstractZipBackupJob;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupCallback;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupExportJob;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupImportJob;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public class BackupRestoreProgressActivity extends AbstractGBActivity {
+public class BackupRestoreProgressActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(BackupRestoreProgressActivity.class);
 
     public static final String EXTRA_URI = "uri";
@@ -118,11 +119,11 @@ public class BackupRestoreProgressActivity extends AbstractGBActivity {
                                 .setMessage(message.toString())
                                 .setOnCancelListener((dialog -> {
                                     finish();
-                                    GBApplication.restart();
+                                    WearableApplication.restart();
                                 }))
                                 .setPositiveButton(R.string.ok, (dialog, which) -> {
                                     finish();
-                                    GBApplication.restart();
+                                    WearableApplication.restart();
                                 }).show();
                         break;
                     case "export":
@@ -159,11 +160,11 @@ public class BackupRestoreProgressActivity extends AbstractGBActivity {
         switch (action) {
             case "import":
                 backupRestoreHint.setText(getString(R.string.backup_restore_do_not_exit, getString(R.string.backup_restore_importing)));
-                mZipBackupJob = new ZipBackupImportJob(GBApplication.getContext(), zipBackupCallback, uri);
+                mZipBackupJob = new ZipBackupImportJob(WearableApplication.getContext(), zipBackupCallback, uri);
                 break;
             case "export":
                 backupRestoreHint.setText(getString(R.string.backup_restore_do_not_exit, getString(R.string.backup_restore_exporting)));
-                mZipBackupJob = new ZipBackupExportJob(GBApplication.getContext(), zipBackupCallback, uri);
+                mZipBackupJob = new ZipBackupExportJob(WearableApplication.getContext(), zipBackupCallback, uri);
                 break;
             default:
                 LOG.error("Unknown action {}", action);

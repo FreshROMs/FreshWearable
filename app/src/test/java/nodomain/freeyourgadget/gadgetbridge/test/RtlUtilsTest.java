@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 
 import org.junit.Test;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.RtlUtils;
 
@@ -331,14 +331,14 @@ public class RtlUtilsTest extends TestBase {
     }
 
     private void setDefaultRtl() {
-        SharedPreferences settings = GBApplication.getPrefs().getPreferences();
+        SharedPreferences settings = WearableApplication.getPrefs().getPreferences();
         SharedPreferences.Editor editor = settings.edit();
         editor.remove(GBPrefs.RTL_SUPPORT);
         editor.apply();
     }
 
     private void enableRtl(boolean enable) {
-        SharedPreferences settings = GBApplication.getPrefs().getPreferences();
+        SharedPreferences settings = WearableApplication.getPrefs().getPreferences();
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(GBPrefs.RTL_SUPPORT, enable);
         editor.apply();
@@ -354,14 +354,14 @@ public class RtlUtilsTest extends TestBase {
     }
 
     private void setDefaultContextual() {
-        SharedPreferences settings = GBApplication.getPrefs().getPreferences();
+        SharedPreferences settings = WearableApplication.getPrefs().getPreferences();
         SharedPreferences.Editor editor = settings.edit();
         editor.remove(GBPrefs.RTL_CONTEXTUAL_ARABIC);
         editor.apply();
     }
 
     private void enableContextual(boolean enable) {
-        SharedPreferences settings = GBApplication.getPrefs().getPreferences();
+        SharedPreferences settings = WearableApplication.getPrefs().getPreferences();
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean(GBPrefs.RTL_CONTEXTUAL_ARABIC, enable);
         editor.apply();

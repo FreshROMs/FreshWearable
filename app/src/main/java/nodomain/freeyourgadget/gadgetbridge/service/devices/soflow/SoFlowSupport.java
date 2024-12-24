@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventVersionInfo;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.AbstractBTLEDeviceSupport;
@@ -120,7 +120,7 @@ public class SoFlowSupport extends AbstractBTLEDeviceSupport {
     protected byte[] getSecretKey() {
         byte[] authKeyBytes;
 
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         String authKey = sharedPrefs.getString("authkey", null);
         if (authKey != null && !authKey.isEmpty()) {
@@ -190,7 +190,7 @@ public class SoFlowSupport extends AbstractBTLEDeviceSupport {
         try {
             builder = performInitialized("Sending configuration for option: " + config);
             if ("lock".equals(config)) {
-                SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+                SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
                 boolean lock = sharedPrefs.getBoolean("lock", false);
                 if (lock) {
                     writeEncrypted(builder, COMMAND_LOCK);

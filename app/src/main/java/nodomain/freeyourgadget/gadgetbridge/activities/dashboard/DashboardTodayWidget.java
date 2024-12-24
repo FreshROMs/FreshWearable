@@ -44,12 +44,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.StepAnalysis;
@@ -102,7 +100,7 @@ public class DashboardTodayWidget extends AbstractDashboardWidget {
 
         // Determine whether to draw a single or a double chart. In case 24h mode is selected,
         // use just the outer chart (chart_12_24) for all data.
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         mode_24h = prefs.getBoolean("dashboard_widget_today_24h", false);
 
         // Initialize legend
@@ -140,7 +138,7 @@ public class DashboardTodayWidget extends AbstractDashboardWidget {
     }
 
     private void draw() {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         boolean upsideDown24h = prefs.getBoolean("dashboard_widget_today_24h_upside_down", false);
         boolean showYesterday = prefs.getBoolean("dashboard_widget_today_show_yesterday", false);
 
@@ -154,7 +152,7 @@ public class DashboardTodayWidget extends AbstractDashboardWidget {
         float hourTextPixels = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_SP,
                 hourTextSp,
-                GBApplication.getContext().getResources().getDisplayMetrics()
+                WearableApplication.getContext().getResources().getDisplayMetrics()
         );
         float outerCircleMargin = mode_24h ? barWidth / 2f : barWidth / 2f + hourTextPixels * 1.3f;
         float innerCircleMargin = outerCircleMargin + barWidth * 1.3f;
@@ -176,7 +174,7 @@ public class DashboardTodayWidget extends AbstractDashboardWidget {
         }
 
         // Draw hours
-        boolean normalClock = DateFormat.is24HourFormat(GBApplication.getContext());
+        boolean normalClock = DateFormat.is24HourFormat(WearableApplication.getContext());
         Map<Integer, String> hours = new HashMap<Integer, String>() {
             {
                 put(0, normalClock ? (mode_24h ? "0" : "12") : "12pm");
@@ -332,7 +330,7 @@ public class DashboardTodayWidget extends AbstractDashboardWidget {
         if (prefs.getBoolean("dashboard_widget_today_time_indicator", false) && currentTime < dashboardData.timeTo) {
             float margin = (mode_24h || currentTime >= midDaySecond) ? outerCircleMargin : innerCircleMargin;
             paint.setStrokeWidth(barWidth);
-            paint.setColor(GBApplication.getTextColor(requireContext()));
+            paint.setColor(WearableApplication.getTextColor(requireContext()));
             canvas.drawArc(margin, margin, width - margin, height - margin, startAngle + (currentTime - dashboardData.timeFrom) / degreeFactor, 300 / degreeFactor, false, paint);
         }
         // Fill remaining time until current time in 12h mode before midday
@@ -382,7 +380,7 @@ public class DashboardTodayWidget extends AbstractDashboardWidget {
     protected void fillData() {
         if (todayView == null) return;
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         if (prefs.getBoolean("dashboard_widget_today_show_yesterday", false)) {
             Calendar today = Calendar.getInstance();
             Calendar dashboardDate = Calendar.getInstance();
@@ -538,11 +536,11 @@ public class DashboardTodayWidget extends AbstractDashboardWidget {
 
             // Retrieve activity data
             dashboardData.generalizedActivities.clear();
-            List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+            List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
             List<ActivitySample> allActivitySamples = new ArrayList<>();
             List<ActivitySession> stepSessions = new ArrayList<>();
             List<BaseActivitySummary> activitySummaries = null;
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = WearableApplication.acquireDB()) {
                 for (GBDevice dev : devices) {
                     if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsActivityTracking()) {
                         List<? extends ActivitySample> activitySamples = DashboardUtils.getAllSamples(dbHandler, dev, dashboardData);

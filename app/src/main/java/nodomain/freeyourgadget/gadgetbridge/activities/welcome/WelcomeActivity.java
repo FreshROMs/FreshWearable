@@ -26,10 +26,11 @@ import androidx.viewpager2.widget.ViewPager2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.wearable.activities.onboarding.PermissionsFragment;
 
-public class WelcomeActivity extends AbstractGBActivity {
+public class WelcomeActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(WelcomeActivity.class);
 
     private ViewPager2 viewPager;
@@ -37,7 +38,7 @@ public class WelcomeActivity extends AbstractGBActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AbstractGBActivity.init(this, AbstractGBActivity.NO_ACTIONBAR);
+        CommonActivityAbstract.init(this, CommonActivityAbstract.NO_ACTIONBAR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         if (getSupportActionBar() != null) {
@@ -69,7 +70,7 @@ public class WelcomeActivity extends AbstractGBActivity {
                 case 2:
                     return new WelcomeFragmentDocsSource();
                 case 3:
-                    return new WelcomeFragmentPermissions();
+                    return new PermissionsFragment();
                 default:
                     return new WelcomeFragmentGetStarted();
             }

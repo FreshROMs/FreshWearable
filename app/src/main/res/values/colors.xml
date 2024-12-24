@@ -84,6 +84,7 @@
     <color name="alternate_row_background_dark">#545254</color>
 
     <color name="transparent">#00000000</color>
+    <color name="sesl_btn_default_color">#e9e9ec</color>
 
     <drawable name="selected">@color/accent</drawable>
 

@@ -24,7 +24,7 @@ import androidx.preference.Preference;
 import java.util.Collections;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -46,7 +46,7 @@ public class ZeTimeSettingsCustomizer implements DeviceSpecificSettingsCustomize
     public void customizeSettings(final DeviceSpecificSettingsHandler handler, final Prefs prefs, final String rootKey) {
         if (rootKey == null) {
             // Main screen - read the settings
-            GBApplication.deviceService(device).onReadConfiguration("do_it");
+            WearableApplication.deviceService(device).onReadConfiguration("do_it");
         }
 
         // Date time

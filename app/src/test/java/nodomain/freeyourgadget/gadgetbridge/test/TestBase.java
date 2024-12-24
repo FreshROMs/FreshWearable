@@ -13,8 +13,8 @@ import org.robolectric.annotation.Config;
 import java.io.File;
 
 import ch.qos.logback.classic.util.ContextInitializer;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBEnvironment;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.Environment;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -22,7 +22,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 
 import static org.junit.Assert.assertNotNull;
-import static nodomain.freeyourgadget.gadgetbridge.Logging.PROP_LOGFILES_DIR;
+import static xyz.tenseventyseven.fresh.wearable.Logging.PROP_LOGFILES_DIR;
 
 /**
  * Base class for all testcases in Gadgetbridge that are supposed to run locally
@@ -36,14 +36,14 @@ import static nodomain.freeyourgadget.gadgetbridge.Logging.PROP_LOGFILES_DIR;
 public abstract class TestBase {
     protected static File logFilesDir;
 
-    protected GBApplication app = (GBApplication) RuntimeEnvironment.application;
+    protected WearableApplication app = (WearableApplication) RuntimeEnvironment.application;
     protected DaoSession daoSession;
     protected DBHandler dbHandler;
 
     // Make sure logging is set up for all testcases, so that we can debug problems
     @BeforeClass
     public static void setupSuite() throws Exception {
-        GBEnvironment.setupEnvironment(GBEnvironment.createLocalTestEnvironment());
+        Environment.setupEnvironment(Environment.createLocalTestEnvironment());
 
         // print everything going to android.util.Log to System.out
         System.setProperty("robolectric.logging", "stdout");
@@ -67,11 +67,11 @@ public abstract class TestBase {
 
     @Before
     public void setUp() throws Exception {
-        app = (GBApplication) RuntimeEnvironment.application;
+        app = (WearableApplication) RuntimeEnvironment.application;
         assertNotNull(app);
         assertNotNull(getContext());
         app.setupDatabase();
-        dbHandler = GBApplication.acquireDB();
+        dbHandler = WearableApplication.acquireDB();
         daoSession = dbHandler.getDaoSession();
         assertNotNull(daoSession);
     }
@@ -79,7 +79,7 @@ public abstract class TestBase {
     @After
     public void tearDown() throws Exception {
         dbHandler.closeDb();
-        GBApplication.releaseDB();
+        WearableApplication.releaseDB();
     }
 
     protected GBDevice createDummyGDevice(String macAddress) {

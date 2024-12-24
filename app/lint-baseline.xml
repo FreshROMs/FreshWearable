@@ -8533,7 +8533,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This `AsyncTask` class should be static or leaks might occur (nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2.RefreshTask)"
+        message="This `AsyncTask` class should be static or leaks might occur (xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity.RefreshTask)"
         errorLine1="    public class RefreshTask extends DBAccess {"
         errorLine2="                 ~~~~~~~~~~~">
         <location

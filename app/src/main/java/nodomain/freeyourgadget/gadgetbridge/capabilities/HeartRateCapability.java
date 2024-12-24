@@ -33,8 +33,8 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsHandler;
 
 public class HeartRateCapability {
@@ -77,7 +77,7 @@ public class HeartRateCapability {
             enableHeartrateSleepSupport.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newVal) {
-                    GBApplication.deviceService(handler.getDevice()).onEnableHeartRateSleepSupport(Boolean.TRUE.equals(newVal));
+                    WearableApplication.deviceService(handler.getDevice()).onEnableHeartRateSleepSupport(Boolean.TRUE.equals(newVal));
                     return true;
                 }
             });
@@ -119,7 +119,7 @@ public class HeartRateCapability {
 
             heartrateMeasurementInterval.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 public boolean onPreferenceChange(final Preference preference, final Object newVal) {
-                    GBApplication.deviceService(handler.getDevice()).onSetHeartRateMeasurementInterval(Integer.parseInt((String) newVal));
+                    WearableApplication.deviceService(handler.getDevice()).onSetHeartRateMeasurementInterval(Integer.parseInt((String) newVal));
 
                     final boolean isMeasurementIntervalEnabled = !newVal.equals("0");
 

@@ -30,8 +30,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventVersionInfo;
@@ -141,7 +141,7 @@ public class MiCompositionScaleDeviceSupport extends AbstractBTLEDeviceSupport {
     private void handleWeightInfo(final Date date, final float weightKg) {
         GB.toast(getContext().getString(R.string.weight_kg, weightKg), Toast.LENGTH_SHORT, GB.INFO);
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             final MiScaleSampleProvider provider = new MiScaleSampleProvider(getDevice(), db.getDaoSession());
             final Long userId = DBHelper.getUser(db.getDaoSession()).getId();
             final Long deviceId = DBHelper.getDevice(getDevice(), db.getDaoSession()).getId();

@@ -30,8 +30,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -98,7 +98,7 @@ public class FetchActivityOperation extends AbstractRepeatingFetchOperation {
         LOG.info("Saving {} samples", samples.size());
 
         // save all the samples that we got
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             DaoSession session = handler.getDaoSession();
 
             DeviceCoordinator coordinator = getDevice().getDeviceCoordinator();

@@ -36,14 +36,14 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.file.FileHandle;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class FileManagementActivity extends AbstractGBActivity implements View.OnClickListener {
+public class FileManagementActivity extends CommonActivityAbstract implements View.OnClickListener {
     private final int REQUEST_CODE_PICK_UPLOAD_FILE = 0;
 
     private Spinner fileTypesSpinner;

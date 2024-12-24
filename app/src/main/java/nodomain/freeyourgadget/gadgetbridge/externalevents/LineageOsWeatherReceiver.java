@@ -47,8 +47,8 @@ import lineageos.weather.LineageWeatherManager;
 import lineageos.weather.WeatherInfo;
 import lineageos.weather.WeatherLocation;
 import lineageos.weather.util.WeatherUtils;
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.Weather;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
@@ -64,13 +64,13 @@ public class LineageOsWeatherReceiver extends BroadcastReceiver implements Linea
     private PendingIntent mPendingIntent = null;
 
     public LineageOsWeatherReceiver() {
-        mContext = GBApplication.getContext();
+        mContext = WearableApplication.getContext();
         final LineageWeatherManager weatherManager = LineageWeatherManager.getInstance(mContext);
         if (weatherManager == null) {
             return;
         }
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
 
         String city = prefs.getString("weather_city", null);
         String cityId = prefs.getString("weather_cityid", null);
@@ -120,7 +120,7 @@ public class LineageOsWeatherReceiver extends BroadcastReceiver implements Linea
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
 
         String city = prefs.getString("weather_city", null);
         String cityId = prefs.getString("weather_cityid", null);
@@ -133,7 +133,7 @@ public class LineageOsWeatherReceiver extends BroadcastReceiver implements Linea
     }
 
     private void requestWeather() {
-        final LineageWeatherManager weatherManager = LineageWeatherManager.getInstance(GBApplication.getContext());
+        final LineageWeatherManager weatherManager = LineageWeatherManager.getInstance(WearableApplication.getContext());
         if (weatherManager.getActiveWeatherServiceProviderLabel() != null && weatherLocation != null) {
             weatherManager.requestWeatherUpdate(weatherLocation, this);
         }
@@ -204,7 +204,7 @@ public class LineageOsWeatherReceiver extends BroadcastReceiver implements Linea
             }
             ArrayList<WeatherSpec> weatherSpecs = new ArrayList<>(Collections.singletonList(weatherSpec));
             Weather.getInstance().setWeatherSpec(weatherSpecs);
-            GBApplication.deviceService().onSendWeather(weatherSpecs);
+            WearableApplication.deviceService().onSendWeather(weatherSpecs);
         } else {
             LOG.info("request has returned null for WeatherInfo");
         }
@@ -217,7 +217,7 @@ public class LineageOsWeatherReceiver extends BroadcastReceiver implements Linea
             String cityId = weatherLocation.getCityId();
             String city = weatherLocation.getCity();
 
-            SharedPreferences.Editor editor = GBApplication.getPrefs().getPreferences().edit();
+            SharedPreferences.Editor editor = WearableApplication.getPrefs().getPreferences().edit();
             editor.putString("weather_city", city).apply();
             editor.putString("weather_cityid", cityId).apply();
             enablePeriodicAlarm(true);

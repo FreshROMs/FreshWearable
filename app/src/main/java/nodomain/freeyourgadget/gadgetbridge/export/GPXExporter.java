@@ -33,7 +33,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityPoint;
@@ -72,7 +72,7 @@ public class GPXExporter implements ActivityTrackExporter {
             if (creator != null) {
                 ser.attribute(null, "creator", creator);
             } else {
-                ser.attribute(null, "creator", GBApplication.app().getNameAndVersion());
+                ser.attribute(null, "creator", WearableApplication.app().getNameAndVersion());
             }
             ser.attribute(NS_XSI_URI, "schemaLocation",NS_GPX_URI + " " + TOPOGRAFIX_NAMESPACE_XSD);
 

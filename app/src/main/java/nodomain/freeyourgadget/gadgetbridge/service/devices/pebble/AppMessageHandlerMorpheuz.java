@@ -30,7 +30,7 @@ import java.util.Objects;
 import java.util.SimpleTimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
@@ -123,7 +123,7 @@ class AppMessageHandlerMorpheuz extends AppMessageHandler {
                     int intensity = ((int) pair.second & 0xffff);
                     LOG.info("got point:" + index + " " + intensity);
                     if (index >= 0) {
-                        try (DBHandler db = GBApplication.acquireDB()) {
+                        try (DBHandler db = WearableApplication.acquireDB()) {
                             Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                             Long deviceId = DBHelper.getDevice(getDevice(), db.getDaoSession()).getId();
                             PebbleMorpheuzSampleProvider sampleProvider = new PebbleMorpheuzSampleProvider(getDevice(), db.getDaoSession());

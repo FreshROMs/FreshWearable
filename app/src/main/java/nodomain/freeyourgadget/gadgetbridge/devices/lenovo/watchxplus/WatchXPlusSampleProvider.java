@@ -28,7 +28,7 @@ import java.util.Random;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractSampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.WatchXPlusActivitySample;
@@ -135,7 +135,7 @@ public class WatchXPlusSampleProvider extends AbstractSampleProvider<WatchXPlusA
     @NonNull
     @Override
     public List<WatchXPlusActivitySample> getAllActivitySamples(int timestamp_from, int timestamp_to) {
-        boolean showRawData = GBApplication.getDeviceSpecificSharedPrefs(mDevice.getAddress()).getBoolean(WatchXPlusConstants.PREF_SHOW_RAW_GRAPH, false);
+        boolean showRawData = WearableApplication.getDeviceSpecificSharedPrefs(mDevice.getAddress()).getBoolean(WatchXPlusConstants.PREF_SHOW_RAW_GRAPH, false);
         if (showRawData) {
             return getGBActivitySamples(timestamp_from, timestamp_to);
         }

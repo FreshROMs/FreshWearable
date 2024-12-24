@@ -19,14 +19,12 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.huami;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityPoint;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityTrack;
@@ -71,7 +69,7 @@ public class HuamiActivityDetailsParser extends AbstractHuamiActivityDetailsPars
         activityTrack.setName(createActivityName(summary));
     }
 
-    public ActivityTrack parse(byte[] bytes) throws GBException {
+    public ActivityTrack parse(byte[] bytes) throws WearableException {
         int i = 0;
         try {
             long totalTimeOffset = 0;
@@ -123,7 +121,7 @@ public class HuamiActivityDetailsParser extends AbstractHuamiActivityDetailsPars
                 }
             }
         } catch (IndexOutOfBoundsException ex) {
-            throw new GBException("Error parsing activity details: " + ex.getMessage(), ex);
+            throw new WearableException("Error parsing activity details: " + ex.getMessage(), ex);
         }
 
         fixupMissingTimestamps(activityTrack);

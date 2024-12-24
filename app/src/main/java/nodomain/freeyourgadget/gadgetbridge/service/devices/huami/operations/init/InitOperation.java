@@ -37,8 +37,8 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiService;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.AbstractBTLEOperation;
@@ -92,7 +92,7 @@ public class InitOperation extends AbstractBTLEOperation<HuamiSupport> {
     protected byte[] getSecretKey() {
         byte[] authKeyBytes = new byte[]{0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x40, 0x41, 0x42, 0x43, 0x44, 0x45};
 
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         String authKey = sharedPrefs.getString("authkey", null);
         if (authKey != null && !authKey.isEmpty()) {
@@ -157,7 +157,7 @@ public class InitOperation extends AbstractBTLEOperation<HuamiSupport> {
                     GB.toast(getContext(), R.string.authentication_failed_check_key, Toast.LENGTH_LONG, GB.WARN);
                     final GBDevice device = getDevice();
                     if (device != null) {
-                        GBApplication.deviceService(device).disconnect();
+                        WearableApplication.deviceService(device).disconnect();
                     }
                 } else {
                     return super.onCharacteristicChanged(gatt, characteristic);

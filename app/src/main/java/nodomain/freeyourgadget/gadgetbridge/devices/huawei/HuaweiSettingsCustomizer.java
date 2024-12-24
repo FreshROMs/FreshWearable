@@ -27,7 +27,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import java.util.Set;
 import java.util.Collections;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -59,7 +59,7 @@ public class HuaweiSettingsCustomizer implements DeviceSpecificSettingsCustomize
             final XTimePreference dndEnd = handler.findPreference(PREF_DO_NOT_DISTURB_END);
             final SwitchPreferenceCompat dndLifWrist = handler.findPreference(PREF_DO_NOT_DISTURB_LIFT_WRIST);
             final SwitchPreferenceCompat dndNotWear = handler.findPreference(PREF_DO_NOT_DISTURB_NOT_WEAR);
-            SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+            SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress());
             boolean statusLiftWrist = sharedPrefs.getBoolean(PREF_LIFTWRIST_NOSHED, false);
 
             dndStart.setEnabled(dndState.equals("scheduled"));

@@ -44,13 +44,12 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
-import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandConst;
 import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.entities.DeviceAttributes;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -101,7 +100,7 @@ public class DeviceHelper {
         }
 
         Set<GBDevice> availableDevices = new LinkedHashSet<>(getDatabaseDevices());
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         return availableDevices;
     }
 
@@ -156,7 +155,7 @@ public class DeviceHelper {
 
     private List<GBDevice> getDatabaseDevices() {
         List<GBDevice> result = new ArrayList<>();
-        try (DBHandler lockHandler = GBApplication.acquireDB()) {
+        try (DBHandler lockHandler = WearableApplication.acquireDB()) {
             List<Device> activeDevices = DBHelper.getActiveDevices(lockHandler.getDaoSession());
             for (Device dbDevice : activeDevices) {
                 GBDevice gbDevice = toGBDevice(dbDevice);
@@ -167,7 +166,7 @@ public class DeviceHelper {
             return result;
 
         } catch (Exception e) {
-            GB.toast(GBApplication.getContext().getString(R.string.error_retrieving_devices_database), Toast.LENGTH_SHORT, GB.ERROR, e);
+            GB.toast(WearableApplication.getContext().getString(R.string.error_retrieving_devices_database), Toast.LENGTH_SHORT, GB.ERROR, e);
             return Collections.emptyList();
         }
     }
@@ -180,7 +179,7 @@ public class DeviceHelper {
      */
     public GBDevice toGBDevice(Device dbDevice) {
         DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
-        GBDevice gbDevice = new GBDevice(dbDevice.getIdentifier(), dbDevice.getName(), dbDevice.getAlias(), dbDevice.getParentFolder(), deviceType);
+        GBDevice gbDevice = new GBDevice(dbDevice.getIdentifier(), dbDevice.getName(), dbDevice.getAlias(), dbDevice.getVariant(), dbDevice.getParentFolder(), deviceType);
         DeviceCoordinator coordinator = gbDevice.getDeviceCoordinator();
         for (BatteryConfig batteryConfig : coordinator.getBatteryConfig(gbDevice)) {
             gbDevice.setBatteryIcon(batteryConfig.getBatteryIcon(), batteryConfig.getBatteryIndex());
@@ -188,8 +187,9 @@ public class DeviceHelper {
         }
 
         List<DeviceAttributes> deviceAttributesList = dbDevice.getDeviceAttributesList();
-        if (deviceAttributesList.size() > 0) {
+        if (!deviceAttributesList.isEmpty()) {
             gbDevice.setModel(dbDevice.getModel());
+            gbDevice.setVariant(dbDevice.getVariant());
             DeviceAttributes attrs = deviceAttributesList.get(0);
             gbDevice.setFirmwareVersion(attrs.getFirmwareVersion1());
             gbDevice.setFirmwareVersion2(attrs.getFirmwareVersion2());
@@ -205,7 +205,7 @@ public class DeviceHelper {
      * @param device
      * @return
      */
-    public boolean removeBond(GBDevice device) throws GBException {
+    public boolean removeBond(GBDevice device) throws WearableException {
         BluetoothAdapter defaultAdapter = BluetoothAdapter.getDefaultAdapter();
         if (defaultAdapter != null) {
             BluetoothDevice remoteDevice = defaultAdapter.getRemoteDevice(device.getAddress());
@@ -215,7 +215,7 @@ public class DeviceHelper {
                     Object result = method.invoke(remoteDevice, (Object[]) null);
                     return Boolean.TRUE.equals(result);
                 } catch (Exception e) {
-                    throw new GBException("Error removing bond to device: " + device, e);
+                    throw new WearableException("Error removing bond to device: " + device, e);
                 }
             }
         }

@@ -31,11 +31,10 @@ import java.util.GregorianCalendar;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
-import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandDateConverter;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandSampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandService;
@@ -353,7 +352,7 @@ public class FetchActivityOperation extends AbstractMiBand1Operation {
         LOG.debug("flushing activity data samples: " + activityStruct.activityDataHolderProgress / bpm);
         byte category, intensity, steps, heartrate = 0;
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()){
+        try (DBHandler dbHandler = WearableApplication.acquireDB()){
             MiBandSampleProvider provider = new MiBandSampleProvider(getDevice(), dbHandler.getDaoSession());
             User user = DBHelper.getUser(dbHandler.getDaoSession());
             Device device = DBHelper.getDevice(getDevice(), dbHandler.getDaoSession());
@@ -410,7 +409,7 @@ public class FetchActivityOperation extends AbstractMiBand1Operation {
      */
     private void sendAckDataTransfer(Calendar time, int bytesTransferred) {
         byte[] ackTime = MiBandDateConverter.calendarToRawBytes(time, getDevice().getAddress());
-        Prefs prefs = GBApplication.getDevicePrefs(getDevice());
+        Prefs prefs = WearableApplication.getDevicePrefs(getDevice());
 
         byte[] ackChecksum = new byte[]{
                 (byte) (bytesTransferred & 0xff),

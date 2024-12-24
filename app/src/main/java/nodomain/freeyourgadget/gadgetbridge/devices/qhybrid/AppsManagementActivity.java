@@ -34,24 +34,22 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.PopupMenuCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class AppsManagementActivity extends AbstractGBActivity {
+public class AppsManagementActivity extends CommonActivityAbstract {
     ListView appsListView;
     String[] appNames;
 
@@ -70,7 +68,7 @@ public class AppsManagementActivity extends AbstractGBActivity {
 
     private void refreshInstalledApps() {
         try {
-            List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+            List<GBDevice> devices = WearableApplication.app().getDeviceManager().getSelectedDevices();
             boolean deviceFound = false;
             for(GBDevice device : devices){
                 if (

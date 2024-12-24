@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public class PebbleLESupport {
@@ -63,11 +63,11 @@ public class PebbleLESupport {
         mWriteHandlerThread.start();
         mWriteHandler = new Handler(mWriteHandlerThread.getLooper());
 
-        mMTULimit = GBApplication.getDevicePrefs(mgbDevice).getInt("pebble_mtu_limit", 512);
+        mMTULimit = WearableApplication.getDevicePrefs(mgbDevice).getInt("pebble_mtu_limit", 512);
         mMTULimit = Math.max(mMTULimit, 20);
         mMTULimit = Math.min(mMTULimit, 512);
 
-        clientOnly = GBApplication.getDevicePrefs(mgbDevice).getBoolean("pebble_gatt_clientonly", false);
+        clientOnly = WearableApplication.getDevicePrefs(mgbDevice).getBoolean("pebble_gatt_clientonly", false);
 
         if (!clientOnly) {
             mPebbleGATTServer = new PebbleGATTServer(this, context, mBtDevice);

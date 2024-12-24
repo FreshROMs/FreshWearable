@@ -279,7 +279,11 @@ import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.miband9.MiBand9Coordi
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.miband9pro.MiBand9ProCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.miwatch.MiWatchLiteCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.miwatchcolorsport.MiWatchColorSportCoordinator;
-import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds5pro.RedmiBudsCoordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.coordinators.RedmiBuds4ActiveCoordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.coordinators.RedmiBuds4Coordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.coordinators.RedmiBuds5Coordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.coordinators.RedmiBuds5ProCoordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.coordinators.RedmiBuds6LiteCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmismartband2.RedmiSmartBand2Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmismartbandpro.RedmiSmartBandProCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmiwatch2.RedmiWatch2Coordinator;
@@ -354,8 +358,12 @@ public enum DeviceType {
     MIBAND9PRO(MiBand9ProCoordinator.class),
     MIWATCHLITE(MiWatchLiteCoordinator.class),
     MIWATCHCOLORSPORT(MiWatchColorSportCoordinator.class),
-    REDMIBUDS5PRO(RedmiBudsCoordinator.class),
+    REDMIBUDS4ACTIVE(RedmiBuds4ActiveCoordinator.class),
+    REDMIBUDS4(RedmiBuds4Coordinator.class),
+    REDMIBUDS5(RedmiBuds5Coordinator.class),
+    REDMIBUDS5PRO(RedmiBuds5ProCoordinator.class),
     REDMIWATCH3ACTIVE(RedmiWatch3ActiveCoordinator.class),
+    REDMIBUDS6LITE(RedmiBuds6LiteCoordinator.class),
     REDMIWATCH3(RedmiWatch3Coordinator.class),
     REDMISMARTBAND2(RedmiSmartBand2Coordinator.class),
     REDMIWATCH2(RedmiWatch2Coordinator.class),

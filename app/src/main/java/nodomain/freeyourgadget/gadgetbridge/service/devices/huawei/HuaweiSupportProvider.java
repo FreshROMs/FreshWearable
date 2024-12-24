@@ -41,8 +41,8 @@ import java.util.UUID;
 
 import de.greenrobot.dao.query.DeleteQuery;
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -334,7 +334,7 @@ public class HuaweiSupportProvider {
 
     public void setGps(boolean start) {
         if (start) {
-            if (!GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_WORKOUT_SEND_GPS_TO_BAND, false))
+            if (!WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_WORKOUT_SEND_GPS_TO_BAND, false))
                 return;
             if (gpsParametersResponse == null) {
                 GetGpsParameterRequest gpsParameterRequest = new GetGpsParameterRequest(this);
@@ -434,7 +434,7 @@ public class HuaweiSupportProvider {
         }
 
         /* This is to have the setting match the default Huawei behaviour */
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(getDeviceMac());
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(getDeviceMac());
         if (!sharedPrefs.contains(DeviceSettingsPreferenceConst.PREF_DISCONNECTNOTIF_NOSHED)) {
             sharedPrefs.edit().putBoolean(DeviceSettingsPreferenceConst.PREF_DISCONNECTNOTIF_NOSHED, true).apply();
         }
@@ -545,7 +545,7 @@ public class HuaweiSupportProvider {
             // Disconnect as no communication can succeed after this point
             final GBDevice device = getDevice();
             if (device != null) {
-                GBApplication.deviceService(device).disconnect();
+                WearableApplication.deviceService(device).disconnect();
             }
         }
 
@@ -556,7 +556,7 @@ public class HuaweiSupportProvider {
             // Disconnect as no communication can succeed after this point
             final GBDevice device = getDevice();
             if (device != null) {
-                GBApplication.deviceService(device).disconnect();
+                WearableApplication.deviceService(device).disconnect();
             }
         }
     };
@@ -625,7 +625,7 @@ public class HuaweiSupportProvider {
         if (isBLE()) {
             nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder leBuilder = createLeTransactionBuilder("Initializing");
             leBuilder.setCallback(leSupport);
-            if (!GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean("force_new_protocol", false))
+            if (!WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean("force_new_protocol", false))
                 leBuilder.notify(leSupport.getCharacteristic(HuaweiConstants.UUID_CHARACTERISTIC_HUAWEI_READ), true);
             leBuilder.add(new nodomain.freeyourgadget.gadgetbridge.service.btle.actions.SetDeviceStateAction(gbDevice, GBDevice.State.INITIALIZING, context));
         } else {
@@ -636,7 +636,7 @@ public class HuaweiSupportProvider {
         try {
             if (firstConnection) {
                 // Workaround to enable PREF_HUAWEI_ROTATE_WRIST_TO_SWITCH_INFO preference
-                SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceMac);
+                SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(deviceMac);
                 SharedPreferences.Editor editor = sharedPrefs.edit();
                 editor.putString(DeviceSettingsPreferenceConst.PREF_ACTIVATE_DISPLAY_ON_LIFT, "p_on");
                 editor.apply();
@@ -675,7 +675,7 @@ public class HuaweiSupportProvider {
     }
 
     public void createSecretKey() {
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceMac);
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(deviceMac);
 
         String authKey = sharedPrefs.getString("authkey", null);
         if (authKey == null || authKey.isEmpty()) {
@@ -689,7 +689,7 @@ public class HuaweiSupportProvider {
     }
 
     public byte[] getSecretKey() {
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceMac);
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(deviceMac);
 
         String authKey = sharedPrefs.getString("authkey", null);
 
@@ -699,7 +699,7 @@ public class HuaweiSupportProvider {
     }
 
     public void setSecretKey(byte[] authKey) {
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceMac);
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(deviceMac);
 
         SharedPreferences.Editor editor = sharedPrefs.edit();
 
@@ -721,7 +721,7 @@ public class HuaweiSupportProvider {
     }
 
     protected void createRandomMacAddress() {
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceMac);
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(deviceMac);
 
         macAddress = sharedPrefs.getString(HuaweiConstants.PREF_HUAWEI_ADDRESS, null);
         if (macAddress == null || macAddress.isEmpty()) {
@@ -751,7 +751,7 @@ public class HuaweiSupportProvider {
     }
 
     protected void createAndroidID() {
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceMac);
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(deviceMac);
 
         androidID = sharedPrefs.getString(DeviceSettingsPreferenceConst.PREF_FAKE_ANDROID_ID, null);
         if (androidID == null || androidID.isEmpty()) {
@@ -891,7 +891,7 @@ public class HuaweiSupportProvider {
         DeviceCoordinator coordinator = this.gbDevice.getDeviceCoordinator();
         int supportedNumAlarms = coordinator.getAlarmSlotCount(gbDevice);
         if (alarms.isEmpty()) {
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = WearableApplication.acquireDB()) {
                 DaoSession daoSession = db.getDaoSession();
                 Device device = DBHelper.getDevice(gbDevice, daoSession);
                 User user = DBHelper.getUser(daoSession);
@@ -954,7 +954,7 @@ public class HuaweiSupportProvider {
     }
 
     public void saveAlarms(Alarm[] alarms) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             DaoSession daoSession = db.getDaoSession();
             Device device = DBHelper.getDevice(gbDevice, daoSession);
             User user = DBHelper.getUser(daoSession);
@@ -1082,7 +1082,7 @@ public class HuaweiSupportProvider {
                     new SendFitnessGoalRequest(this).doPerform();
                     break;
                 case DeviceSettingsPreferenceConst.PREF_CAMERA_REMOTE:
-                    if (GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_CAMERA_REMOTE, false)) {
+                    if (WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_CAMERA_REMOTE, false)) {
                         SendCameraRemoteSetupEvent sendCameraRemoteSetupEvent = new SendCameraRemoteSetupEvent(this, CameraRemote.CameraRemoteSetup.Request.Event.ENABLE_CAMERA);
                         sendCameraRemoteSetupEvent.doPerform();
                     } else {
@@ -1091,7 +1091,7 @@ public class HuaweiSupportProvider {
                         GB.toast(context, context.getString(R.string.toast_setting_requires_reconnect), Toast.LENGTH_SHORT, GB.INFO);
                     }
                 case DeviceSettingsPreferenceConst.PREF_BATTERY_POLLING_ENABLE:
-                    if (!GBApplication.getDevicePrefs(gbDevice).getBatteryPollingEnabled()) {
+                    if (!WearableApplication.getDevicePrefs(gbDevice).getBatteryPollingEnabled()) {
                         stopBatteryRunnerDelayed();
                         break;
                     }
@@ -1174,7 +1174,7 @@ public class HuaweiSupportProvider {
         int stepStart = 0;
         final int end = (int) (System.currentTimeMillis() / 1000);
 
-        SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        SharedPreferences sharedPreferences = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
         long prefLastSyncTime = sharedPreferences.getLong("lastSyncTimeMillis", 0);
         if (prefLastSyncTime != 0) {
             sleepStart = (int) (prefLastSyncTime / 1000);
@@ -1183,7 +1183,7 @@ public class HuaweiSupportProvider {
             // Reset for next calls
             sharedPreferences.edit().putLong("lastSyncTimeMillis", 0).apply();
         } else {
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = WearableApplication.acquireDB()) {
                 HuaweiSampleProvider sampleProvider = new HuaweiSampleProvider(gbDevice, db.getDaoSession());
                 sleepStart = sampleProvider.getLastSleepFetchTimestamp();
                 stepStart = sampleProvider.getLastStepFetchTimestamp();
@@ -1296,7 +1296,7 @@ public class HuaweiSupportProvider {
         int start = 0;
         int end = (int) (System.currentTimeMillis() / 1000);
 
-        SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        SharedPreferences sharedPreferences = WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
         long prefLastSyncTime = sharedPreferences.getLong("lastSportsActivityTimeMillis", 0);
         if (prefLastSyncTime != 0) {
             start = (int) (prefLastSyncTime / 1000);
@@ -1304,7 +1304,7 @@ public class HuaweiSupportProvider {
             // Reset for next calls
             sharedPreferences.edit().putLong("lastSportsActivityTimeMillis", 0).apply();
         } else {
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = WearableApplication.acquireDB()) {
                 Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                 Long deviceId = DBHelper.getDevice(gbDevice, db.getDaoSession()).getId();
 
@@ -1410,7 +1410,7 @@ public class HuaweiSupportProvider {
     }
 
     public void onNotification(NotificationSpec notificationSpec) {
-        if (!GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_NOTIFICATION_ENABLE, false)) {
+        if (!WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_NOTIFICATION_ENABLE, false)) {
             // Don't send notifications when they are disabled
             LOG.info("Stopped notification as they are disabled.");
             return;
@@ -1530,7 +1530,7 @@ public class HuaweiSupportProvider {
     public void addSleepActivity(int timestamp_start, int timestamp_end, byte type, byte source) {
         LOG.debug("Adding sleep activity between {} and {}", timestamp_start, timestamp_end);
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             Long userId = DBHelper.getUser(db.getDaoSession()).getId();
             Long deviceId = DBHelper.getDevice(gbDevice, db.getDaoSession()).getId();
             HuaweiSampleProvider sampleProvider = new HuaweiSampleProvider(gbDevice, db.getDaoSession());
@@ -1558,7 +1558,7 @@ public class HuaweiSupportProvider {
     }
 
     public void addStepData(int timestamp, short steps, short calories, short distance, byte spo, byte heartrate) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             Long userId = DBHelper.getUser(db.getDaoSession()).getId();
             Long deviceId = DBHelper.getDevice(gbDevice, db.getDaoSession()).getId();
             HuaweiSampleProvider sampleProvider = new HuaweiSampleProvider(gbDevice, db.getDaoSession());
@@ -1594,7 +1594,7 @@ public class HuaweiSupportProvider {
     }
 
     public Long addWorkoutTotalsData(Workout.WorkoutTotals.Response packet) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             Long userId = DBHelper.getUser(db.getDaoSession()).getId();
             Long deviceId = DBHelper.getDevice(gbDevice, db.getDaoSession()).getId();
 
@@ -1688,7 +1688,7 @@ public class HuaweiSupportProvider {
         if (workoutId == null)
             return;
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             HuaweiWorkoutDataSampleDao dao = db.getDaoSession().getHuaweiWorkoutDataSampleDao();
 
             for (Workout.WorkoutData.Response.Data data : dataList) {
@@ -1732,7 +1732,7 @@ public class HuaweiSupportProvider {
         if (workoutId == null)
             return;
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             HuaweiWorkoutPaceSampleDao dao = db.getDaoSession().getHuaweiWorkoutPaceSampleDao();
 
             if (number == 0) {
@@ -1767,7 +1767,7 @@ public class HuaweiSupportProvider {
         if (workoutId == null)
             return;
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             HuaweiWorkoutSwimSegmentsSampleDao dao = db.getDaoSession().getHuaweiWorkoutSwimSegmentsSampleDao();
 
             if (number == 0) {
@@ -1800,7 +1800,7 @@ public class HuaweiSupportProvider {
     }
 
     public void addDictData(List<HuaweiP2PDataDictionarySyncService.DictData> dictData) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             Long userId = DBHelper.getUser(db.getDaoSession()).getId();
             Long deviceId = DBHelper.getDevice(gbDevice, db.getDaoSession()).getId();
 
@@ -1838,7 +1838,7 @@ public class HuaweiSupportProvider {
         if (dictId == null)
             return;
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             HuaweiDictDataValuesDao dao = db.getDaoSession().getHuaweiDictDataValuesDao();
 
             for (HuaweiP2PDataDictionarySyncService.DictData.DictDataValue dataValues : dictDataValues) {
@@ -1861,7 +1861,7 @@ public class HuaweiSupportProvider {
         if (dictClass == 0)
             return lastTimestamp;
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             Long userId = DBHelper.getUser(db.getDaoSession()).getId();
             Long deviceId = DBHelper.getDevice(gbDevice, db.getDaoSession()).getId();
 
@@ -1921,7 +1921,7 @@ public class HuaweiSupportProvider {
         try {
             SetActivateOnLiftRequest setActivateOnLiftReq = new SetActivateOnLiftRequest(this);
             setActivateOnLiftReq.doPerform();
-            SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceMac);
+            SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(deviceMac);
             boolean statusDndLiftWrist = sharedPrefs.getBoolean(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_LIFT_WRIST, false);
             if (statusDndLiftWrist) {
                 setDnd();
@@ -2236,7 +2236,7 @@ public class HuaweiSupportProvider {
     public void onCameraStatusChange(GBDeviceEventCameraRemote.Event event, String filename) {
         if (event == GBDeviceEventCameraRemote.Event.OPEN_CAMERA) {
             // Somehow a delay is necessary for the watch
-            new Handler(GBApplication.getContext().getMainLooper()).postDelayed(
+            new Handler(WearableApplication.getContext().getMainLooper()).postDelayed(
                     () -> {
                         SendCameraRemoteSetupEvent sendCameraRemoteSetupEvent = new SendCameraRemoteSetupEvent(HuaweiSupportProvider.this, CameraRemote.CameraRemoteSetup.Request.Event.CAMERA_STARTED);
                         try {
@@ -2289,7 +2289,7 @@ public class HuaweiSupportProvider {
     }
 
     public boolean startBatteryRunnerDelayed() {
-        int interval_minutes = GBApplication.getDevicePrefs(gbDevice).getBatteryPollingIntervalMinutes();
+        int interval_minutes = WearableApplication.getDevicePrefs(gbDevice).getBatteryPollingIntervalMinutes();
         int interval = interval_minutes * 60 * 1000;
         LOG.debug("Starting battery runner delayed by {} ({} minutes)", interval, interval_minutes);
         handler.removeCallbacks(batteryRunner);
@@ -2378,7 +2378,7 @@ public class HuaweiSupportProvider {
                         track.setName("Workout " + fileRequest.getWorkoutId());
                         track.setBaseTime(DateTimeUtils.parseTimeStamp(points[0].timestamp));
 
-                        try (DBHandler db = GBApplication.acquireDB()) {
+                        try (DBHandler db = WearableApplication.acquireDB()) {
                             track.setUser(DBHelper.getUser(db.getDaoSession()));
                             track.setDevice(DBHelper.getDevice(gbDevice, db.getDaoSession()));
                         } catch (Exception e) {
@@ -2414,7 +2414,7 @@ public class HuaweiSupportProvider {
                         }
 
                         GPXExporter exporter = new GPXExporter();
-                        exporter.setCreator(GBApplication.app().getNameAndVersion());
+                        exporter.setCreator(WearableApplication.app().getNameAndVersion());
                         try {
                             exporter.performExport(track, targetFile);
                         } catch (IOException | ActivityTrackExporter.GPXTrackEmptyException e) {
@@ -2432,7 +2432,7 @@ public class HuaweiSupportProvider {
                             return;
                         }
 
-                        try (DBHandler db = GBApplication.acquireDB()) {
+                        try (DBHandler db = WearableApplication.acquireDB()) {
                             DaoSession daoSession = db.getDaoSession();
                             HuaweiWorkoutSummarySample sample = daoSession.getHuaweiWorkoutSummarySampleDao().load(databaseId);
                             sample.setGpxFileLocation(targetFile.getAbsolutePath());

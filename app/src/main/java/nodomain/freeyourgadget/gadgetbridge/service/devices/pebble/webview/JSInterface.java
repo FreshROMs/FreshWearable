@@ -38,7 +38,7 @@ import java.util.Scanner;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -112,10 +112,10 @@ public class JSInterface {
             LOG.info("WEBVIEW message to pebble: " + out.toString());
             if (needsTransaction) {
                 this.lastTransaction++;
-                GBApplication.deviceService().onAppConfiguration(this.mUuid, out.toString(), this.lastTransaction);
+                WearableApplication.deviceService().onAppConfiguration(this.mUuid, out.toString(), this.lastTransaction);
                 return this.lastTransaction.toString();
             } else {
-                GBApplication.deviceService().onAppConfiguration(this.mUuid, out.toString(), null);
+                WearableApplication.deviceService().onAppConfiguration(this.mUuid, out.toString(), null);
             }
 
         } catch (JSONException e) {

@@ -49,4 +49,9 @@ public interface DeviceSpecificSettingsCustomizer extends Parcelable {
      * Keys of preferences which should print its values as a summary below the preference name.
      */
     Set<String> getPreferenceKeysWithSummary();
+
+    /**
+     * Called when the {@link DeviceSpecificSettingsFragment} is resumed.
+     */
+    default void update(final DeviceSpecificSettingsHandler handler) {};
 }

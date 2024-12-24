@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -920,7 +920,7 @@ public class XiaomiHealthService extends AbstractXiaomiService {
         }
 
         final XiaomiActivitySample sample;
-        try (final DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (final DBHandler dbHandler = WearableApplication.acquireDB()) {
             final DaoSession session = dbHandler.getDaoSession();
 
             final GBDevice gbDevice = getSupport().getDevice();

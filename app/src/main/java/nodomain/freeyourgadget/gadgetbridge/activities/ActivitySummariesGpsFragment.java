@@ -39,8 +39,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityPoint;
 import nodomain.freeyourgadget.gadgetbridge.model.GPSCoordinate;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.fit.FitFile;
@@ -155,7 +155,7 @@ public class ActivitySummariesGpsFragment extends AbstractGBFragment {
     private Canvas createCanvas(ImageView imageView) {
         Bitmap bitmap = createBitmap(CANVAS_SIZE, CANVAS_SIZE, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(GBApplication.getWindowBackgroundColor(requireActivity()));
+        canvas.drawColor(WearableApplication.getWindowBackgroundColor(requireActivity()));
         //frame around, but it doesn't look so nice
         /*
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);

@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
@@ -116,7 +116,7 @@ public class LanguageUtils {
     @Nullable
     public static Transliterator getTransliterator(final GBDevice device) {
         final DeviceCoordinator coordinator = device.getDeviceCoordinator();
-        final Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        final Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
         final String transliterateLanguagesPref = devicePrefs.getString(PREF_TRANSLITERATION_LANGUAGES, "");
 
         if (transliterateLanguagesPref.isEmpty()) {

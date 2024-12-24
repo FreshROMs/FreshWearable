@@ -2,7 +2,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.vivosport;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminCoordinator;
 
 public class GarminVivosportCoordinator extends GarminCoordinator {

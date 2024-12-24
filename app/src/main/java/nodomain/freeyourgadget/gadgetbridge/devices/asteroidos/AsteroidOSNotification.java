@@ -20,8 +20,8 @@ import androidx.annotation.NonNull;
 
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;
@@ -75,7 +75,7 @@ public class AsteroidOSNotification {
     public AsteroidOSNotification(CallSpec callSpec) {
         switch (callSpec.command) {
             case CallSpec.CALL_INCOMING:
-                this.applicationName = GBApplication.getContext().getString(R.string.pref_screen_notification_profile_incoming_call);
+                this.applicationName = WearableApplication.getContext().getString(R.string.pref_screen_notification_profile_incoming_call);
                 this.summary = callSpec.name;
                 this.body = callSpec.number;
                 this.vibrationStrength = VibrationStrength.RINGTONE;

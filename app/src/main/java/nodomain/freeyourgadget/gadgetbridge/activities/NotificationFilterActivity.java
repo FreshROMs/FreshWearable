@@ -33,9 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.dao.query.Query;
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppBlacklistAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilter;
@@ -43,8 +43,9 @@ import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilterDao;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilterEntry;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilterEntryDao;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public class NotificationFilterActivity extends AbstractGBActivity {
+public class NotificationFilterActivity extends CommonActivityAbstract {
 
     public static final int NOTIFICATION_FILTER_MODE_NONE = 0;
     public static final int NOTIFICATION_FILTER_MODE_WHITELIST = 1;
@@ -76,7 +77,7 @@ public class NotificationFilterActivity extends AbstractGBActivity {
 
         packageName = packageName.toLowerCase();
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
 
             NotificationFilterDao notificationFilterDao = db.getDaoSession().getNotificationFilterDao();
             NotificationFilterEntryDao notificationFilterEntryDao = db.getDaoSession().getNotificationFilterEntryDao();
@@ -175,7 +176,7 @@ public class NotificationFilterActivity extends AbstractGBActivity {
             return;
         }
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             NotificationFilterDao notificationFilterDao = db.getDaoSession().getNotificationFilterDao();
             NotificationFilterEntryDao notificationFilterEntryDao = db.getDaoSession().getNotificationFilterEntryDao();
 

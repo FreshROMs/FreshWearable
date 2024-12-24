@@ -37,8 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureWorldClocks;
 import nodomain.freeyourgadget.gadgetbridge.entities.WorldClock;
 
@@ -102,7 +102,7 @@ public class GBWorldClockListAdapter extends RecyclerView.Adapter<GBWorldClockLi
         holder.worldClockLabel.setText(worldClock.getLabel());
         holder.worldClockTimezone.setText(worldClock.getTimeZoneId());
 
-        final DateFormat df = new SimpleDateFormat("HH:mm", GBApplication.getLanguage());
+        final DateFormat df = new SimpleDateFormat("HH:mm", WearableApplication.getLanguage());
         df.setTimeZone(TimeZone.getTimeZone(worldClock.getTimeZoneId()));
         holder.worldClockCurrentTime.setText(df.format(new Date()));
     }

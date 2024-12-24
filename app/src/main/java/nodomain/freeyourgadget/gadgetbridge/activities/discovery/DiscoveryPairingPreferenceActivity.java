@@ -21,8 +21,8 @@ import android.widget.Toast;
 
 import androidx.preference.PreferenceFragmentCompat;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractSettingsActivityV2;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -46,7 +46,7 @@ public class DiscoveryPairingPreferenceActivity extends AbstractSettingsActivity
             setPreferencesFromResource(R.xml.discovery_pairing_preferences, rootKey);
 
             findPreference("prefs_general_key_auto_reconnect_scan").setOnPreferenceChangeListener((preference, newValue) -> {
-                GB.toast(GBApplication.getContext().getString(R.string.prompt_restart_gadgetbridge), Toast.LENGTH_LONG, GB.INFO);
+                GB.toast(WearableApplication.getContext().getString(R.string.prompt_restart_gadgetbridge), Toast.LENGTH_LONG, GB.INFO);
                 return true;
             });
         }

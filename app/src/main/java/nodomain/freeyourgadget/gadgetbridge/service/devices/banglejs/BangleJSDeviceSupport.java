@@ -98,9 +98,9 @@ import javax.xml.xpath.XPathFactory;
 import de.greenrobot.dao.query.QueryBuilder;
 import io.wax911.emojify.EmojiManager;
 import io.wax911.emojify.parser.EmojiParserKt;
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.WakeActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.loyaltycards.BarcodeFormat;
@@ -214,7 +214,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
 
     private void stopGlobalUartReceiver(){
         if(globalUartReceiver != null){
-            GBApplication.getContext().unregisterReceiver(globalUartReceiver); // remove uart.tx intent listener
+            WearableApplication.getContext().unregisterReceiver(globalUartReceiver); // remove uart.tx intent listener
         }
     }
 
@@ -284,7 +284,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
                 }
             }
         };
-        LocalBroadcastManager.getInstance(GBApplication.getContext()).registerReceiver(commandReceiver, commandFilter);
+        LocalBroadcastManager.getInstance(WearableApplication.getContext()).registerReceiver(commandReceiver, commandFilter);
     }
 
     private void registerGlobalIntents() {
@@ -303,7 +303,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
 
                           Variable: Number, Configure on Import, NOT structured, Value set, Nothing Exported, NOT Same as value
                          */
-                        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+                        Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
                         if (!devicePrefs.getBoolean(PREF_DEVICE_INTENTS, false)) return;
                         String data = intent.getStringExtra("line");
                         if (data==null) {
@@ -324,7 +324,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
             }
         };
 
-        ContextCompat.registerReceiver(GBApplication.getContext(), globalUartReceiver, commandFilter, ContextCompat.RECEIVER_EXPORTED);
+        ContextCompat.registerReceiver(WearableApplication.getContext(), globalUartReceiver, commandFilter, ContextCompat.RECEIVER_EXPORTED);
     }
 
     @Override
@@ -349,7 +349,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
         builder.setCallback(this);
         builder.notify(rxCharacteristic, true);
 
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         allowHighMTU = devicePrefs.getBoolean(PREF_ALLOW_HIGH_MTU, true);
 
         if (allowHighMTU && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -357,7 +357,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
         }
         // No need to clear active line with Ctrl-C now - firmwares in 2023 auto-clear on connect
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         if (prefs.getBoolean("datetime_synconconnect", true))
           transmitTime(builder);
         //sendSettings(builder);
@@ -768,7 +768,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
         // Wake the Android device if the setting is toggled on by user.
         // Doesn't work if run after the notification handling below for some reason (which
         // I'd rather do since the screen would only be opened once the content was ready).
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         if (devicePrefs.getBoolean(PREF_NOTIFICATION_WAKE_ON_OPEN, false) && response.equals("OPEN")) {
             WakeActivity.start(getContext());
         }
@@ -841,7 +841,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
         sample.setSteps(steps);
         sample.setRawIntensity(intensity);
         if (!realtime) {
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = WearableApplication.acquireDB()) {
                 final Long userId = getUser(dbHandler.getDaoSession()).getId();
                 final Long deviceId = DBHelper.getDevice(getDevice(), dbHandler.getDaoSession()).getId();
                 BangleJSSampleProvider provider = new BangleJSSampleProvider(getDevice(), dbHandler.getDaoSession());
@@ -878,7 +878,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
             return;
         }
 
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         if (! devicePrefs.getBoolean(PREF_DEVICE_INTERNET_ACCESS, false)) {
             uartTxJSONError("http", "Internet access not enabled in this Gadgetbridge build", id);
             return;
@@ -1007,7 +1007,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
         JSONArray ids = json.getJSONArray("ids");
         ArrayList<Long> idsList = new ArrayList<>(ids.length());
         ArrayList<Long> idsDeletedList = new ArrayList<>(ids.length());
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             DaoSession session = dbHandler.getDaoSession();
             Long deviceId = DBHelper.getDevice(gbDevice, session).getId();
             QueryBuilder<CalendarSyncState> qb = session.getCalendarSyncStateDao().queryBuilder();
@@ -1057,7 +1057,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
      * Handle "intent" packet: broadcast an Android intent
      */
     private void handleIntent(JSONObject json) throws JSONException {
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         if (!devicePrefs.getBoolean(PREF_DEVICE_INTENTS, false)) {
             uartTxJSONError("intent", "Android Intents not enabled, check Gadgetbridge Device Settings", null);
             return;
@@ -1262,7 +1262,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
             LOG.debug("GPS position timer is already setup");
             return;
         }
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         if(devicePrefs.getBoolean(PREF_DEVICE_GPS_UPDATE, false)) {
             int intervalLength = devicePrefs.getInt(PREF_DEVICE_GPS_UPDATE_INTERVAL, 1000);
             LOG.info("Setup location listener with an update interval of " + intervalLength + " ms");
@@ -1289,7 +1289,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onSetGpsLocation(final Location location) {
-        if (!GBApplication.getPrefs().getBoolean("use_updated_location_if_available", false)) return;
+        if (!WearableApplication.getPrefs().getBoolean("use_updated_location_if_available", false)) return;
         LOG.debug("new location: " + location.toString());
         JSONObject o = new JSONObject();
         try {
@@ -1377,9 +1377,9 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
         txt = txt.replaceAll("…", "...");
         /* If we're not doing conversion, pass this right back (we use the EmojiConverter
         As we would have done if BangleJSCoordinator.supportsUnicodeEmojis had reported false */
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         if (!devicePrefs.getBoolean(PREF_BANGLEJS_TEXT_BITMAP, false))
-            return EmojiConverter.convertUnicodeEmojiToAscii(txt, GBApplication.getContext());
+            return EmojiConverter.convertUnicodeEmojiToAscii(txt, WearableApplication.getContext());
          // Otherwise split up and check each word
         String word = "";
         StringBuilder result = new StringBuilder();
@@ -1694,13 +1694,13 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     protected void saveLastSyncTimestamp(final long timestamp) {
-        final SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).edit();
+        final SharedPreferences.Editor editor = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).edit();
         editor.putLong(getLastSyncTimeKey(), timestamp);
         editor.apply();
     }
 
     protected long getLastSuccessfulSyncTime() {
-        long timeStampMillis = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getLong(getLastSyncTimeKey(), 0);
+        long timeStampMillis = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getLong(getLastSyncTimeKey(), 0);
         if (timeStampMillis != 0) {
             return timeStampMillis;
         }
@@ -1917,7 +1917,7 @@ public class BangleJSDeviceSupport extends AbstractBTLEDeviceSupport {
 
     public Bitmap textToBitmap(String text) {
         Paint paint = new Paint(0); // Paint.ANTI_ALIAS_FLAG not wanted as 1bpp
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         paint.setTextSize(devicePrefs.getInt(PREF_BANGLEJS_TEXT_BITMAP_SIZE, 18));
         paint.setColor(0xFFFFFFFF);
         paint.setTextAlign(Paint.Align.LEFT);

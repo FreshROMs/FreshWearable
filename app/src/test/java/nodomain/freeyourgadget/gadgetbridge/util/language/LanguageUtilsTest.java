@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.test.TestBase;
 import nodomain.freeyourgadget.gadgetbridge.util.language.impl.CzechTransliterator;
@@ -289,7 +289,7 @@ public class LanguageUtilsTest extends TestBase {
     }
 
     private void enableTransliteration(boolean enable) {
-        SharedPreferences devicePrefs = GBApplication.getDeviceSpecificSharedPrefs(dummyGBDevice.getAddress());
+        SharedPreferences devicePrefs = WearableApplication.getDeviceSpecificSharedPrefs(dummyGBDevice.getAddress());
         SharedPreferences.Editor editor = devicePrefs.edit();
         if (enable) {
             editor.putString(PREF_TRANSLITERATION_LANGUAGES, "extended_ascii,scandinavian,german,russian,hebrew,greek,ukranian,arabic,persian,lithuanian,polish,estonian,icelandic,czech,turkish,bengali,korean,georgian,croatian");

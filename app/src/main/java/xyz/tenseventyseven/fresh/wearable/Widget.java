@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge;
+package xyz.tenseventyseven.fresh.wearable;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -39,7 +39,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2;
+import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.WidgetAlarmsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ActivityChartsActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -62,10 +62,10 @@ public class Widget extends AppWidgetProvider {
 
 
     private DailyTotals getSteps(GBDevice gbDevice) {
-        Context context = GBApplication.getContext();
+        Context context = WearableApplication.getContext();
         Calendar day = GregorianCalendar.getInstance();
 
-        if (!(context instanceof GBApplication)) {
+        if (!(context instanceof WearableApplication)) {
             return new DailyTotals();
         }
         return DailyTotals.getDailyTotalsForDevice(gbDevice, day);
@@ -96,7 +96,7 @@ public class Widget extends AppWidgetProvider {
         views.setOnClickPendingIntent(R.id.todaywidget_header_container, refreshDataIntent);
 
         //open GB main window
-        Intent startMainIntent = new Intent(context, ControlCenterv2.class);
+        Intent startMainIntent = new Intent(context, DashboardActivity.class);
         startMainIntent.setPackage(BuildConfig.APPLICATION_ID);
         PendingIntent startMainPIntent = PendingIntentUtils.getActivity(context, 0, startMainIntent, 0, false);
         views.setOnClickPendingIntent(R.id.todaywidget_header_icon, startMainPIntent);
@@ -161,14 +161,14 @@ public class Widget extends AppWidgetProvider {
     }
 
     public void refreshData(int appWidgetId) {
-        Context context = GBApplication.getContext();
+        Context context = WearableApplication.getContext();
         GBDevice deviceForWidget = new WidgetPreferenceStorage().getDeviceForWidget(appWidgetId);
 
         if (deviceForWidget == null || !deviceForWidget.isInitialized()) {
             GB.toast(context,
                     context.getString(R.string.device_not_connected),
                     Toast.LENGTH_SHORT, GB.ERROR);
-            GBApplication.deviceService(deviceForWidget).connect();
+            WearableApplication.deviceService(deviceForWidget).connect();
             GB.toast(context,
                     context.getString(R.string.connecting),
                     Toast.LENGTH_SHORT, GB.INFO);
@@ -179,11 +179,11 @@ public class Widget extends AppWidgetProvider {
                 context.getString(R.string.busy_task_fetch_activity_data),
                 Toast.LENGTH_SHORT, GB.INFO);
 
-        GBApplication.deviceService(deviceForWidget).onFetchRecordedData(RecordedDataTypes.TYPE_ACTIVITY);
+        WearableApplication.deviceService(deviceForWidget).onFetchRecordedData(RecordedDataTypes.TYPE_ACTIVITY);
     }
 
     public void updateWidget() {
-        Context context = GBApplication.getContext();
+        Context context = WearableApplication.getContext();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         ComponentName thisAppWidget = new ComponentName(context.getPackageName(), Widget.class.getName());
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
@@ -215,7 +215,7 @@ public class Widget extends AppWidgetProvider {
                 }
             };
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(GBApplication.ACTION_NEW_DATA);
+            intentFilter.addAction(WearableApplication.ACTION_NEW_DATA);
             intentFilter.addAction(GBDevice.ACTION_DEVICE_CHANGED);
             LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, intentFilter);
         }

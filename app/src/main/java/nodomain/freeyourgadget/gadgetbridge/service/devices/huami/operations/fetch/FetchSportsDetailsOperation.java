@@ -30,8 +30,8 @@ import java.util.GregorianCalendar;
 
 import androidx.annotation.NonNull;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
 import nodomain.freeyourgadget.gadgetbridge.export.ActivityTrackExporter;
@@ -135,7 +135,7 @@ public class FetchSportsDetailsOperation extends AbstractFetchOperation {
                 exportGpxSuccess = false;
             }
 
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = WearableApplication.acquireDB()) {
                 if (exportGpxSuccess) {
                     summary.setGpxTrack(targetFile.getAbsolutePath());
                 }

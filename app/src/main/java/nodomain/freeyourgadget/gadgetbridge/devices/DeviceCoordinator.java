@@ -36,7 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.HeartRateCapability;
@@ -125,6 +125,21 @@ public interface DeviceCoordinator {
         }
     }
 
+    enum GeneralDeviceType {
+        WATCH,
+        FITNESS_TRACKER,
+        HEADPHONES,
+        EARBUDS,
+        HEART_RATE_MONITOR,
+        BLOOD_PRESSURE_MONITOR,
+        SCALE,
+        THERMOMETER,
+        SPO2_MONITOR,
+        GLUCOSE_MONITOR,
+        ECG_MONITOR,
+        OTHER
+    }
+
     /**
      * Returns the type of connection, Classic of BLE
      *
@@ -161,9 +176,9 @@ public interface DeviceCoordinator {
     /**
      * Deletes all information, including all related database content about the
      * given device.
-     * @throws GBException
+     * @throws WearableException
      */
-    void deleteDevice(GBDevice device) throws GBException;
+    void deleteDevice(GBDevice device) throws WearableException;
 
     /**
      * Returns the Activity class to be started in order to perform a pairing of a
@@ -785,6 +800,20 @@ public interface DeviceCoordinator {
 
     @DrawableRes
     int getDisabledIconResource();
+
+    @DrawableRes
+    default int getDeviceImageResource() {
+        return getDefaultIconResource();
+    }
+
+    @DrawableRes
+    default int getDeviceImageResource(GBDevice device) {
+        return getDeviceImageResource();
+    }
+
+    default GeneralDeviceType getGeneralDeviceType() {
+        return GeneralDeviceType.OTHER;
+    }
 
     /**
      * Whether the device supports a variety of vibration patterns for notifications.

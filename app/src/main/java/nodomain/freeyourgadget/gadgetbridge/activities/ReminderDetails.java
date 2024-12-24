@@ -46,15 +46,16 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public class ReminderDetails extends AbstractGBActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class ReminderDetails extends CommonActivityAbstract implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     private Reminder reminder;
     private GBDevice device;
 
@@ -132,7 +133,7 @@ public class ReminderDetails extends AbstractGBActivity implements TimePickerDia
                             ReminderDetails.this,
                             reminder.getDate().getHours(),
                             reminder.getDate().getMinutes(),
-                            DateFormat.is24HourFormat(GBApplication.getContext())
+                            DateFormat.is24HourFormat(WearableApplication.getContext())
                     ).show();
                 }
             });

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.DeviceConfig;
@@ -46,16 +46,16 @@ public class SetDateFormatRequest extends Request {
     protected List<byte[]> createRequest() throws RequestCreationException {
         int time = DeviceConfig.Time.hours12;
         int date;
-        String timeFormat = GBApplication
+        String timeFormat = WearableApplication
             .getDeviceSpecificSharedPrefs(supportProvider.getDevice().getAddress())
             .getString(DeviceSettingsPreferenceConst.PREF_TIMEFORMAT, "auto");
         if (timeFormat.equals("auto")) {
-            if (android.text.format.DateFormat.is24HourFormat(GBApplication.getContext()))
+            if (android.text.format.DateFormat.is24HourFormat(WearableApplication.getContext()))
                 time = DeviceConfig.Time.hours24;
         } else if (timeFormat.equals("24h")) {
             time = DeviceConfig.Time.hours24;
         }
-        String dateFormat = GBApplication
+        String dateFormat = WearableApplication
             .getDeviceSpecificSharedPrefs(supportProvider.getDevice().getAddress())
             .getString(DeviceSettingsPreferenceConst.PREF_DATEFORMAT, "MM/dd/yyyy");
         switch (dateFormat) {

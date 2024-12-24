@@ -24,7 +24,7 @@ import android.media.AudioManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 
 public class SilentModeReceiver extends BroadcastReceiver {
     private static final Logger LOG = LoggerFactory.getLogger(SilentModeReceiver.class);
@@ -43,6 +43,6 @@ public class SilentModeReceiver extends BroadcastReceiver {
         final AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         final int ringerMode = audioManager.getRingerMode();
 
-        GBApplication.deviceService().onChangePhoneSilentMode(ringerMode);
+        WearableApplication.deviceService().onChangePhoneSilentMode(ringerMode);
     }
 }

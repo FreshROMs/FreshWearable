@@ -20,8 +20,8 @@ package nodomain.freeyourgadget.gadgetbridge.util;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 
 public class FormatUtils {
@@ -39,22 +39,22 @@ public class FormatUtils {
         double distanceFeet = distanceMeters * 3.28084f;
         double distanceFormatted = 0;
 
-        String unit = GBApplication.getContext().getString(R.string.distance_format_meters);
+        String unit = WearableApplication.getContext().getString(R.string.distance_format_meters);
         distanceFormatted = distanceMeters;
         if (distanceMeters > 2000) {
             distanceFormatted = distanceMeters / 1000;
-            unit = GBApplication.getContext().getString(R.string.distance_format_kilometers);
+            unit = WearableApplication.getContext().getString(R.string.distance_format_kilometers);
         }
-        String units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
-        if (units.equals(GBApplication.getContext().getString(R.string.p_unit_imperial))) {
-            unit = GBApplication.getContext().getString(R.string.distance_format_feet);
+        String units = WearableApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, WearableApplication.getContext().getString(R.string.p_unit_metric));
+        if (units.equals(WearableApplication.getContext().getString(R.string.p_unit_imperial))) {
+            unit = WearableApplication.getContext().getString(R.string.distance_format_feet);
             distanceFormatted = distanceFeet;
             if (distanceFeet > 6000) {
                 distanceFormatted = distanceFeet * 0.0001893939f;
-                unit = GBApplication.getContext().getString(R.string.distance_format_miles);
+                unit = WearableApplication.getContext().getString(R.string.distance_format_miles);
             }
         }
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(GBApplication.getLanguage());
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(WearableApplication.getLanguage());
         DecimalFormat df = new DecimalFormat(unit, symbols);
 
         return df.format(distanceFormatted);

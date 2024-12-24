@@ -47,8 +47,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.Logging;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.Logging;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice.State;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceSupport;
@@ -284,7 +284,7 @@ public final class BtLEQueue {
 
         synchronized (mGattMonitor) {
             // connectGatt with true doesn't really work ;( too often connection problems
-            if (GBApplication.isRunningMarshmallowOrLater()) {
+            if (WearableApplication.isRunningMarshmallowOrLater()) {
                 mBluetoothGatt = remoteDevice.connectGatt(mContext, false, internalGattCallback, BluetoothDevice.TRANSPORT_LE);
             } else {
                 mBluetoothGatt = remoteDevice.connectGatt(mContext, false, internalGattCallback);

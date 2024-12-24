@@ -28,7 +28,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.casio.CasioConstants;
 import nodomain.freeyourgadget.gadgetbridge.entities.CasioGBX100ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;

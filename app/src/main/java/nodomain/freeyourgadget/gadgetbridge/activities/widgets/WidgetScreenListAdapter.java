@@ -32,7 +32,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetPart;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetScreen;
 

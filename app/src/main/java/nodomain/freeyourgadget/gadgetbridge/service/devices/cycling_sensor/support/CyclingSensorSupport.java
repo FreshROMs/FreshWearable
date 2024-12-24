@@ -14,7 +14,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -117,7 +117,7 @@ public class CyclingSensorSupport extends CyclingSensorBaseSupport {
 
     private void loadConfiguration(){
         Prefs deviceSpecificPrefs = new Prefs(
-                GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress())
+                WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress())
         );
         persistenceInterval = deviceSpecificPrefs.getInt(DeviceSettingsPreferenceConst.PREF_CYCLING_SENSOR_PERSISTENCE_INTERVAL, 60) * 1000;
         nextPersistenceTimestamp = 0;
@@ -226,7 +226,7 @@ public class CyclingSensorSupport extends CyclingSensorBaseSupport {
 
         nextPersistenceTimestamp = now + persistenceInterval;
 
-        try(DBHandler handler = GBApplication.acquireDB()) {
+        try(DBHandler handler = WearableApplication.acquireDB()) {
             DaoSession session = handler.getDaoSession();
 
             CyclingSampleProvider sampleProvider =

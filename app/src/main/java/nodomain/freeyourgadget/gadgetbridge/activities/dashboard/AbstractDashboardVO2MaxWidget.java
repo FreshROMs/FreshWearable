@@ -9,8 +9,8 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.Vo2MaxSampleProvider;
@@ -31,7 +31,7 @@ public abstract class AbstractDashboardVO2MaxWidget extends AbstractGaugeWidget 
 
         // Latest vo2max sample.
         Vo2MaxSample sample = null;
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             for (GBDevice dev : devices) {
                 final Vo2MaxSampleProvider sampleProvider = (Vo2MaxSampleProvider) dev.getDeviceCoordinator().getVo2MaxSampleProvider(dev, dbHandler.getDaoSession());
                 final Vo2MaxSample latestSample = sampleProvider.getLatestSample(getVO2MaxType(), dashboardData.timeTo * 1000L);
@@ -53,11 +53,11 @@ public abstract class AbstractDashboardVO2MaxWidget extends AbstractGaugeWidget 
 
     public static int[] getColors() {
         return new int[]{
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_poor_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_fair_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_good_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_excellent_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_superior_color),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.vo2max_value_poor_color),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.vo2max_value_fair_color),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.vo2max_value_good_color),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.vo2max_value_excellent_color),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.vo2max_value_superior_color),
         };
     }
 

@@ -33,19 +33,19 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCallControl;
 
 public class GBCallControlReceiver extends BroadcastReceiver {
     public static final String ACTION_CALLCONTROL = "nodomain.freeyourgadget.gadgetbridge.callcontrol";
     private static final Logger LOG = LoggerFactory.getLogger(GBCallControlReceiver.class);
-    private Context mContext = GBApplication.getContext();
+    private Context mContext = WearableApplication.getContext();
 
     @Override
     public void onReceive(Context context, Intent intent) {
         GBDeviceEventCallControl.Event callCmd = GBDeviceEventCallControl.Event.values()[intent.getIntExtra("event", 0)];
 
-        if (GBApplication.isRunningPieOrLater()) {
+        if (WearableApplication.isRunningPieOrLater()) {
             handleCallCmdTelecomManager(callCmd);
         } else {
             switch (callCmd) {

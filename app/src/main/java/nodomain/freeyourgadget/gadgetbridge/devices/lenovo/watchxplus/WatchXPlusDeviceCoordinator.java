@@ -37,8 +37,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractBLEDeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;
@@ -50,13 +50,12 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceCandidate;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
-import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.ServiceDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.lenovo.watchxplus.WatchXPlusDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
-import static nodomain.freeyourgadget.gadgetbridge.GBApplication.getContext;
+import static xyz.tenseventyseven.fresh.wearable.WearableApplication.getContext;
 
 
 public class WatchXPlusDeviceCoordinator extends AbstractBLEDeviceCoordinator {
@@ -65,7 +64,7 @@ public class WatchXPlusDeviceCoordinator extends AbstractBLEDeviceCoordinator {
     public static final int FindPhone_OFF = 0;
     public static boolean isBPCalibrated = false;
 
-    private static final Prefs prefs  = GBApplication.getPrefs();
+    private static final Prefs prefs  = WearableApplication.getPrefs();
 
     @NonNull
     @Override
@@ -240,7 +239,7 @@ public class WatchXPlusDeviceCoordinator extends AbstractBLEDeviceCoordinator {
      * @return True if DND hours are enabled.
      */
     public static boolean getDNDHours(String deviceAddress, Calendar startOut, Calendar endOut) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(deviceAddress);
+        SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(deviceAddress);
         String doNotDisturb = prefs.getString(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_NOAUTO, getContext().getString(R.string.p_off));
 
         assert doNotDisturb != null;
@@ -271,7 +270,7 @@ public class WatchXPlusDeviceCoordinator extends AbstractBLEDeviceCoordinator {
      * @return True if DND hours are enabled.
      */
     public static boolean getLongSitHours(String deviceAddress, Calendar startOut, Calendar endOut) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(deviceAddress);
+        SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(deviceAddress);
         boolean enabled = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_INACTIVITY_ENABLE, false);
 
         if (!enabled) {

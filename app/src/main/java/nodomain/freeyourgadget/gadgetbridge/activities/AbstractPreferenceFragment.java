@@ -31,6 +31,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceGroup;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SeekBarPreference;
+import androidx.preference.SeslSwitchPreferenceScreen;
+import androidx.preference.SwitchPreference;
 import androidx.preference.SwitchPreferenceCompat;
 
 import com.mobeta.android.dslv.DragSortListPreference;
@@ -45,7 +47,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.util.XDatePreference;
 import nodomain.freeyourgadget.gadgetbridge.util.XDatePreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.XTimePreference;
@@ -53,6 +55,10 @@ import nodomain.freeyourgadget.gadgetbridge.util.XTimePreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.dialogs.MaterialEditTextPreferenceDialogFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.dialogs.MaterialListPreferenceDialogFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.dialogs.MaterialMultiSelectListPreferenceDialogFragment;
+import xyz.tenseventyseven.fresh.wearable.components.ButtonGroupPreference;
+import xyz.tenseventyseven.fresh.wearable.components.EqualizerDescriptionPreference;
+import xyz.tenseventyseven.fresh.wearable.components.EqualizerPreviewPreference;
+import xyz.tenseventyseven.fresh.wearable.components.NoiseControlPreference;
 
 public abstract class AbstractPreferenceFragment extends PreferenceFragmentCompat {
     protected static final Logger LOG = LoggerFactory.getLogger(AbstractPreferenceFragment.class);
@@ -73,11 +79,14 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragmentCompa
     @Override
     public void onResume() {
         super.onResume();
-
         updateActionBarTitle();
     }
 
     private void updateActionBarTitle() {
+        if (!(requireActivity() instanceof AbstractSettingsActivityV2)) {
+            return;
+        }
+
         try {
             CharSequence title = getPreferenceScreen().getTitle();
             if (StringUtils.isBlank(title)) {
@@ -192,17 +201,33 @@ public abstract class AbstractPreferenceFragment extends PreferenceFragmentCompa
             if (preference instanceof SeekBarPreference) {
                 final SeekBarPreference seekBarPreference = (SeekBarPreference) preference;
                 seekBarPreference.setValue(prefs.getInt(key, seekBarPreference.getValue()));
+            } else if (preference instanceof PreferenceScreen ||
+                    preference instanceof SeslSwitchPreferenceScreen) {
+                // Ignoring
             } else if (preference instanceof SwitchPreferenceCompat) {
                 final SwitchPreferenceCompat switchPreference = (SwitchPreferenceCompat) preference;
                 switchPreference.setChecked(prefs.getBoolean(key, switchPreference.isChecked()));
+            } else if (preference instanceof ButtonGroupPreference) {
+                final ButtonGroupPreference buttonGroupPreference = (ButtonGroupPreference) preference;
+                buttonGroupPreference.setValue(prefs.getString(key, buttonGroupPreference.getValue()));
             } else if (preference instanceof ListPreference) {
                 final ListPreference listPreference = (ListPreference) preference;
                 listPreference.setValue(prefs.getString(key, listPreference.getValue()));
+            } else if (preference instanceof NoiseControlPreference) {
+                final NoiseControlPreference noiseControlPreference = (NoiseControlPreference) preference;
+                noiseControlPreference.setValue(prefs.getString(key, noiseControlPreference.getValue()));
             } else if (preference instanceof EditTextPreference) {
                 final EditTextPreference editTextPreference = (EditTextPreference) preference;
                 editTextPreference.setText(prefs.getString(key, editTextPreference.getText()));
-            } else if (preference instanceof PreferenceScreen) {
-                // Ignoring
+            } else if (preference instanceof SwitchPreference) {
+                final SwitchPreference switchPreference = (SwitchPreference) preference;
+                switchPreference.setChecked(prefs.getBoolean(key, switchPreference.isChecked()));
+            } else if (preference instanceof EqualizerPreviewPreference) {
+                final EqualizerPreviewPreference equalizerPreviewPreference = (EqualizerPreviewPreference) preference;
+                equalizerPreviewPreference.setValue(prefs.getString(key, equalizerPreviewPreference.getValue()));
+            } else if (preference instanceof EqualizerDescriptionPreference) {
+                final EqualizerDescriptionPreference equalizerDescriptionPreference = (EqualizerDescriptionPreference) preference;
+                equalizerDescriptionPreference.setValue(prefs.getString(key, equalizerDescriptionPreference.getValue()));
             } else {
                 LOG.warn("Unknown preference class {} for {}, ignoring", preference.getClass(), key);
             }

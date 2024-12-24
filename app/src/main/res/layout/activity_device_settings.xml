@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<dev.oneuiproject.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp">
-    <FrameLayout
+    android:orientation="vertical"
+    app:expanded="false"
+    app:expandable="false">
+
+    <dev.oneuiproject.oneui.widget.RoundedFrameLayout
         android:id="@+id/settings_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</LinearLayout>
+        android:layout_height="match_parent" />
+</dev.oneuiproject.oneui.layout.ToolbarLayout>

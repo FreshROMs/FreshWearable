@@ -14,6 +14,6 @@
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT" />
-        <!-- The FILE appender is added programmatically by nodomain.freeyourgadget.gadgetbridge.Logging -->
+        <!-- The FILE appender is added programmatically by xyz.tenseventyseven.fresh.wearable.Logging -->
     </root>
 </configuration>

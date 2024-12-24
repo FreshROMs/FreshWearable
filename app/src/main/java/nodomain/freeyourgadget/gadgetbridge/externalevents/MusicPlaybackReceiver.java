@@ -25,7 +25,7 @@ import android.os.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.MusicStateSpec;
 
@@ -101,7 +101,7 @@ public class MusicPlaybackReceiver extends BroadcastReceiver {
         if (!lastMusicSpec.equals(musicSpec)) {
             lastMusicSpec = musicSpec;
             LOG.info("Update Music Info: " + musicSpec.artist + " / " + musicSpec.album + " / " + musicSpec.track);
-            GBApplication.deviceService().onSetMusicInfo(musicSpec);
+            WearableApplication.deviceService().onSetMusicInfo(musicSpec);
         } else {
             LOG.info("Got metadata changed intent, but nothing changed, ignoring.");
         }
@@ -109,7 +109,7 @@ public class MusicPlaybackReceiver extends BroadcastReceiver {
         if (!lastStateSpec.equals(stateSpec)) {
             lastStateSpec = stateSpec;
             LOG.info("Update Music State: state=" + stateSpec.state + ", position= " + stateSpec.position);
-            GBApplication.deviceService().onSetMusicState(stateSpec);
+            WearableApplication.deviceService().onSetMusicState(stateSpec);
         } else {
             LOG.info("Got state changed intent, but not enough has changed, ignoring.");
         }

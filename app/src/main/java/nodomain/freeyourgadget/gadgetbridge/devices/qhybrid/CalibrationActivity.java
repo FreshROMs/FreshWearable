@@ -23,7 +23,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,14 +30,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 
-public class CalibrationActivity extends AbstractGBActivity {
+public class CalibrationActivity extends CommonActivityAbstract {
     enum HAND{
         MINUTE,
         HOUR,
@@ -87,7 +86,7 @@ public class CalibrationActivity extends AbstractGBActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qhybrid_calibration);
 
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getSelectedDevices();
         boolean atLeastOneConnected = false;
         for(GBDevice device : devices){
             if(device.getType() == DeviceType.FOSSILQHYBRID){

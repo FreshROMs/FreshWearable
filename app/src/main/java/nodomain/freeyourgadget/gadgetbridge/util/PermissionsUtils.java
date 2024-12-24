@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,8 +46,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.NotificationListener;
 
 public class PermissionsUtils {
@@ -61,9 +62,7 @@ public class PermissionsUtils {
         add(CUSTOM_PERM_NOTIFICATION_SERVICE);
         add(CUSTOM_PERM_DISPLAY_OVER);
         add(Manifest.permission.ACCESS_FINE_LOCATION);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
-        }
+        add(Manifest.permission.ACCESS_BACKGROUND_LOCATION);
     }};
 
     public static ArrayList<PermissionDetails> getRequiredPermissionsList(Activity activity) {
@@ -71,112 +70,123 @@ public class PermissionsUtils {
         permissionsList.add(new PermissionDetails(
                 CUSTOM_PERM_NOTIFICATION_LISTENER,
                 activity.getString(R.string.menuitem_notifications),
-                activity.getString(R.string.permission_notifications_summary)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            permissionsList.add(new PermissionDetails(
-                    CUSTOM_PERM_NOTIFICATION_SERVICE,
-                    activity.getString(R.string.permission_manage_dnd_title),
-                    activity.getString(R.string.permission_manage_dnd_summary)));
-            permissionsList.add(new PermissionDetails(
-                    CUSTOM_PERM_DISPLAY_OVER,
-                    activity.getString(R.string.permission_displayover_title),
-                    activity.getString(R.string.permission_displayover_summary)));
-        }
+                activity.getString(R.string.permission_notifications_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_notification));
+        permissionsList.add(new PermissionDetails(
+                CUSTOM_PERM_NOTIFICATION_SERVICE,
+                activity.getString(R.string.permission_manage_dnd_title),
+                activity.getString(R.string.permission_manage_dnd_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_do_not_disturb));
+        permissionsList.add(new PermissionDetails(
+                CUSTOM_PERM_DISPLAY_OVER,
+                activity.getString(R.string.permission_displayover_title),
+                activity.getString(R.string.permission_displayover_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_system_alert_window));
         permissionsList.add(new PermissionDetails(
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 activity.getString(R.string.permission_fine_location_title),
                 activity.getString(R.string.permission_fine_location_summary)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            permissionsList.add(new PermissionDetails(
-                    Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                    activity.getString(R.string.permission_background_location_title),
-                    activity.getString(R.string.permission_background_location_summary)));
-        }
+        permissionsList.add(new PermissionDetails(
+                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                activity.getString(R.string.permission_background_location_title),
+                activity.getString(R.string.permission_background_location_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_location));
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
             permissionsList.add(new PermissionDetails(
                     Manifest.permission.BLUETOOTH,
                     activity.getString(R.string.permission_bluetooth_title),
-                    activity.getString(R.string.permission_bluetooth_summary)));
+                    activity.getString(R.string.permission_bluetooth_summary),
+                    dev.oneuiproject.oneui.R.drawable.ic_oui_bluetooth_device));
             permissionsList.add(new PermissionDetails(
                     Manifest.permission.BLUETOOTH_ADMIN,
                     activity.getString(R.string.permission_bluetooth_admin_title),
-                    activity.getString(R.string.permission_bluetooth_admin_summary)));
+                    activity.getString(R.string.permission_bluetooth_admin_summary),
+                    dev.oneuiproject.oneui.R.drawable.ic_oui_bluetooth));
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             permissionsList.add(new PermissionDetails(
                     Manifest.permission.BLUETOOTH_SCAN,
                     activity.getString(R.string.permission_bluetooth_scan_title),
-                    activity.getString(R.string.permission_bluetooth_scan_summary)));
+                    activity.getString(R.string.permission_bluetooth_scan_summary),
+                    dev.oneuiproject.oneui.R.drawable.ic_oui_bluetooth));
             permissionsList.add(new PermissionDetails(
                     Manifest.permission.BLUETOOTH_CONNECT,
                     activity.getString(R.string.permission_bluetooth_connect_title),
-                    activity.getString(R.string.permission_bluetooth_connect_summary)));
+                    activity.getString(R.string.permission_bluetooth_connect_summary),
+                    dev.oneuiproject.oneui.R.drawable.ic_oui_bluetooth_device));
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permissionsList.add(new PermissionDetails(
                     Manifest.permission.POST_NOTIFICATIONS,
                     activity.getString(R.string.permission_post_notification_title),
-                    activity.getString(R.string.permission_post_notification_summary)));
+                    activity.getString(R.string.permission_post_notification_summary),
+                    dev.oneuiproject.oneui.R.drawable.ic_oui_notification));
         }
         if (BuildConfig.INTERNET_ACCESS) {
             permissionsList.add(new PermissionDetails(
                     Manifest.permission.INTERNET,
                     activity.getString(R.string.permission_internet_access_title),
-                    activity.getString(R.string.permission_internet_access_summary)));
+                    activity.getString(R.string.permission_internet_access_summary),
+                    dev.oneuiproject.oneui.R.drawable.ic_oui_internet_website));
         }
-//        permissionsList.add(new PermissionDetails(  // NOTE: can't request this, it's only allowed for system apps
-//                Manifest.permission.MEDIA_CONTENT_CONTROL,
-//                "Media content control",
-//                "Read and control media playback"));
         permissionsList.add(new PermissionDetails(
                 Manifest.permission.READ_CONTACTS,
                 activity.getString(R.string.permission_contacts_title),
-                activity.getString(R.string.permission_contacts_summary)));
+                activity.getString(R.string.permission_contacts_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_contact));
         permissionsList.add(new PermissionDetails(
                 Manifest.permission.READ_CALENDAR,
                 activity.getString(R.string.permission_calendar_title),
-                activity.getString(R.string.permission_calendar_summary)));
+                activity.getString(R.string.permission_calendar_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_calendar));
         permissionsList.add(new PermissionDetails(
                 Manifest.permission.RECEIVE_SMS,
                 activity.getString(R.string.permission_receive_sms_title),
-                activity.getString(R.string.permission_receive_sms_summary)));
+                activity.getString(R.string.permission_receive_sms_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_message));
         permissionsList.add(new PermissionDetails(
                 Manifest.permission.SEND_SMS,
                 activity.getString(R.string.permission_send_sms_title),
-                activity.getString(R.string.permission_send_sms_summary)));
+                activity.getString(R.string.permission_send_sms_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_message));
         permissionsList.add(new PermissionDetails(
                 Manifest.permission.READ_CALL_LOG,
                 activity.getString(R.string.permission_read_call_log_title),
-                activity.getString(R.string.permission_read_call_log_summary)));
+                activity.getString(R.string.permission_read_call_log_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_call_log));
         permissionsList.add(new PermissionDetails(
                 Manifest.permission.READ_PHONE_STATE,
                 activity.getString(R.string.permission_read_phone_state_title),
-                activity.getString(R.string.permission_read_phone_state_summary)));
+                activity.getString(R.string.permission_read_phone_state_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_phone));
         permissionsList.add(new PermissionDetails(
                 Manifest.permission.CALL_PHONE,
                 activity.getString(R.string.permission_call_phone_title),
-                activity.getString(R.string.permission_call_phone_summary)));
+                activity.getString(R.string.permission_call_phone_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_phone));
         permissionsList.add(new PermissionDetails(
                 Manifest.permission.PROCESS_OUTGOING_CALLS,
                 activity.getString(R.string.permission_process_outgoing_calls_title),
-                activity.getString(R.string.permission_process_outgoing_calls_summary)));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            permissionsList.add(new PermissionDetails(
-                    Manifest.permission.ANSWER_PHONE_CALLS,
-                    activity.getString(R.string.permission_answer_phone_calls_title),
-                    activity.getString(R.string.permission_answer_phone_calls_summary)));
-        }
+                activity.getString(R.string.permission_process_outgoing_calls_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_phone));
+        permissionsList.add(new PermissionDetails(
+                Manifest.permission.ANSWER_PHONE_CALLS,
+                activity.getString(R.string.permission_answer_phone_calls_title),
+                activity.getString(R.string.permission_answer_phone_calls_summary),
+                dev.oneuiproject.oneui.R.drawable.ic_oui_call_reject));
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.S_V2) {
             permissionsList.add(new PermissionDetails(
                     Manifest.permission.READ_EXTERNAL_STORAGE,
                     activity.getString(R.string.permission_external_storage_title),
-                    activity.getString(R.string.permission_external_storage_summary)));
+                    activity.getString(R.string.permission_external_storage_summary),
+                    dev.oneuiproject.oneui.R.drawable.ic_oui_folder));
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             permissionsList.add(new PermissionDetails(
                     Manifest.permission.QUERY_ALL_PACKAGES,
                     activity.getString(R.string.permission_query_all_packages_title),
-                    activity.getString(R.string.permission_query_all_packages_summary)));
+                    activity.getString(R.string.permission_query_all_packages_summary),
+                    dev.oneuiproject.oneui.R.drawable.ic_oui_apps));
         }
         return permissionsList;
     }
@@ -222,11 +232,20 @@ public class PermissionsUtils {
         private String permission;
         private String title;
         private String summary;
+        private int icon;
+
+        public PermissionDetails(String permission, String title, String summary, int icon) {
+            this.permission = permission;
+            this.title = title;
+            this.summary = summary;
+            this.icon = icon;
+        }
 
         public PermissionDetails(String permission, String title, String summary) {
             this.permission = permission;
             this.title = title;
             this.summary = summary;
+            this.icon = dev.oneuiproject.oneui.R.drawable.ic_oui_info;
         }
 
         public String getPermission() {
@@ -240,6 +259,10 @@ public class PermissionsUtils {
         public String getSummary() {
             return summary;
         }
+
+        public int getIcon() {
+            return icon;
+        }
     }
 
     private static void showNotifyListenerPermissionsDialog(Activity activity) {
@@ -247,27 +270,24 @@ public class PermissionsUtils {
                 .setMessage(activity.getString(R.string.permission_notification_listener,
                         activity.getString(R.string.app_name),
                         activity.getString(R.string.ok)))
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP_MR1)
-                    public void onClick(DialogInterface dialog, int id) {
-                        try {
-                            Intent intent;
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_DETAIL_SETTINGS);
-                                intent.putExtra(Settings.EXTRA_NOTIFICATION_LISTENER_COMPONENT_NAME, new ComponentName(BuildConfig.APPLICATION_ID, NotificationListener.class.getName()).flattenToString());
-                            } else {
-                                intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
-                            }
-                            String showArgs = BuildConfig.APPLICATION_ID + "/" + NotificationListener.class.getName();
-                            intent.putExtra(":settings:fragment_args_key", showArgs);
-                            Bundle bundle = new Bundle();
-                            bundle.putString(":settings:fragment_args_key", showArgs);
-                            intent.putExtra(":settings:show_fragment_args", bundle);
-                            activity.startActivity(intent);
-                        } catch (ActivityNotFoundException e) {
-                            GB.toast(activity, "'Notification Listener Settings' activity not found", Toast.LENGTH_LONG, GB.ERROR);
-                            LOG.error("'Notification Listener Settings' activity not found");
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
+                    try {
+                        Intent intent;
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_DETAIL_SETTINGS);
+                            intent.putExtra(Settings.EXTRA_NOTIFICATION_LISTENER_COMPONENT_NAME, new ComponentName(BuildConfig.APPLICATION_ID, NotificationListener.class.getName()).flattenToString());
+                        } else {
+                            intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
                         }
+                        String showArgs = BuildConfig.APPLICATION_ID + "/" + NotificationListener.class.getName();
+                        intent.putExtra(":settings:fragment_args_key", showArgs);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(":settings:fragment_args_key", showArgs);
+                        intent.putExtra(":settings:show_fragment_args", bundle);
+                        activity.startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        GB.toast(activity, "'Notification Listener Settings' activity not found", Toast.LENGTH_LONG, GB.ERROR);
+                        LOG.error("'Notification Listener Settings' activity not found");
                     }
                 })
                 .show();
@@ -278,15 +298,12 @@ public class PermissionsUtils {
                 .setMessage(activity.getString(R.string.permission_notification_policy_access,
                         activity.getString(R.string.app_name),
                         activity.getString(R.string.ok)))
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.M)
-                    public void onClick(DialogInterface dialog, int id) {
-                        try {
-                            activity.startActivity(new Intent(android.provider.Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS));
-                        } catch (ActivityNotFoundException e) {
-                            GB.toast(activity, "'Notification Policy' activity not found", Toast.LENGTH_LONG, GB.ERROR);
-                            LOG.error("'Notification Policy' activity not found");
-                        }
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
+                    try {
+                        activity.startActivity(new Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS));
+                    } catch (ActivityNotFoundException e) {
+                        GB.toast(activity, "'Notification Policy' activity not found", Toast.LENGTH_LONG, GB.ERROR);
+                        LOG.error("'Notification Policy' activity not found");
                     }
                 })
                 .show();
@@ -297,15 +314,12 @@ public class PermissionsUtils {
                 .setMessage(activity.getString(R.string.permission_display_over_other_apps,
                         activity.getString(R.string.app_name),
                         activity.getString(R.string.ok)))
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @RequiresApi(api = Build.VERSION_CODES.M)
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent enableIntent = new Intent(
-                                android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                                Uri.parse("package:" + BuildConfig.APPLICATION_ID)
-                        );
-                        activity.startActivity(enableIntent);
-                    }
+                .setPositiveButton(R.string.ok, (dialog, id) -> {
+                    Intent enableIntent = new Intent(
+                            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                            Uri.parse("package:" + BuildConfig.APPLICATION_ID)
+                    );
+                    activity.startActivity(enableIntent);
                 })
                 .setNegativeButton(R.string.dismiss, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

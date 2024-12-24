@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
@@ -77,7 +77,7 @@ class DatalogSessionHealthSleep extends DatalogSessionPebbleHealth {
     }
 
     private void store(SleepRecord[] sleepRecords) {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             DaoSession session = dbHandler.getDaoSession();
             Long userId = DBHelper.getUser(session).getId();
             Long deviceId = DBHelper.getDevice(getDevice(), session).getId();

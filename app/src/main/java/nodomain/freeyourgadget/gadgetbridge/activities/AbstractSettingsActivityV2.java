@@ -17,6 +17,7 @@
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -25,13 +26,17 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import dev.oneuiproject.oneui.layout.ToolbarLayout;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public abstract class AbstractSettingsActivityV2 extends AbstractGBActivity implements
+public abstract class AbstractSettingsActivityV2 extends CommonActivityAbstract implements
         PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
     protected abstract String fragmentTag();
     protected abstract PreferenceFragmentCompat newFragment();
+
+    private ToolbarLayout toolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,10 @@ public abstract class AbstractSettingsActivityV2 extends AbstractGBActivity impl
                     .beginTransaction()
                     .replace(R.id.settings_container, fragment, fragmentTag())
                     .commit();
+
+            toolbarLayout = findViewById(R.id.toolbar_layout);
+            toolbarLayout.setNavigationButtonAsBack();
+            toolbarLayout.setTitle(getString(R.string.action_settings));
         }
     }
 
@@ -84,9 +93,8 @@ public abstract class AbstractSettingsActivityV2 extends AbstractGBActivity impl
     }
 
     public void setActionBarTitle(final CharSequence title) {
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(title);
+        if (toolbarLayout != null) {
+            toolbarLayout.setTitle(title);
         }
     }
 }

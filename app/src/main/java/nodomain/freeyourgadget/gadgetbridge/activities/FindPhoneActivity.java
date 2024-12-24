@@ -39,13 +39,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 
-public class FindPhoneActivity extends AbstractGBActivity {
+public class FindPhoneActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(FindPhoneActivity.class);
 
     public static final String ACTION_FOUND = "nodomain.freeyourgadget.gadgetbridge.findphone.action.reply";
@@ -109,7 +110,7 @@ public class FindPhoneActivity extends AbstractGBActivity {
         if (ring) {
             playRingtone();
         }
-        GBApplication.deviceService().onFindPhone(true);
+        WearableApplication.deviceService().onFindPhone(true);
     }
 
     private void vibrate() {
@@ -160,7 +161,7 @@ public class FindPhoneActivity extends AbstractGBActivity {
      */
     private boolean playConfiguredRingtone() {
         try {
-            Uri ringtoneUri = Uri.parse(GBApplication.getPrefs().getString(GBPrefs.PING_TONE, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE).toString()));
+            Uri ringtoneUri = Uri.parse(WearableApplication.getPrefs().getString(GBPrefs.PING_TONE, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE).toString()));
             mp.setDataSource(this, ringtoneUri);
             mp.setAudioStreamType(AudioManager.STREAM_ALARM);
             mp.setLooping(true);
@@ -210,7 +211,7 @@ public class FindPhoneActivity extends AbstractGBActivity {
 
         stopVibration();
         stopSound();
-        GBApplication.deviceService().onFindPhone(false);
+        WearableApplication.deviceService().onFindPhone(false);
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
         unregisterReceiver(mReceiver);

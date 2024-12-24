@@ -13,9 +13,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.entities.CyclingSample;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -23,7 +23,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class CyclingLiveDataActivity extends AbstractGBActivity {
+public class CyclingLiveDataActivity extends CommonActivityAbstract {
     private TextView speedView, tripDistanceView, totalDistanceView;
     private GBDevice selectedDevice;
     private float tripStartDistance = 0, tripCurrentDistance = 0;
@@ -60,7 +60,7 @@ public class CyclingLiveDataActivity extends AbstractGBActivity {
         tripDistanceView = findViewById(R.id.cycling_data_trip_distance);
         totalDistanceView = findViewById(R.id.cycling_data_total_distance);
 
-        tripStartDistance = GBApplication
+        tripStartDistance = WearableApplication
                 .getDevicePrefs(selectedDevice)
                 .getFloat(PREFS_KEY_TRIP_START, 0);
 
@@ -73,7 +73,7 @@ public class CyclingLiveDataActivity extends AbstractGBActivity {
 
                 tripStartDistance = tripCurrentDistance;
 
-                GBApplication
+                WearableApplication
                         .getDeviceSpecificSharedPrefs(selectedDevice.getAddress())
                         .edit()
                         .putFloat(PREFS_KEY_TRIP_START, tripStartDistance)
@@ -85,7 +85,7 @@ public class CyclingLiveDataActivity extends AbstractGBActivity {
             }
         });
 
-        String measurementSystem = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, "metric");
+        String measurementSystem = WearableApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, "metric");
 
         if(!measurementSystem.equals("metric")) {
             toUnitFactor = 0.621371f;
@@ -97,7 +97,7 @@ public class CyclingLiveDataActivity extends AbstractGBActivity {
     }
 
     private GBDevice getStoredCyclingSensor(){
-        List<GBDevice> devices = GBApplication
+        List<GBDevice> devices = WearableApplication
                 .app()
                 .getDeviceManager()
                 .getDevices();

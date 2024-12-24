@@ -26,7 +26,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventSendBytes;
@@ -101,7 +101,7 @@ public class SonyHeadphonesProtocol extends GBDeviceProtocol {
             return null;
         }
 
-        final SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        final SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         final List<GBDeviceEvent> events = new ArrayList<>();
 
@@ -190,7 +190,7 @@ public class SonyHeadphonesProtocol extends GBDeviceProtocol {
             return super.encodeSendConfiguration(config);
         }
 
-        final SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        final SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         final Request configRequest;
 

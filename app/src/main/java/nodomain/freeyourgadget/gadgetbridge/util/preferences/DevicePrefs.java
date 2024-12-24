@@ -25,7 +25,7 @@ import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.Dev
 import android.content.SharedPreferences;
 import android.text.format.DateFormat;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -74,7 +74,7 @@ public class DevicePrefs extends Prefs {
     public String getTimeFormat() {
         String timeFormat = getString(DeviceSettingsPreferenceConst.PREF_TIMEFORMAT, DeviceSettingsPreferenceConst.PREF_TIMEFORMAT_AUTO);
         if (DeviceSettingsPreferenceConst.PREF_TIMEFORMAT_AUTO.equals(timeFormat)) {
-            if (DateFormat.is24HourFormat(GBApplication.getContext())) {
+            if (DateFormat.is24HourFormat(WearableApplication.getContext())) {
                 timeFormat = DeviceSettingsPreferenceConst.PREF_TIMEFORMAT_24H;
             } else {
                 timeFormat = DeviceSettingsPreferenceConst.PREF_TIMEFORMAT_12H;

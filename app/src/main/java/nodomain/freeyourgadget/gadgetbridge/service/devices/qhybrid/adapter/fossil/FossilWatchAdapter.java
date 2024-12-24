@@ -47,9 +47,9 @@ import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HybridHRActivitySampleProvider;
@@ -250,7 +250,7 @@ public class FossilWatchAdapter extends WatchAdapter {
     }
 
     protected SharedPreferences getDeviceSpecificPreferences() {
-        return GBApplication.getDeviceSpecificSharedPrefs(
+        return WearableApplication.getDeviceSpecificSharedPrefs(
                 getDeviceSupport().getDevice().getAddress()
         );
     }
@@ -548,7 +548,7 @@ public class FossilWatchAdapter extends WatchAdapter {
         queueWrite(new FileLookupAndGetRequest(FileHandle.ACTIVITY_FILE, this) {
             @Override
             public void handleFileData(byte[] fileData) {
-                try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                try (DBHandler dbHandler = WearableApplication.acquireDB()) {
                     ActivityFileParser parser = new ActivityFileParser();
                     ArrayList<ActivityEntry> entries = parser.parseFile(fileData).getKey();
                     HybridHRActivitySampleProvider provider = new HybridHRActivitySampleProvider(getDeviceSupport().getDevice(), dbHandler.getDaoSession());

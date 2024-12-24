@@ -68,15 +68,15 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    namespace 'nodomain.freeyourgadget.gadgetbridge'
+    namespace 'xyz.tenseventyseven.fresh.wearable'
 
     defaultConfig {
-        applicationId "nodomain.freeyourgadget.gadgetbridge"
+        applicationId "xyz.tenseventyseven.fresh.wearable"
 
         //noinspection OldTargetApi
         targetSdkVersion 34
         compileSdk 34
-        minSdkVersion 21
+        minSdkVersion 29
 
         // Note: always bump BOTH versionCode and versionName!
         versionName "0.82.1"
@@ -194,11 +194,16 @@ android {
     buildFeatures {
         aidl true
         buildConfig true
+        viewBinding true
+        dataBinding true
     }
 }
 
 dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.3'
+
 
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     implementation "androidx.camera:camera-core:1.4.1"
@@ -211,19 +216,25 @@ dependencies {
     testImplementation "org.robolectric:robolectric:4.14.1"
     testImplementation "org.hamcrest:hamcrest-library:3.0"
 
-    implementation "androidx.appcompat:appcompat:1.7.0"
-    implementation "androidx.preference:preference:1.2.1"
+    implementation "sesl.androidx.core:core:1.15.0+1.0.11-sesl6+rev0"
+    implementation "sesl.androidx.appcompat:appcompat:1.7.0+1.0.34-sesl6+rev7"
+    implementation "sesl.androidx.preference:preference:1.2.1+1.0.4-sesl6+rev3"
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation "androidx.recyclerview:recyclerview:1.3.2"
+    implementation "sesl.androidx.recyclerview:recyclerview:1.4.0-rc01+1.0.21-sesl6+rev0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation "androidx.gridlayout:gridlayout:1.0.0"
     implementation "androidx.palette:palette:1.0.0"
     implementation "androidx.activity:activity:1.9.3"
-    implementation "androidx.fragment:fragment:1.8.5"
-    implementation "androidx.viewpager2:viewpager2:1.1.0"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.8.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.8.0'
+    implementation "sesl.androidx.fragment:fragment:1.8.5+1.0.0-sesl6+rev0"
+    implementation "sesl.androidx.viewpager2:viewpager2:1.1.0+1.0.0-sesl6+rev0"
+    implementation "sesl.androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01+1.0.0-sesl6+rev0"
 
-    // Not latest version because of https://github.com/material-components/material-components-android/issues/3924
-    implementation "com.google.android.material:material:1.10.0"
+    implementation "sesl.com.google.android.material:material:1.12.0+1.0.23-sesl6+rev2"
+    implementation "io.github.tribalfs:oneui-design:0.3.4+oneui6"
+    implementation "io.github.oneuiproject:icons:1.1.0"
+
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation "com.google.code.gson:gson:2.11.0"
 
@@ -262,6 +273,23 @@ dependencies {
 
     // Needed for Armenian transliteration
     implementation 'org.ahocorasick:ahocorasick:0.6.3'
+}
+
+configurations.implementation {
+    exclude (group:"androidx.core",  module:"core")
+    exclude (group:"androidx.core",  module:"core-ktx")
+    exclude (group:"androidx.customview",  module:"customview")
+    exclude (group:"androidx.coordinatorlayout",  module:"coordinatorlayout")
+    exclude (group:"androidx.drawerlayout",  module:"drawerlayout")
+    exclude (group:"androidx.viewpager2",  module:"viewpager2")
+    exclude (group:"androidx.viewpager",  module:"viewpager")
+    exclude (group:"androidx.appcompat", module:"appcompat")
+    exclude (group:"androidx.fragment", module:"fragment")
+    exclude (group:"androidx.preference",  module:"preference")
+    exclude (group:"androidx.recyclerview", module:"recyclerview")
+    exclude (group:"androidx.slidingpanelayout",  module:"slidingpanelayout")
+    exclude (group:"androidx.swiperefreshlayout",  module:"swiperefreshlayout")
+    exclude (group:"com.google.android.material", module: "material")
 }
 
 preBuild.dependsOn(":GBDaoGenerator:genSources")

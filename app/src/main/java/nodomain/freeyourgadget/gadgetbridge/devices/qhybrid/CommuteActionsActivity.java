@@ -40,12 +40,12 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 
-public class CommuteActionsActivity extends AbstractGBActivity implements CommuteActionsListAdapter.ItemClickListener, DialogInterface.OnClickListener, View.OnClickListener {
+public class CommuteActionsActivity extends CommonActivityAbstract implements CommuteActionsListAdapter.ItemClickListener, DialogInterface.OnClickListener, View.OnClickListener {
     protected final List<String> actionsList = new ArrayList<>();
     private static final Logger LOG = LoggerFactory.getLogger(CommuteActionsActivity.class);
     private SharedPreferences sharedPreferences;
@@ -57,7 +57,7 @@ public class CommuteActionsActivity extends AbstractGBActivity implements Commut
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commute_actions);
-        sharedPreferences = GBApplication.getPrefs().getPreferences();
+        sharedPreferences = WearableApplication.getPrefs().getPreferences();
 
         findViewById(R.id.actionAddFab).setOnClickListener(this);
 

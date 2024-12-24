@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huami.HuamiSupport;
 
 /**

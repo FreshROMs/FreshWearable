@@ -16,24 +16,25 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.deviceevents;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 
 public class GBDeviceEventVersionInfo extends GBDeviceEvent {
     public String fwVersion = "N/A";
     public String fwVersion2 = null;
     public String hwVersion = "N/A";
+    public int hwVariant = -1;
 
     public GBDeviceEventVersionInfo() {
-        if (GBApplication.getContext() != null) {
+        if (WearableApplication.getContext() != null) {
             // Only get from context if there is one (eg. not in unit tests)
-            this.fwVersion = GBApplication.getContext().getString(R.string.n_a);
-            this.hwVersion = GBApplication.getContext().getString(R.string.n_a);
+            this.fwVersion = WearableApplication.getContext().getString(R.string.n_a);
+            this.hwVersion = WearableApplication.getContext().getString(R.string.n_a);
         }
     }
 
     @Override
     public String toString() {
-        return super.toString() + "fwVersion: " + fwVersion + "; fwVersion2: " + fwVersion2 + "; hwVersion: " + hwVersion;
+        return super.toString() + "fwVersion: " + fwVersion + "; fwVersion2: " + fwVersion2 + "; hwVersion: " + hwVersion + "; hwVariant: " + hwVariant;
     }
 }

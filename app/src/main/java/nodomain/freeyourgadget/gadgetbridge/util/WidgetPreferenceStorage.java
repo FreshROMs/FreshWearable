@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public class WidgetPreferenceStorage {
@@ -153,8 +153,8 @@ public class WidgetPreferenceStorage {
     }
 
     public GBDevice getDeviceForWidget(int appWidgetId) {
-        Context context = GBApplication.getContext();
-        if (!(context instanceof GBApplication)) {
+        Context context = WearableApplication.getContext();
+        if (!(context instanceof WearableApplication)) {
             return null;
         }
 
@@ -167,7 +167,7 @@ public class WidgetPreferenceStorage {
     }
 
     private GBDevice getDeviceByMAC(Context appContext, String HwAddress) {
-        GBApplication gbApp = (GBApplication) appContext;
+        WearableApplication gbApp = (WearableApplication) appContext;
         List<? extends GBDevice> devices = gbApp.getDeviceManager().getDevices();
         for (GBDevice device : devices) {
             if (device.getAddress().equals(HwAddress)) {

@@ -33,10 +33,8 @@ import java.text.ParseException;
 import java.time.LocalTime;
 import java.util.Date;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
-import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public class GBPrefs extends Prefs {
@@ -82,7 +80,7 @@ public class GBPrefs extends Prefs {
     }
 
     public boolean getAutoReconnect(GBDevice device) {
-        SharedPreferences deviceSpecificPreferences = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+        SharedPreferences deviceSpecificPreferences = WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress());
         return deviceSpecificPreferences.getBoolean(DEVICE_AUTO_RECONNECT, AUTO_RECONNECT_DEFAULT);
     }
 

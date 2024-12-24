@@ -21,8 +21,6 @@ package nodomain.freeyourgadget.gadgetbridge.util;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.net.Uri;
-import android.os.Environment;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -48,8 +46,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBEnvironment;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.Environment;
 
 public class FileUtils {
     // Don't use slf4j here -- would be a bootstrapping problem
@@ -264,7 +262,7 @@ public class FileUtils {
      */
     @NonNull
     private static List<File> getWritableExternalFilesDirs() throws IOException {
-        Context context = GBApplication.getContext();
+        Context context = WearableApplication.getContext();
         File[] dirs;
         try {
             dirs = context.getExternalFilesDirs(null);
@@ -295,9 +293,9 @@ public class FileUtils {
                 continue;
             }
 
-            if (!GBEnvironment.env().isLocalTest()) { // don't do this with robolectric
-                final String storageState = Environment.getExternalStorageState(dir);
-                if (!Environment.MEDIA_MOUNTED.equals(storageState)) {
+            if (!Environment.env().isLocalTest()) { // don't do this with robolectric
+                final String storageState = android.os.Environment.getExternalStorageState(dir);
+                if (!android.os.Environment.MEDIA_MOUNTED.equals(storageState)) {
                     GB.log("ignoring '" +  storageState + "' external storage dir: " + dir, GB.INFO, null);
                     continue;
                 }

@@ -36,7 +36,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminPreferences;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiConst;
@@ -126,10 +126,10 @@ public class ImportExportSharedPreferences {
                         // spaces at the end or start, square brackets
                         switch (key) {
                             case GBPrefs.PACKAGE_BLACKLIST:
-                                GBApplication.setAppsNotifBlackList(stringToSet(text), editor);
+                                WearableApplication.setAppsNotifBlackList(stringToSet(text), editor);
                                 break;
                             case GBPrefs.PACKAGE_PEBBLEMSG_BLACKLIST:
-                                GBApplication.setAppsPebbleBlackList(stringToSet(text), editor);
+                                WearableApplication.setAppsPebbleBlackList(stringToSet(text), editor);
                                 break;
                             // @array/device_action_values
                             case DeviceSettingsPreferenceConst.PREF_DEVICE_ACTION_FELL_SLEEP_SELECTIONS:

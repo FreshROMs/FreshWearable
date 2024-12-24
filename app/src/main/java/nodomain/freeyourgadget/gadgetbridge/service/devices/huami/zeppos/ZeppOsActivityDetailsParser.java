@@ -31,7 +31,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityPoint;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityTrack;
@@ -71,7 +71,7 @@ public class ZeppOsActivityDetailsParser extends AbstractHuamiActivityDetailsPar
     }
 
     @Override
-    public ActivityTrack parse(final byte[] bytes) throws GBException {
+    public ActivityTrack parse(final byte[] bytes) throws WearableException {
         final ByteBuffer buf = ByteBuffer.wrap(bytes)
                 .order(ByteOrder.LITTLE_ENDIAN);
 

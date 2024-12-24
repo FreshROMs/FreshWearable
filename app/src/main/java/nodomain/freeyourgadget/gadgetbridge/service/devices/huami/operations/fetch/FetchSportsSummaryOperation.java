@@ -24,8 +24,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.GregorianCalendar;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -92,7 +92,7 @@ public class FetchSportsSummaryOperation extends AbstractFetchOperation {
         }
 
         summary.setSummaryData(null); // remove json before saving to database,
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             final DaoSession session = dbHandler.getDaoSession();
             final Device device = DBHelper.getDevice(getDevice(), session);
             final User user = DBHelper.getUser(session);

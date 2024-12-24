@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.mijia_lywsd;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 
 public class MijiaXmwsdj04Coordinator extends AbstractMijiaLywsdCoordinator {
     @Override

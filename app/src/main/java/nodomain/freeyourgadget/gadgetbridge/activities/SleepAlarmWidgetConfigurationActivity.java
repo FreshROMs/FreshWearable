@@ -39,8 +39,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -48,10 +48,11 @@ import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
+import xyz.tenseventyseven.fresh.wearable.activities.ActivityCommon;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public class SleepAlarmWidgetConfigurationActivity extends Activity implements GBActivity {
+public class SleepAlarmWidgetConfigurationActivity extends Activity implements ActivityCommon {
 
     // modified copy of WidgetConfigurationActivity
     // if we knew which widget is calling this config activity, we could only use a single configuration
@@ -64,7 +65,7 @@ public class SleepAlarmWidgetConfigurationActivity extends Activity implements G
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        AbstractGBActivity.init(this, AbstractGBActivity.NO_ACTIONBAR);
+        CommonActivityAbstract.init(this, CommonActivityAbstract.NO_ACTIONBAR);
 
         super.onCreate(savedInstanceState);
 
@@ -125,11 +126,11 @@ public class SleepAlarmWidgetConfigurationActivity extends Activity implements G
 
     public LinkedHashMap getAllDevices(Context appContext) {
         DaoSession daoSession;
-        GBApplication gbApp = (GBApplication) appContext;
+        WearableApplication gbApp = (WearableApplication) appContext;
         LinkedHashMap<String, Pair<String, Integer>> newMap = new LinkedHashMap<>(1);
         List<? extends GBDevice> devices = gbApp.getDeviceManager().getDevices();
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = WearableApplication.acquireDB()) {
             daoSession = handler.getDaoSession();
             for (GBDevice device : devices) {
                 DeviceCoordinator coordinator = device.getDeviceCoordinator();

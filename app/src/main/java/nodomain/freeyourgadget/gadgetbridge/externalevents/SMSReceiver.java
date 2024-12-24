@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
@@ -39,7 +39,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         if ("never".equals(prefs.getString("notification_mode_sms", "when_screen_off"))) {
             return;
         }
@@ -88,7 +88,7 @@ public class SMSReceiver extends BroadcastReceiver {
                         notificationSpec.attachedActions.add(dismissAllAction);
 
                         int dndSuppressed = 0;
-                        switch (GBApplication.getGrantedInterruptionFilter()) {
+                        switch (WearableApplication.getGrantedInterruptionFilter()) {
                             case NotificationManager.INTERRUPTION_FILTER_ALL:
                                 break;
                             case NotificationManager.INTERRUPTION_FILTER_ALARMS:
@@ -96,7 +96,7 @@ public class SMSReceiver extends BroadcastReceiver {
                                 dndSuppressed = 1;
                                 break;
                             case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                                if (GBApplication.isPriorityNumber(Policy.PRIORITY_CATEGORY_MESSAGES, notificationSpec.phoneNumber)) {
+                                if (WearableApplication.isPriorityNumber(Policy.PRIORITY_CATEGORY_MESSAGES, notificationSpec.phoneNumber)) {
                                     break;
                                 }
                                 dndSuppressed = 1;
@@ -105,7 +105,7 @@ public class SMSReceiver extends BroadcastReceiver {
                             return;
                         }
                         notificationSpec.dndSuppressed = dndSuppressed;
-                        GBApplication.deviceService().onNotification(notificationSpec);
+                        WearableApplication.deviceService().onNotification(notificationSpec);
                     }
                 }
             }

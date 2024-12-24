@@ -27,8 +27,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -84,9 +84,9 @@ public class TemperatureDailyFragment extends AbstractChartFragment<TemperatureD
 
     @Override
     protected void init() {
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(requireContext());
-        DESCRIPTION_COLOR = LEGEND_TEXT_COLOR = GBApplication.getTextColor(requireContext());
-        TEMPERATURE_COLOR = GBApplication.getSecondaryTextColor(requireContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(requireContext());
+        DESCRIPTION_COLOR = LEGEND_TEXT_COLOR = WearableApplication.getTextColor(requireContext());
+        TEMPERATURE_COLOR = WearableApplication.getSecondaryTextColor(requireContext());
     }
 
     @Override
@@ -151,7 +151,7 @@ public class TemperatureDailyFragment extends AbstractChartFragment<TemperatureD
         dataEntry.formColor = TEMPERATURE_COLOR;
         legendEntries.add(dataEntry);
 
-        if (GBApplication.getPrefs().getBoolean("charts_show_average", true)) {
+        if (WearableApplication.getPrefs().getBoolean("charts_show_average", true)) {
             LegendEntry dataAverageEntry = new LegendEntry();
             dataAverageEntry.label = getString(R.string.hr_average);
             dataAverageEntry.formColor = Color.CYAN;
@@ -214,7 +214,7 @@ public class TemperatureDailyFragment extends AbstractChartFragment<TemperatureD
 
         tempLineChart.getAxisLeft().removeAllLimitLines();
 
-        if (average > 0 && GBApplication.getPrefs().getBoolean("charts_show_average", true)) {
+        if (average > 0 && WearableApplication.getPrefs().getBoolean("charts_show_average", true)) {
             final LimitLine averageLine = new LimitLine((float) average);
             averageLine.setLineWidth(1.5f);
             averageLine.enableDashedLine(15f, 10f, 0f);

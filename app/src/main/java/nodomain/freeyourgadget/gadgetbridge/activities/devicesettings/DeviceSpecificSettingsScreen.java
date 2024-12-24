@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities.devicesettings;
 
 import androidx.annotation.XmlRes;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 
 public enum DeviceSpecificSettingsScreen {
     ACTIVITY_INFO("pref_screen_activity_info", R.xml.devicesettings_root_activity_info),
@@ -38,6 +38,9 @@ public enum DeviceSpecificSettingsScreen {
     HEALTH("pref_screen_health", R.xml.devicesettings_root_health),
     TOUCH_OPTIONS("pref_screen_touch_options", R.xml.devicesettings_root_touch_options),
     SOUND("pref_screen_sound", R.xml.devicesettings_root_touch_options),
+    EARBUDS_SETTINGS("pref_screen_earbuds_settings", R.xml.devicesettings_root_earbuds_settings),
+    WATCH_SETTINGS("pref_screen_watch_settings", R.xml.devicesettings_root_earbuds_settings),
+    DEVICE_SPECIFIC_SETTINGS("pref_screen_device_specific_settings", R.xml.devicesettings_root_earbuds_settings),
     ;
 
     private final String key;

@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiConstants;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.DeviceConfig;
@@ -59,7 +59,7 @@ public class GetDndLiftWristTypeRequest extends Request {
         LOG.debug("handle DND Allow Content");
         if (!(receivedPacket instanceof DeviceConfig.DndLiftWristType.Response))
             throw new ResponseTypeMismatchException(receivedPacket, DeviceConfig.DndLiftWristType.Response.class);
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(supportProvider.getDeviceMac());
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(supportProvider.getDeviceMac());
         SharedPreferences.Editor editor = sharedPrefs.edit();
         editor.putInt(HuaweiConstants.PREF_HUAWEI_DND_LIFT_WRIST_TYPE,
                     ((DeviceConfig.DndLiftWristType.Response) receivedPacket).dndLiftWristType);

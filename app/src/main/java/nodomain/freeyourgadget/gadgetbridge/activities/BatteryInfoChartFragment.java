@@ -23,8 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.MarkerView;
@@ -49,8 +47,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.DefaultChartsData;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.TimestampTranslation;
 import nodomain.freeyourgadget.gadgetbridge.database.DBAccess;
@@ -122,9 +120,9 @@ public class BatteryInfoChartFragment extends AbstractGBFragment {
     }
 
     private void init() {
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(getContext());
-        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = GBApplication.getTextColor(getContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(getContext());
+        BACKGROUND_COLOR = WearableApplication.getBackgroundColor(getContext());
+        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = WearableApplication.getTextColor(getContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(getContext());
         BATTERY_LABEL = getString(R.string.battery_level);
     }
 
@@ -147,7 +145,7 @@ public class BatteryInfoChartFragment extends AbstractGBFragment {
     }
 
     private void setupChart() {
-        LEGEND_TEXT_COLOR = GBApplication.getTextColor(getContext());
+        LEGEND_TEXT_COLOR = WearableApplication.getTextColor(getContext());
         mChart.getLegend().setTextColor(LEGEND_TEXT_COLOR);
         mChart.setBackgroundColor(BACKGROUND_COLOR);
         mChart.getDescription().setTextColor(DESCRIPTION_COLOR);

@@ -32,7 +32,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummaryDao;
@@ -165,7 +165,7 @@ public class WorkoutVo2MaxSampleProvider implements Vo2MaxSampleProvider<Vo2MaxS
 
     private void fillSummaryData(final DeviceCoordinator coordinator,
                                  final Collection<BaseActivitySummary> summaries) {
-        ActivitySummaryParser activitySummaryParser = coordinator.getActivitySummaryParser(device, GBApplication.getContext());
+        ActivitySummaryParser activitySummaryParser = coordinator.getActivitySummaryParser(device, WearableApplication.getContext());
         for (final BaseActivitySummary summary : summaries) {
             if (summary.getSummaryData() == null) {
                 activitySummaryParser.parseBinaryData(summary, true);

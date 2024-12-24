@@ -371,7 +371,7 @@ public class DeviceSettingsPreferenceConst {
 
     public static final String PREF_REDMI_BUDS_AMBIENT_SOUND_CONTROL="pref_redmi_buds_ambient_sound_control";
     public static final String PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH="pref_redmi_buds_noise_cancelling_strength";
-    public static final String PREF_REDMI_BUDS_TRANSPARENCY_STRENGTH="pref_redmi_buds_transparency_strength";
+    public static final String PREF_REDMI_BUDS_AMBIENT_SOUND_STRENGTH ="pref_redmi_buds_ambient_sound_strength";
     public static final String PREF_REDMI_BUDS_ADAPTIVE_NOISE_CANCELLING="pref_redmi_buds_adaptive_noise_cancelling";
 //    public static final String PREF_REDMI_BUDS_PERSONALIZED_NOISE_CANCELLING="pref_redmi_buds_personalized_noise_cancelling";
     public static final String PREF_REDMI_BUDS_CONTROL_SINGLE_TAP_LEFT="pref_redmi_buds_control_single_tap_left";
@@ -382,6 +382,23 @@ public class DeviceSettingsPreferenceConst {
     public static final String PREF_REDMI_BUDS_CONTROL_TRIPLE_TAP_RIGHT="pref_redmi_buds_control_triple_tap_right";
     public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT ="pref_redmi_buds_control_long_tap_mode_left";
     public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT ="pref_redmi_buds_control_long_tap_mode_right";
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_SUMMARY ="pref_redmi_buds_control_long_tap_left_summary";
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_SUMMARY ="pref_redmi_buds_control_long_tap_right_summary";
+
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_LEFT_CATEGORY ="pref_redmi_buds_control_long_tap_settings_left_category";
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_RIGHT_CATEGORY ="pref_redmi_buds_control_long_tap_settings_right_category";
+
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_VOICE_LEFT ="pref_redmi_buds_control_long_tap_voice_left";
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_VOICE_RIGHT ="pref_redmi_buds_control_long_tap_voice_right";
+
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_AMBIENT ="pref_redmi_buds_control_long_tap_settings_left_ambient";
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_ANC ="pref_redmi_buds_control_long_tap_settings_left_anc";
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT_OFF ="pref_redmi_buds_control_long_tap_settings_left_off";
+
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_AMBIENT ="pref_redmi_buds_control_long_tap_settings_right_ambient";
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_ANC ="pref_redmi_buds_control_long_tap_settings_right_anc";
+    public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT_OFF ="pref_redmi_buds_control_long_tap_settings_right_off";
+
     public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_LEFT ="pref_redmi_buds_control_long_tap_settings_left";
     public static final String PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_RIGHT ="pref_redmi_buds_control_long_tap_settings_right";
     public static final String PREF_REDMI_BUDS_WEARING_DETECTION="pref_redmi_buds_wearing_detection";
@@ -401,6 +418,7 @@ public class DeviceSettingsPreferenceConst {
     public static final String PREF_REDMI_BUDS_EQUALIZER_BAND_12k="pref_redmi_buds_equalizer_band_12k";
     public static final String PREF_REDMI_BUDS_EQUALIZER_BAND_16k="pref_redmi_buds_equalizer_band_16k";
     public static final String PREF_REDMI_BUDS_ADAPTIVE_SOUND="pref_redmi_buds_adaptive_sound";
+    public static final String PREF_REDMI_BUDS_FIRMWARE_VERSION="pref_redmi_buds_firmware_version";
 
     public static final String PREF_SONY_AUDIO_CODEC = "pref_sony_audio_codec";
     public static final String PREF_SONY_PROTOCOL_VERSION = "pref_protocol_version";

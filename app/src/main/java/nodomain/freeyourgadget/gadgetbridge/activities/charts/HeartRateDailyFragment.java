@@ -29,14 +29,13 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.SampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.entities.AbstractActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.model.HeartRateSample;
 import nodomain.freeyourgadget.gadgetbridge.util.Accumulator;
@@ -104,9 +103,9 @@ public class HeartRateDailyFragment extends AbstractChartFragment<HeartRateDaily
 
     @Override
     protected void init() {
-        Prefs prefs = GBApplication.getPrefs();
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(getContext());
-        DESCRIPTION_COLOR = LEGEND_TEXT_COLOR = GBApplication.getTextColor(getContext());
+        Prefs prefs = WearableApplication.getPrefs();
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(getContext());
+        DESCRIPTION_COLOR = LEGEND_TEXT_COLOR = WearableApplication.getTextColor(getContext());
         if (prefs.getBoolean("chart_heartrate_color", false)) {
             HEARTRATE_COLOR = ContextCompat.getColor(getContext(), R.color.chart_heartrate_alternative);
         }else{
@@ -190,7 +189,7 @@ public class HeartRateDailyFragment extends AbstractChartFragment<HeartRateDaily
         hrEntry.formColor = HEARTRATE_COLOR;
         legendEntries.add(hrEntry);
 
-        if (GBApplication.getPrefs().getBoolean("charts_show_average", true)) {
+        if (WearableApplication.getPrefs().getBoolean("charts_show_average", true)) {
             LegendEntry hrAverageEntry = new LegendEntry();
             hrAverageEntry.label = getString(R.string.hr_average);
             hrAverageEntry.formColor = Color.RED;
@@ -293,7 +292,7 @@ public class HeartRateDailyFragment extends AbstractChartFragment<HeartRateDaily
 
         hrLineChart.getAxisLeft().removeAllLimitLines();
 
-        if (average > 0 && GBApplication.getPrefs().getBoolean("charts_show_average", true)) {
+        if (average > 0 && WearableApplication.getPrefs().getBoolean("charts_show_average", true)) {
             final LimitLine averageLine = new LimitLine(average);
             averageLine.setLineWidth(1.5f);
             averageLine.enableDashedLine(15f, 10f, 0f);

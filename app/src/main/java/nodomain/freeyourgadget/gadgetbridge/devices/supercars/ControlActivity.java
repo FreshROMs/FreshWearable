@@ -33,12 +33,12 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.supercars.SuperCarsSupport;
 
-public class ControlActivity extends AbstractGBActivity implements JoystickView.JoystickListener {
+public class ControlActivity extends CommonActivityAbstract implements JoystickView.JoystickListener {
     private static final Logger LOG = LoggerFactory.getLogger(ControlActivity.class);
     LocalBroadcastManager localBroadcastManager;
     CountDownTimer periodicDataSenderRunner;

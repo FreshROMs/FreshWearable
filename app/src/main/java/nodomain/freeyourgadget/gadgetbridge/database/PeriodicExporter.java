@@ -23,7 +23,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.SystemClock;
 
 import org.slf4j.Logger;
@@ -31,9 +30,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.OutputStream;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
@@ -50,8 +49,8 @@ public class PeriodicExporter extends BroadcastReceiver {
     public static final String ACTION_DATABASE_EXPORT_FAIL = "nodomain.freeyourgadget.gadgetbridge.action.DATABASE_EXPORT_FAIL";
 
     public static void enablePeriodicExport(Context context) {
-        Prefs prefs = GBApplication.getPrefs();
-        GBApplication gbApp = GBApplication.app();
+        Prefs prefs = WearableApplication.getPrefs();
+        WearableApplication gbApp = WearableApplication.app();
         long autoExportScheduled = gbApp.getAutoExportScheduledTimestamp();
         boolean autoExportEnabled = prefs.getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
         Integer autoExportInterval = prefs.getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
@@ -74,7 +73,7 @@ public class PeriodicExporter extends BroadcastReceiver {
             return;
         }
         LOG.info("Scheduling periodic export");
-        GBApplication gbApp = GBApplication.app();
+        WearableApplication gbApp = WearableApplication.app();
         gbApp.setAutoExportScheduledTimestamp(System.currentTimeMillis() + exportPeriod);
         am.setInexactRepeating(
                 AlarmManager.ELAPSED_REALTIME,
@@ -105,9 +104,9 @@ public class PeriodicExporter extends BroadcastReceiver {
         @Override
         protected void doInBackground(DBHandler handler) {
             LOG.info("Exporting DB in a background thread");
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = WearableApplication.acquireDB()) {
                 DBHelper helper = new DBHelper(localContext);
-                String dst = GBApplication.getPrefs().getString(GBPrefs.AUTO_EXPORT_LOCATION, null);
+                String dst = WearableApplication.getPrefs().getString(GBPrefs.AUTO_EXPORT_LOCATION, null);
                 if (dst == null) {
                     LOG.warn("Unable to export DB, export location not set");
                     broadcastSuccess(false);
@@ -116,7 +115,7 @@ public class PeriodicExporter extends BroadcastReceiver {
                 Uri dstUri = Uri.parse(dst);
                 try (OutputStream out = localContext.getContentResolver().openOutputStream(dstUri)) {
                     helper.exportDB(dbHandler, out);
-                    GBApplication gbApp = GBApplication.app();
+                    WearableApplication gbApp = WearableApplication.app();
                     gbApp.setLastAutoExportTimestamp(System.currentTimeMillis());
                 }
 
@@ -131,7 +130,7 @@ public class PeriodicExporter extends BroadcastReceiver {
         }
 
         private void broadcastSuccess(final boolean success) {
-            if (!GBApplication.getPrefs().getBoolean("intent_api_broadcast_export", false)) {
+            if (!WearableApplication.getPrefs().getBoolean("intent_api_broadcast_export", false)) {
                 return;
             }
 

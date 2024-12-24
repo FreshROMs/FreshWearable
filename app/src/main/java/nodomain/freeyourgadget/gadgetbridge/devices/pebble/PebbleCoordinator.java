@@ -32,9 +32,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
@@ -42,7 +42,6 @@ import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpec
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractBLClassicDeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.SampleProvider;
-import nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.entities.AbstractActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.Device;
@@ -75,7 +74,7 @@ public class PebbleCoordinator extends AbstractBLClassicDeviceCoordinator {
     }
 
     @Override
-    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws GBException {
+    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws WearableException {
         Long deviceId = device.getId();
         QueryBuilder<?> qb = session.getPebbleHealthActivitySampleDao().queryBuilder();
         qb.where(PebbleHealthActivitySampleDao.Properties.DeviceId.eq(deviceId)).buildDelete().executeDeleteWithoutDetachingEntities();
@@ -89,7 +88,7 @@ public class PebbleCoordinator extends AbstractBLClassicDeviceCoordinator {
 
     @Override
     public SampleProvider<? extends AbstractActivitySample> getSampleProvider(GBDevice device, DaoSession session) {
-        DevicePrefs prefs = GBApplication.getDevicePrefs(device);
+        DevicePrefs prefs = WearableApplication.getDevicePrefs(device);
         int activityTracker = prefs.getInt("pebble_activitytracker", SampleProvider.PROVIDER_PEBBLE_HEALTH);
         switch (activityTracker) {
             case SampleProvider.PROVIDER_PEBBLE_HEALTH:
@@ -174,7 +173,7 @@ public class PebbleCoordinator extends AbstractBLClassicDeviceCoordinator {
 
     @Override
     public boolean supportsAppListFetching() {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getSelectedDevices();
         for(GBDevice device : devices){
             if(device.getType() == DeviceType.PEBBLE){
                 if (device.getFirmwareVersion() != null) {
@@ -188,7 +187,7 @@ public class PebbleCoordinator extends AbstractBLClassicDeviceCoordinator {
 
     @Override
     public boolean supportsAppReordering() {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getSelectedDevices();
         for(GBDevice device : devices){
             if(device.getType() == DeviceType.PEBBLE){
                 if (device.getFirmwareVersion() != null) {
@@ -285,7 +284,7 @@ public class PebbleCoordinator extends AbstractBLClassicDeviceCoordinator {
     }
 
     public boolean isBackgroundJsEnabled(final GBDevice device) {
-        DevicePrefs deviceSpecificPreferences = GBApplication.getDevicePrefs(device);
+        DevicePrefs deviceSpecificPreferences = WearableApplication.getDevicePrefs(device);
         return deviceSpecificPreferences.getBoolean(BG_JS_ENABLED, BG_JS_ENABLED_DEFAULT);
     }
 

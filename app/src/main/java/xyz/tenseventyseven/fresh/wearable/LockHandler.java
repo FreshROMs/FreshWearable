@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge;
+package xyz.tenseventyseven.fresh.wearable;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -72,7 +72,7 @@ public class LockHandler implements DBHandler {
     @Override
     public void close() {
         ensureValid();
-        GBApplication.releaseDB();
+        WearableApplication.releaseDB();
     }
 
     @Override
@@ -81,7 +81,7 @@ public class LockHandler implements DBHandler {
             throw new IllegalStateException("session must be null");
         }
         // this will create completely new db instances and in turn update this handler through #init()
-        GBApplication.app().setupDatabase();
+        WearableApplication.app().setupDatabase();
     }
 
     @Override

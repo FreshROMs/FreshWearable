@@ -45,8 +45,8 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
 import nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.NotificationConfiguration;
@@ -256,7 +256,7 @@ public class QHybridSupport extends QHybridBaseSupport {
                             }
                             case ITEM_USE_ACTIVITY_HAND: {
                                 QHybridSupport.this.useActivityHand = gbDevice.getDeviceInfo(ITEM_USE_ACTIVITY_HAND).getDetails().equals("true");
-                                GBApplication.getPrefs().getPreferences().edit().putBoolean("QHYBRID_USE_ACTIVITY_HAND", useActivityHand).apply();
+                                WearableApplication.getPrefs().getPreferences().edit().putBoolean("QHYBRID_USE_ACTIVITY_HAND", useActivityHand).apply();
                                 break;
                             }
                         }
@@ -300,9 +300,9 @@ public class QHybridSupport extends QHybridBaseSupport {
                 }
             }
         };
-        LocalBroadcastManager.getInstance(GBApplication.getContext()).registerReceiver(commandReceiver, commandFilter);
+        LocalBroadcastManager.getInstance(WearableApplication.getContext()).registerReceiver(commandReceiver, commandFilter);
 
-        helper = new PackageConfigHelper(GBApplication.getContext());
+        helper = new PackageConfigHelper(WearableApplication.getContext());
 
         IntentFilter globalFilter = new IntentFilter();
         globalFilter.addAction(QHYBRID_ACTION_SET_ACTIVITY_HAND);
@@ -394,7 +394,7 @@ public class QHybridSupport extends QHybridBaseSupport {
                 }
             }
         };
-        ContextCompat.registerReceiver(GBApplication.getContext(), globalCommandReceiver, globalFilter, ContextCompat.RECEIVER_EXPORTED);
+        ContextCompat.registerReceiver(WearableApplication.getContext(), globalCommandReceiver, globalFilter, ContextCompat.RECEIVER_EXPORTED);
     }
 
     private void handleConfigSetIntent(Intent intent) {
@@ -434,7 +434,7 @@ public class QHybridSupport extends QHybridBaseSupport {
     }
 
     private boolean dangerousIntentsAllowed(){
-        return GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_HYBRID_HR_DANGEROUS_EXTERNAL_INTENTS, true);
+        return WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_HYBRID_HR_DANGEROUS_EXTERNAL_INTENTS, true);
     }
 
     private void handleFileUploadIntent(Intent intent){
@@ -463,7 +463,7 @@ public class QHybridSupport extends QHybridBaseSupport {
     @Override
     public void dispose() {
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(commandReceiver);
-        GBApplication.getContext().unregisterReceiver(globalCommandReceiver);
+        WearableApplication.getContext().unregisterReceiver(globalCommandReceiver);
         if (watchAdapter != null) {
             watchAdapter.dispose();
         }
@@ -504,10 +504,10 @@ public class QHybridSupport extends QHybridBaseSupport {
     protected TransactionBuilder initializeDevice(TransactionBuilder builder) {
         builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.INITIALIZING, getContext()));
 
-        this.useActivityHand = GBApplication.getPrefs().getBoolean("QHYBRID_USE_ACTIVITY_HAND", false);
+        this.useActivityHand = WearableApplication.getPrefs().getBoolean("QHYBRID_USE_ACTIVITY_HAND", false);
         getDevice().addDeviceInfo(new GenericItem(ITEM_USE_ACTIVITY_HAND, String.valueOf(this.useActivityHand)));
 
-        if (GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_USE_CUSTOM_DEVICEICON, true)) {
+        if (WearableApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_USE_CUSTOM_DEVICEICON, true)) {
             getDevice().setNotificationIconConnected(R.drawable.ic_notification_qhybrid);
             getDevice().setNotificationIconDisconnected(R.drawable.ic_notification_disconnected_qhybrid);
         }

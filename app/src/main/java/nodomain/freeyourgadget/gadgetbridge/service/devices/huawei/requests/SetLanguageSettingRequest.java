@@ -23,8 +23,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
@@ -48,7 +48,7 @@ public class SetLanguageSettingRequest extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        String localeString = GBApplication
+        String localeString = WearableApplication
             .getDeviceSpecificSharedPrefs(supportProvider.getDevice().getAddress())
             .getString(DeviceSettingsPreferenceConst.PREF_LANGUAGE, "auto");
         if (localeString == null || localeString.equals("auto")) {
@@ -62,7 +62,7 @@ public class SetLanguageSettingRequest extends Request {
             localeString = localeString.replace("_", "-");
         }
         LOG.debug("localeString: " + localeString);
-        String measurementString = GBApplication
+        String measurementString = WearableApplication
             .getPrefs()
             .getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, getContext().getString(R.string.p_unit_metric));
         LOG.debug("measurementString: " + measurementString);

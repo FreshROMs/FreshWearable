@@ -58,9 +58,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.loyaltycards.LoyaltyCard;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCameraRemote;
@@ -87,7 +87,6 @@ import nodomain.freeyourgadget.gadgetbridge.externalevents.TinyWeatherForecastGe
 import nodomain.freeyourgadget.gadgetbridge.externalevents.gps.GBLocationService;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.sleepasandroid.SleepAsAndroidReceiver;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceMusic;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceService;
 import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
@@ -102,9 +101,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;
 import nodomain.freeyourgadget.gadgetbridge.model.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.WorldClock;
-import nodomain.freeyourgadget.gadgetbridge.service.btle.AbstractBTLEDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.BLEScanService;
-import nodomain.freeyourgadget.gadgetbridge.service.btle.BleIntentApi;
 import nodomain.freeyourgadget.gadgetbridge.service.receivers.AutoConnectIntervalReceiver;
 import nodomain.freeyourgadget.gadgetbridge.service.receivers.GBAutoFetchReceiver;
 import nodomain.freeyourgadget.gadgetbridge.util.EmojiConverter;
@@ -224,7 +221,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
         }
     }
 
-    public static class DeviceNotFoundException extends GBException{
+    public static class DeviceNotFoundException extends WearableException {
         private final String address;
 
         public DeviceNotFoundException(GBDevice device) {
@@ -338,7 +335,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 GB.log("no bluetooth address provided in Intent", GB.ERROR, null);
                 return;
             }
-            GBDevice targetDevice = GBApplication.app()
+            GBDevice targetDevice = WearableApplication.app()
                     .getDeviceManager()
                     .getDeviceByAddress(address);
 
@@ -358,12 +355,12 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
 
                     GB.log(String.format("connecting to %s", address), GB.INFO, null);
 
-                    GBApplication.deviceService(targetDevice).connect();
+                    WearableApplication.deviceService(targetDevice).connect();
                     break;
                 case API_LEGACY_COMMAND_BLUETOOTH_DISCONNECT:
                     GB.log(String.format("disconnecting from %s", address), GB.INFO, null);
 
-                    GBApplication.deviceService(targetDevice).disconnect();
+                    WearableApplication.deviceService(targetDevice).disconnect();
                     break;
             }
         }
@@ -423,7 +420,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
             }else if(BLEScanService.EVENT_DEVICE_FOUND.equals(action)){
                 String deviceAddress = intent.getStringExtra(BLEScanService.EXTRA_DEVICE_ADDRESS);
 
-                GBDevice target = GBApplication
+                GBDevice target = WearableApplication
                         .app()
                         .getDeviceManager()
                         .getDeviceByAddress(deviceAddress);
@@ -436,7 +433,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 if(!target.getDeviceCoordinator().isConnectable()){
                     int actualRSSI = intent.getIntExtra(BLEScanService.EXTRA_RSSI, 0);
                     Prefs prefs = new Prefs(
-                            GBApplication.getDeviceSpecificSharedPrefs(target.getAddress())
+                            WearableApplication.getDeviceSpecificSharedPrefs(target.getAddress())
                     );
                     long timeoutSeconds = prefs.getLong("devicesetting_scannable_debounce", 60);
                     long minimumUnseenSeconds = prefs.getLong("devicesetting_scannable_unseen", 0);
@@ -554,7 +551,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
     }
 
     private void scanAllDevices(){
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         for(GBDevice device : devices){
             if(!device.getDeviceCoordinator().getConnectionType().usesBluetoothLE()){
                 continue;
@@ -606,7 +603,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
             gbDevs.add(device);
             fromExtra = true;
         } else {
-            List<GBDevice> gbAllDevs = GBApplication.app().getDeviceManager().getDevices();
+            List<GBDevice> gbAllDevs = WearableApplication.app().getDeviceManager().getDevices();
 
             if (gbAllDevs != null && !gbAllDevs.isEmpty()) {
                 if (prefs.getBoolean(GBPrefs.RECONNECT_ONLY_TO_CONNECTED, true)) {
@@ -732,7 +729,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                     for(GBDevice device : getGBDevices()){
                         if(isDeviceInitialized(device)){
                             targetedDevices.add(device);
-                        } else if (isDeviceReconnecting(device) && action.equals(ACTION_NOTIFICATION) && GBApplication.getPrefs().getBoolean("notification_cache_while_disconnected", false)) {
+                        } else if (isDeviceReconnecting(device) && action.equals(ACTION_NOTIFICATION) && WearableApplication.getPrefs().getBoolean("notification_cache_while_disconnected", false)) {
                             if (!cachedNotifications.containsKey(device.getAddress())) {
                                 cachedNotifications.put(device.getAddress(), new ArrayList<>());
                             }
@@ -817,7 +814,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
 
         DeviceSupport deviceSupport = getDeviceSupport(device);
 
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        Prefs devicePrefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
 
         final Transliterator transliterator = LanguageUtils.getTransliterator(device);
 
@@ -866,7 +863,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 notificationSpec.dndSuppressed = intentCopy.getIntExtra(EXTRA_NOTIFICATION_DNDSUPPRESSED, 0);
 
                 if (notificationSpec.type == NotificationType.GENERIC_SMS && notificationSpec.phoneNumber != null) {
-                    GBApplication.getIDSenderLookup().add(notificationSpec.getId(), notificationSpec.phoneNumber);
+                    WearableApplication.getIDSenderLookup().add(notificationSpec.getId(), notificationSpec.phoneNumber);
                 }
 
                 //TODO: check if at least one of the attached actions is a reply action instead?
@@ -1125,7 +1122,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 deviceSupport.onSetGpsLocation(location);
                 break;
             case ACTION_SLEEP_AS_ANDROID:
-                if(device.getDeviceCoordinator().supportsSleepAsAndroid() && GBApplication.getPrefs().getString("sleepasandroid_device", new String()).equals(device.getAddress()))
+                if(device.getDeviceCoordinator().supportsSleepAsAndroid() && WearableApplication.getPrefs().getString("sleepasandroid_device", new String()).equals(device.getAddress()))
                 {
                     final String sleepAsAndroidAction = intentCopy.getStringExtra(EXTRA_SLEEP_AS_ANDROID_ACTION);
                     deviceSupport.onSleepAsAndroidAction(sleepAsAndroidAction, intentCopy.getExtras());
@@ -1323,7 +1320,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
         if (enable && initialized && features.supportsCalendarEvents()) {
             for (GBDevice deviceWithCalendar : devicesWithCalendar) {
                 if (!deviceHasCalendarReceiverRegistered(deviceWithCalendar)) {
-                    if (!(GBApplication.isRunningMarshmallowOrLater() && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_DENIED)) {
+                    if (!(WearableApplication.isRunningMarshmallowOrLater() && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR) == PackageManager.PERMISSION_DENIED)) {
                         CalendarReceiver receiver = new CalendarReceiver(this, deviceWithCalendar);
                         mCalendarReceiver.add(receiver);
                     }
@@ -1404,7 +1401,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
 
             // Weather receivers
             if (features.supportsWeather()) {
-                if (GBApplication.isRunningOreoOrLater()) {
+                if (WearableApplication.isRunningOreoOrLater()) {
                     if (mLineageOsWeatherReceiver == null) {
                         mLineageOsWeatherReceiver = new LineageOsWeatherReceiver();
                         ContextCompat.registerReceiver(this, mLineageOsWeatherReceiver, new IntentFilter("GB_UPDATE_WEATHER"), ContextCompat.RECEIVER_EXPORTED);
@@ -1441,7 +1438,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 }
             }
 
-            if (GBApplication.getPrefs().getBoolean("auto_fetch_enabled", false) &&
+            if (WearableApplication.getPrefs().getBoolean("auto_fetch_enabled", false) &&
                     features.supportsActivityDataFetching() && mGBAutoFetchReceiver == null) {
                 mGBAutoFetchReceiver = new GBAutoFetchReceiver();
                 ContextCompat.registerReceiver(this, mGBAutoFetchReceiver, new IntentFilter("android.intent.action.USER_PRESENT"), ContextCompat.RECEIVER_EXPORTED);
@@ -1592,7 +1589,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
     }
 
     public GBPrefs getPrefs() {
-        return GBApplication.getPrefs();
+        return WearableApplication.getPrefs();
     }
 
     public GBDevice[] getGBDevices() {

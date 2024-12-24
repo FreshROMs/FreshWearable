@@ -24,7 +24,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.hplus;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 
 /**
  * Pseudo Coordinator for the EXRIZU K8, a sub type of the HPLUS devices

@@ -26,12 +26,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppSpecificNotificationSettingsAppListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
-public class AppSpecificNotificationSettingsActivity extends AbstractGBActivity {
+public class AppSpecificNotificationSettingsActivity extends CommonActivityAbstract {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppSpecificNotificationSettingsActivity.class);
 

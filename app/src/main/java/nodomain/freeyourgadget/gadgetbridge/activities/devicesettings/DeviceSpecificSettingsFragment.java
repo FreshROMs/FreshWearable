@@ -57,12 +57,11 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.CalBlacklistActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureContacts;
@@ -130,6 +129,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
         DeviceSpecificSettings deviceSpecificSettings = arguments.getParcelable("deviceSpecificSettings");
         this.deviceSpecificSettingsCustomizer = arguments.getParcelable("deviceSpecificSettingsCustomizer");
         this.device = arguments.getParcelable("device");
+        String screenKey = arguments.getString("screenKey", null);
 
         if (settingsFileSuffix == null || deviceSpecificSettings == null) {
             return;
@@ -139,47 +139,55 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
 
         LOG.debug("onCreatePreferences: {}", rootKey);
 
-        if (rootKey == null) {
-            // we are the main preference screen
-            boolean first = true;
-            for (int setting : deviceSpecificSettings.getRootScreens()) {
-                if (first) {
-                    setPreferencesFromResource(setting, null);
-                    first = false;
-                } else {
-                    addPreferencesFromResource(setting);
-                }
-            }
+        if (screenKey == null) {
+            // Load the main preference screen
+            setPreferencesFromResource(deviceSpecificSettings.getRootScreens().get(0), null);
         } else {
-            // First attempt to find a known screen for this key
-            final List<Integer> screenSettings = deviceSpecificSettings.getScreen(rootKey);
-            if (screenSettings != null) {
-                boolean first = true;
-                for (int setting : screenSettings) {
-                    if (first) {
-                        // Use the root key here to set the root screen, so that the actionbar title gets updated
-                        setPreferencesFromResource(setting, rootKey);
-                        first = false;
-                        addDynamicSettings(rootKey);
-                    } else {
-                        addPreferencesFromResource(setting);
-                    }
-                }
-            } else {
-                // Now, this is ugly: search all the xml files for the rootKey
-                // This means that this device is using the deprecated getSupportedDeviceSpecificSettings,
-                // or that we're on a sub-screen
-                final List<Integer> allScreens = deviceSpecificSettings.getAllScreens();
-                for (int setting : allScreens) {
-                    try {
-                        setPreferencesFromResource(setting, rootKey);
-                    } catch (Exception ignore) {
-                        continue;
-                    }
-                    break;
-                }
-            }
+            // Load the sub-screen
+            setPreferencesFromResource(deviceSpecificSettings.getScreen(screenKey).get(0), screenKey);
         }
+
+//        if (rootKey == null) {
+//            // we are the main preference screen
+//            boolean first = true;
+//            for (int setting : deviceSpecificSettings.getRootScreens()) {
+//                if (first) {
+//                    setPreferencesFromResource(setting, null);
+//                    first = false;
+//                } else {
+//                    addPreferencesFromResource(setting);
+//                }
+//            }
+//        } else {
+//            // First attempt to find a known screen for this key
+//            final List<Integer> screenSettings = deviceSpecificSettings.getScreen(rootKey);
+//            if (screenSettings != null) {
+//                boolean first = true;
+//                for (int setting : screenSettings) {
+//                    if (first) {
+//                        // Use the root key here to set the root screen, so that the actionbar title gets updated
+//                        setPreferencesFromResource(setting, rootKey);
+//                        first = false;
+//                        addDynamicSettings(rootKey);
+//                    } else {
+//                        addPreferencesFromResource(setting);
+//                    }
+//                }
+//            } else {
+//                // Now, this is ugly: search all the xml files for the rootKey
+//                // This means that this device is using the deprecated getSupportedDeviceSpecificSettings,
+//                // or that we're on a sub-screen
+//                final List<Integer> allScreens = deviceSpecificSettings.getAllScreens();
+//                for (int setting : allScreens) {
+//                    try {
+//                        setPreferencesFromResource(setting, rootKey);
+//                    } catch (Exception ignore) {
+//                        continue;
+//                    }
+//                    break;
+//                }
+//            }
+//        }
 
         // Since all root preference screens are empty, clicking them will not do anything
         // add on-click listeners
@@ -194,6 +202,14 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
         }
 
         setChangeListener(rootKey);
+    }
+
+    @Override
+    public void onNavigateToScreen(PreferenceScreen preferenceScreen) {
+        Intent intent = new Intent(getContext(), DeviceSettingsActivity.class);
+        intent.putExtra(DeviceSettingsActivity.EXTRA_SCREEN_KEY, preferenceScreen.getKey());
+        intent.putExtra(GBDevice.EXTRA_DEVICE, device);
+        startActivity(intent);
     }
 
     private void addDynamicSettings(final String rootKey) {
@@ -330,7 +346,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
         invokeLater(new Runnable() {
             @Override
             public void run() {
-                GBApplication.deviceService(device).onSendConfiguration(preferenceKey);
+                WearableApplication.deviceService(device).onSendConfiguration(preferenceKey);
             }
         });
     }
@@ -681,7 +697,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
 
         addPreferenceHandlerFor(PREF_REDMI_BUDS_AMBIENT_SOUND_CONTROL);
         addPreferenceHandlerFor(PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH);
-        addPreferenceHandlerFor(PREF_REDMI_BUDS_TRANSPARENCY_STRENGTH);
+        addPreferenceHandlerFor(PREF_REDMI_BUDS_AMBIENT_SOUND_STRENGTH);
         addPreferenceHandlerFor(PREF_REDMI_BUDS_ADAPTIVE_NOISE_CANCELLING);
 //        addPreferenceHandlerFor(PREF_REDMI_BUDS_PERSONALIZED_NOISE_CANCELLING);
         addPreferenceHandlerFor(PREF_REDMI_BUDS_CONTROL_SINGLE_TAP_LEFT);
@@ -697,6 +713,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
         addPreferenceHandlerFor(PREF_REDMI_BUDS_WEARING_DETECTION);
         addPreferenceHandlerFor(PREF_REDMI_BUDS_AUTO_REPLY_PHONECALL);
         addPreferenceHandlerFor(PREF_REDMI_BUDS_DOUBLE_CONNECTION);
+        addPreferenceHandlerFor(PREF_REDMI_BUDS_FIRMWARE_VERSION);
 //        addPreferenceHandlerFor(PREF_REDMI_BUDS_SURROUND_SOUND);
         addPreferenceHandlerFor(PREF_REDMI_BUDS_ADAPTIVE_SOUND);
 //        addPreferenceHandlerFor(PREF_REDMI_BUDS_SURROUND_SOUND_MODE);
@@ -957,7 +974,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
         if (phoneSilentMode != null) {
             phoneSilentMode.setOnPreferenceChangeListener((preference, newVal) -> {
                 final AudioManager audioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
-                GBApplication.deviceService(device).onChangePhoneSilentMode(audioManager.getRingerMode());
+                WearableApplication.deviceService(device).onChangePhoneSilentMode(audioManager.getRingerMode());
                 return true;
             });
         }
@@ -1139,7 +1156,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
                     CannedMessagesSpec cannedMessagesSpec = new CannedMessagesSpec();
                     cannedMessagesSpec.type = CannedMessagesSpec.TYPE_REJECTEDCALLS;
                     cannedMessagesSpec.cannedMessages = messages.toArray(new String[0]);
-                    GBApplication.deviceService(device).onSetCannedMessages(cannedMessagesSpec);
+                    WearableApplication.deviceService(device).onSetCannedMessages(cannedMessagesSpec);
                     return true;
                 }
             });
@@ -1168,7 +1185,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
                     final CannedMessagesSpec cannedMessagesSpec = new CannedMessagesSpec();
                     cannedMessagesSpec.type = CannedMessagesSpec.TYPE_GENERIC;
                     cannedMessagesSpec.cannedMessages = messages.toArray(new String[0]);
-                    GBApplication.deviceService().onSetCannedMessages(cannedMessagesSpec);
+                    WearableApplication.deviceService().onSetCannedMessages(cannedMessagesSpec);
                     return true;
                 }
             });
@@ -1331,6 +1348,15 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
         if (deviceSpecificSettingsCustomizer != null) {
             deviceSpecificSettingsCustomizer.customizeSettings(this, prefs, rootKey);
         }
+    }
+
+    static DeviceSpecificSettingsFragment newInstance(GBDevice device, DeviceSettingsActivity.MENU_ENTRY_POINTS menuEntry, String screenKey) {
+        final DeviceSpecificSettingsFragment fragment = new DeviceSpecificSettingsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("device", device);
+        args.putString("screenKey", screenKey);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     static DeviceSpecificSettingsFragment newInstance(GBDevice device, DeviceSettingsActivity.MENU_ENTRY_POINTS applicationSpecificSettings) {

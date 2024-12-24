@@ -36,9 +36,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
@@ -109,7 +109,7 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     @Override
     protected void deleteDevice(@NonNull final GBDevice gbDevice,
                                 @NonNull final Device device,
-                                @NonNull final DaoSession session) throws GBException {
+                                @NonNull final DaoSession session) throws WearableException {
         final Long deviceId = device.getId();
 
         session.getXiaomiActivitySampleDao().queryBuilder()
@@ -585,7 +585,7 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     protected static Prefs getPrefs(final GBDevice device) {
-        return new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        return new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
     }
 
     public boolean supports(final GBDevice device, final String feature) {

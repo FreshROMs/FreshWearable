@@ -34,8 +34,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.AlarmReceiver;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -67,12 +67,12 @@ public class PebbleSupport extends AbstractSerialDeviceSupport {
         unregisterSunriseSunsetAlarmReceiver();
         LOG.info("registering sunrise and sunset receiver");
         this.mAlarmReceiver = new AlarmReceiver();
-        ContextCompat.registerReceiver(GBApplication.getContext(), mAlarmReceiver, new IntentFilter("DAILY_ALARM"), ContextCompat.RECEIVER_EXPORTED);
+        ContextCompat.registerReceiver(WearableApplication.getContext(), mAlarmReceiver, new IntentFilter("DAILY_ALARM"), ContextCompat.RECEIVER_EXPORTED);
     }
 
     private void unregisterSunriseSunsetAlarmReceiver() {
         if (mAlarmReceiver != null) {
-            GBApplication.getContext().unregisterReceiver(mAlarmReceiver);
+            WearableApplication.getContext().unregisterReceiver(mAlarmReceiver);
             mAlarmReceiver = null;
         }
     }
@@ -106,7 +106,7 @@ public class PebbleSupport extends AbstractSerialDeviceSupport {
         // Catch fake URLs first
         if (uri.equals(Uri.parse("fake://health"))) {
             getDeviceIOThread().write(pebbleProtocol.encodeActivateHealth(true));
-            String units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, getContext().getString(R.string.p_unit_metric));
+            String units = WearableApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, getContext().getString(R.string.p_unit_metric));
             if (units.equals(getContext().getString(R.string.p_unit_metric))) {
                 pebbleIoThread.write(pebbleProtocol.encodeSetSaneDistanceUnit(true));
             } else {
@@ -182,7 +182,7 @@ public class PebbleSupport extends AbstractSerialDeviceSupport {
 
     @Override
     public void onNotification(NotificationSpec notificationSpec) {
-        String currentPrivacyMode = GBApplication.getDevicePrefs(gbDevice).getString("pebble_pref_privacy_mode", getContext().getString(R.string.p_pebble_privacy_mode_off));
+        String currentPrivacyMode = WearableApplication.getDevicePrefs(gbDevice).getString("pebble_pref_privacy_mode", getContext().getString(R.string.p_pebble_privacy_mode_off));
         if (getContext().getString(R.string.p_pebble_privacy_mode_complete).equals(currentPrivacyMode)) {
             notificationSpec.body = null;
             notificationSpec.sender = null;
@@ -206,7 +206,7 @@ public class PebbleSupport extends AbstractSerialDeviceSupport {
     @Override
     public void onSetCallState(CallSpec callSpec) {
         if (reconnect()) {
-            if ((callSpec.command != CallSpec.CALL_OUTGOING) || GBApplication.getDevicePrefs(gbDevice).getBoolean("pebble_enable_outgoing_call", true)) {
+            if ((callSpec.command != CallSpec.CALL_OUTGOING) || WearableApplication.getDevicePrefs(gbDevice).getBoolean("pebble_enable_outgoing_call", true)) {
                 super.onSetCallState(callSpec);
             }
         }

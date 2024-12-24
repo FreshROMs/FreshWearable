@@ -46,8 +46,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityAmount;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityAmounts;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
@@ -273,7 +273,7 @@ public class WeekSleepChartFragment extends AbstractWeekChartFragment {
 
     @Override
     public String getTitle() {
-        if (GBApplication.getPrefs().getBoolean("charts_range", true)) {
+        if (WearableApplication.getPrefs().getBoolean("charts_range", true)) {
             return getString(R.string.weeksleepchart_sleep_a_month);
         }
         else{
@@ -288,7 +288,7 @@ public class WeekSleepChartFragment extends AbstractWeekChartFragment {
 
     @Override
     int getGoal() {
-        return GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_SLEEP_DURATION, 8) * 60;
+        return WearableApplication.getPrefs().getInt(ActivityUser.PREF_USER_SLEEP_DURATION, 8) * 60;
     }
 
     @Override

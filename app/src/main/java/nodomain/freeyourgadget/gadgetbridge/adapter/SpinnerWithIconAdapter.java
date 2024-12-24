@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 
 public class SpinnerWithIconAdapter extends ArrayAdapter<SpinnerWithIconItem> {
     private static final Logger LOG = LoggerFactory.getLogger(SpinnerWithIconAdapter.class);

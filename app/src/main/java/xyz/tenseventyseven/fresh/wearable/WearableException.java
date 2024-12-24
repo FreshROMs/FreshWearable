@@ -1,4 +1,4 @@
-/*  Copyright (C) 2016-2024 Andreas Shimokawa, Carsten Pfeiffer
+/*  Copyright (C) 2015-2024 Andreas Shimokawa, Carsten Pfeiffer
 
     This file is part of Gadgetbridge.
 
@@ -14,12 +14,22 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge.activities;
+package xyz.tenseventyseven.fresh.wearable;
 
-import java.util.Locale;
+public class WearableException extends Exception {
+    public WearableException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-public interface GBActivity {
-    void setLanguage(Locale language, boolean invalidateLanguage);
-    void setTheme(int themeId);
+    public WearableException(String message) {
+        super(message);
+    }
 
+    public WearableException(Throwable cause) {
+        super(cause);
+    }
+
+    public WearableException() {
+        super();
+    }
 }

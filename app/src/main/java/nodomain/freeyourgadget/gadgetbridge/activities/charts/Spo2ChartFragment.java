@@ -44,8 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.TimeSampleProvider;
@@ -68,16 +68,16 @@ public class Spo2ChartFragment extends AbstractChartFragment<Spo2ChartFragment.S
 
     private String SPO2_AVERAGE_LABEL;
 
-    private final Prefs prefs = GBApplication.getPrefs();
+    private final Prefs prefs = WearableApplication.getPrefs();
 
     private final boolean CHARTS_SLEEP_RANGE_24H = prefs.getBoolean("chart_sleep_range_24h", false);
     private final boolean SHOW_CHARTS_AVERAGE = prefs.getBoolean("charts_show_average", true);
 
     @Override
     protected void init() {
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(requireContext());
-        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = GBApplication.getTextColor(requireContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(requireContext());
+        BACKGROUND_COLOR = WearableApplication.getBackgroundColor(requireContext());
+        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = WearableApplication.getTextColor(requireContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(requireContext());
 
         if (prefs.getBoolean("chart_heartrate_color", false)) {
             CHART_LINE_COLOR = ContextCompat.getColor(requireContext(), R.color.chart_heartrate_alternative);

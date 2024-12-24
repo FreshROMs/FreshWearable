@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
 import nodomain.freeyourgadget.gadgetbridge.proto.xiaomi.XiaomiProto;
@@ -82,7 +82,7 @@ public class XiaomiCalendarService extends AbstractXiaomiService {
     }
 
     public void syncCalendar() {
-        final boolean syncEnabled = GBApplication.getDeviceSpecificSharedPrefs(getSupport().getDevice().getAddress())
+        final boolean syncEnabled = WearableApplication.getDeviceSpecificSharedPrefs(getSupport().getDevice().getAddress())
                 .getBoolean(PREF_SYNC_CALENDAR, false);
 
         final XiaomiProto.CalendarSync.Builder calendarSync = XiaomiProto.CalendarSync.newBuilder();

@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.SampleProvider;
@@ -154,7 +154,7 @@ public class Y5Support extends JYouSupport {
                 @Override
                 public void doCurrentSample() {
 
-                    try (DBHandler handler = GBApplication.acquireDB()) {
+                    try (DBHandler handler = WearableApplication.acquireDB()) {
                         DaoSession session = handler.getDaoSession();
                         int ts = (int) (System.currentTimeMillis() / 1000);
                         JYouSampleProvider provider = new JYouSampleProvider(gbDevice, session);

@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
@@ -70,9 +70,9 @@ public class AmazfitBipLiteFirmwareInfo extends HuamiFirmwareInfo {
             if (searchString32BitAligned(bytes, "Amazfit Bip Lite")) {
                 return HuamiFirmwareType.FIRMWARE;
             }
-            List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+            List<GBDevice> devices = WearableApplication.app().getDeviceManager().getSelectedDevices();
             for(GBDevice device : devices){
-                Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+                Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
                 if (prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_RELAX_FIRMWARE_CHECKS, false)) {
                     if (searchString32BitAligned(bytes, "Amazfit Bip")) {
                         return HuamiFirmwareType.FIRMWARE;

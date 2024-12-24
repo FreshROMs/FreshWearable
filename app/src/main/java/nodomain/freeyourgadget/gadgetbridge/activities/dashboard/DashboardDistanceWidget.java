@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities.dashboard;
 
 import android.os.Bundle;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.FormatUtils;
 

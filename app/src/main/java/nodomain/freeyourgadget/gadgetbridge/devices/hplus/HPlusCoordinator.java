@@ -33,9 +33,9 @@ import java.util.regex.Pattern;
 import androidx.annotation.NonNull;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableException;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractBLEDeviceCoordinator;
@@ -50,11 +50,11 @@ import nodomain.freeyourgadget.gadgetbridge.service.DeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.hplus.HPlusSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
-import static nodomain.freeyourgadget.gadgetbridge.GBApplication.getContext;
+import static xyz.tenseventyseven.fresh.wearable.WearableApplication.getContext;
 
 public class HPlusCoordinator extends AbstractBLEDeviceCoordinator {
     protected static final Logger LOG = LoggerFactory.getLogger(HPlusCoordinator.class);
-    protected static Prefs prefs = GBApplication.getPrefs();
+    protected static Prefs prefs = WearableApplication.getPrefs();
 
     @NonNull
     @Override
@@ -115,7 +115,7 @@ public class HPlusCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     @Override
-    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws GBException {
+    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws WearableException {
         Long deviceId = device.getId();
         QueryBuilder<?> qb = session.getHPlusHealthActivitySampleDao().queryBuilder();
         qb.where(HPlusHealthActivitySampleDao.Properties.DeviceId.eq(deviceId)).buildDelete().executeDeleteWithoutDetachingEntities();
@@ -189,7 +189,7 @@ public class HPlusCoordinator extends AbstractBLEDeviceCoordinator {
 
     //FIXME: unused
     public static byte getUserWrist(String deviceAddress) {
-        SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(deviceAddress);
+        SharedPreferences sharedPreferences = WearableApplication.getDeviceSpecificSharedPrefs(deviceAddress);
         String value = sharedPreferences.getString(DeviceSettingsPreferenceConst.PREF_WEARLOCATION, "left");
 
         if ("left".equals(value)) {

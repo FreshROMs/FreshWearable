@@ -39,8 +39,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.GBContactListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -50,9 +50,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
 
-public class ConfigureContacts extends AbstractGBActivity {
+public class ConfigureContacts extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureContacts.class);
 
     private GBContactListAdapter mGBContactListAdapter;
@@ -106,7 +107,7 @@ public class ConfigureContacts extends AbstractGBActivity {
             }
 
             final Contact contact;
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = WearableApplication.acquireDB()) {
                 final DaoSession daoSession = db.getDaoSession();
                 final Device device = DBHelper.getDevice(gbDevice, daoSession);
                 final User user = DBHelper.getUser(daoSession);
@@ -167,7 +168,7 @@ public class ConfigureContacts extends AbstractGBActivity {
 
     private void sendContactsToDevice() {
         if (gbDevice.isInitialized()) {
-            GBApplication.deviceService(gbDevice).onSetContacts(mGBContactListAdapter.getContactList());
+            WearableApplication.deviceService(gbDevice).onSetContacts(mGBContactListAdapter.getContactList());
         }
     }
 }

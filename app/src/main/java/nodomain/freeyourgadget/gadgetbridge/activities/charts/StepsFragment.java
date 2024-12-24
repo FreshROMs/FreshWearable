@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.SampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -37,11 +37,11 @@ abstract class StepsFragment<T extends ChartsData> extends AbstractChartFragment
 
     @Override
     protected void init() {
-        TEXT_COLOR = GBApplication.getTextColor(requireContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(requireContext());
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(getContext());
-        DESCRIPTION_COLOR = GBApplication.getTextColor(getContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(getContext());
+        TEXT_COLOR = WearableApplication.getTextColor(requireContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(requireContext());
+        BACKGROUND_COLOR = WearableApplication.getBackgroundColor(getContext());
+        DESCRIPTION_COLOR = WearableApplication.getTextColor(getContext());
+        CHART_TEXT_COLOR = WearableApplication.getSecondaryTextColor(getContext());
     }
 
     protected List<StepsFragment.StepsDay> getMyStepsDaysData(DBHandler db, Calendar day, GBDevice device) {

@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.preference.Preference;
 
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
 /**
  * A device-specific preference handler, that allows for {@link nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator}s to register
@@ -80,4 +81,8 @@ public interface DeviceSpecificSettingsHandler extends ActivityResultCaller {
      * @return the {@link Context}.
      */
     Context getContext();
+
+    default Prefs getPrefs() {
+        return null;
+    }
 }

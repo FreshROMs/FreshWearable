@@ -39,9 +39,9 @@ import java.util.UUID;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.um25.Activity.DataActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -110,7 +110,7 @@ public class UM25Support extends UM25BaseSupport {
 
     @Override
     protected TransactionBuilder initializeDevice(TransactionBuilder builder) {
-        preferences = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        preferences = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         readPreferences();
 

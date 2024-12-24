@@ -33,8 +33,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiWeatherConditions;
 import nodomain.freeyourgadget.gadgetbridge.model.Weather;
@@ -469,7 +469,7 @@ public class XiaomiWeatherService extends AbstractXiaomiService {
     private void setMeasurementSystem() {
         final String metricScale = getSupport().getContext().getString(R.string.p_unit_metric);
         final String imperialScale = getSupport().getContext().getString(R.string.p_unit_imperial);
-        final String measurementSystem = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, metricScale);
+        final String measurementSystem = WearableApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, metricScale);
         LOG.info("Setting measurement system to {}", measurementSystem);
 
         int unitValue = TEMPERATURE_SCALE_CELSIUS;

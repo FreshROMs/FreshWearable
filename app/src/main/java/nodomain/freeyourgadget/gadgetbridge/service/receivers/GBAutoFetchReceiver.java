@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.RecordedDataTypes;
 
 
@@ -45,10 +45,10 @@ public class GBAutoFetchReceiver extends BroadcastReceiver {
                 LOG.warn("Throttling auto fetch by {}, last one was {}ms ago", intent.getAction(), timeSinceLast);
                 return;
             }
-            final Date nextSync = DateUtils.addMinutes(lastSync, GBApplication.getPrefs().getInt("auto_fetch_interval_limit", 0));
+            final Date nextSync = DateUtils.addMinutes(lastSync, WearableApplication.getPrefs().getInt("auto_fetch_interval_limit", 0));
             if (nextSync.before(now)) {
                 LOG.info("Trigger auto fetch by {}", intent.getAction());
-                GBApplication.deviceService().onFetchRecordedData(RecordedDataTypes.TYPE_SYNC);
+                WearableApplication.deviceService().onFetchRecordedData(RecordedDataTypes.TYPE_SYNC);
                 lastSync = now;
             }
         }

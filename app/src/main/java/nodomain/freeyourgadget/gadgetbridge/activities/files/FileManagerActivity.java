@@ -36,12 +36,12 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class FileManagerActivity extends AbstractGBActivity implements MenuProvider {
+public class FileManagerActivity extends CommonActivityAbstract implements MenuProvider {
     private static final Logger LOG = LoggerFactory.getLogger(FileManagerActivity.class);
 
     public static final String EXTRA_PATH = "path";

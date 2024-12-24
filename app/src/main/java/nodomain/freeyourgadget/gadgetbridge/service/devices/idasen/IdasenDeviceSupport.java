@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.AbstractBTLEDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.BLETypeConversions;
@@ -69,7 +69,7 @@ public class IdasenDeviceSupport extends AbstractBTLEDeviceSupport {
                 case COMMAND_SET_HEIGHT:
                     HashMap<String, Float> mPositionsMap = new HashMap<>();
 
-                    SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+                    SharedPreferences prefs = WearableApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
                     stand_height = Float.parseFloat(prefs.getString(DeviceSettingsPreferenceConst.PREF_IDASEN_STAND_HEIGHT, "0.0")) / 100F;
                     mid_height = Float.parseFloat(prefs.getString(DeviceSettingsPreferenceConst.PREF_IDASEN_MID_HEIGHT, "0.0")) / 100F;
                     sit_height = Float.parseFloat(prefs.getString(DeviceSettingsPreferenceConst.PREF_IDASEN_SIT_HEIGHT, "0.0")) / 100F;

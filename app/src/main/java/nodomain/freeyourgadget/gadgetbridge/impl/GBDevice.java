@@ -37,8 +37,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
@@ -68,6 +67,7 @@ public class GBDevice implements Parcelable {
     public static final String EXTRA_UUID = "extraUUID";
     public static final String EXTRA_UPDATE_SUBJECT = "EXTRA_UPDATE_SUBJECT";
     private static final String DEVINFO_HW_VER = "HW: ";
+    private static final String DEVINFO_HW_VARIANT = "HW Variant: ";
     private static final String DEVINFO_FW_VER = "FW: ";
     private static final String DEVINFO_FW2_VER = "FW2: ";
     private static final String DEVINFO_ADDR = "ADDR: ";
@@ -82,6 +82,7 @@ public class GBDevice implements Parcelable {
     private String mFirmwareVersion;
     private String mFirmwareVersion2;
     private String mModel;
+    private int mVariant = -1;
     private State mState = State.NOT_CONNECTED;
 
     // multiple battery support: at this point we support up to three batteries
@@ -108,10 +109,14 @@ public class GBDevice implements Parcelable {
     }
 
     public GBDevice(String address, String name, String alias, String parentFolder, DeviceType deviceType) {
-        this(address, null, name, alias, parentFolder, deviceType);
+        this(address, null, name, alias, -1, parentFolder, deviceType);
     }
 
-    public GBDevice(String address, String address2, String name, String alias, String parentFolder, DeviceType deviceType) {
+    public GBDevice(String address, String name, String alias, int variant, String parentFolder, DeviceType deviceType) {
+        this(address, null, name, alias, variant, parentFolder, deviceType);
+    }
+
+    public GBDevice(String address, String address2, String name, String alias, int variant, String parentFolder, DeviceType deviceType) {
         mAddress = address;
         mVolatileAddress = address2;
         mName = (name != null) ? name : mAddress;
@@ -131,6 +136,7 @@ public class GBDevice implements Parcelable {
         mFirmwareVersion = in.readString();
         mFirmwareVersion2 = in.readString();
         mModel = in.readString();
+        mVariant = in.readInt();
         mState = State.values()[in.readInt()];
         mBatteryLevel = in.createIntArray();
         mBatteryVoltage = in.createFloatArray();
@@ -160,6 +166,7 @@ public class GBDevice implements Parcelable {
         mFirmwareVersion = device.mFirmwareVersion;
         mFirmwareVersion2 = device.mFirmwareVersion2;
         mModel = device.mModel;
+        mVariant = device.mVariant;
         mState = device.mState;
         mBatteryLevel = device.mBatteryLevel;
         mBatteryVoltage = device.mBatteryVoltage;
@@ -186,6 +193,7 @@ public class GBDevice implements Parcelable {
         dest.writeString(mFirmwareVersion);
         dest.writeString(mFirmwareVersion2);
         dest.writeString(mModel);
+        dest.writeInt(mVariant);
         dest.writeInt(mState.ordinal());
         dest.writeIntArray(mBatteryLevel);
         dest.writeFloatArray(mBatteryVoltage);
@@ -302,6 +310,22 @@ public class GBDevice implements Parcelable {
 
     public void setModel(String model) {
         mModel = model;
+    }
+
+    /**
+     * Returns the variant of this device. This is a device specific value, and can be used
+     * to distinguish between different versions of the same device
+     * (i.e. different hardware revisions, or configuration, or simply just the color).
+     * This information is not always available, typically only when the device is initialized
+     * @return the variant of this device (int; device specific)
+     */
+    @Nullable
+    public int getVariant() {
+        return mVariant;
+    }
+
+    public void setVariant(int variant) {
+        mVariant = variant;
     }
 
     public boolean isConnected() {
@@ -668,6 +692,9 @@ public class GBDevice implements Parcelable {
         }
         if (mModel != null) {
             result.add(new GenericItem(DEVINFO_HW_VER, mModel));
+        }
+        if (mVariant != -1) {
+            result.add(new GenericItem(DEVINFO_HW_VARIANT, String.valueOf(mVariant)));
         }
         if (mFirmwareVersion != null) {
             result.add(new GenericItem(DEVINFO_FW_VER, mFirmwareVersion));

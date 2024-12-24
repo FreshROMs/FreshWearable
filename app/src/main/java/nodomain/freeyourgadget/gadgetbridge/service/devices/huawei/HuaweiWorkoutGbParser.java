@@ -34,8 +34,8 @@ import java.util.Optional;
 
 import de.greenrobot.dao.query.CloseableListIterator;
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.entries.ActivitySummaryProgressEntry;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.entries.ActivitySummaryTableRowEntry;
@@ -92,7 +92,7 @@ public class HuaweiWorkoutGbParser implements ActivitySummaryParser {
         }
 
         // Find the existing HuaweiWorkoutSummarySample
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             final DaoSession session = db.getDaoSession();
             final Device device = DBHelper.getDevice(gbDevice, session);
             final User user = DBHelper.getUser(session);
@@ -249,7 +249,7 @@ public class HuaweiWorkoutGbParser implements ActivitySummaryParser {
     public void parseAllWorkouts() {
         parseUnknownWorkoutData();
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             final DaoSession session = db.getDaoSession();
             QueryBuilder<HuaweiWorkoutSummarySample> qb = session.getHuaweiWorkoutSummarySampleDao().queryBuilder();
             for (HuaweiWorkoutSummarySample summary : qb.listLazy()) {
@@ -265,7 +265,7 @@ public class HuaweiWorkoutGbParser implements ActivitySummaryParser {
      * Parses the unknown data from the workout data table
      */
     private static void parseUnknownWorkoutData() {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             QueryBuilder<HuaweiWorkoutDataSample> qb = dbHandler.getDaoSession().getHuaweiWorkoutDataSampleDao().queryBuilder().where(
                     HuaweiWorkoutDataSampleDao.Properties.DataErrorHex.notEq("")
             );
@@ -340,7 +340,7 @@ public class HuaweiWorkoutGbParser implements ActivitySummaryParser {
         if (workoutId == null)
             return;
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = WearableApplication.acquireDB()) {
             final DaoSession session = db.getDaoSession();
             final Device device = DBHelper.getDevice(gbDevice, session);
             parseWorkout(session, workoutId, device.getId());
@@ -829,7 +829,7 @@ public class HuaweiWorkoutGbParser implements ActivitySummaryParser {
                     )
             );
 
-            String measurementSystem = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, "metric");
+            String measurementSystem = WearableApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, "metric");
 
             byte unitType = (byte) (measurementSystem.equals("metric") ? 0 : 1);
             try (CloseableListIterator<HuaweiWorkoutPaceSample> it = qbPace.build().listIterator()) {
@@ -883,7 +883,7 @@ public class HuaweiWorkoutGbParser implements ActivitySummaryParser {
                 if (paceCount != 0 && paceSum != 0) {
                     summaryData.add(
                             ActivitySummaryEntries.GROUP_PACE,
-                            GBApplication.getContext().getString(R.string.fmtPaceAverage),
+                            WearableApplication.getContext().getString(R.string.fmtPaceAverage),
                             paceSum / (float) paceCount,
                             ActivitySummaryEntries.UNIT_SECONDS_PER_KM
                     );
@@ -892,7 +892,7 @@ public class HuaweiWorkoutGbParser implements ActivitySummaryParser {
                 if (paceFastest != Integer.MAX_VALUE) {
                     summaryData.add(
                             ActivitySummaryEntries.GROUP_PACE,
-                            GBApplication.getContext().getString(R.string.maxPace),
+                            WearableApplication.getContext().getString(R.string.maxPace),
                             paceFastest,
                             ActivitySummaryEntries.UNIT_SECONDS_PER_KM
                     );
@@ -901,7 +901,7 @@ public class HuaweiWorkoutGbParser implements ActivitySummaryParser {
                 if (paceSlowest != 0) {
                     summaryData.add(
                             ActivitySummaryEntries.GROUP_PACE,
-                            GBApplication.getContext().getString(R.string.minPace),
+                            WearableApplication.getContext().getString(R.string.minPace),
                             paceSlowest,
                             ActivitySummaryEntries.UNIT_SECONDS_PER_KM
                     );
@@ -979,8 +979,8 @@ public class HuaweiWorkoutGbParser implements ActivitySummaryParser {
 
             if (unknownData) {
                 summaryData.add(
-                        GBApplication.getContext().getString(R.string.unknownDataEncountered),
-                        GBApplication.getContext().getString(R.string.yes).toUpperCase()
+                        WearableApplication.getContext().getString(R.string.unknownDataEncountered),
+                        WearableApplication.getContext().getString(R.string.yes).toUpperCase()
                 );
             }
 

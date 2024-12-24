@@ -23,10 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AbstractActivityListingAdapter;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public abstract class AbstractListActivity<T> extends AbstractGBActivity {
+public abstract class AbstractListActivity<T> extends CommonActivityAbstract {
     private AbstractActivityListingAdapter<T> itemAdapter;
     private RecyclerView itemListView;
 

@@ -32,8 +32,8 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.devices.PendingFileProvider;
@@ -314,7 +314,7 @@ public class GarminSupport extends AbstractBTLEDeviceSupport implements ICommuni
             LOG.debug("FILE DOWNLOAD COMPLETE {}", filename);
 
             if (entry.getFiletype().isFitFile()) {
-                try (DBHandler handler = GBApplication.acquireDB()) {
+                try (DBHandler handler = WearableApplication.acquireDB()) {
                     final DaoSession session = handler.getDaoSession();
 
                     final PendingFileProvider pendingFileProvider = new PendingFileProvider(gbDevice, session);
@@ -541,7 +541,7 @@ public class GarminSupport extends AbstractBTLEDeviceSupport implements ICommuni
 
         if (filesToDownload.isEmpty() && !fileTransferHandler.isDownloading() && isBusyFetching) {
             final List<File> filesToProcess;
-            try (DBHandler handler = GBApplication.acquireDB()) {
+            try (DBHandler handler = WearableApplication.acquireDB()) {
                 final DaoSession session = handler.getDaoSession();
 
                 final PendingFileProvider pendingFileProvider = new PendingFileProvider(gbDevice, session);

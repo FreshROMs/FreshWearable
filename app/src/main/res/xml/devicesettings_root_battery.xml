@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:icon="@drawable/ic_battery"
+        android:layout="@layout/preference_checkbox"
+        android:icon="@drawable/ic_settings_battery_notifications"
         android:key="pref_screen_battery"
         android:persistent="false"
-        android:title="@string/battery">
+        android:title="Battery notifications">
     </PreferenceScreen>
 </androidx.preference.PreferenceScreen>

@@ -22,7 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.PeriodicExporter;
 
 public class AutoStartReceiver extends BroadcastReceiver {
@@ -31,14 +31,14 @@ public class AutoStartReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        if (GBApplication.getPrefs().getAutoStart() &&
+        if (WearableApplication.getPrefs().getAutoStart() &&
                 (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction()) ||
                         Intent.ACTION_MY_PACKAGE_REPLACED.equals(intent.getAction())
                 )) {
             Log.i(TAG, "Boot or reinstall completed, starting Gadgetbridge");
-            if (GBApplication.getPrefs().getBoolean("general_autoconnectonbluetooth", false)) {
+            if (WearableApplication.getPrefs().getBoolean("general_autoconnectonbluetooth", false)) {
                 Log.i(TAG, "Autoconnect is enabled, attempting to connect");
-                GBApplication.deviceService().connect();
+                WearableApplication.deviceService().connect();
             }
             Log.i(TAG, "Going to enable periodic exporter");
             PeriodicExporter.enablePeriodicExport(context);

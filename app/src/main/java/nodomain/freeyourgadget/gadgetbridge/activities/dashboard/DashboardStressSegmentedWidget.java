@@ -20,8 +20,8 @@ import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.data.DashboardStressData;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -52,10 +52,10 @@ public class DashboardStressSegmentedWidget extends AbstractGaugeWidget {
     @Override
     protected void draw(final DashboardFragment.DashboardData dashboardData) {
         final int[] colors = new int[]{
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_stress_relaxed),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_stress_mild),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_stress_moderate),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_stress_high),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.chart_stress_relaxed),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.chart_stress_mild),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.chart_stress_moderate),
+                ContextCompat.getColor(WearableApplication.getContext(), R.color.chart_stress_high),
         };
 
         final float[] segments;
@@ -81,7 +81,7 @@ public class DashboardStressSegmentedWidget extends AbstractGaugeWidget {
                     20 / 100f,
             };
             value = -1;
-            valueText = GBApplication.getContext().getString(R.string.stats_empty_value);
+            valueText = WearableApplication.getContext().getString(R.string.stats_empty_value);
         }
 
         setText(valueText);

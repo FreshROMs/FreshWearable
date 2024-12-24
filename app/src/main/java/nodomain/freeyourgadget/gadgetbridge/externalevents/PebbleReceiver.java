@@ -27,7 +27,7 @@ import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
@@ -39,7 +39,7 @@ public class PebbleReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = WearableApplication.getPrefs();
         if ("never".equals(prefs.getString("notification_mode_pebblemsg", "when_screen_off"))) {
             return;
         }
@@ -76,13 +76,13 @@ public class PebbleReceiver extends BroadcastReceiver {
         if (notificationSpec.title != null) {
             notificationSpec.type = NotificationType.UNKNOWN;
             String sender = intent.getStringExtra("sender");
-            if (GBApplication.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
-                if (GBApplication.appIsPebbleBlacklisted(sender)) {
+            if (WearableApplication.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
+                if (WearableApplication.appIsPebbleBlacklisted(sender)) {
                     LOG.info("Ignoring Pebble message, application " + sender + " is blacklisted");
                     return;
                 }
             } else {
-                if (!GBApplication.appIsPebbleBlacklisted(sender)) {
+                if (!WearableApplication.appIsPebbleBlacklisted(sender)) {
                     LOG.info("Ignoring Pebble message, application " + sender + " is not whitelisted");
                     return;
                 }
@@ -94,7 +94,7 @@ public class PebbleReceiver extends BroadcastReceiver {
             else if ("OsmAnd".equals(sender)) {
                 notificationSpec.type = NotificationType.GENERIC_NAVIGATION;
             }
-            GBApplication.deviceService().onNotification(notificationSpec);
+            WearableApplication.deviceService().onNotification(notificationSpec);
         }
     }
 }

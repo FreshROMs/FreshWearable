@@ -38,10 +38,10 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import de.greenrobot.dao.query.Query;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
-import nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -57,7 +57,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 
-public class PebblePairingActivity extends AbstractGBActivity implements BondingInterface {
+public class PebblePairingActivity extends CommonActivityAbstract implements BondingInterface {
     private static final Logger LOG = LoggerFactory.getLogger(PebblePairingActivity.class);
     private final BroadcastReceiver pairingReceiver = BondingUtil.getPairingReceiver(this);
     private final BroadcastReceiver bondingReceiver = BondingUtil.getBondingReceiver(this);
@@ -104,7 +104,7 @@ public class PebblePairingActivity extends AbstractGBActivity implements Bonding
 
         GBDevice device;
         if (BondingUtil.isLePebble(btDevice)) {
-            if (!GBApplication.getPrefs().getBoolean("pebble_force_le", false)) {
+            if (!WearableApplication.getPrefs().getBoolean("pebble_force_le", false)) {
                 GB.toast(this, "Please switch on \"Always prefer BLE\" option in Pebble settings before pairing you Pebble LE", Toast.LENGTH_LONG, GB.ERROR);
                 onBondingComplete(false);
                 return;
@@ -140,7 +140,7 @@ public class PebblePairingActivity extends AbstractGBActivity implements Bonding
         expectedSuffix = expectedSuffix.replace("Pebble Time LE ", "");
         expectedSuffix = expectedSuffix.substring(0, 2) + ":" + expectedSuffix.substring(2);
         LOG.info("Trying to find a Pebble with BT address suffix " + expectedSuffix);
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             DaoSession session = dbHandler.getDaoSession();
             DeviceDao deviceDao = session.getDeviceDao();
             Query<Device> query = deviceDao.queryBuilder().where(DeviceDao.Properties.TypeName.eq("PEBBLE"), DeviceDao.Properties.Identifier.like("%" + expectedSuffix)).build();
@@ -170,7 +170,7 @@ public class PebblePairingActivity extends AbstractGBActivity implements Bonding
     public void onBondingComplete(boolean success) {
         unregisterBroadcastReceivers();
         if (success) {
-            startActivity(new Intent(this, ControlCenterv2.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(this, DashboardActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } else {
             startActivity(new Intent(this, DiscoveryActivityV2.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }

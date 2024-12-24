@@ -32,7 +32,7 @@ import android.telephony.TelephonyManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
@@ -108,12 +108,12 @@ public class PhoneCallReceiver extends BroadcastReceiver {
                 break;
         }
         if (callCommand != CallSpec.CALL_UNDEFINED) {
-            Prefs prefs = GBApplication.getPrefs();
+            Prefs prefs = WearableApplication.getPrefs();
             if ("never".equals(prefs.getString("notification_mode_calls", "always"))) {
                 return;
             }
             int dndSuppressed = 0;
-            switch (GBApplication.getGrantedInterruptionFilter()) {
+            switch (WearableApplication.getGrantedInterruptionFilter()) {
                 case NotificationManager.INTERRUPTION_FILTER_ALL:
                     break;
                 case NotificationManager.INTERRUPTION_FILTER_ALARMS:
@@ -121,7 +121,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
                     dndSuppressed = 1;
                     break;
                 case NotificationManager.INTERRUPTION_FILTER_PRIORITY:
-                    if (GBApplication.isPriorityNumber(Policy.PRIORITY_CATEGORY_CALLS, mSavedNumber)) {
+                    if (WearableApplication.isPriorityNumber(Policy.PRIORITY_CATEGORY_CALLS, mSavedNumber)) {
                         break;
                     }
                     // FIXME: Handle Repeat callers if it is enabled in Do Not Disturb
@@ -139,7 +139,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
             if (callCommand == CallSpec.CALL_INCOMING) {
                 // Delay incoming call notifications by a configurable number of seconds
                 if (callDelay <= 0) {
-                    GBApplication.deviceService().onSetCallState(callSpec);
+                    WearableApplication.deviceService().onSetCallState(callSpec);
                 } else {
                     scheduleOnSetCallState(callSpec, callDelay);
                 }
@@ -150,7 +150,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
                 }
 
                 // propagate the event to the device
-                GBApplication.deviceService().onSetCallState(callSpec);
+                WearableApplication.deviceService().onSetCallState(callSpec);
             }
         }
         mLastState = state;
@@ -159,7 +159,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
     private void scheduleOnSetCallState(final CallSpec callSpec, final int delaySeconds) {
         final Runnable runnable = new Runnable() {
             @Override public void run() {
-                GBApplication.deviceService().onSetCallState(callSpec);
+                WearableApplication.deviceService().onSetCallState(callSpec);
             }
         };
 

@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.services;
 
 import android.content.Context;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.proto.xiaomi.XiaomiProto;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiSupport;
@@ -65,7 +65,7 @@ public abstract class AbstractXiaomiService {
     }
 
     protected DevicePrefs getDevicePrefs() {
-        return GBApplication.getDevicePrefs(getSupport().getDevice());
+        return WearableApplication.getDevicePrefs(getSupport().getDevice());
     }
 
     public void onDisconnect() {}

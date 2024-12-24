@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.DisconnectNotification;
@@ -41,7 +41,7 @@ public class SetDisconnectNotification extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(supportProvider.getDeviceMac());
+        SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(supportProvider.getDeviceMac());
         boolean notificationEnable = sharedPrefs.getBoolean(DeviceSettingsPreferenceConst.PREF_DISCONNECTNOTIF_NOSHED, true);
         if (notificationEnable) {
             LOG.info("Attempting to enable disconnect notification");

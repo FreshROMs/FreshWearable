@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.StressChartFragment;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -37,14 +37,14 @@ public class DashboardStressData implements Serializable {
     public int[] totalTime;
 
     public static DashboardStressData compute(final DashboardFragment.DashboardData dashboardData) {
-        final List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        final List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
 
         GBDevice stressDevice = null;
         double averageStress = -1;
 
         final int[] totalTime = new int[StressChartFragment.StressType.values().length];
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             for (GBDevice dev : devices) {
                 if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsStressMeasurement()) {
                     final List<? extends StressSample> samples = dev.getDeviceCoordinator()

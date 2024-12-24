@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiConstants;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.WorkMode;
@@ -38,7 +38,7 @@ public class SetWorkModeRequest extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        String workModeString = GBApplication
+        String workModeString = WearableApplication
             .getDeviceSpecificSharedPrefs(supportProvider.getDevice().getAddress())
             .getString(HuaweiConstants.PREF_HUAWEI_WORKMODE, "auto");
         boolean workMode = workModeString.equals("auto");

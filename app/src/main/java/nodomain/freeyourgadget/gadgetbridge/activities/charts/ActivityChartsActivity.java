@@ -34,8 +34,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractFragmentPagerAdapter;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
@@ -78,7 +78,7 @@ public class ActivityChartsActivity extends AbstractChartsActivity {
 
     private static List<String> fillChartsTabsList(final GBDevice device, final Context context) {
         final List<String> tabList;
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        final Prefs prefs = new Prefs(WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
         final String myTabs = prefs.getString(DeviceSettingsPreferenceConst.PREFS_DEVICE_CHARTS_TABS, null);
 
         if (myTabs == null) {

@@ -32,13 +32,13 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.vesc.VescDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
-public class VescControlActivity extends AbstractGBActivity {
+public class VescControlActivity extends CommonActivityAbstract {
     private static final String TAG = "VescControlActivity";
     private boolean volumeKeyPressed = false;
     private boolean volumeKeysControl = false;
@@ -64,7 +64,7 @@ public class VescControlActivity extends AbstractGBActivity {
 
         localBroadcastManager = LocalBroadcastManager.getInstance(this);
 
-        preferences = GBApplication.getPrefs();
+        preferences = WearableApplication.getPrefs();
 
         initViews();
 

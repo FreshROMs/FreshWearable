@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.StepAnalysis;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -49,9 +49,9 @@ public class DashboardUtils {
     }
 
     public static int getStepsTotal(DashboardFragment.DashboardData dashboardData) {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         int totalSteps = 0;
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             for (GBDevice dev : devices) {
                 if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsActivityTracking()) {
                     totalSteps += (int) getDailyTotals(dev, dbHandler, dashboardData.timeTo).getSteps();
@@ -64,9 +64,9 @@ public class DashboardUtils {
     }
 
     public static int getActiveCaloriesTotal(DashboardFragment.DashboardData dashboardData) {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         int totalActiveCalories = 0;
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             for (GBDevice dev : devices) {
                 if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsActiveCalories()) {
                     totalActiveCalories += (int) getDailyTotals(dev, dbHandler, dashboardData.timeTo).getActiveCalories();
@@ -80,9 +80,9 @@ public class DashboardUtils {
     }
 
     public static int getRestingCaloriesTotal(DashboardFragment.DashboardData dashboardData) {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         int totalRestingCalories = 0;
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             for (GBDevice dev : devices) {
                 if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsActiveCalories()) {
                     totalRestingCalories += (int) getDailyTotals(dev, dbHandler, dashboardData.timeTo).getRestingCalories();
@@ -110,9 +110,9 @@ public class DashboardUtils {
     }
 
     public static long getSleepMinutesTotal(DashboardFragment.DashboardData dashboardData) {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         long totalSleepMinutes = 0;
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             for (GBDevice dev : devices) {
                 if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsActivityTracking()) {
                     totalSleepMinutes += getSleep(dev, dbHandler, dashboardData.timeTo);
@@ -137,9 +137,9 @@ public class DashboardUtils {
         ActivityUser activityUser = new ActivityUser();
         int stepLength = activityUser.getStepLengthCm();
 
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         long totalDistanceCm = 0;
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             for (GBDevice dev : devices) {
                 if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsActivityTracking()) {
                     final DailyTotals dailyTotals = getDailyTotals(dev, dbHandler, dashboardData.timeTo);
@@ -175,9 +175,9 @@ public class DashboardUtils {
     }
 
     public static long getActiveMinutesTotal(DashboardFragment.DashboardData dashboardData) {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         long totalActiveMinutes = 0;
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
             for (GBDevice dev : devices) {
                 if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsActivityTracking()) {
                     totalActiveMinutes += getActiveMinutes(dev, dbHandler, dashboardData);

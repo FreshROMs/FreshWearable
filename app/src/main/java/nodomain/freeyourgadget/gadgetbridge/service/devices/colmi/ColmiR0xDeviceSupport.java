@@ -33,8 +33,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -223,7 +223,7 @@ public class ColmiR0xDeviceSupport extends AbstractBTLEDeviceSupport {
                                 sampleCal.set(Calendar.SECOND, 0);
                                 LOG.info("Value {} is {} bpm, time of day is {}", i, value[i] & 0xff, sampleCal.getTime());
                                 // Build sample object and save in database
-                                try (DBHandler db = GBApplication.acquireDB()) {
+                                try (DBHandler db = WearableApplication.acquireDB()) {
                                     ColmiHeartRateSampleProvider sampleProvider = new ColmiHeartRateSampleProvider(getDevice(), db.getDaoSession());
                                     Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                                     Long deviceId = DBHelper.getDevice(getDevice(), db.getDaoSession()).getId();

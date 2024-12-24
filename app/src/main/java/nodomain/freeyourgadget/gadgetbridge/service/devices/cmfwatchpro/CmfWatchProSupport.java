@@ -50,8 +50,8 @@ import java.util.Random;
 import java.util.TimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventFindPhone;
@@ -302,7 +302,7 @@ public class CmfWatchProSupport extends AbstractBTLEDeviceSupport implements Cmf
                 GB.toast(getContext(), R.string.authentication_failed_check_key, Toast.LENGTH_LONG, GB.WARN);
                 final GBDevice device = getDevice();
                 if (device != null) {
-                    GBApplication.deviceService(device).disconnect();
+                    WearableApplication.deviceService(device).disconnect();
                 }
                 return;
             case AUTH_WATCH_MAC:
@@ -482,13 +482,13 @@ public class CmfWatchProSupport extends AbstractBTLEDeviceSupport implements Cmf
         GB.toast(getContext(), R.string.authentication_failed_negotiation, Toast.LENGTH_LONG, GB.WARN);
         final GBDevice device = getDevice();
         if (device != null) {
-            GBApplication.deviceService(device).disconnect();
+            WearableApplication.deviceService(device).disconnect();
         }
     }
 
     @Nullable
     private static byte[] getSecretKey(final GBDevice device) {
-        final SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+        final SharedPreferences sharedPrefs = WearableApplication.getDeviceSpecificSharedPrefs(device.getAddress());
 
         final String authKey = sharedPrefs.getString("authkey", "").trim();
         if (StringUtils.isBlank(authKey)) {

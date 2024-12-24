@@ -45,6 +45,7 @@
 package com.mobeta.android.dslv;
 
 
+import android.app.AlertDialog;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
@@ -57,7 +58,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.util.dialogs.MaterialListPreferenceDialogFragment;
 
 
@@ -113,7 +114,7 @@ public class DragSortListPreferenceFragment extends MaterialListPreferenceDialog
 	}
 
 	@Override
-	protected void onPrepareDialogBuilder(MaterialAlertDialogBuilder builder) {
+	protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
 		// must be empty
 	}
 

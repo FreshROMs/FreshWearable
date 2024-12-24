@@ -1,6 +1,5 @@
 package nodomain.freeyourgadget.gadgetbridge.activities.charts;
 
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -22,8 +21,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.GaugeDrawer;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DefaultRestingMetabolicRateProvider;
@@ -190,8 +189,8 @@ public class CaloriesDailyFragment extends AbstractChartFragment<CaloriesDailyFr
 
         if (gaugeViewMode.equals(GaugeViewMode.TOTAL_CALORIES_SEGMENT)) {
             int[] colors = new int[] {
-                    ContextCompat.getColor(GBApplication.getContext(), R.color.calories_resting_color),
-                    ContextCompat.getColor(GBApplication.getContext(), R.color.calories_color)
+                    ContextCompat.getColor(WearableApplication.getContext(), R.color.calories_resting_color),
+                    ContextCompat.getColor(WearableApplication.getContext(), R.color.calories_color)
             };
             float[] segments = new float[] {
                     restingCalories > 0 ? (float) restingCalories / totalCalories : 0,
@@ -200,7 +199,7 @@ public class CaloriesDailyFragment extends AbstractChartFragment<CaloriesDailyFr
             final int width = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
                     300,
-                    GBApplication.getContext().getResources().getDisplayMetrics()
+                    WearableApplication.getContext().getResources().getDisplayMetrics()
             );
             caloriesGauge.setImageBitmap(GaugeDrawer.drawCircleGaugeSegmented(
                     width,
@@ -220,7 +219,7 @@ public class CaloriesDailyFragment extends AbstractChartFragment<CaloriesDailyFr
             final int width = (int) TypedValue.applyDimension(
                     TypedValue.COMPLEX_UNIT_DIP,
                     300,
-                    GBApplication.getContext().getResources().getDisplayMetrics()
+                    WearableApplication.getContext().getResources().getDisplayMetrics()
             );
             caloriesGauge.setImageBitmap(GaugeDrawer.drawCircleGauge(
                     width,

@@ -36,15 +36,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.WorldClock;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
+import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
 
-public class WorldClockDetails extends AbstractGBActivity {
+public class WorldClockDetails extends CommonActivityAbstract {
     private WorldClock worldClock;
     private GBDevice device;
 

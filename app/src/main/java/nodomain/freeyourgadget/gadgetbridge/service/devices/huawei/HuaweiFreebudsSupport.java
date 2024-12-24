@@ -10,23 +10,18 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
-import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.Earphones;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
-import nodomain.freeyourgadget.gadgetbridge.service.AbstractHeadphoneDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.HeadphoneHelper;
-import nodomain.freeyourgadget.gadgetbridge.service.btbr.AbstractBTBRDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.btbr.TransactionBuilder;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.GetProductInformationRequest;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.Request;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SetAudioModeRequest;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SetPauseWhenRemovedFromEarRequest;
-import nodomain.freeyourgadget.gadgetbridge.service.serial.GBDeviceIoThread;
-import nodomain.freeyourgadget.gadgetbridge.service.serial.GBDeviceProtocol;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 // TODO: Move from HuaweiBRSupport to AbstractBTBRDeviceSupport
@@ -114,7 +109,7 @@ public class HuaweiFreebudsSupport extends HuaweiBRSupport implements HeadphoneH
                     new SetAudioModeRequest(getSupportProvider()).doPerform();
                     break;
                 case DeviceSettingsPreferenceConst.PREF_BATTERY_POLLING_ENABLE:
-                    if (!GBApplication.getDevicePrefs(gbDevice).getBatteryPollingEnabled()) {
+                    if (!WearableApplication.getDevicePrefs(gbDevice).getBatteryPollingEnabled()) {
                         getSupportProvider().stopBatteryRunnerDelayed();
                         break;
                     }
