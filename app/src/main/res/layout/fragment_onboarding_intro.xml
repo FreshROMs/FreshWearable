@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="32.0dip"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="96dp"
+            android:paddingBottom="42dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.Fresh.Onboarding.AppName"
+                android:text="@string/fresh_wearable_app_name" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/onboarding_feature_margin_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/onboarding_feature_title_margin_bottom"
+                    android:textAppearance="@style/TextAppearance.Fresh.Onboarding.Feature.Title"
+                    android:text="Connect and check status" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Fresh.Onboarding.Feature.Description"
+                    android:text="See the battery level and more at a glance for your connected watch, band, or earbuds." />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/onboarding_feature_margin_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/onboarding_feature_title_margin_bottom"
+                    android:textAppearance="@style/TextAppearance.Fresh.Onboarding.Feature.Title"
+                    android:text="Access advanced features" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Fresh.Onboarding.Feature.Description"
+                    android:text="Control your watch, band, or buds with detailed settings." />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/onboarding_feature_margin_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/onboarding_feature_title_margin_bottom"
+                    android:textAppearance="@style/TextAppearance.Fresh.Onboarding.Feature.Title"
+                    android:text="Change and customize watch faces" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Fresh.Onboarding.Feature.Description"
+                    android:text="Easily adjust the look and feel of your watch." />
+
+            </LinearLayout>
+        </LinearLayout>
+        <!-- TODO: Replace icon with tenseventyseven logo -->
+        <TextView
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_oui_upday"
+            android:drawablePadding="12dip"
+            android:text="By continuing, you agree to tenseventyseven's Terms and Conditions." />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/setup_continue"
+            style="@style/Theme.Fresh.Button.Onboarding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16.0dip"
+            android:layout_marginHorizontal="12.0dip"
+            android:text="@string/oui_time_dialog_start" />
+    </LinearLayout>
+</RelativeLayout>
