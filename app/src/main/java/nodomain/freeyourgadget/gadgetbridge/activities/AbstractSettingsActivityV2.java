@@ -92,6 +92,19 @@ public abstract class AbstractSettingsActivityV2 extends CommonActivityAbstract 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (toolbarLayout == null) {
+            toolbarLayout = findViewById(R.id.toolbar_layout);
+        }
+
+        if (toolbarLayout != null) {
+            toolbarLayout.setNavigationButtonAsBack();
+        }
+    }
+
     public void setActionBarTitle(final CharSequence title) {
         if (toolbarLayout != null) {
             toolbarLayout.setTitle(title);
