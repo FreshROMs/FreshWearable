@@ -44,6 +44,12 @@ public class RedmiWatch3ActiveCoordinator extends XiaomiCoordinator {
     }
 
     @Override
+    public boolean supportsPai() {
+        return false;
+    }
+
+
+    @Override
     public int getDefaultIconResource() {
         return dev.oneuiproject.oneui.R.drawable.ic_oui_galaxy_watch;
     }
