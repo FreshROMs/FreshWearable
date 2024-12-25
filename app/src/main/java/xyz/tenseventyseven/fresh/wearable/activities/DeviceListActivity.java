@@ -6,11 +6,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.ShortcutManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,7 +19,6 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.MenuProvider;
 import androidx.core.view.ViewCompat;
@@ -33,15 +30,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import dev.oneuiproject.oneui.layout.ToolbarLayout;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
 import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
-import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import xyz.tenseventyseven.fresh.wearable.R;
 import xyz.tenseventyseven.fresh.wearable.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.adapters.DeviceListItemAdapter;
@@ -292,8 +286,7 @@ public class DeviceListActivity extends CommonActivityAbstract implements
             return;
         }
 
-        int deviceIndex = mDeviceManager.getDevices().indexOf(device);
-        WearableApplication.setLastDeviceIndex(deviceIndex);
+        WearableApplication.setLastDevice(device);
         finish();
     }
 

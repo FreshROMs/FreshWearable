@@ -85,7 +85,6 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
 
     Prefs mPreferences;
 
-    private CollapsingToolbarLayout mToolbarLayout;
     private FrameLayout mBottomContainer;
 
     private AppBarLayout mAppBarLayout;
@@ -187,7 +186,6 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device);
 
-        mToolbarLayout = findViewById(R.id.activity_device_collapsing_toolbar);
         mBottomContainer = findViewById(R.id.activity_device_actions);
         mAppBarLayout = findViewById(R.id.activity_device_app_bar);
         mDeviceHeader = findViewById(R.id.activity_device_info);
@@ -199,9 +197,9 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
         setupFAB();
 
         // Request device info from service
+        WearableApplication.deviceService().requestDeviceInfo();
         mDeviceManager = WearableApplication.app().getDeviceManager();
         mDeviceList = mDeviceManager.getDevices();
-        WearableApplication.deviceService().requestDeviceInfo();
 
         showOnboardingFlow();
         showChangelog(savedInstanceState);
@@ -253,13 +251,16 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
         if (!mDeviceList.isEmpty()) {
             mCurrentDevice = device;
             if (mCurrentDevice == null) { // If this is run from app start, get the last connected device
-                int lastDeviceIndex = WearableApplication.getLastDeviceIndex();
-                mCurrentDevice = mDeviceList.get(lastDeviceIndex);
+                mCurrentDevice = WearableApplication.getLastDevice();
             }
 
-            // Get device index and save as last selected device
-            int deviceIndex = mDeviceList.indexOf(mCurrentDevice);
-            WearableApplication.setLastDeviceIndex(deviceIndex);
+            // If it's still null, stop; our app has issues at this point
+            // We should never get here, but just in case
+            if (mCurrentDevice == null) {
+                return;
+            }
+
+            LOG.debug("Current device: {}", mCurrentDevice.getAliasOrName());
 
             if (!mCurrentDevice.isConnected()) {
                 // Attempt to connect to the device
@@ -305,31 +306,35 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
             recreate();
         }
 
+        // If the device is null, we need to initialize it; most likely
+        // case is that we are from onCreate() and the device is not set
         if (mCurrentDevice == null) {
             initDeviceConnection(null);
+            return;
+        }
+
+        // We'll reach here if we are returning from another activity, like the
+        // device list, and we need to update the UI to reflect the new device selection
+        GBDevice device = WearableApplication.getLastDevice();
+        if (device != null && !mCurrentDevice.getAddress().equals(device.getAddress())) {
+            mCurrentDevice = device;
+            initDeviceConnection(device); // Re-init layout setup for new device
+            return;
+        }
+
+        // Else, just update the UI to reflect new settings or device state
+        if (mFragment != null) {
+            mFragment.update();
         } else {
-            if (mFragment != null) {
-                mFragment.update();
-            } else {
-                loadDeviceSettings();
-            }
+            loadDeviceSettings();
+        }
 
-            if (mDeviceHeader != null) {
-                if (!mDeviceHeader.isInitialized()) {
-                    mDeviceHeader.setDevice(mCurrentDevice);
-                }
-                mDeviceHeader.refresh();
-                refreshToolbar();
+        if (mDeviceHeader != null) {
+            if (!mDeviceHeader.isInitialized()) {
+                mDeviceHeader.setDevice(mCurrentDevice);
             }
-
-            int lastDeviceIndex = WearableApplication.getLastDeviceIndex();
-            if (mDeviceList.size() > lastDeviceIndex) {
-                GBDevice device = mDeviceList.get(lastDeviceIndex);
-                if (device != null && !mCurrentDevice.equals(device)) {
-                    mCurrentDevice = device;
-                    initDeviceConnection(device);
-                }
-            }
+            mDeviceHeader.refresh();
+            refreshToolbar();
         }
     }
 

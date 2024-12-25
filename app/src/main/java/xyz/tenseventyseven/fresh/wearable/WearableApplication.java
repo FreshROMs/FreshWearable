@@ -64,7 +64,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -2103,6 +2102,32 @@ public class WearableApplication extends Application {
         SharedPreferences preferences = prefs.getPreferences();
         SharedPreferences.Editor editor = preferences.edit();
         editor.putInt("last_device_index", lastDeviceIndex);
+        editor.apply();
+    }
+
+    public static GBDevice getLastDevice() {
+        DeviceManager manager = app().getDeviceManager();
+        SharedPreferences preferences = prefs.getPreferences();
+        String address = preferences.getString("last_device_address", null);
+
+        if (address == null) {
+            // Return the first device in the list
+            List<GBDevice> devices = manager.getDevices();
+
+            if (!devices.isEmpty()) {
+                return devices.get(0);
+            } else {
+                return null;
+            }
+        }
+
+        return manager.getDeviceByAddress(address);
+    }
+
+    public static void setLastDevice(GBDevice device) {
+        SharedPreferences preferences = prefs.getPreferences();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("last_device_address", device.getAddress());
         editor.apply();
     }
 }
