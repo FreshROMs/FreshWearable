@@ -230,6 +230,7 @@ dependencies {
     implementation "sesl.androidx.fragment:fragment:1.8.5+1.0.0-sesl6+rev0"
     implementation "sesl.androidx.viewpager2:viewpager2:1.1.0+1.0.0-sesl6+rev0"
     implementation "sesl.androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01+1.0.0-sesl6+rev0"
+    implementation "sesl.androidx.picker:picker-basic:1.0.17+1.0.17-sesl6+rev2"
 
     implementation "sesl.com.google.android.material:material:1.12.0+1.0.23-sesl6+rev2"
     implementation "io.github.tribalfs:oneui-design:0.3.4+oneui6"
