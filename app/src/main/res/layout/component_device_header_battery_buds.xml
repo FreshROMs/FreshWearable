@@ -5,22 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:orientation="horizontal">
-    <!-- Left earbud -->
+    android:orientation="horizontal"
+    tools:ignore="UseAppTint">
+
+    <!-- Earbuds -->
     <LinearLayout
+        android:id="@+id/header_battery_level_buds_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        tools:ignore="UseCompoundDrawables">
+        android:gravity="center_vertical">
         <ImageView
-            android:id="@+id/header_battery_level_buds_left_image"
-            android:layout_width="24dp"
+            android:id="@+id/header_battery_level_buds_image"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:layout_marginEnd="4.0dip"
+            android:layout_marginEnd="6.0dip"
             android:importantForAccessibility="no"
-            android:src="@drawable/ic_nothing_ear_l"
+            android:src="@drawable/device_ic_galaxy_buds3"
             android:alpha="0.6"
             app:tint="?textColorPrimary" />
+        
+        <ImageView
+            android:id="@+id/header_battery_level_buds_left_charging"
+            android:layout_width="18.0dip"
+            android:layout_height="18.0dip"
+            android:tint="@color/secondarytext"
+            android:src="@drawable/ic_oui_charging" />
+
+        <TextView
+            android:id="@+id/header_battery_level_buds_left_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textFontWeight="600"
+            android:textSize="15sp"
+            android:text="L" />
 
         <TextView
             android:id="@+id/header_battery_level_buds_left"
@@ -28,27 +47,74 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textFontWeight="600"
+            android:layout_marginStart="4.0dip"
             android:textSize="15sp"
-            android:drawableStart="@drawable/ic_bolt"
+            android:text="100%" />
+
+        <TextView
+            android:id="@+id/header_battery_level_buds_bullet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="6.0dip"
+            android:layout_marginEnd="6.0dip"
+            android:textFontWeight="600"
+            android:textSize="15sp"
+            android:text="•" />
+
+        <ImageView
+            android:id="@+id/header_battery_level_buds_right_charging"
+            android:layout_width="18.0dip"
+            android:layout_height="18.0dip"
+            android:tint="@color/secondarytext"
+            android:src="@drawable/ic_oui_charging" />
+
+        <TextView
+            android:id="@+id/header_battery_level_buds_right_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textFontWeight="600"
+            android:textSize="15sp"
+            android:text="R" />
+
+        <TextView
+            android:id="@+id/header_battery_level_buds_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4.0dip"
+            android:textFontWeight="600"
+            android:textSize="15sp"
             android:text="100%" />
     </LinearLayout>
 
     <!-- Case -->
     <LinearLayout
+        android:id="@+id/header_battery_level_case_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:layout_marginHorizontal="14.0dip"
         tools:ignore="UseCompoundDrawables">
         <ImageView
             android:id="@+id/header_battery_level_case_image"
-            android:layout_width="24dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
-            android:layout_marginEnd="8.0dip"
+            android:layout_marginEnd="6.0dip"
             android:importantForAccessibility="no"
-            android:src="@drawable/ic_buds_pro_case"
+            android:src="@drawable/device_ic_galaxy_buds3_case"
             android:alpha="0.6"
             app:tint="?textColorPrimary" />
+
+        <ImageView
+            android:id="@+id/header_battery_level_case_charging"
+            android:layout_width="18.0dip"
+            android:layout_height="18.0dip"
+            android:layout_marginEnd="2.0dip"
+            android:tint="@color/secondarytext"
+            android:src="@drawable/ic_oui_charging" />
 
         <TextView
             android:id="@+id/header_battery_level_case"
@@ -57,34 +123,6 @@
             android:layout_gravity="center_vertical"
             android:textFontWeight="600"
             android:textSize="15sp"
-            android:drawableStart="@drawable/ic_bolt"
-            android:text="100%" />
-    </LinearLayout>
-
-    <!-- Right earbud, flip ImageView horizontally -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="UseCompoundDrawables">
-        <ImageView
-            android:id="@+id/header_battery_level_buds_right_image"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="2.0dip"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_nothing_ear_r"
-            android:alpha="0.6"
-            app:tint="?textColorPrimary" />
-
-        <TextView
-            android:id="@+id/header_battery_level_buds_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textFontWeight="600"
-            android:textSize="15sp"
-            android:drawableStart="@drawable/ic_bolt"
             android:text="100%" />
     </LinearLayout>
 </LinearLayout>

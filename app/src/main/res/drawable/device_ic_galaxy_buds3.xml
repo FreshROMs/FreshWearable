@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/ic_buds3_left_right"
+    android:scaleX="1.1"
+    android:scaleY="1.1"
+    android:tint="@color/oui_primary_icon_color" />

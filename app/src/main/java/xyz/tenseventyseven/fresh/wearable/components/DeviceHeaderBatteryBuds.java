@@ -20,11 +20,15 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
 import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.wearable.utils.BatteryUtils;
 
 public class DeviceHeaderBatteryBuds extends DeviceHeaderBatteryCommon {
 
@@ -53,28 +57,84 @@ public class DeviceHeaderBatteryBuds extends DeviceHeaderBatteryCommon {
         TextView batteryLevelRight = findViewById(R.id.header_battery_level_buds_right);
         TextView batteryLevelCase = findViewById(R.id.header_battery_level_case);
 
-        ImageView batteryIconLeft = findViewById(R.id.header_battery_level_buds_left_image);
-        ImageView batteryIconRight = findViewById(R.id.header_battery_level_buds_right_image);
-        ImageView batteryIconCase = findViewById(R.id.header_battery_level_case_image);
+        ImageView budsIcon = findViewById(R.id.header_battery_level_buds_image);
+        ImageView caseIcon = findViewById(R.id.header_battery_level_case_image);
+
+        ImageView leftChargeIcon = findViewById(R.id.header_battery_level_buds_left_charging);
+        ImageView rightChargeIcon = findViewById(R.id.header_battery_level_buds_right_charging);
+        ImageView caseChargeIcon = findViewById(R.id.header_battery_level_case_charging);
+
+        LinearLayout budsContainer = findViewById(R.id.header_battery_level_buds_container);
+        LinearLayout caseContainer = findViewById(R.id.header_battery_level_case_container);
+
+        // Set icons based on coordinator response
+        DeviceCoordinator coordinator = mDevice.getDeviceCoordinator();
+        BatteryConfig[] config = coordinator.getBatteryConfig(mDevice);
+
+        if (config.length > 1) {
+            caseIcon.setImageDrawable(getContext().getDrawable(config[0].getBatteryIcon()));
+            budsIcon.setImageDrawable(getContext().getDrawable(config[1].getBatteryIcon()));
+        } else {
+            budsIcon.setImageDrawable(getContext().getDrawable(config[0].getBatteryIcon()));
+        }
 
         // Get battery levels
         int batteryCase = getBatteryLevel(mDevice, 0);
         int batteryLeft = getBatteryLevel(mDevice, 1);
         int batteryRight = getBatteryLevel(mDevice, 2);
 
-        // Set battery levels
-        batteryLevelCase.setText(getBatteryLevelString(batteryCase));
-        batteryLevelLeft.setText(getBatteryLevelString(batteryLeft));
-        batteryLevelRight.setText(getBatteryLevelString(batteryRight));
+        boolean chargingCase = isBatteryCharging(mDevice, 0);
+        boolean chargingLeft = isBatteryCharging(mDevice, 1);
+        boolean chargingRight = isBatteryCharging(mDevice, 2);
 
-        Drawable chargeIcon = mContext.getDrawable(R.drawable.ic_bolt);
-        batteryLevelCase.setCompoundDrawablesWithIntrinsicBounds(isBatteryCharging(mDevice, 0) ? chargeIcon : null, null, null, null);
-        batteryLevelLeft.setCompoundDrawablesWithIntrinsicBounds(isBatteryCharging(mDevice, 1) ? chargeIcon : null, null, null, null);
-        batteryLevelRight.setCompoundDrawablesWithIntrinsicBounds(isBatteryCharging(mDevice, 2) ? chargeIcon: null, null, null, null);
+        int batteryCount = coordinator.getBatteryCount();
 
-        batteryIconCase.setAlpha(batteryCase == -1 ? 0.3f : 0.6f);
-        batteryIconLeft.setAlpha(batteryLeft == -1 ? 0.3f : 0.6f);
-        batteryIconRight.setAlpha(batteryRight == -1 ? 0.3f : 0.6f);
+        // Determine visibility and text based on battery count
+        switch (batteryCount) {
+            case 3: // Case and two buds
+                boolean shouldCombine = BatteryUtils.shouldCombineBudsBattery(mDevice);
+                updateBudsDisplay(batteryLevelLeft, batteryLevelRight, leftChargeIcon, rightChargeIcon, batteryLeft, batteryRight, chargingLeft, chargingRight, shouldCombine);
+                updateCaseDisplay(batteryLevelCase, caseChargeIcon, batteryCase, chargingCase, true);
+                break;
+            case 2: // Two batteries: combine buds and show case
+                updateBudsDisplay(batteryLevelLeft, batteryLevelRight, leftChargeIcon, rightChargeIcon, batteryLeft, batteryRight, chargingLeft, chargingRight, true);
+                updateCaseDisplay(batteryLevelCase, caseChargeIcon, batteryCase, chargingCase, true);
+                break;
+            case 1: // Only one battery: combine buds, hide case
+                updateBudsDisplay(batteryLevelLeft, batteryLevelRight, leftChargeIcon, rightChargeIcon, batteryLeft, batteryRight, chargingLeft, chargingRight, true);
+                updateCaseDisplay(batteryLevelCase, caseChargeIcon, batteryCase, chargingCase, false);
+                break;
+            default:
+                // Hide all containers if no battery info is available
+                budsContainer.setVisibility(GONE);
+                caseContainer.setVisibility(GONE);
+                break;
+        }
+    }
+
+    private void updateBudsDisplay(TextView left, TextView right, ImageView leftCharge, ImageView rightCharge,
+                                   int batteryLeft, int batteryRight, boolean chargingLeft, boolean chargingRight, boolean combine) {
+        if (combine) {
+            left.setVisibility(GONE);
+            leftCharge.setVisibility(GONE);
+            right.setText(getBatteryLevelString(BatteryUtils.getValidBatteryLevel(batteryLeft, batteryRight)));
+        } else {
+            left.setVisibility(VISIBLE);
+            left.setText(getBatteryLevelString(batteryLeft));
+            right.setText(getBatteryLevelString(batteryRight));
+        }
+        rightCharge.setVisibility(chargingRight ? VISIBLE : GONE);
+    }
+
+    private void updateCaseDisplay(TextView caseView, ImageView caseCharge, int batteryCase, boolean chargingCase, boolean visible) {
+        if (visible) {
+            caseView.setVisibility(VISIBLE);
+            caseCharge.setVisibility(chargingCase ? VISIBLE : GONE);
+            caseView.setText(getBatteryLevelString(batteryCase));
+        } else {
+            caseView.setVisibility(GONE);
+            caseCharge.setVisibility(GONE);
+        }
     }
 
     private String getBatteryLevelString(int batteryLevel) {
@@ -87,7 +147,8 @@ public class DeviceHeaderBatteryBuds extends DeviceHeaderBatteryCommon {
 
     private int getBatteryLevel(GBDevice device, int batteryIndex) {
         if (device.getBatteryState(batteryIndex) == BatteryState.UNKNOWN ||
-                device.getBatteryState(batteryIndex) == BatteryState.NO_BATTERY) {
+                device.getBatteryState(batteryIndex) == BatteryState.NO_BATTERY ||
+                device.getDeviceCoordinator().getBatteryCount() <= batteryIndex) {
             return -1;
         }
 
@@ -95,6 +156,10 @@ public class DeviceHeaderBatteryBuds extends DeviceHeaderBatteryCommon {
     }
 
     private boolean isBatteryCharging(GBDevice device, int batteryIndex) {
+        if (device.getDeviceCoordinator().getBatteryCount() <= batteryIndex) {
+            return false;
+        }
+
         return device.getBatteryState(batteryIndex) == BatteryState.BATTERY_CHARGING ||
                 device.getBatteryState(batteryIndex) == BatteryState.BATTERY_CHARGING_FULL;
     }
