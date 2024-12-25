@@ -673,6 +673,10 @@
             android:label="@string/title_activity_device_specific_settings"
             android:parentActivityName=".activities.DashboardActivity" />
         <activity
+        <activity
+            android:name="xyz.tenseventyseven.fresh.wearable.activities.DeviceAuthSettingsActivity"
+            android:label="@string/authenticating"
+            android:parentActivityName=".activities.DashboardActivity" />
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.AlarmDetails"
             android:label="@string/title_activity_alarm_details"
             android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms"

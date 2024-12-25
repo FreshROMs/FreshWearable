@@ -129,6 +129,8 @@ public class DiscoveryActivity extends CommonActivityAbstract implements Adapter
     private Button startButton;
     private boolean scanning;
 
+    private boolean bonding;
+
     private long selectedUnsupportedDeviceKey = DebugActivity.SELECT_DEVICE;
 
     private final Runnable stopRunnable = () -> {
@@ -143,7 +145,6 @@ public class DiscoveryActivity extends CommonActivityAbstract implements Adapter
     // Array to back the adapter for the UI
     private final ArrayList<GBDeviceCandidate> deviceCandidates = new ArrayList<>();
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @Override
     public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -184,6 +185,8 @@ public class DiscoveryActivity extends CommonActivityAbstract implements Adapter
         deviceCandidatesView.setAdapter(deviceCandidateAdapter);
         deviceCandidatesView.setOnItemClickListener(this);
         deviceCandidatesView.setOnItemLongClickListener(this);
+
+        bonding = false;
 
         registerBroadcastReceivers();
 
@@ -516,7 +519,7 @@ public class DiscoveryActivity extends CommonActivityAbstract implements Adapter
     }
 
     private void showWarnDialog(@StringRes final int message) {
-        new MaterialAlertDialogBuilder(getContext())
+        new AlertDialog.Builder(getContext())
                 .setMessage(message)
                 .setPositiveButton(R.string.ok, (dialog, whichButton) -> {})
                 .show();
@@ -634,7 +637,7 @@ public class DiscoveryActivity extends CommonActivityAbstract implements Adapter
         }
 
         if (coordinator.suggestUnbindBeforePair() && deviceCandidate.isBonded()) {
-            new MaterialAlertDialogBuilder(getContext())
+            new AlertDialog.Builder(getContext())
                     .setTitle(R.string.unbind_before_pair_title)
                     .setMessage(R.string.unbind_before_pair_message)
                     .setIcon(R.drawable.ic_warning_gray)
@@ -650,6 +653,8 @@ public class DiscoveryActivity extends CommonActivityAbstract implements Adapter
 
     private void startPair(final GBDeviceCandidate deviceCandidate, final DeviceCoordinator coordinator) {
         final Class<? extends Activity> pairingActivity = coordinator.getPairingActivity();
+        bonding = true;
+
         if (pairingActivity != null) {
             final Intent intent = new Intent(this, pairingActivity);
             intent.putExtra(DeviceCoordinator.EXTRA_DEVICE_CANDIDATE, deviceCandidate);
@@ -667,6 +672,8 @@ public class DiscoveryActivity extends CommonActivityAbstract implements Adapter
                 BondingUtil.initiateCorrectBonding(this, deviceCandidate, coordinator);
             } catch (final Exception e) {
                 LOG.error("Error pairing device {}", deviceCandidate.getMacAddress(), e);
+                Toast.makeText(this, "Pairing failed. Please try again.", Toast.LENGTH_SHORT).show();
+                bonding = false;
             }
         }
     }
@@ -714,12 +721,8 @@ public class DiscoveryActivity extends CommonActivityAbstract implements Adapter
         final GBDevice device = DeviceHelper.getInstance().toSupportedDevice(deviceCandidate);
 
         final Intent startIntent;
-        startIntent = new Intent(this, DeviceSettingsActivity.class);
+        startIntent = new Intent(this, DeviceAuthSettingsActivity.class);
         startIntent.putExtra(GBDevice.EXTRA_DEVICE, device);
-        if (coordinator.getBondingStyle() == DeviceCoordinator.BONDING_STYLE_REQUIRE_KEY) {
-            startIntent.putExtra(DeviceSettingsActivity.MENU_ENTRY_POINT, DeviceSettingsActivity.MENU_ENTRY_POINTS.AUTH_SETTINGS);
-        }
-
         startActivity(startIntent);
         return true;
     }
@@ -785,7 +788,19 @@ public class DiscoveryActivity extends CommonActivityAbstract implements Adapter
 
     @Override
     public void onBondingComplete(final boolean success) {
-        finish();
+        if (success) {
+            finish();
+        } else {
+            Toast.makeText(this, "Pairing failed. Please try again.", Toast.LENGTH_SHORT).show();
+        }
+        bonding = false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!bonding) {
+            super.onBackPressed();
+        }
     }
 
     @Override
