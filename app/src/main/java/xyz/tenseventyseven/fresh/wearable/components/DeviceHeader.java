@@ -35,36 +35,34 @@ public class DeviceHeader extends LinearLayout {
     private final Context mContext;
     private DeviceHeaderBatteryCommon mDeviceHeaderBattery;
 
-    private boolean mIsInitialized = false;
-
     public DeviceHeader(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mContext = context;
+        inflate(getContext(), R.layout.component_device_header, this);
     }
 
     public DeviceHeader(Context context, AttributeSet attrs) {
         super(context, attrs);
         mContext = context;
+        inflate(getContext(), R.layout.component_device_header, this);
     }
 
     public DeviceHeader(Context context) {
         super(context);
         mContext = context;
+        inflate(getContext(), R.layout.component_device_header, this);
     }
 
     public void setDevice(GBDevice device) {
         mDevice = device;
-
-        if (!mIsInitialized) {
-            initView();
-            mIsInitialized = true;
-        }
-
+        initView();
         refresh();
     }
 
     private void initView() {
-        inflate(getContext(), R.layout.component_device_header, this);
+        findViewById(R.id.header_device_battery_buds).setVisibility(View.GONE);
+        findViewById(R.id.header_device_battery_watch).setVisibility(View.GONE);
+
         if (mDevice != null) {
             switch (mDevice.getDeviceCoordinator().getGeneralDeviceType()) {
                 case EARBUDS:
@@ -73,6 +71,7 @@ public class DeviceHeader extends LinearLayout {
                     break;
                 case WATCH:
                 case FITNESS_TRACKER:
+                default:
                     mDeviceHeaderBattery = findViewById(R.id.header_device_battery_watch);
                     break;
             }
