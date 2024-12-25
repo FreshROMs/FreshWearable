@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/device_list_add_device"
+        android:icon="@drawable/ic_oui_add"
+        android:title="@string/oui_common_add"
+        android:showAsAction="always"
+        android:iconTint="@color/oui_primary_icon_color" />
+
+    <item
+        android:id="@+id/device_list_remove_device"
+        android:showAsAction="never"
+        android:title="Remove devices" />
+
+    <item
+        android:id="@+id/device_list_settings"
+        android:showAsAction="never"
+        android:title="@string/action_settings" />
+</menu>

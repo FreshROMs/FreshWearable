@@ -280,8 +280,7 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
     private void setupFAB() {
         ScrollAwareFloatingActionButton fab = findViewById(R.id.activity_device_fab);
         fab.setOnClickListener(v -> {
-            // TODO: Open device picker activity
-            startActivity(new Intent(this, DiscoveryActivity.class));
+            startActivity(new Intent(this, DeviceListActivity.class));
         });
     }
 
