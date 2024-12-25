@@ -89,17 +89,17 @@ public class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
         List<BatteryConfig> batteryConfigs = new ArrayList<>();
 
         if (supports(RedmiBudsCapabilities.ReportsCaseBattery)) {
-            batteryConfigs.add(new BatteryConfig(0, R.drawable.ic_tws_case, R.string.battery_case));
+            batteryConfigs.add(new BatteryConfig(0, R.drawable.device_ic_galaxy_buds3_case, R.string.battery_case));
         } else if (supports(RedmiBudsCapabilities.ReportsBattery)) {
-            batteryConfigs.add(new BatteryConfig(0, R.drawable.ic_nothing_ear_l, R.string.menuitem_headphone));
+            batteryConfigs.add(new BatteryConfig(0, R.drawable.device_ic_galaxy_buds3, R.string.menuitem_headphone));
         }
 
         if (supports(RedmiBudsCapabilities.ReportsLeftEarbudBattery)) {
-            batteryConfigs.add(new BatteryConfig(1, R.drawable.ic_nothing_ear_l, R.string.left_earbud));
+            batteryConfigs.add(new BatteryConfig(1, R.drawable.device_ic_galaxy_buds3, R.string.left_earbud));
         }
 
         if (supports(RedmiBudsCapabilities.ReportsRightEarbudBattery)) {
-            batteryConfigs.add(new BatteryConfig(2, R.drawable.ic_nothing_ear_r, R.string.right_earbud));
+            batteryConfigs.add(new BatteryConfig(2, R.drawable.device_ic_galaxy_buds3, R.string.right_earbud));
         }
 
         return batteryConfigs.toArray(new BatteryConfig[0]);
