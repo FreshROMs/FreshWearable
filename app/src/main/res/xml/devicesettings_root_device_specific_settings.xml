@@ -4,7 +4,7 @@
         <PreferenceScreen
             android:layout="@layout/preference_checkbox"
             android:icon="@drawable/ic_settings_buds_device_specific_settings"
-            android:key="pref_screen_earbuds_settings"
+            android:key="pref_screen_device_specific_settings"
             android:persistent="false"
             android:title="Device settings">
         </PreferenceScreen>

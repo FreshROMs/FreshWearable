@@ -39,8 +39,8 @@ public enum DeviceSpecificSettingsScreen {
     TOUCH_OPTIONS("pref_screen_touch_options", R.xml.devicesettings_root_touch_options),
     SOUND("pref_screen_sound", R.xml.devicesettings_root_touch_options),
     EARBUDS_SETTINGS("pref_screen_earbuds_settings", R.xml.devicesettings_root_earbuds_settings),
-    WATCH_SETTINGS("pref_screen_watch_settings", R.xml.devicesettings_root_earbuds_settings),
-    DEVICE_SPECIFIC_SETTINGS("pref_screen_device_specific_settings", R.xml.devicesettings_root_earbuds_settings),
+    WATCH_SETTINGS("pref_screen_watch_settings", R.xml.devicesettings_root_watch_settings),
+    DEVICE_SPECIFIC_SETTINGS("pref_screen_device_specific_settings", R.xml.devicesettings_root_device_specific_settings),
     ;
 
     private final String key;

@@ -6,7 +6,7 @@
             android:icon="@drawable/ic_settings_buds_device_specific_settings"
             android:key="pref_screen_watch_settings"
             android:persistent="false"
-            android:title="Earbuds settings">
+            android:title="Watch settings">
         </PreferenceScreen>
     </PreferenceCategory>
 </PreferenceScreen>
