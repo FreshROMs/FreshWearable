@@ -79,12 +79,6 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
 
     private DeviceManager mDeviceManager;
 
-    public enum MENU_ENTRY_POINTS {
-        DEVICE_SETTINGS,
-        AUTH_SETTINGS,
-        APPLICATION_SETTINGS
-    }
-
     GBDevice mCurrentDevice;
     private final Map<GBDevice, ActivitySample> currentHRSample = new HashMap<>();
     private List<GBDevice> mDeviceList;
@@ -202,12 +196,15 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
 
         setupAppBar(getResources().getConfiguration());
         setupIntentListeners();
-        showOnboardingFlow();
-        showChangelog(savedInstanceState);
         setupFAB();
 
-        // Finally, connect to the device
-        initDeviceConnection(null);
+        // Request device info from service
+        mDeviceManager = WearableApplication.app().getDeviceManager();
+        mDeviceList = mDeviceManager.getDevices();
+        WearableApplication.deviceService().requestDeviceInfo();
+
+        showOnboardingFlow();
+        showChangelog(savedInstanceState);
     }
 
     // Set up local intent listener
@@ -239,6 +236,8 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
         boolean firstRun = mPreferences.getBoolean("first_run", true);
         if (firstRun) {
             startActivity(new Intent(this, OnboardingActivity.class));
+        } else if (mDeviceList.isEmpty()) {
+            startActivity(new Intent(this, DiscoveryActivity.class));
         } else {
             boolean pesterWithPermissions = mPreferences.getBoolean("permission_pestering", true);
             if (pesterWithPermissions && !PermissionsUtils.checkAllPermissions(this)) {
@@ -249,16 +248,12 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
     }
 
     private void initDeviceConnection(GBDevice device) {
-        // Request device info from service
-        WearableApplication.deviceService().requestDeviceInfo();
-
-        mDeviceManager = WearableApplication.app().getDeviceManager();
         mDeviceList = mDeviceManager.getDevices();
 
         if (!mDeviceList.isEmpty()) {
             mCurrentDevice = device;
             if (mCurrentDevice == null) { // If this is run from app start, get the last connected device
-                int lastDeviceIndex = mPreferences.getInt("last_device_index", 0);
+                int lastDeviceIndex = WearableApplication.getLastDeviceIndex();
                 mCurrentDevice = mDeviceList.get(lastDeviceIndex);
             }
 
@@ -294,29 +289,11 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.activity_device_actions, mFragment, DeviceSettingsFragment.FRAGMENT_TAG)
-                .runOnCommit(() -> mFragment.setState(mCurrentDevice.isInitialized()))
+                .runOnCommit(() -> {
+                    mFragment.setState(mCurrentDevice.isInitialized());
+                    mFragment.update();
+                })
                 .commit();
-    }
-    /**
-     * Enables/Disables all child views in a view group.
-     *
-     * @param viewGroup the view group
-     * @param enabled <code>true</code> to enable, <code>false</code> to disable
-     * the views.
-     */
-    public static void enableDisableViewGroup(ViewGroup viewGroup, boolean enabled) {
-        if (viewGroup == null) {
-            return;
-        }
-
-        int childCount = viewGroup.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View view = viewGroup.getChildAt(i);
-            view.setEnabled(enabled);
-            if (view instanceof ViewGroup) {
-                enableDisableViewGroup((ViewGroup) view, enabled);
-            }
-        }
     }
 
     @Override
@@ -328,12 +305,31 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
             recreate();
         }
 
-        if (mFragment != null) {
-            mFragment.update();
-        }
+        if (mCurrentDevice == null) {
+            initDeviceConnection(null);
+        } else {
+            if (mFragment != null) {
+                mFragment.update();
+            } else {
+                loadDeviceSettings();
+            }
 
-        if (mDeviceHeader != null) {
-            mDeviceHeader.refresh();
+            if (mDeviceHeader != null) {
+                if (!mDeviceHeader.isInitialized()) {
+                    mDeviceHeader.setDevice(mCurrentDevice);
+                }
+                mDeviceHeader.refresh();
+                refreshToolbar();
+            }
+
+            int lastDeviceIndex = WearableApplication.getLastDeviceIndex();
+            if (mDeviceList.size() > lastDeviceIndex) {
+                GBDevice device = mDeviceList.get(lastDeviceIndex);
+                if (device != null && !mCurrentDevice.equals(device)) {
+                    mCurrentDevice = device;
+                    initDeviceConnection(device);
+                }
+            }
         }
     }
 

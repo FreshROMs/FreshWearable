@@ -64,6 +64,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -2091,6 +2092,11 @@ public class WearableApplication extends Application {
 
     public void setAutoExportScheduledTimestamp(long autoExportScheduledTimestamp) {
         this.autoExportScheduledTimestamp = autoExportScheduledTimestamp;
+    }
+
+    public static int getLastDeviceIndex() {
+        SharedPreferences preferences = prefs.getPreferences();
+        return preferences.getInt("last_device_index", 0);
     }
 
     public static void setLastDeviceIndex(int lastDeviceIndex) {
