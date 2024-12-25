@@ -1290,7 +1290,9 @@ public abstract class DeviceSettingsFragmentCommon extends AbstractPreferenceFra
     }
 
     public void update() {
-        mCustomizer.update(this);
+        if (mCustomizer != null) {
+            mCustomizer.update(this);
+        }
     }
 
     @Override
