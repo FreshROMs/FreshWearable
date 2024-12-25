@@ -6,85 +6,54 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="horizontal">
-    <!-- Left earbud -->
+
+    <!-- Battery -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         tools:ignore="UseCompoundDrawables">
         <ImageView
-            android:id="@+id/header_battery_level_buds_left_image"
+            android:id="@+id/header_battery_level_watch_image"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="4.0dip"
             android:importantForAccessibility="no"
-            android:src="@drawable/ic_nothing_ear_l"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_battery_charging_80"
             android:alpha="0.6"
             app:tint="?textColorPrimary" />
 
         <TextView
-            android:id="@+id/header_battery_level_buds_left"
+            android:id="@+id/header_battery_level_watch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textFontWeight="600"
-            android:textSize="15sp"
-            android:drawableStart="@drawable/ic_bolt"
+            android:textSize="16sp"
             android:text="100%" />
     </LinearLayout>
 
-    <!-- Case -->
     <LinearLayout
+        android:id="@+id/header_battery_status_watch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginHorizontal="14.0dip"
         tools:ignore="UseCompoundDrawables">
-        <ImageView
-            android:id="@+id/header_battery_level_case_image"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="8.0dip"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_buds_pro_case"
-            android:alpha="0.6"
-            app:tint="?textColorPrimary" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?attr/listDividerColor"
+            android:layout_marginEnd="14.0dip" />
 
         <TextView
-            android:id="@+id/header_battery_level_case"
+            android:id="@+id/header_battery_status_watch_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textFontWeight="600"
             android:textSize="15sp"
-            android:drawableStart="@drawable/ic_bolt"
-            android:text="100%" />
-    </LinearLayout>
-
-    <!-- Right earbud, flip ImageView horizontally -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="UseCompoundDrawables">
-        <ImageView
-            android:id="@+id/header_battery_level_buds_right_image"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="2.0dip"
-            android:importantForAccessibility="no"
-            android:src="@drawable/ic_nothing_ear_r"
-            android:alpha="0.6"
-            app:tint="?textColorPrimary" />
-
-        <TextView
-            android:id="@+id/header_battery_level_buds_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textFontWeight="600"
-            android:textSize="15sp"
-            android:drawableStart="@drawable/ic_bolt"
-            android:text="100%" />
+            android:text="Charging" />
     </LinearLayout>
 </LinearLayout>

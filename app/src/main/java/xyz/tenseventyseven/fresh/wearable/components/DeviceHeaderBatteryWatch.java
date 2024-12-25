@@ -19,14 +19,24 @@ package xyz.tenseventyseven.fresh.wearable.components;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.Arrays;
+import java.util.List;
 
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
 import xyz.tenseventyseven.fresh.wearable.R;
 
 public class DeviceHeaderBatteryWatch extends DeviceHeaderBatteryCommon {
+    List<BatteryState> statusStates = Arrays.asList(
+            BatteryState.BATTERY_LOW,
+            BatteryState.BATTERY_CHARGING,
+            BatteryState.BATTERY_CHARGING_FULL
+    );
 
     public DeviceHeaderBatteryWatch(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -44,37 +54,64 @@ public class DeviceHeaderBatteryWatch extends DeviceHeaderBatteryCommon {
     }
 
     private void initView() {
-        inflate(getContext(), R.layout.component_device_header_battery_buds, this);
+        inflate(getContext(), R.layout.component_device_header_battery_watch, this);
     }
 
     @Override
     public void refresh() {
-        TextView batteryLevelLeft = findViewById(R.id.header_battery_level_buds_left);
-        TextView batteryLevelRight = findViewById(R.id.header_battery_level_buds_right);
-        TextView batteryLevelCase = findViewById(R.id.header_battery_level_case);
+        TextView batteryLevel = findViewById(R.id.header_battery_level_watch);
+        ImageView batteryIcon = findViewById(R.id.header_battery_level_watch_image);
 
-        ImageView batteryIconLeft = findViewById(R.id.header_battery_level_buds_left_image);
-        ImageView batteryIconRight = findViewById(R.id.header_battery_level_buds_right_image);
-        ImageView batteryIconCase = findViewById(R.id.header_battery_level_case_image);
+        if (batteryIcon == null || batteryLevel == null) {
+            return;
+        }
 
         // Get battery levels
-        int batteryCase = getBatteryLevel(mDevice, 0);
-        int batteryLeft = getBatteryLevel(mDevice, 1);
-        int batteryRight = getBatteryLevel(mDevice, 2);
+        int battery = getBatteryLevel(mDevice);
 
-        // Set battery levels
-        batteryLevelCase.setText(getBatteryLevelString(batteryCase));
-        batteryLevelLeft.setText(getBatteryLevelString(batteryLeft));
-        batteryLevelRight.setText(getBatteryLevelString(batteryRight));
+        // Set battery level and icon
+        batteryLevel.setText(getBatteryLevelString(battery));
+        batteryIcon.setImageDrawable(getBatteryDrawable(battery));
+        setBatteryStatus();
+    }
 
-        Drawable chargeIcon = mContext.getDrawable(R.drawable.ic_bolt);
-        batteryLevelCase.setCompoundDrawablesWithIntrinsicBounds(isBatteryCharging(mDevice, 0) ? chargeIcon : null, null, null, null);
-        batteryLevelLeft.setCompoundDrawablesWithIntrinsicBounds(isBatteryCharging(mDevice, 1) ? chargeIcon : null, null, null, null);
-        batteryLevelRight.setCompoundDrawablesWithIntrinsicBounds(isBatteryCharging(mDevice, 2) ? chargeIcon: null, null, null, null);
+    private void setBatteryStatus() {
+        LinearLayout batteryStatusLayout = findViewById(R.id.header_battery_status_watch);
+        BatteryState state = mDevice.getBatteryState();
 
-        batteryIconCase.setAlpha(batteryCase == -1 ? 0.3f : 0.6f);
-        batteryIconLeft.setAlpha(batteryLeft == -1 ? 0.3f : 0.6f);
-        batteryIconRight.setAlpha(batteryRight == -1 ? 0.3f : 0.6f);
+        batteryStatusLayout.setVisibility(View.GONE);
+        if (!statusStates.contains(state)) {
+            return;
+        }
+
+        TextView batteryStatus = findViewById(R.id.header_battery_status_watch_text);
+        batteryStatusLayout.setVisibility(View.VISIBLE);
+
+        switch (state) {
+            case BATTERY_LOW:
+                batteryStatus.setText("Battery low");
+                break;
+            case BATTERY_CHARGING:
+                batteryStatus.setText("Charging");
+                break;
+            case BATTERY_CHARGING_FULL:
+                batteryStatus.setText("Fully charged");
+                break;
+        }
+    }
+
+    private Drawable getBatteryDrawable(int battery) {
+        // We have 100, 80, 50, and 20% battery icons
+        int batteryIconResId = R.drawable.ic_battery_20;
+        if (battery >= 80) {
+            batteryIconResId = R.drawable.ic_battery_full;
+        } else if (battery >= 50) {
+            batteryIconResId = R.drawable.ic_battery_80;
+        } else if (battery >= 20) {
+            batteryIconResId = R.drawable.ic_battery_50;
+        }
+
+        return getResources().getDrawable(batteryIconResId);
     }
 
     private String getBatteryLevelString(int batteryLevel) {
@@ -85,17 +122,12 @@ public class DeviceHeaderBatteryWatch extends DeviceHeaderBatteryCommon {
         return batteryLevel + "%";
     }
 
-    private int getBatteryLevel(GBDevice device, int batteryIndex) {
-        if (device.getBatteryState(batteryIndex) == BatteryState.UNKNOWN ||
-                device.getBatteryState(batteryIndex) == BatteryState.NO_BATTERY) {
+    private int getBatteryLevel(GBDevice device) {
+        if (device.getBatteryState() == BatteryState.UNKNOWN ||
+                device.getBatteryState() == BatteryState.NO_BATTERY) {
             return -1;
         }
 
-        return device.getBatteryLevel(batteryIndex);
-    }
-
-    private boolean isBatteryCharging(GBDevice device, int batteryIndex) {
-        return device.getBatteryState(batteryIndex) == BatteryState.BATTERY_CHARGING ||
-                device.getBatteryState(batteryIndex) == BatteryState.BATTERY_CHARGING_FULL;
+        return device.getBatteryLevel();
     }
 }
