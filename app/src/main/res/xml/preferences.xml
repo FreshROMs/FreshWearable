@@ -214,58 +214,11 @@
         android:title="@string/activity_prefs_charts"
         app:iconSpaceReserved="false" />
 
-    <PreferenceScreen
+    <Preference
         android:icon="@drawable/ic_auto_awesome"
         android:key="pref_screen_automations"
         android:summary="@string/pref_description_automations"
-        android:title="@string/pref_header_automations">
-
-        <PreferenceCategory
-            android:title="@string/pref_header_auto_export"
-            app:iconSpaceReserved="false">
-            <Preference
-                android:key="auto_export_location"
-                android:summary="%s"
-                android:title="@string/pref_title_auto_export_location"
-                app:iconSpaceReserved="false" />
-            <SwitchPreferenceCompat
-                android:defaultValue="false"
-                android:key="auto_export_enabled"
-                android:layout="@layout/preference_checkbox"
-                android:title="@string/pref_title_auto_export_enabled"
-                app:iconSpaceReserved="false" />
-            <EditTextPreference
-                android:defaultValue="3"
-                android:dependency="auto_export_enabled"
-                android:inputType="number"
-                android:key="auto_export_interval"
-                android:maxLength="3"
-                android:summary="@string/pref_summary_auto_export_interval"
-                android:title="@string/pref_title_auto_export_interval"
-                app:iconSpaceReserved="false" />
-        </PreferenceCategory>
-
-        <PreferenceCategory
-            android:title="@string/pref_header_auto_fetch"
-            app:iconSpaceReserved="false">
-            <SwitchPreferenceCompat
-                android:defaultValue="false"
-                android:key="auto_fetch_enabled"
-                android:layout="@layout/preference_checkbox"
-                android:summary="@string/pref_auto_fetch_summary"
-                android:title="@string/pref_auto_fetch"
-                app:iconSpaceReserved="false" />
-            <EditTextPreference
-                android:defaultValue="0"
-                android:dependency="auto_fetch_enabled"
-                android:inputType="number"
-                android:key="auto_fetch_interval_limit"
-                android:maxLength="3"
-                android:summary="@string/pref_auto_fetch_limit_fetches_summary"
-                android:title="@string/pref_auto_fetch_limit_fetches"
-                app:iconSpaceReserved="false" />
-        </PreferenceCategory>
-    </PreferenceScreen>
+        android:title="@string/pref_header_automations"/>
 
     <PreferenceScreen
         android:icon="@drawable/ic_extension"

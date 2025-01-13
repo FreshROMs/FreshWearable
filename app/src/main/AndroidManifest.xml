@@ -182,6 +182,10 @@
             android:label="@string/activity_prefs_about_you"
             android:parentActivityName=".activities.AboutUserPreferencesActivity" />
         <activity
+            android:name=".activities.preferences.AutomationsPreferencesActivity"
+            android:label="@string/pref_header_automations"
+            android:parentActivityName=".activities.SettingsActivity" />
+        <activity
             android:name=".activities.charts.ChartsPreferencesActivity"
             android:label="@string/activity_prefs_charts"
             android:parentActivityName=".activities.charts.ChartsPreferencesActivity" />
