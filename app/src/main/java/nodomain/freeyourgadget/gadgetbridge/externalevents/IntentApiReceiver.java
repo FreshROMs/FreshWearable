@@ -102,8 +102,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
 
                 LOG.info("Triggering export");
 
-                final Intent exportIntent = new Intent(context, PeriodicExporter.class);
-                context.sendBroadcast(exportIntent);
+                PeriodicExporter.trigger();
                 break;
 
             case COMMAND_DEBUG_SEND_NOTIFICATION:
