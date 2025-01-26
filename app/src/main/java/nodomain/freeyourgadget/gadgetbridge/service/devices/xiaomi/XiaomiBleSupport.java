@@ -69,9 +69,15 @@ public class XiaomiBleSupport extends XiaomiConnectionSupport {
             if (protocolV1.initializeDevice(builder)) {
                 bleProtocol = protocolV1;
             } else {
-                GB.toast(getContext(), "Failed to find a known Xiaomi BLE protocol", Toast.LENGTH_LONG, GB.ERROR);
-                LOG.warn("Failed to find a known Xiaomi BLE protocol");
-                builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.NOT_CONNECTED, getContext()));
+                final XiaomiBleProtocolV2 protocolV2 = new XiaomiBleProtocolV2(XiaomiBleSupport.this);
+                if (!protocolV2.initializeDevice(builder)) {
+                    GB.toast(getContext(), "Failed to find a known Xiaomi BLE protocol", Toast.LENGTH_LONG, GB.ERROR);
+                    LOG.warn("Failed to find a known Xiaomi BLE protocol");
+                    builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.NOT_CONNECTED, getContext()));
+                    return builder;
+                }
+
+                bleProtocol = protocolV2;
             }
 
             return builder;
