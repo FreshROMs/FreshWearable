@@ -130,6 +130,7 @@ public class XiaomiSppSupport extends XiaomiConnectionSupport {
     @Override
     public void dispose() {
         commsSupport.dispose();
+        mVersionResponseTimeoutHandler.removeCallbacksAndMessages(null);
     }
 
     protected XiaomiAuthService getAuthService() {
