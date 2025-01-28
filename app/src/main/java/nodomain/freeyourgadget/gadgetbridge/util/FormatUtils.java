@@ -20,8 +20,8 @@ package nodomain.freeyourgadget.gadgetbridge.util;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 
 public class FormatUtils {

@@ -16,7 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.util;
 
-import static xyz.tenseventyseven.fresh.wearable.WearableApplication.getContext;
+import static xyz.tenseventyseven.fresh.WearableApplication.getContext;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 
 public class SilentMode {

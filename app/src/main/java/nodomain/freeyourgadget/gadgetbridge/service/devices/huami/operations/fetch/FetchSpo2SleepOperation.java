@@ -23,7 +23,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.GregorianCalendar;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huami.HuamiSupport;
 
 /**

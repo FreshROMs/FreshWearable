@@ -27,8 +27,8 @@ import android.widget.TextView;
 import androidx.appcompat.widget.SeslProgressBar;
 
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
 
 public class DeviceHeader extends LinearLayout {
     private GBDevice mDevice;

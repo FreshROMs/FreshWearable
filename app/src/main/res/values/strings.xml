@@ -3563,10 +3563,16 @@
     <string name="permission_query_all_packages_summary">Reading names and icons of all installed apps</string>
 
     <string name="fresh_wearable_app_name">Fresh Wearable</string>
+    <string name="fresh_wearable_launcher_name">Fresh Wearable</string>
+    <string name="fresh_health_launcher_name">Fresh Health</string>
     <string name="device_battery_status_single">%d%%</string>
     <string name="device_buds_battery_status_single_bud">%d%% Case %d%%</string>
     <string name="device_buds_battery_status_combined">L • R %d%% Case %d%%</string>
     <string name="device_buds_battery_status_combined_no_case">L • R %d%%</string>
     <string name="device_buds_battery_status_separate">L %d%% R %d%% Case %d%%</string>
     <string name="device_buds_battery_status_separate_no_case">L %d%% R %d%%</string>
+    <string name="title_activity_health">HealthActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

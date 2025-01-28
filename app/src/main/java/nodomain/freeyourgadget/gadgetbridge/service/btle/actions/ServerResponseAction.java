@@ -23,7 +23,7 @@ import android.bluetooth.BluetoothGattServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.Logging;
+import xyz.tenseventyseven.fresh.Logging;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.BtLEServerAction;
 
 /**

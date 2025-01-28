@@ -27,8 +27,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.model.Contact;
 import nodomain.freeyourgadget.gadgetbridge.proto.xiaomi.XiaomiProto;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiSupport;

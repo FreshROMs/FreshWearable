@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsHandler;

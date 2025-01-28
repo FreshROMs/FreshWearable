@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
+    <dev.oneuiproject.oneui.widget.RoundedFrameLayout
         android:id="@+id/card_widget_screen"
-        android:layout_width="match_parent"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:background="@color/oui_background_color"
         android:foreground="?android:attr/selectableItemBackground"
         app:cardBackgroundColor="?attr/cardview_background_color"
         card_view:cardElevation="3dp"
@@ -47,6 +48,6 @@
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
         </RelativeLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </dev.oneuiproject.oneui.widget.RoundedFrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

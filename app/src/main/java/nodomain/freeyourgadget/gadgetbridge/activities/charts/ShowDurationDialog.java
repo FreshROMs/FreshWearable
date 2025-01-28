@@ -21,7 +21,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class ShowDurationDialog extends Dialog {
     private final String mDuration;

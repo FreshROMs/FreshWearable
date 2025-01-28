@@ -20,8 +20,8 @@ import androidx.annotation.NonNull;
 
 import java.util.Locale;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;

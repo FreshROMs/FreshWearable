@@ -32,8 +32,8 @@ import android.provider.ContactsContract;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.loyaltycards.LoyaltyCard;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCameraRemote;
 import nodomain.freeyourgadget.gadgetbridge.model.Alarm;

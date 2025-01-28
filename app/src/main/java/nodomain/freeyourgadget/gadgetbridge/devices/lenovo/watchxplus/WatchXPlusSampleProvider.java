@@ -28,7 +28,7 @@ import java.util.Random;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractSampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.WatchXPlusActivitySample;

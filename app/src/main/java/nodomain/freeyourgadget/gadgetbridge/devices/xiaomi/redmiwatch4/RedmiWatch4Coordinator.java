@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmiwatch4;
 
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiCoordinator;
 
 public class RedmiWatch4Coordinator extends XiaomiCoordinator {

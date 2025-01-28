@@ -46,14 +46,14 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public class ReminderDetails extends CommonActivityAbstract implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     private Reminder reminder;

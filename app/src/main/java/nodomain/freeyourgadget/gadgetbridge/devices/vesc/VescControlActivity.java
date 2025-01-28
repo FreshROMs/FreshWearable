@@ -32,9 +32,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.vesc.VescDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 

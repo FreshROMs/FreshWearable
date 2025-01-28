@@ -25,8 +25,8 @@ import android.widget.TextView;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.binary_sensor.BinarySensorSupport;
 
 public class DataActivity extends CommonActivityAbstract {

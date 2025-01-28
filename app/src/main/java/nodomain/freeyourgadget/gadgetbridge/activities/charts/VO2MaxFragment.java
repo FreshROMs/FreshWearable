@@ -33,10 +33,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.AbstractDashboardVO2MaxWidget;
-import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.GaugeDrawer;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.health.activities.dashboard.utils.AbstractDashboardVO2MaxWidget;
+import xyz.tenseventyseven.fresh.health.activities.dashboard.GaugeDrawer;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.TimeSampleProvider;

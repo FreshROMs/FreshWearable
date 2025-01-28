@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.RedmiBudsCapabilities;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.RedmiBudsCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class RedmiBuds6LiteCoordinator extends RedmiBudsCoordinator {
     @Override

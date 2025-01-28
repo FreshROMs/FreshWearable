@@ -24,7 +24,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 /**
  * A base activity that supports paging through fragments by swiping.

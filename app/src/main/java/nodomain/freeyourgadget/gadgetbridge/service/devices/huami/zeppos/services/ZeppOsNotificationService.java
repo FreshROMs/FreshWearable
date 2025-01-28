@@ -35,7 +35,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.function.Consumer;
 
-import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.BuildConfig;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCallControl;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventNotificationControl;

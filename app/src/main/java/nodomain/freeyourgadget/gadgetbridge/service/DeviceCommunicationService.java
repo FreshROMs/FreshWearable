@@ -58,9 +58,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.WearableException;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.loyaltycards.LoyaltyCard;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCameraRemote;

@@ -40,9 +40,9 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 
 public class CommuteActionsActivity extends CommonActivityAbstract implements CommuteActionsListAdapter.ItemClickListener, DialogInterface.OnClickListener, View.OnClickListener {

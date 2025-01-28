@@ -25,7 +25,7 @@ import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.Dev
 import android.content.SharedPreferences;
 import android.text.format.DateFormat;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

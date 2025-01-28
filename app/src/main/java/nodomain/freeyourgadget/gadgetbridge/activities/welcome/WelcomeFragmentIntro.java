@@ -36,8 +36,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
 public class WelcomeFragmentIntro extends Fragment {

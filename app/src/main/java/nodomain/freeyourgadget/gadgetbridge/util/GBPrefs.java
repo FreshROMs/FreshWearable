@@ -33,7 +33,7 @@ import java.text.ParseException;
 import java.time.LocalTime;
 import java.util.Date;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 

@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities.devicesettings;
 
 import androidx.annotation.XmlRes;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public enum DeviceSpecificSettingsScreen {
     ACTIVITY_INFO("pref_screen_activity_info", R.xml.devicesettings_root_activity_info),
@@ -41,7 +41,8 @@ public enum DeviceSpecificSettingsScreen {
     EARBUDS_SETTINGS("pref_screen_earbuds_settings", R.xml.devicesettings_root_earbuds_settings),
     WATCH_SETTINGS("pref_screen_watch_settings", R.xml.devicesettings_root_watch_settings),
     DEVICE_SPECIFIC_SETTINGS("pref_screen_device_specific_settings", R.xml.devicesettings_root_device_specific_settings),
-    ;
+    EARBUDS_ABOUT("pref_screen_earbuds_about", R.xml.devicesettings_root_earbuds_about),
+    WATCH_ABOUT("pref_screen_watch_about", R.xml.devicesettings_root_watch_about);
 
     private final String key;
     @XmlRes

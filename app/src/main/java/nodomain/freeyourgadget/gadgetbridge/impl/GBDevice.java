@@ -37,7 +37,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
@@ -58,6 +58,7 @@ public class GBDevice implements Parcelable {
             return new GBDevice[size];
         }
     };
+    public static final String EXTRA_ALIAS = "alias";
     private static final Logger LOG = LoggerFactory.getLogger(GBDevice.class);
     public static final short RSSI_UNKNOWN = 0;
     public static final short BATTERY_UNKNOWN = -1;

@@ -36,7 +36,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -62,6 +62,10 @@ public class DeviceManager {
      */
     public static final String ACTION_REFRESH_DEVICELIST
             = "nodomain.freeyourgadget.gadgetbridge.devices.devicemanager.action.set_version";
+
+    public static final String ACTION_CHANGE_DEVICE_ALIAS
+            = "nodomain.freeyourgadget.gadgetbridge.devices.devicemanager.action.change_device_alias";
+
     private final Context context;
     /**
      * This list is final, it will never be recreated. Only its contents change.
@@ -138,6 +142,18 @@ public class DeviceManager {
         }
     }
 
+    private void updateDeviceAlias(GBDevice device, String newAlias) {
+        for (GBDevice dev : deviceList) {
+            if (device.getAddress().equals(dev.getAddress())) {
+                if (!dev.getAlias().equals(newAlias)) {
+                    dev.setAlias(newAlias);
+                    notifyDevicesChanged();
+                    return;
+                }
+            }
+        }
+    }
+
     private void updateSelectedDevice(GBDevice dev) {
         selectedDevices.clear();
         for(GBDevice device : deviceList){
@@ -145,6 +161,15 @@ public class DeviceManager {
                 selectedDevices.add(device);
             }
         }
+
+        // Replace instance of device with new dev
+        for (int i = 0; i < selectedDevices.size(); i++) {
+            if (selectedDevices.get(i).getAddress().equals(dev.getAddress())) {
+                selectedDevices.set(i, dev);
+                break;
+            }
+        }
+
         GB.updateNotification(selectedDevices, context);
     }
 

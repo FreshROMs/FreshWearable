@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activities.DashboardActivity">
+    tools:context=".wearable.activities.DashboardActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbarlayout"
@@ -42,6 +42,6 @@
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/health_main_bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

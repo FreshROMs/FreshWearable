@@ -36,7 +36,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminPreferences;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiConst;

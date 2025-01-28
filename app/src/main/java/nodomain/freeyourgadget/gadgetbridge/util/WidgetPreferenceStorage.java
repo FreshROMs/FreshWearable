@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public class WidgetPreferenceStorage {

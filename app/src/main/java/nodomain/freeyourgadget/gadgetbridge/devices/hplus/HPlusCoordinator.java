@@ -33,9 +33,9 @@ import java.util.regex.Pattern;
 import androidx.annotation.NonNull;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.WearableException;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractBLEDeviceCoordinator;
@@ -50,7 +50,7 @@ import nodomain.freeyourgadget.gadgetbridge.service.DeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.hplus.HPlusSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
-import static xyz.tenseventyseven.fresh.wearable.WearableApplication.getContext;
+import static xyz.tenseventyseven.fresh.WearableApplication.getContext;
 
 public class HPlusCoordinator extends AbstractBLEDeviceCoordinator {
     protected static final Logger LOG = LoggerFactory.getLogger(HPlusCoordinator.class);

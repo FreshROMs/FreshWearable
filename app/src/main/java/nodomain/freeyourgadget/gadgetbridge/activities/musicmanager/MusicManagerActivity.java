@@ -43,9 +43,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.MusicListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

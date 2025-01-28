@@ -33,7 +33,7 @@ import androidx.preference.Preference;
 import java.util.Collections;
 import java.util.Set;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

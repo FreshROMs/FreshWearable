@@ -31,14 +31,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Contact;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public class ContactDetails extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ContactDetails.class);

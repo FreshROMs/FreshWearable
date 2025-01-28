@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.oppo;
 
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class OppoEncoAir2Coordinator extends OppoEncoAirCoordinator {
     @Override

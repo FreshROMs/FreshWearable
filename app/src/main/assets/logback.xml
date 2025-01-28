@@ -14,6 +14,6 @@
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT" />
-        <!-- The FILE appender is added programmatically by xyz.tenseventyseven.fresh.wearable.Logging -->
+        <!-- The FILE appender is added programmatically by xyz.tenseventyseven.fresh.Logging -->
     </root>
 </configuration>

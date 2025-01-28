@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 
 import org.junit.Test;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.RtlUtils;
 

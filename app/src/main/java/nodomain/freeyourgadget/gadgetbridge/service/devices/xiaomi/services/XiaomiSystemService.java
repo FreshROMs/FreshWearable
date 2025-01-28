@@ -36,8 +36,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsUtils;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.password.PasswordCapabilityImpl;
@@ -891,6 +891,9 @@ public class XiaomiSystemService extends AbstractXiaomiService implements Xiaomi
                         .setSystem(XiaomiProto.System.newBuilder().setWidgetScreens(widgetScreens))
                         .build()
         );
+
+
+        getSupport().sendCommand("get widgets", COMMAND_TYPE, CMD_WIDGET_SCREENS_GET);
     }
 
     public void onFindPhone(final boolean start) {

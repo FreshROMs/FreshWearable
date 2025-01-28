@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
@@ -423,7 +423,7 @@ public abstract class ZeppOsCoordinator extends HuamiCoordinator {
         //
         // Health
         //
-        deviceSpecificSettings.addRootScreen(R.xml.devicesettings_heartrate_sleep_alert_activity_stress_spo2);
+        deviceSpecificSettings.addRootScreen(R.xml.devicesettings_heartrate_sleep_alerts);
         deviceSpecificSettings.addRootScreen(R.xml.devicesettings_inactivity_dnd_no_threshold);
         deviceSpecificSettings.addRootScreen(R.xml.devicesettings_goal_notification);
 

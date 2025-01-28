@@ -29,9 +29,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.health.activities.dashboard.HomeFragment;
 
 public class DashboardPreferencesActivity extends AbstractSettingsActivityV2 {
     @Override
@@ -97,7 +98,7 @@ public class DashboardPreferencesActivity extends AbstractSettingsActivityV2 {
          */
         private void sendDashboardConfigChangedIntent() {
             Intent intent = new Intent();
-            intent.setAction(DashboardFragment.ACTION_CONFIG_CHANGE);
+            intent.setAction(HomeFragment.ACTION_CONFIG_CHANGE);
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent);
         }
     }

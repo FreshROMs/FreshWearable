@@ -39,14 +39,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetLayout;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetManager;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetPart;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetScreen;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetType;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.wearable.activities.WidgetSettingsActivity;
 
 public class WidgetScreensListActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(WidgetScreensListActivity.class);
@@ -150,9 +151,8 @@ public class WidgetScreensListActivity extends CommonActivityAbstract {
     }
 
     public void configureWidgetScreen(final WidgetScreen widgetScreen) {
-        final Intent startIntent = new Intent(getApplicationContext(), WidgetScreenDetailsActivity.class);
+        final Intent startIntent = new Intent(getApplicationContext(), WidgetSettingsActivity.class);
         startIntent.putExtra(GBDevice.EXTRA_DEVICE, gbDevice);
-        startIntent.putExtra(WidgetScreen.EXTRA_WIDGET_SCREEN, widgetScreen);
         configureWidgetScreenLauncher.launch(startIntent);
     }
 

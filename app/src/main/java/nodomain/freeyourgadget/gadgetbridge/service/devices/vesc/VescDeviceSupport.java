@@ -34,7 +34,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.vesc.VescCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

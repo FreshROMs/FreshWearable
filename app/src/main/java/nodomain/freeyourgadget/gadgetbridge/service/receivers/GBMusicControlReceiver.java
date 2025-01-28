@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventMusicControl;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.NotificationListener;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;

@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.casio.CasioConstants;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.AbstractBTLEOperation;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder;

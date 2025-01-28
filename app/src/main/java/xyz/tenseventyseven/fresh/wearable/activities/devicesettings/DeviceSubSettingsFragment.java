@@ -51,7 +51,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.GBSimpleSummaryProvider;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.MinMaxTextWatcher;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.PreferenceCategoryMultiline;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.activities.DeviceSubSettingsActivity;
 import xyz.tenseventyseven.fresh.wearable.models.DeviceSpecificSettings;
 import xyz.tenseventyseven.fresh.wearable.models.Screen;

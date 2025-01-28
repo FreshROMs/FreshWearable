@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.sony.wena3.protocol
 
 import android.content.Context;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.model.AbstractNotificationPattern;
 
 public enum VibrationKind implements AbstractNotificationPattern {

@@ -21,9 +21,9 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.activities.onboarding.PermissionsFragment;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public class PermissionsActivity extends CommonActivityAbstract {
     @Override

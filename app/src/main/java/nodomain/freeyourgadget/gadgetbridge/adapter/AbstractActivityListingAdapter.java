@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 /**
  * Adapter for displaying generic ItemWithDetails instances.

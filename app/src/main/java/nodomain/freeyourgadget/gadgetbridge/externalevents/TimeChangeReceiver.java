@@ -34,8 +34,8 @@ import java.time.zone.ZoneRules;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import xyz.tenseventyseven.fresh.wearable.BuildConfig;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;

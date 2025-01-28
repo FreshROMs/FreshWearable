@@ -1,0 +1,52 @@
+<dev.oneuiproject.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/widget_screen_details_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:showNavButtonAsBack="true"
+    app:expanded="false"
+    app:expandable="false"
+    app:title="Widget settings">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/widget_screen_details_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/widget_screen_details_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="24.0dip"
+                app:ci_width="5dp"
+                app:ci_height="5dp"
+                app:ci_margin="5dp"
+                app:ci_orientation="horizontal"
+                app:ci_gravity="center"
+                app:ci_drawable="@drawable/widget_pager_selected"
+                app:ci_drawable_unselected="@drawable/widget_pager_unselected" />
+
+            <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+                android:background="@color/oui_background_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2">
+                <ListView
+                    android:id="@+id/widget_screen_details_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</dev.oneuiproject.oneui.layout.ToolbarLayout>

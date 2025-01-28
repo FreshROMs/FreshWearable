@@ -52,8 +52,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import dev.oneuiproject.oneui.layout.ToolbarLayout;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBFragmentActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
@@ -182,11 +183,8 @@ public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity 
         }
 
         if (actionbarTitle != 0) {
-            final ActionBar actionBar = getSupportActionBar();
-
-            if (actionBar != null) {
-                actionBar.setTitle(actionbarTitle);
-            }
+            ToolbarLayout toolbar = findViewById(R.id.activity_toolbar_layout);
+            toolbar.setTitle(getString(actionbarTitle));
         }
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.fo
 
 import java.io.Serializable;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class CustomWidgetElement implements Serializable {
     public enum WidgetElementType {

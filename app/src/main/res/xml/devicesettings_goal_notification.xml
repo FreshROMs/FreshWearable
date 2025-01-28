@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <SwitchPreferenceCompat
-        android:defaultValue="false"
-        android:icon="@drawable/ic_star_gray"
-        android:key="fitness_goal_notification"
-        android:layout="@layout/preference_checkbox"
-        android:summary="@string/mi2_prefs_goal_notification_summary"
-        android:title="@string/mi2_prefs_goal_notification" />
+    <PreferenceScreen
+        android:key="prefs_xiaomi_goal_notification"
+        android:persistent="false"
+        android:icon="@drawable/ic_settings_goal_notification"
+        android:summary="Daily goals • Progress updates"
+        android:title="@string/mi2_prefs_goal_notification">
+        <dev.oneuiproject.oneui.preference.SwitchBarPreference
+            android:defaultValue="false"
+            android:key="fitness_goal_notification" />
+    </PreferenceScreen>
 </androidx.preference.PreferenceScreen>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen
+        android:icon="@drawable/ic_settings_blood_oxygen_monitoring"
+        android:key="pref_screen_blood_oxygen_monitoring"
+        android:persistent="false"
+        android:summary="Monitoring • Low Blood Oxygen reminders"
+        android:title="Blood oxygen monitoring">
+
+        <dev.oneuiproject.oneui.preference.SwitchBarPreference
+            android:defaultValue="false"
+            android:key="spo2_all_day_monitoring_enabled" />
+
+        <PreferenceCategory>
+            <DropDownPreference
+                android:defaultValue="0"
+                android:dependency="spo2_all_day_monitoring_enabled"
+                android:entries="@array/prefs_spo2_alert_threshold"
+                android:entryValues="@array/prefs_spo2_alert_threshold_values"
+                android:key="spo2_low_alert_threshold"
+                android:summary="%s"
+                android:title="@string/prefs_spo2_alert_threshold" />
+        </PreferenceCategory>
+    </PreferenceScreen>
+</androidx.preference.PreferenceScreen>

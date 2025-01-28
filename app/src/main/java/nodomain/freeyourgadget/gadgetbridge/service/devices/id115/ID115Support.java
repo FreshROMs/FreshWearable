@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.id115.ID115Constants;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

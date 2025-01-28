@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
 import nodomain.freeyourgadget.gadgetbridge.export.ActivityTrackExporter;
 import nodomain.freeyourgadget.gadgetbridge.export.GPXExporter;

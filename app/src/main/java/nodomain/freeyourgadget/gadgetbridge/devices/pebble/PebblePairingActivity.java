@@ -38,9 +38,9 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import de.greenrobot.dao.query.Query;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
 import xyz.tenseventyseven.fresh.wearable.activities.DiscoveryActivity;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;

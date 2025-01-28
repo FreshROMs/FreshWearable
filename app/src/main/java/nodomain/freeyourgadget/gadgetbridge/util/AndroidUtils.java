@@ -54,8 +54,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Locale;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 
 public class AndroidUtils {
     private static final Logger LOG = LoggerFactory.getLogger(AndroidUtils.class);

@@ -23,6 +23,7 @@ import android.bluetooth.le.ScanFilter;
 import android.content.Context;
 import android.net.Uri;
 import android.os.ParcelUuid;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,9 +37,9 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.WearableException;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
@@ -103,6 +104,7 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     @Override
     public InstallHandler findInstallHandler(final Uri uri, final Context context) {
         final XiaomiInstallHandler handler = new XiaomiInstallHandler(uri, context);
+        Log.d("XiaomiCoordinator", "findInstallHandler: " + handler.isValid());
         return handler.isValid() ? handler : null;
     }
 
@@ -398,120 +400,151 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
 
     @Override
     public DeviceSpecificSettings getDeviceSpecificSettings(final GBDevice device) {
-        final DeviceSpecificSettings deviceSpecificSettings = new DeviceSpecificSettings();
+        final DeviceSpecificSettings settings = new DeviceSpecificSettings();
 
-        if (supports(device, FEAT_WEAR_MODE)) {
-            // TODO we should be able to get this from the band - right now it must be changed
-            // at least once from the band itself
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_wearmode);
-        }
+        // Quick Access
+        settings.addRootScreen(R.xml.devicesettings_xiaomi_quick_access);
+        settings.addRootScreen(R.xml.devicesettings_header_apps);
 
-        //
-        // Time
-        //
-        final List<Integer> dateTime = deviceSpecificSettings.addRootScreen(DeviceSpecificSettingsScreen.DATE_TIME);
-        dateTime.add(R.xml.devicesettings_timeformat);
-        if (getWorldClocksSlotCount() > 0) {
-            dateTime.add(R.xml.devicesettings_world_clocks);
-        }
-
-        //
-        // Display
-        //
-        final List<Integer> display = deviceSpecificSettings.addRootScreen(DeviceSpecificSettingsScreen.DISPLAY);
+        // "Apps"
         if (supports(device, FEAT_DISPLAY_ITEMS)) {
-            display.add(R.xml.devicesettings_xiaomi_displayitems);
-        }
-        if (this.supportsWidgets(device)) {
-            display.add(R.xml.devicesettings_widgets);
-        }
-        if (supports(device, FEAT_PASSWORD)) {
-            display.add(R.xml.devicesettings_password);
+            settings.addRootScreen(R.xml.devicesettings_xiaomi_apps);
         }
 
-        //
-        // Health
-        //
-        if (supportsStressMeasurement() && supports(device, FEAT_STRESS) && supportsSpo2(device) && supports(device, FEAT_SPO2)) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_heartrate_sleep_alert_activity_stress_spo2);
-        } else if (supportsStressMeasurement() && supports(device, FEAT_STRESS)) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_heartrate_sleep_alert_activity_stress);
-        } else {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_heartrate_sleep_activity);
-        }
-        if (supports(device, FEAT_INACTIVITY)) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_inactivity_dnd_no_threshold);
-        }
-        if (supports(device, FEAT_SLEEP_MODE_SCHEDULE)) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_sleep_mode_schedule);
-        }
-        if (supports(device, FEAT_GOAL_NOTIFICATION)) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_goal_notification);
-        }
-        if (supports(device, FEAT_GOAL_SECONDARY)) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_goal_secondary);
-        }
-        if (supports(device, FEAT_VITALITY_SCORE)) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_vitality_score);
-        }
+        settings.addRootScreen(DeviceSpecificSettingsScreen.WATCH_SETTINGS);
+        String parent = DeviceSpecificSettingsScreen.WATCH_SETTINGS.getKey();
 
-        //
-        // Workout
-        //
-        final List<Integer> workout = deviceSpecificSettings.addRootScreen(DeviceSpecificSettingsScreen.WORKOUT);
-        workout.add(R.xml.devicesettings_workout_start_on_phone);
-        workout.add(R.xml.devicesettings_workout_send_gps_to_band);
-
-        //
         // Notifications
-        //
-        final List<Integer> notifications = deviceSpecificSettings.addRootScreen(DeviceSpecificSettingsScreen.NOTIFICATIONS);
+        settings.addSubScreen(
+                DeviceSpecificSettingsScreen.WATCH_SETTINGS,
+                DeviceSpecificSettingsScreen.NOTIFICATIONS.getXml()
+        );
+        DeviceSpecificSettingsScreen notifications = DeviceSpecificSettingsScreen.NOTIFICATIONS;
+
         // TODO not implemented settings.add(R.xml.devicesettings_vibrationpatterns);
         // TODO not implemented settings.add(R.xml.devicesettings_donotdisturb_withauto_and_always);
-        notifications.add(R.xml.devicesettings_send_app_notifications);
+        settings.addSubScreen(parent, notifications, R.xml.devicesettings_send_app_notifications);
+        settings.addSubScreen(parent, notifications, R.xml.devicesettings_header_sound_vibration);
         if (supports(device, FEAT_SCREEN_ON_ON_NOTIFICATIONS)) {
-            notifications.add(R.xml.devicesettings_screen_on_on_notifications);
+            settings.addSubScreen(parent, notifications, R.xml.devicesettings_screen_on_on_notifications);
         }
-        notifications.add(R.xml.devicesettings_autoremove_notifications);
+        settings.addSubScreen(parent, notifications, R.xml.devicesettings_autoremove_notifications);
         if (getCannedRepliesSlotCount(device) > 0) {
-            notifications.add(R.xml.devicesettings_canned_dismisscall_16);
+            settings.addSubScreen(parent, notifications, R.xml.devicesettings_canned_dismisscall_16);
         }
-        notifications.add(R.xml.devicesettings_transliteration);
+        settings.addSubScreen(parent, notifications, R.xml.devicesettings_transliteration);
 
-        //
+        // Contacts
+        if (getContactsSlotCount(device) > 0) {
+            settings.addSubScreen(parent, R.xml.devicesettings_contacts);
+        }
+
         // Calendar
-        //
         if (supportsCalendarEvents()) {
-            deviceSpecificSettings.addRootScreen(
+            settings.addSubScreen(
+                    parent,
                     DeviceSpecificSettingsScreen.CALENDAR,
-                    R.xml.devicesettings_header_calendar,
                     R.xml.devicesettings_sync_calendar
             );
         }
 
-        //
-        // Other
-        //
-        if (getContactsSlotCount(device) > 0) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_contacts);
-        }
-        if (supports(device, FEAT_CAMERA_REMOTE)) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_camera_remote);
-        }
-        if (supports(device, FEAT_DEVICE_ACTIONS)) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_device_actions);
-        }
-        deviceSpecificSettings.addRootScreen(R.xml.devicesettings_phone_silent_mode);
+        // Health
+        settings.addSubScreen(parent, R.xml.devicesettings_header_health);
 
-        //
+        settings.addSubScreen(parent, R.xml.devicesettings_heartrate_sleep_alerts);
+        if (supportsStressMeasurement() && supports(device, FEAT_STRESS)) {
+            settings.addSubScreen(parent, R.xml.devicesettings_stress_monitoring);
+        }
+
+        if (supportsSpo2(device) && supports(device, FEAT_SPO2)) {
+            settings.addSubScreen(parent, R.xml.devicesettings_spo_monitoring);
+        }
+
+        if (supports(device, FEAT_INACTIVITY)) {
+            settings.addSubScreen(parent, R.xml.devicesettings_inactivity_dnd_no_threshold);
+        }
+
+        if (supports(device, FEAT_SLEEP_MODE_SCHEDULE)) {
+            settings.addSubScreen(parent, R.xml.devicesettings_sleep_mode_schedule);
+        }
+
+        if (device.getDeviceCoordinator().supportsPai()) {
+            settings.addSubScreen(parent, R.xml.devicesettings_vitality_score);
+        }
+
+        // Workout
+        DeviceSpecificSettingsScreen workout = DeviceSpecificSettingsScreen.WORKOUT;
+        settings.addSubScreen(parent, workout);
+        settings.addSubScreen(
+                parent,
+                workout,
+                R.xml.devicesettings_workout_start_on_phone
+        );
+        settings.addSubScreen(
+                parent,
+                workout,
+                R.xml.devicesettings_workout_send_gps_to_band
+        );
+
+        if (supports(device, FEAT_GOAL_SECONDARY)) {
+            settings.addSubScreen(parent, R.xml.devicesettings_goal_secondary);
+        } else if (supports(device, FEAT_GOAL_NOTIFICATION)) {
+            settings.addSubScreen(parent, R.xml.devicesettings_goal_notification);
+        }
+
+        settings.addSubScreen(parent, R.xml.devicesettings_header_system);
+        if (supports(device, FEAT_WEAR_MODE)) {
+            // TODO we should be able to get this from the band - right now it must be changed
+            // at least once from the band itself
+            settings.addSubScreen(parent, R.xml.devicesettings_wearmode);
+        }
+
+        // Camera Remote
+        if (supports(device, FEAT_CAMERA_REMOTE)) {
+            settings.addSubScreen(parent, R.xml.devicesettings_camera_remote);
+        }
+
+        // Device Actions
+        if (supports(device, FEAT_DEVICE_ACTIONS)) {
+            settings.addSubScreen(parent, R.xml.devicesettings_device_actions);
+        }
+
+        // DND Mode
+        // settings.addSubScreen(parent, R.xml.devicesettings_phone_silent_mode);
+
+        // Time
+        DeviceSpecificSettingsScreen dateTime = DeviceSpecificSettingsScreen.DATE_TIME;
+        settings.addSubScreen(parent, dateTime);
+        settings.addSubScreen(
+                parent,
+                dateTime,
+                R.xml.devicesettings_timeformat
+        );
+
+        // For devices that support world clocks
+        if (getWorldClocksSlotCount() > 0) {
+            settings.addSubScreen(
+                    parent,
+                    dateTime,
+                    R.xml.devicesettings_world_clocks
+            );
+        }
+
+        // Password
+        if (supports(device, FEAT_PASSWORD)) {
+            settings.addSubScreen(parent, R.xml.devicesettings_password);
+        }
+
+        settings.addSubScreen(parent, R.xml.devicesettings_header_developer);
+
         // Developer
-        //
-        deviceSpecificSettings.addRootScreen(
+        settings.addSubScreen(
+                parent,
                 DeviceSpecificSettingsScreen.DEVELOPER,
                 R.xml.devicesettings_keep_activity_data_on_device
         );
 
-        return deviceSpecificSettings;
+        return settings;
     }
 
     @Override
@@ -604,5 +637,10 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
      */
     public boolean supportsAlarms() {
         return true;
+    }
+
+    @Override
+    public GeneralDeviceType getGeneralDeviceType() {
+        return GeneralDeviceType.WATCH;
     }
 }

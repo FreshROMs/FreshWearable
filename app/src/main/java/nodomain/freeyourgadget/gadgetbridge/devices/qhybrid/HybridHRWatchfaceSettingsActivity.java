@@ -28,7 +28,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractSettingsActivityV2;
 

@@ -60,8 +60,8 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.CalBlacklistActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureContacts;

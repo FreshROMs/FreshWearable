@@ -32,7 +32,7 @@ import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpec
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.activities.DeviceSubSettingsActivity;
 import xyz.tenseventyseven.fresh.wearable.models.DeviceSpecificSettings;
 

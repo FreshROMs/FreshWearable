@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".health.activities.dashboard.HomeFragment">
+
+    <!-- Rounded Frame Layout -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/health_activity_main_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sesl_bottom_navigation_bar_bg"
+        android:paddingBottom="1.0dip"
+        app:itemPaddingBottom="4.0dip"
+        app:itemPaddingTop="4.0dip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/health_main_bottom_nav_menu" />
+
+    <dev.oneuiproject.oneui.layout.ToolbarLayout
+        android:id="@+id/health_main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/oui_round_and_bgcolor"
+        app:title="Fresh Health"
+        app:expanded="false"
+        app:layout_constraintBottom_toTopOf="@id/health_activity_main_view"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <dev.oneuiproject.oneui.widget.RoundFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/oui_round_and_bgcolor"
+            android:layout_marginBottom="3.0dip">
+
+            <!-- Nav Host Fragment -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/health_activity_main_nav_host_fragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </dev.oneuiproject.oneui.widget.RoundFrameLayout>
+    </dev.oneuiproject.oneui.layout.ToolbarLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

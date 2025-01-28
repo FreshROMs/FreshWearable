@@ -19,10 +19,10 @@ package nodomain.freeyourgadget.gadgetbridge.activities;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
-import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.BuildConfig;
 
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public class AboutActivity extends CommonActivityAbstract {
 

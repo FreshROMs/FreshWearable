@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class ColmiR02Coordinator extends AbstractColmiR0xCoordinator {
     private static final Logger LOG = LoggerFactory.getLogger(ColmiR02Coordinator.class);

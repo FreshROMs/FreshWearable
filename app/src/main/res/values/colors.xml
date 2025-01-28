@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="main_info_card_background">#fcfcff</color>
+    <color name="app_ripple_effect">@color/sesl_ripple_color_light</color>
+
+    <color name="sesl_bottom_navigation_bar_bg">@color/sesl_round_and_bgcolor_light</color>
+
     <color name="primary_light" type="color">#ff3d00</color>
     <color name="primarydark_light" type="color">#dd2c00</color>
 

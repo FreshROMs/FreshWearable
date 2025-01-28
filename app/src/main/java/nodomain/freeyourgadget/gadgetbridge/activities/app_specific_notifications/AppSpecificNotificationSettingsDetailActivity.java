@@ -24,8 +24,8 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppSpecificNotificationSettingsAppListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.AppSpecificNotificationSettingsRepository;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;

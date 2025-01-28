@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
 
 public class ActivitySummarySimpleEntry extends ActivitySummaryEntry {

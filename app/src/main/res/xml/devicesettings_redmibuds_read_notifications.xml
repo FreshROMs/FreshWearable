@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceScreen
         android:layout="@layout/preference_checkbox"
-        android:icon="@drawable/ic_settings_buds_notifications"
+        android:icon="@drawable/ic_settings_notifications"
         android:key="pref_speak_notifications"
         android:title="Read notifications aloud">
         <dev.oneuiproject.oneui.preference.SwitchBarPreference

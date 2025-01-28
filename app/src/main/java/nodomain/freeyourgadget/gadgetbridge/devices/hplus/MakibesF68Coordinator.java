@@ -24,7 +24,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.hplus;
 
 import androidx.annotation.NonNull;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceCandidate;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 

@@ -2,7 +2,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.forerunner;
 
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminCoordinator;
 
 public class GarminForerunner235Coordinator extends GarminCoordinator {

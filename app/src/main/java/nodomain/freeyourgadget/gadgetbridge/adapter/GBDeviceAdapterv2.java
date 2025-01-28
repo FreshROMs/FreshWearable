@@ -98,8 +98,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummariesActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.BatteryInfoActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms;

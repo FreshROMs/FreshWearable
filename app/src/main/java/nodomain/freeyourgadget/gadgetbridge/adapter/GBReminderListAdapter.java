@@ -36,7 +36,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureReminders;
 import nodomain.freeyourgadget.gadgetbridge.entities.Reminder;
 

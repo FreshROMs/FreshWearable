@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activities.OnboardingActivity">
+    tools:context=".wearable.activities.OnboardingActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/welcome_viewpager"

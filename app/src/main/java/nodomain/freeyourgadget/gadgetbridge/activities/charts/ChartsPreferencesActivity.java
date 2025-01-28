@@ -23,7 +23,7 @@ import android.text.InputType;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AboutUserPreferencesActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractSettingsActivityV2;

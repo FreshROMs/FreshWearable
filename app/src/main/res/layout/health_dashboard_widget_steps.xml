@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="24.0dip"
+    android:paddingVertical="18.0dip"
+    android:background="@drawable/sesl_btn_no_background"
+    android:focusable="true"
+    android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:gravity="top"
+        android:layout_weight="3">
+        <TextView
+            android:id="@+id/gauge_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stats_empty_value"
+            android:textSize="36sp"
+            android:textColor="@color/oui_primary_text_color"
+            android:textFontWeight="700" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2.0dip"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16.0sp"
+                android:text="/" />
+            <TextView
+                android:id="@+id/gauge_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16.0sp"
+                android:layout_marginStart="4.0dip"
+                android:text="@string/no_data" />
+            <TextView
+                android:id="@+id/gauge_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4.0dip"
+                android:textSize="16.0sp"
+                android:text="@string/no_data" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/gauge_bar"
+        android:layout_width="150.0dp"
+        android:visibility="gone"
+        android:layout_height="74.0dip"
+        android:paddingStart="24.0dip"
+        android:paddingEnd="8.0dip"
+        android:gravity="center_vertical"
+        android:scaleType="fitStart" />
+
+    <ProgressBar
+        android:id="@+id/gauge_progress"
+        android:layout_width="0dp"
+        android:layout_height="64.0dip"
+        android:layout_weight="2"
+        style="@style/Theme.Fresh.Health.Widget.Progress" />
+</LinearLayout>

@@ -2,7 +2,6 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <SwitchPreferenceCompat
         android:defaultValue="true"
-        android:icon="@drawable/ic_notifications"
         android:key="screen_on_on_notifications"
         android:layout="@layout/preference_checkbox"
         android:summary="@string/pref_summary_screen_on_on_notifications"

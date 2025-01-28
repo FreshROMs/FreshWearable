@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCallControl;
 
 public class GBCallControlReceiver extends BroadcastReceiver {

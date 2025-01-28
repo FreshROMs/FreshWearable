@@ -96,8 +96,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FreshWearable"
         tools:replace="android:label">
-
-        <!-- Metadata for Samsung One UI -->
+        <activity
+            android:name=".wearable.activities.AboutDeviceActivity"
+            android:exported="false" /> <!-- Metadata for Samsung One UI -->
         <meta-data
             android:name="SamsungBasicInteraction"
             android:value="SEP10" />
@@ -106,9 +107,7 @@
             android:value="true" />
         <meta-data
             android:name="com.samsung.android.icon_container.feature_appicon"
-            android:value="ADAPTIVEICON_SHADOW" />
-
-        <!-- Samsung One UI Theming for Color Palette -->
+            android:value="ADAPTIVEICON_SHADOW" /> <!-- Samsung One UI Theming for Color Palette -->
         <meta-data
             android:name="theming-meta"
             android:value="meta_fresh_wearable" />
@@ -117,7 +116,7 @@
             android:value="@xml/meta_fresh_wearable" />
 
         <activity
-            android:name=".activities.OnboardingActivity"
+            android:name=".wearable.activities.OnboardingActivity"
             android:exported="false" />
 
         <receiver
@@ -140,31 +139,40 @@
         </receiver>
 
         <activity
-            android:name=".activities.DashboardActivity"
+            android:name=".health.activities.DashboardActivity"
             android:exported="true"
-            android:label="@string/fresh_wearable_app_name"
-            android:launchMode="singleTop"
-            android:theme="@style/SplashTheme">
+            android:icon="@mipmap/ic_launcher_fresh_health"
+            android:label="@string/fresh_health_launcher_name"
+            android:launchMode="singleInstancePerTask">
             <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".wearable.activities.DashboardActivity"
+            android:exported="true"
+            android:label="@string/fresh_wearable_launcher_name"
+            android:launchMode="singleInstancePerTask"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeActivity"
             android:label="@string/first_start_welcome_title"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.PermissionsActivity"
             android:label="@string/first_start_permissions_title"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.DashboardPreferencesActivity"
             android:label="@string/dashboard_settings"
@@ -190,26 +198,26 @@
             android:label="@string/activity_db_management_backup_restore_label"
             android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.DataManagementActivity" />
         <activity
-            android:name=".activities.discovery.DiscoveryPairingPreferenceActivity"
+            android:name=".wearable.activities.discovery.DiscoveryPairingPreferenceActivity"
             android:label="@string/activity_prefs_discovery_pairing"
             android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.loyaltycards.LoyaltyCardsSettingsActivity"
             android:label="@string/loyalty_cards"
-            android:parentActivityName="xyz.tenseventyseven.fresh.wearable.activities.DeviceSubSettingsActivity" />
+            android:parentActivityName=".wearable.activities.DeviceSubSettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminRealtimeSettingsActivity"
             android:label="@string/loading"
-            android:parentActivityName="xyz.tenseventyseven.fresh.wearable.activities.DeviceSubSettingsActivity" />
+            android:parentActivityName=".wearable.activities.DeviceSubSettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummariesActivity"
             android:label="@string/activity_summaries"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity"
             android:label="@string/title_activity_appmanager"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.musicmanager.MusicManagerActivity"
             android:label="@string/title_activity_musicmanager"
@@ -225,16 +233,16 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.vesc.VescControlActivity"
             android:label="@string/devicetype_vesc"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.idasen.IdasenControlActivity"
             android:label="@string/devicetype_idasen"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity"
             android:exported="true"
             android:label="@string/title_activity_fw_app_insaller"
-            android:parentActivityName=".activities.DashboardActivity">
+            android:parentActivityName=".wearable.activities.DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -424,7 +432,7 @@
             </intent-filter>
 
             <!-- to receive the firmwares from the download content provider -->
-            <intent-filter>
+            <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -433,7 +441,7 @@
             </intent-filter>
 
             <!-- to receive firmwares from the download content provider if recognized as zip -->
-            <intent-filter>
+            <intent-filter tools:ignore="AppLinkUrlError">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -455,7 +463,7 @@
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.app_specific_notifications.AppSpecificNotificationSettingsActivity"
             android:exported="false"
             android:label="@string/prefs_wena3_notification_per_app_settings_title"
-            android:parentActivityName="xyz.tenseventyseven.fresh.wearable.activities.DeviceSubSettingsActivity">
+            android:parentActivityName=".wearable.activities.DeviceSubSettingsActivity">
             <intent-filter>
                 <action android:name=".SonyWena3PerAppNotificationSettingsActivity" />
 
@@ -576,23 +584,23 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.DebugActivity"
             android:label="@string/title_activity_debug"
-            android:parentActivityName=".activities.DashboardActivity"
+            android:parentActivityName=".wearable.activities.DashboardActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.AboutActivity"
             android:label="@string/about_activity_title"
-            android:parentActivityName=".activities.DashboardActivity"
+            android:parentActivityName=".wearable.activities.DashboardActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.OpenFwAppInstallerActivity"
             android:label="@string/open_fw_installer_info_text_title"
-            android:parentActivityName=".activities.DashboardActivity"
+            android:parentActivityName=".wearable.activities.DashboardActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.BatteryInfoActivity"
             android:label="@string/battery_detail_activity_title"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummaryDetail"
             android:label="@string/activity_summary_detail"
@@ -606,17 +614,17 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.DataManagementActivity"
             android:label="@string/title_activity_db_management"
-            android:parentActivityName=".activities.DashboardActivity"
+            android:parentActivityName=".wearable.activities.DashboardActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.NotificationManagementActivity"
             android:label="@string/title_activity_notification_management"
-            android:parentActivityName=".activities.DashboardActivity"
+            android:parentActivityName=".wearable.activities.DashboardActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
-            android:name=".activities.DiscoveryActivity"
+            android:name=".wearable.activities.DiscoveryActivity"
             android:label="@string/title_activity_discovery"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.AndroidPairingActivity"
             android:label="@string/title_activity_android_pairing" />
@@ -625,7 +633,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|layoutDirection|uiMode"
             android:label="@string/title_activity_appmanager"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandPairingActivity"
             android:label="@string/title_activity_mi_band_pairing" />
@@ -647,38 +655,39 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.charts.ActivityChartsActivity"
             android:label="@string/title_activity_charts"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms"
             android:label="@string/title_activity_set_alarm"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureReminders"
             android:label="@string/title_activity_set_reminders"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureContacts"
             android:label="@string/title_activity_set_contacts"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreensListActivity"
             android:label="@string/menuitem_widgets"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureWorldClocks"
             android:label="@string/pref_world_clocks_title"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
-            android:name="xyz.tenseventyseven.fresh.wearable.activities.DeviceSubSettingsActivity"
+            android:name=".wearable.activities.DeviceSubSettingsActivity"
             android:label="@string/title_activity_device_specific_settings"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
-            android:name="xyz.tenseventyseven.fresh.wearable.activities.DeviceListActivity"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:name=".wearable.activities.DeviceListActivity"
+            android:exported="true"
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
-            android:name="xyz.tenseventyseven.fresh.wearable.activities.DeviceAuthSettingsActivity"
+            android:name=".wearable.activities.DeviceAuthSettingsActivity"
             android:label="@string/authenticating"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.AlarmDetails"
             android:label="@string/title_activity_alarm_details"
@@ -697,7 +706,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreenDetailsActivity"
+            android:name=".wearable.activities.WidgetSettingsActivity"
             android:label="@string/widget_screen"
             android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreensListActivity"
             android:screenOrientation="portrait"
@@ -711,7 +720,7 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.VibrationActivity"
             android:label="@string/title_activity_vibration"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.NotificationFilterActivity"
             android:label="@string/title_activity_notification_filter"
@@ -722,7 +731,7 @@
             android:label="Find Phone" />
 
         <provider
-            android:name="nodomain.freeyourgadget.gadgetbridge.contentprovider.PebbleContentProvider"
+            android:name=".providers.PebbleContentProvider"
             android:authorities="@string/pebble_content_provider"
             android:exported="true" />
         <provider
@@ -736,7 +745,7 @@
         </provider>
 
         <receiver
-            android:name=".SleepAlarmWidget"
+            android:name=".wearable.SleepAlarmWidget"
             android:exported="false"
             android:label="@string/appwidget_sleep_alarm_widget_label">
             <intent-filter>
@@ -749,7 +758,7 @@
                 android:resource="@xml/sleep_alarm_widget_info" />
         </receiver>
         <receiver
-            android:name=".Widget"
+            android:name=".wearable.Widget"
             android:exported="false"
             android:label="@string/widget_listing_label">
             <intent-filter>
@@ -793,7 +802,7 @@
             android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.DashboardActivity" />
+                android:value=".wearable.activities.DashboardActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -808,7 +817,7 @@
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridConfigActivity"
             android:exported="true"
             android:label="@string/qhybrid_title_watchface"
-            android:parentActivityName="xyz.tenseventyseven.fresh.wearable.activities.DeviceSubSettingsActivity" />
+            android:parentActivityName=".wearable.activities.DeviceSubSettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridAppChoserActivity"
             android:exported="true"
@@ -818,7 +827,7 @@
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity"
             android:exported="true"
             android:label="@string/qhybrid_title_watchface"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.WidgetSettingsActivity"
             android:label="@string/add_widget"
@@ -909,9 +918,9 @@
             android:exported="true"
             android:label="OpenTracks controller and intent receiver" />
         <activity
-            android:name="nodomain.freeyourgadget.gadgetbridge.activities.dashboard.DashboardCalendarActivity"
+            android:name=".health.activities.dashboard.widgets.DashboardCalendarActivity"
             android:label="@string/menuitem_calendar"
-            android:parentActivityName=".activities.DashboardActivity" />
+            android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.CameraActivity"
             android:exported="false"

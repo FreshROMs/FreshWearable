@@ -30,8 +30,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -40,7 +38,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.appbar.MaterialToolbar;
 
 import org.slf4j.Logger;
@@ -58,8 +55,10 @@ import dev.oneuiproject.oneui.widget.ScrollAwareFloatingActionButton;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.activities.PermissionsActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.common.ActivityCommon;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
@@ -316,10 +315,22 @@ public class DashboardActivity extends AppCompatActivity implements ActivityComm
         // We'll reach here if we are returning from another activity, like the
         // device list, and we need to update the UI to reflect the new device selection
         GBDevice device = WearableApplication.getLastDevice();
-        if (device != null && !mCurrentDevice.getAddress().equals(device.getAddress())) {
-            mCurrentDevice = device;
-            initDeviceConnection(device); // Re-init layout setup for new device
-            return;
+        if (device != null) {
+            LOG.debug("Current device alias: {}", mCurrentDevice.getAlias());
+            LOG.debug("Device alias: {}", device.getAlias());
+            if (!mCurrentDevice.getAddress().equals(device.getAddress())) {
+                mCurrentDevice = device;
+                initDeviceConnection(device); // Re-init layout setup for new device
+                return;
+            }
+
+            if (!device.getAliasOrName().equals(mCurrentDevice.getAliasOrName())) {
+                LOG.debug("Device alias changed: {}", device.getAlias());
+                mCurrentDevice.setAlias(device.getAlias());
+                if (mDeviceHeader != null) {
+                    mDeviceHeader.setDevice(mCurrentDevice);
+                }
+            }
         }
 
         // Else, just update the UI to reflect new settings or device state

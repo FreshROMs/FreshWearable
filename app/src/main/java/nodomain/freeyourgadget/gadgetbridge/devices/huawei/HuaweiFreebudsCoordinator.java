@@ -2,7 +2,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.huawei;
 
 import androidx.annotation.NonNull;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.WearableException;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractBLClassicDeviceCoordinator;

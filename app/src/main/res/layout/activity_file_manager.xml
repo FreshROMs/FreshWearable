@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.files.FileManagerActivity">
+    tools:context=".wearable.activities.files.FileManagerActivity">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/fileListSearchView"

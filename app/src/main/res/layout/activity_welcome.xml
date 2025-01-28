@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".activities.welcome.WelcomeActivity">
+    tools:context=".wearable.activities.welcome.WelcomeActivity">
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/welcome_viewpager"

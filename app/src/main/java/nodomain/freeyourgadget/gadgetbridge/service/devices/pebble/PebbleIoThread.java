@@ -46,8 +46,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ExternalPebbleJSActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AbstractAppManagerFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;

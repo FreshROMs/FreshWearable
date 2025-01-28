@@ -22,7 +22,7 @@ import android.net.Uri;
 
 import java.io.IOException;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.amazfitgts2.AmazfitGTS2FWHelper;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;

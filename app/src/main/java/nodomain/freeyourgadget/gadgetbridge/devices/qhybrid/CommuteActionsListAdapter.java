@@ -29,7 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.Collections;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class CommuteActionsListAdapter extends RecyclerView.Adapter<CommuteActionsListAdapter.ViewHolder> {
     private CommuteActionsActivity parentActivity;

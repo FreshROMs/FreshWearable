@@ -1,102 +1,142 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<dev.oneuiproject.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:expandable="false"
+    app:expanded="true"
+    app:title="Installing firmware"
+    app:showNavButtonAsBack="true">
+    <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:animateLayoutChanges="true"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity"
-        tools:ignore="ScrollViewSize">
-
-        <ImageView
-            android:id="@+id/previewImage"
+        <dev.oneuiproject.oneui.widget.RoundedLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:contentDescription="@string/preview_image"
-            android:visibility="gone" />
+            android:background="@color/oui_background_color"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingTop="16.0dip">
 
-        <ListView
-            android:id="@+id/itemListView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/previewImage"
-            android:layout_alignParentEnd="false" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/infoTextView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="false"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentTop="false"
-            android:layout_below="@+id/itemListView"
-            android:layout_gravity="center_horizontal" />
+                <ImageView
+                    android:id="@+id/fw_install_preview_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24.0dip"
+                    android:layout_marginBottom="24.0dip"
+                    android:contentDescription="@string/preview_image"
+                    android:src="@drawable/headset_redmi_buds_5_pro_white"
+                    android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/fwappStatusIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentTop="false"
-            android:layout_below="@+id/infoTextView"
-            android:layout_centerHorizontal="true"
-            android:contentDescription="@string/status_icon" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4.0dip"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:id="@+id/fw_install_app_type_icon"
+                        android:layout_width="24.0dip"
+                        android:layout_height="24.0dip"
+                        android:src="@drawable/ic_firmware" />
+
+                    <TextView
+                        android:id="@+id/fw_install_app_type"
+                        style="?android:textAppearanceListItemSecondary"
+                        android:alpha="0.6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8.0dip"
+                        android:text="@string/kind_firmware" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/fw_install_app_name"
+                    style="@style/TextAppearance.AppCompat.Title"
+                    android:textAlignment="center"
+                    android:layout_marginTop="4.0dip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unknown" />
+            </LinearLayout>
+
+<!--            <ListView-->
+<!--                android:id="@+id/itemListView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/previewImage"-->
+<!--                android:layout_alignParentEnd="false" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/infoTextView"-->
+<!--                android:layout_width="fill_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="false"-->
+<!--                android:layout_alignParentStart="false"-->
+<!--                android:layout_alignParentTop="false"-->
+<!--                android:layout_below="@+id/itemListView"-->
+<!--                android:layout_gravity="center_horizontal" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="24.0dip"
+                android:paddingHorizontal="24.0dip">
+                <ImageView
+                    android:id="@+id/fw_install_status_icon"
+                    android:layout_width="28.0dip"
+                    android:layout_height="28.0dip"
+                    android:src="@drawable/ic_oui_info"
+                    android:contentDescription="@string/status_icon" />
+
+                <TextView
+                    android:id="@+id/fw_install_status_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16.0dip"
+                    android:text="@string/fwapp_install_device_not_ready"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+<!--            <ListView-->
+<!--                android:id="@+id/detailsListView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentEnd="false"-->
+<!--                android:layout_below="@+id/installProgressText" />-->
+
+
+        </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
 
         <ProgressBar
-            style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"
-            android:id="@+id/installProgressBar"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:id="@+id/fw_install_progress_bar"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/fwappStatusIcon"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:indeterminate="true"
-            android:visibility="gone" />
+            android:indeterminate="true" />
 
         <Button
-            android:id="@+id/installButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_alignParentStart="false"
-            android:layout_alignParentTop="false"
-            android:layout_alignWithParentIfMissing="false"
-            android:layout_below="@+id/installProgressBar"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:enabled="false"
-            android:text="@string/appinstaller_install" />
-
-        <TextView
-            android:id="@+id/installProgressText"
+            android:id="@+id/fw_install_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/installProgressBar"
-            android:layout_gravity="start"
-            android:visibility="gone" />
-
-        <ListView
-            android:id="@+id/detailsListView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="false"
-            android:layout_below="@+id/installProgressText" />
-
-        <android.widget.Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
-
-    </RelativeLayout>
-
-</ScrollView>
+            android:layout_height="48.0dip"
+            android:layout_marginHorizontal="24.0dip"
+            android:layout_marginBottom="16.0dip"
+            android:text="@string/appinstaller_install"
+            style="@style/Theme.Fresh.Button.Onboarding" />
+    </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
+</dev.oneuiproject.oneui.layout.ToolbarLayout>

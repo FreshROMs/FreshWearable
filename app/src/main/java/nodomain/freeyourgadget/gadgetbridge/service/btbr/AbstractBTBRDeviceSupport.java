@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.Logging;
+import xyz.tenseventyseven.fresh.Logging;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.AbstractDeviceSupport;
 

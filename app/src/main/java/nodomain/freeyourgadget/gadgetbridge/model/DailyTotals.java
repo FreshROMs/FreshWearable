@@ -24,7 +24,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ActivityAnalysis;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractTimeSampleProvider;

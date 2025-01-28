@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:icon="@drawable/ic_vpn_key"
+        android:icon="@drawable/ic_settings_authentication"
         android:key="pref_screen_authentication"
         android:persistent="false"
         android:title="@string/pref_header_authentication">

@@ -19,7 +19,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.devices;
 
-import static xyz.tenseventyseven.fresh.wearable.WearableApplication.getPrefs;
+import static xyz.tenseventyseven.fresh.WearableApplication.getPrefs;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothClass;
@@ -48,9 +48,9 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.WearableException;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.HeartRateCapability;

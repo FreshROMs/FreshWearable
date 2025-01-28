@@ -19,7 +19,7 @@ import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.FormatUtils;
 

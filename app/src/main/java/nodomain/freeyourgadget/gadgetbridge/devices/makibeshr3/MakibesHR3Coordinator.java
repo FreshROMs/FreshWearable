@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import de.greenrobot.dao.query.QueryBuilder;
 import xyz.tenseventyseven.fresh.wearable.WearableException;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractBLEDeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;
@@ -48,7 +48,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.makibeshr3.MakibesHR3DeviceSupport;
 
-import static xyz.tenseventyseven.fresh.wearable.WearableApplication.getContext;
+import static xyz.tenseventyseven.fresh.WearableApplication.getContext;
 
 
 public class MakibesHR3Coordinator extends AbstractBLEDeviceCoordinator {

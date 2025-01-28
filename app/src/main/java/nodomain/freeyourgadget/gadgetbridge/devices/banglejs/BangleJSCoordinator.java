@@ -37,8 +37,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.BuildConfig;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractBLEDeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;

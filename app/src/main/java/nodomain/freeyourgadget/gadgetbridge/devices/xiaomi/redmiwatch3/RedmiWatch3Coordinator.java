@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmiwatch3;
 
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 

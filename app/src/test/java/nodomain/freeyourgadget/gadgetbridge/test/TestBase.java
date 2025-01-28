@@ -13,8 +13,8 @@ import org.robolectric.annotation.Config;
 import java.io.File;
 
 import ch.qos.logback.classic.util.ContextInitializer;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.Environment;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.Environment;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -22,7 +22,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 
 import static org.junit.Assert.assertNotNull;
-import static xyz.tenseventyseven.fresh.wearable.Logging.PROP_LOGFILES_DIR;
+import static xyz.tenseventyseven.fresh.Logging.PROP_LOGFILES_DIR;
 
 /**
  * Base class for all testcases in Gadgetbridge that are supposed to run locally

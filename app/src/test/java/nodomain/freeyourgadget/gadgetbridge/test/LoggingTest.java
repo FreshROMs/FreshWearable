@@ -6,8 +6,8 @@ import org.junit.Test;
 import java.io.File;
 
 import androidx.annotation.NonNull;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.Logging;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.Logging;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 
 import static org.junit.Assert.assertEquals;

@@ -35,6 +35,8 @@ import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.LoggerContext;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
 
 /**
  * Catches otherwise uncaught exceptions, logs them and terminates the app.

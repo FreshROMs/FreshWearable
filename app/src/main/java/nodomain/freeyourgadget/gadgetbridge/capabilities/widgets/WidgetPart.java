@@ -34,6 +34,8 @@ public class WidgetPart implements Serializable {
     // The human-readable part name
     private String name;
 
+    private String fullName;
+
     private WidgetType type;
 
     // Null if it has no specific subtype
@@ -42,6 +44,14 @@ public class WidgetPart implements Serializable {
 
     // The list of subtypes supported by this part, if any
     private final List<WidgetPartSubtype> supportedSubtypes = new ArrayList<>();
+
+    private long categoryId = 0;
+
+    private int iconId = -1;
+
+    private int color = -1;
+
+    private boolean isAlternate = false;
 
     public WidgetPart(@Nullable final String id, final String name, final WidgetType type) {
         this.id = id;
@@ -74,6 +84,18 @@ public class WidgetPart implements Serializable {
         this.name = name;
     }
 
+    public void setAlternateName(final String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getAlternateName() {
+        if (fullName == null || fullName.isEmpty()) {
+            return name;
+        }
+
+        return fullName;
+    }
+
     public WidgetType getType() {
         return type;
     }
@@ -93,5 +115,37 @@ public class WidgetPart implements Serializable {
 
     public List<WidgetPartSubtype> getSupportedSubtypes() {
         return supportedSubtypes;
+    }
+
+    public long getCategory() {
+        return categoryId;
+    }
+
+    public int getIcon() {
+        return iconId;
+    }
+
+    public void setCategory(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public void setIcon(int iconId) {
+        this.iconId = iconId;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int colorId) {
+        this.color = colorId;
+    }
+
+    public boolean isAlternate() {
+        return isAlternate;
+    }
+
+    public void setAlternate(boolean isAlternate) {
+        this.isAlternate = isAlternate;
     }
 }

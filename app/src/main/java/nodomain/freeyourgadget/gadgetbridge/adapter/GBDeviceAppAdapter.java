@@ -33,8 +33,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AbstractAppManagerFragment;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceApp;
 

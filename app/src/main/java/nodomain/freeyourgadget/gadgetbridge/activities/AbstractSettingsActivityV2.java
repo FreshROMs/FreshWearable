@@ -25,8 +25,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
 import dev.oneuiproject.oneui.layout.ToolbarLayout;
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public abstract class AbstractSettingsActivityV2 extends CommonActivityAbstract implements
         PreferenceFragmentCompat.OnPreferenceStartScreenCallback {

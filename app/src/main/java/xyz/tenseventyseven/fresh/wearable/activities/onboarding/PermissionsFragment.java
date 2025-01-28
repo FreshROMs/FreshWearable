@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.PermissionsUtils;
 import xyz.tenseventyseven.fresh.wearable.activities.OnboardingActivity;
 

@@ -24,7 +24,7 @@ import android.media.AudioManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 
 public class SilentModeReceiver extends BroadcastReceiver {
     private static final Logger LOG = LoggerFactory.getLogger(SilentModeReceiver.class);

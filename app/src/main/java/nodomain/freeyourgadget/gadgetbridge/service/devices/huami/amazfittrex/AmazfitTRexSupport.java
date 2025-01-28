@@ -21,7 +21,7 @@ import android.net.Uri;
 
 import java.io.IOException;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.amazfittrex.AmazfitTRexFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder;

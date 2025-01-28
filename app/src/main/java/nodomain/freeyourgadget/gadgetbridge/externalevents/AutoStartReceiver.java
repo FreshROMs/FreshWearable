@@ -22,7 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.PeriodicExporter;
 
 public class AutoStartReceiver extends BroadcastReceiver {

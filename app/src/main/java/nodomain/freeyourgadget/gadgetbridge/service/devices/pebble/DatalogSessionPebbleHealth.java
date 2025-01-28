@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.pebble;
 
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.DevicePrefs;
 

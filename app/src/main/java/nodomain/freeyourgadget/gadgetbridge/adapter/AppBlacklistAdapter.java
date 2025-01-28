@@ -46,12 +46,12 @@ import java.util.List;
 import java.util.Set;
 
 import androidx.recyclerview.widget.RecyclerView;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.NotificationFilterActivity;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-import static xyz.tenseventyseven.fresh.wearable.WearableApplication.packageNameToPebbleMsgSender;
+import static xyz.tenseventyseven.fresh.WearableApplication.packageNameToPebbleMsgSender;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

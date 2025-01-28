@@ -17,8 +17,8 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.idasen.IdasenDeviceSupport;
 

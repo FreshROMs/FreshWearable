@@ -39,6 +39,9 @@ import nodomain.freeyourgadget.gadgetbridge.util.AlarmUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
+import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
 
 /**
  * Implementation of SleepAlarmWidget functionality. When pressing the widget, an alarm will be set

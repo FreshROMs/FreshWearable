@@ -29,7 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import xyz.tenseventyseven.fresh.wearable.WearableException;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
 import nodomain.freeyourgadget.gadgetbridge.entities.AbstractActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;

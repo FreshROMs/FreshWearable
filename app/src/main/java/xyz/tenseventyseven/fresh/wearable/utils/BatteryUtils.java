@@ -8,7 +8,7 @@ import java.util.List;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class BatteryUtils {
     public static List<String> formatDeviceBattery(Context context, GBDevice device, boolean hasStatus, boolean includeCase) {

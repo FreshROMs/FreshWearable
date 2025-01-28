@@ -24,7 +24,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.misfit.PlayNotificationRequest;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;

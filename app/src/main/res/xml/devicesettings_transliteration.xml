@@ -5,7 +5,6 @@
         android:dialogTitle="@string/pref_title_transliteration"
         android:entries="@array/pref_transliteration_languages"
         android:entryValues="@array/pref_transliteration_languages_values"
-        android:icon="@drawable/ic_translate"
         android:key="pref_transliteration_languages"
         android:persistent="true"
         android:summary="@string/pref_summary_transliteration"

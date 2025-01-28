@@ -47,8 +47,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.DefaultChartsData;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.TimestampTranslation;
 import nodomain.freeyourgadget.gadgetbridge.database.DBAccess;

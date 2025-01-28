@@ -1,34 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <SwitchPreferenceCompat
-        android:defaultValue="false"
-        android:icon="@drawable/ic_calendar_sync"
+    <dev.oneuiproject.oneui.preference.SwitchBarPreference
         android:key="sync_calendar"
-        android:layout="@layout/preference_checkbox"
-        android:summary="@string/pref_summary_sync_calendar"
-        android:title="@string/pref_title_sync_caldendar" />
+        android:defaultValue="false" />
+
     <EditTextPreference
-        android:defaultValue="7"
-        android:dependency="sync_calendar"
-        android:icon="@drawable/ic_calendar_to"
-        android:inputType="number"
-        android:key="calendar_lookahead_days"
-        android:maxLength="3"
-        android:title="@string/pref_title_calendar_lookahead"
-        app:useSimpleSummaryProvider="true" />
-    <SwitchPreferenceCompat
-        android:defaultValue="false"
-        android:dependency="sync_calendar"
-        android:icon="@drawable/ic_person"
-        android:key="sync_birthdays"
-        android:layout="@layout/preference_checkbox"
-        android:summary="@string/pref_summary_sync_birthdays"
-        android:title="@string/pref_title_sync_birthdays" />
-    <Preference
-        android:dependency="sync_calendar"
-        android:icon="@drawable/ic_block"
-        android:key="blacklist_calendars"
-        android:summary="@string/pref_blacklist_calendars_summary"
-        android:title="@string/pref_blacklist_calendars" />
+        android:layout="@layout/preference_summary"
+        android:persistent="false"
+        app:selectable="false"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false"
+        app:enableCopying="false"
+        android:summary="Stay organized by syncing your phone's calendar events directly to your watch. Receive timely reminders and alerts in advance, ensuring you're always prepared for meetings, appointments, and important occasions, all at a glance on your wrist." />
+
+    <PreferenceCategory>
+        <EditTextPreference
+            android:defaultValue="7"
+            android:dependency="sync_calendar"
+            android:inputType="number"
+            android:key="calendar_lookahead_days"
+            android:maxLength="3"
+            android:title="@string/pref_title_calendar_lookahead"
+            app:useSimpleSummaryProvider="true" />
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:dependency="sync_calendar"
+            android:key="sync_birthdays"
+            android:layout="@layout/preference_checkbox"
+            android:summary="@string/pref_summary_sync_birthdays"
+            android:title="@string/pref_title_sync_birthdays" />
+    </PreferenceCategory>
+
+    <PreferenceCategory>
+        <Preference
+            android:dependency="sync_calendar"
+            android:key="blacklist_calendars"
+            android:summary="@string/pref_blacklist_calendars_summary"
+            android:title="@string/pref_blacklist_calendars" />
+    </PreferenceCategory>
 </androidx.preference.PreferenceScreen>

@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridConstants;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.opentracks.OpenTracksController;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;

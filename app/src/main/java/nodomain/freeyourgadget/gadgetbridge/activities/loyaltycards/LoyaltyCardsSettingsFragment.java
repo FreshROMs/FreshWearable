@@ -50,7 +50,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.loyaltycards.CatimaContentProvider;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.loyaltycards.CatimaManager;

@@ -28,8 +28,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeFragmentGetStarted;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import xyz.tenseventyseven.fresh.wearable.activities.onboarding.PermissionsFragment;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.activities.onboarding.IntroFragment;
 
 public class OnboardingActivity extends CommonActivityAbstract {

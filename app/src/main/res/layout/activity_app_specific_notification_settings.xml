@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.app_specific_notifications.AppSpecificNotificationSettingsActivity">
+    tools:context=".wearable.activities.app_specific_notifications.AppSpecificNotificationSettingsActivity">
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/appListViewSearch"

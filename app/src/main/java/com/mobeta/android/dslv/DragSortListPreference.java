@@ -56,7 +56,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 
 public class DragSortListPreference extends ListPreference {

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen
+        android:icon="@drawable/ic_settings_heart_rate"
+        android:key="pref_screen_heartrate_monitoring"
+        android:persistent="false"
+        android:summary="Whole day monitoring • HR reminders"
+        android:title="Heart rate monitoring">
+
+        <PreferenceCategory
+            android:key="pref_key_header_heartrate_sleep"
+            android:title="@string/pref_header_heartrate_sleep">
+
+            <SwitchPreferenceCompat
+                android:defaultValue="false"
+                android:key="heartrate_sleep_detection"
+                android:layout="@layout/preference_checkbox"
+                android:title="@string/miband_prefs_hr_sleep_detection" />
+
+            <SwitchPreferenceCompat
+                android:defaultValue="false"
+                android:key="heartrate_sleep_breathing_quality_monitoring"
+                android:layout="@layout/preference_checkbox"
+                android:title="@string/pref_sleep_breathing_quality_monitoring" />
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:key="pref_key_header_heartrate_allday"
+            android:title="@string/pref_header_heartrate_allday">
+
+            <ListPreference
+                android:defaultValue="0"
+                android:entries="@array/prefs_heartrate_measurement_interval"
+                android:entryValues="@array/prefs_heartrate_measurement_interval_values"
+                android:key="heartrate_measurement_interval"
+                android:summary="%s"
+                android:title="@string/prefs_title_heartrate_measurement_interval" />
+        </PreferenceCategory>
+
+        <!-- Activity Monitoring -->
+
+        <SwitchPreferenceCompat
+            android:defaultValue="false"
+            android:key="heartrate_activity_monitoring"
+            android:layout="@layout/preference_checkbox"
+            android:summary="@string/prefs_activity_monitoring_description"
+            android:title="@string/prefs_activity_monitoring_title" />
+
+        <!-- Heart Rate Alerts -->
+
+        <PreferenceCategory
+            android:key="pref_key_header_heartrate_alerts"
+            android:title="@string/pref_header_heartrate_alerts">
+
+            <ListPreference
+                android:defaultValue="0"
+                android:entries="@array/prefs_miband_heartrate_high_alert_threshold_with_off"
+                android:entryValues="@array/prefs_miband_heartrate_high_alert_threshold_with_off_values"
+                android:key="heartrate_alert_threshold"
+                android:summary="%s"
+                android:title="@string/prefs_heartrate_alert_high_threshold" />
+
+            <ListPreference
+                android:defaultValue="0"
+                android:entries="@array/prefs_miband_heartrate_low_alert_threshold"
+                android:entryValues="@array/prefs_miband_heartrate_low_alert_threshold_values"
+                android:key="heartrate_alert_low_threshold"
+                android:summary="%s"
+                android:title="@string/prefs_heartrate_alert_low_threshold" />
+
+            <ListPreference
+                android:defaultValue="0"
+                android:entries="@array/prefs_miband_heartrate_high_active_alert_threshold_with_off"
+                android:entryValues="@array/prefs_miband_heartrate_high_active_alert_threshold_with_off_values"
+                android:key="heartrate_alert_active_high_threshold"
+                android:summary="%s"
+                android:title="@string/prefs_heartrate_alert_active_high_threshold" />
+        </PreferenceCategory>
+    </PreferenceScreen>
+</androidx.preference.PreferenceScreen>

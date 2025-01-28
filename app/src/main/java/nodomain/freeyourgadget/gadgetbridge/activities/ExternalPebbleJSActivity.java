@@ -41,8 +41,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import nodomain.freeyourgadget.gadgetbridge.devices.pebble.PebbleCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -55,7 +55,7 @@ import nodomain.freeyourgadget.gadgetbridge.service.devices.pebble.webview.JSInt
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.WebViewSingleton;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_CONNECT;
 

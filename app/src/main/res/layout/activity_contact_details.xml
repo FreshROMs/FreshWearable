@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context="nodomain.freeyourgadget.gadgetbridge.activities.ContactDetails">
 
-    <com.google.android.material.card.MaterialCardView
+    <dev.oneuiproject.oneui.widget.RoundedLinearLayout
         android:id="@+id/card_contact_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,9 +44,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/label_contact_name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
+    <dev.oneuiproject.oneui.widget.RoundedLinearLayout
         android:id="@+id/card_contact_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/label_contact_number" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_save"
@@ -92,5 +92,5 @@
         android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_save" />
+        app:srcCompat="@drawable/ic_oui_save" />
 </androidx.constraintlayout.widget.ConstraintLayout>

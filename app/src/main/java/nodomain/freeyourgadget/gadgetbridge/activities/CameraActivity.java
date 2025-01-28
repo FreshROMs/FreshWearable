@@ -45,8 +45,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutionException;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCameraRemote;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:icon="@drawable/ic_timer"
+        android:icon="@drawable/ic_settings_time_and_date"
         android:key="pref_screen_date_time"
         android:persistent="false"
+        android:summary="Time format • Time zone • Date format"
         android:title="@string/dateformat_date_time">
     </PreferenceScreen>
 </androidx.preference.PreferenceScreen>

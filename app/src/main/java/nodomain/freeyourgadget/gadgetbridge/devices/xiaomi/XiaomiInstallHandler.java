@@ -20,7 +20,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.InstallActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

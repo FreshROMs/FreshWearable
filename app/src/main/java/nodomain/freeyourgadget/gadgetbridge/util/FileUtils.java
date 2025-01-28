@@ -46,8 +46,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.Environment;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.Environment;
 
 public class FileUtils {
     // Don't use slf4j here -- would be a bootstrapping problem

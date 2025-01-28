@@ -24,7 +24,7 @@ import java.io.OutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.Logging;
+import xyz.tenseventyseven.fresh.Logging;
 import nodomain.freeyourgadget.gadgetbridge.service.btbr.BtBRAction;
 
 /**

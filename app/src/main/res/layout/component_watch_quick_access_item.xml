@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:paddingBottom="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:id="@+id/customization_item_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="12dp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/home_tab_apps" />
+        <TextView
+            android:textSize="12sp"
+            android:textColor="@color/oui_primary_icon_color"
+            android:id="@+id/customization_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:minHeight="21dp"
+            android:importantForAccessibility="no"
+            android:textAlignment="center"
+            android:textFontWeight="400"
+            android:fontFamily="sec"
+            android:text="@string/qhybrid_title_apps" />
+    </LinearLayout>
+</merge>

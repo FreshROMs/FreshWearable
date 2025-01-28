@@ -31,9 +31,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public class GpxReceiverActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ActivitySummaryDetail.class);

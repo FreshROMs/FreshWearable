@@ -1,5 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <style name="Theme.Fresh.Health.Widget.Progress" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/health_widget_progress</item>
+    </style>
+
     <!-- light theme -->
     <style name="GadgetbridgeTheme" parent="Theme.AppCompat.DayNight">
         <item name="textColorPrimary">@color/oui_primary_text_color</item>

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.entities.AbstractRespiratoryRateSample;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

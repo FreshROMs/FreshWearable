@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractTimeSampleProvider;

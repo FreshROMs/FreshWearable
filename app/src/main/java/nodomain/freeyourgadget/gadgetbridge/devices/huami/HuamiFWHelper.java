@@ -24,7 +24,7 @@ import android.net.Uri;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.AbstractMiBandFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huami.AbstractHuamiFirmwareInfo;

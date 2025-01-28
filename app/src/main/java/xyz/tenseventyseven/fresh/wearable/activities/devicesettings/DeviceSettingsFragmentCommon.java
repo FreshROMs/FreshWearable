@@ -170,8 +170,9 @@ import nodomain.freeyourgadget.gadgetbridge.model.CannedMessagesSpec;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.GBSimpleSummaryProvider;
 
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.wearable.activities.AboutDeviceActivity;
 import xyz.tenseventyseven.fresh.wearable.models.DeviceSpecificSettings;
 
 /**
@@ -1027,6 +1028,19 @@ public abstract class DeviceSettingsFragmentCommon extends AbstractPreferenceFra
         if (widgets != null) {
             widgets.setOnPreferenceClickListener(preference -> {
                 final Intent intent = new Intent(getContext(), WidgetScreensListActivity.class);
+                intent.putExtra(GBDevice.EXTRA_DEVICE, mDevice);
+                startActivity(intent);
+                return true;
+            });
+        }
+
+        Preference about = findPreference(PREF_EARBUDS_ABOUT);
+        if (about == null) {
+            about = findPreference(PREF_WATCH_ABOUT);
+        }
+        if (about != null) {
+            about.setOnPreferenceClickListener(preference -> {
+                final Intent intent = new Intent(getContext(), AboutDeviceActivity.class);
                 intent.putExtra(GBDevice.EXTRA_DEVICE, mDevice);
                 startActivity(intent);
                 return true;

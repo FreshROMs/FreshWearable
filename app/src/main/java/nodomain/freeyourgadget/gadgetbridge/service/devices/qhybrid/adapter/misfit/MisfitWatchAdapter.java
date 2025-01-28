@@ -46,7 +46,7 @@ import java.util.NoSuchElementException;
 import java.util.Queue;
 import java.util.TimeZone;
 
-import xyz.tenseventyseven.fresh.wearable.BuildConfig;
+import xyz.tenseventyseven.fresh.BuildConfig;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.NotificationConfiguration;

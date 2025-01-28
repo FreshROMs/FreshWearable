@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventAppInfo;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -110,6 +110,8 @@ public class XiaomiWatchfaceService extends AbstractXiaomiService implements Xia
             if (watchface.getActive()) {
                 activeWatchface = uuid;
             }
+
+            LOG.debug("Watchface: {} ({})", watchface.getName(), watchface.getId());
 
             GBDeviceApp gbDeviceApp = new GBDeviceApp(
                     uuid,

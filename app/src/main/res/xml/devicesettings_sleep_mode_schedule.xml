@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceScreen
-        android:icon="@drawable/ic_activity_sleep"
+        android:icon="@drawable/ic_settings_sleep_mode"
         android:key="prefs_sleep_mode_schedule"
         android:persistent="false"
-        android:title="@string/pref_sleep_mode_title">
-
-        <SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:icon="@drawable/ic_activity_sleep"
+        android:summary="Sleep reminders • Wake-up time"
+        android:title="Sleep mode">
+        <dev.oneuiproject.oneui.preference.SwitchBarPreference
             android:key="sleep_mode_schedule_enabled"
-            android:layout="@layout/preference_checkbox"
-            android:summary="@string/pref_sleep_mode_schedule_summary"
-            android:title="@string/pref_sleep_mode_schedule_title" />
+            android:defaultValue="false" />
 
-        <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
-            android:defaultValue="22:00"
-            android:key="sleep_mode_schedule_start"
-            android:title="@string/bedtime" />
+        <EditTextPreference
+            android:layout="@layout/preference_summary"
+            android:key="pref_auto_reply_calls_summary"
+            android:persistent="false"
+            app:selectable="false"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:enableCopying="false"
+            android:summary="@string/pref_sleep_mode_schedule_summary" />
 
-        <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
-            android:defaultValue="06:00"
-            android:key="sleep_mode_schedule_end"
-            android:title="@string/wake_up_time" />
+        <PreferenceCategory>
+            <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
+                android:defaultValue="22:00"
+                android:key="sleep_mode_schedule_start"
+                android:title="@string/bedtime" />
+
+            <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
+                android:defaultValue="06:00"
+                android:key="sleep_mode_schedule_end"
+                android:title="@string/wake_up_time" />
+        </PreferenceCategory>
     </PreferenceScreen>
 </androidx.preference.PreferenceScreen>

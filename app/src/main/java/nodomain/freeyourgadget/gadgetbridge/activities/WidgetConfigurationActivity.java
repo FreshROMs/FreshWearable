@@ -38,8 +38,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -48,8 +48,8 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
-import xyz.tenseventyseven.fresh.wearable.activities.ActivityCommon;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.ActivityCommon;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public class WidgetConfigurationActivity extends Activity implements ActivityCommon {
     private static final Logger LOG = LoggerFactory.getLogger(WidgetConfigurationActivity.class);

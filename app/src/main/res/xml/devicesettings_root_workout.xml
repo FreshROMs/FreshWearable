@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:icon="@drawable/ic_activity_unknown_small"
+        android:icon="@drawable/ic_settings_workout"
         android:key="pref_screen_workout"
         android:persistent="false"
+        android:summary="Sync workouts • Location tracking"
         android:title="@string/menuitem_workout">
     </PreferenceScreen>
 </androidx.preference.PreferenceScreen>

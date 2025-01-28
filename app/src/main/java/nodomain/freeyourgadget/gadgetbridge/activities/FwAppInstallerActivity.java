@@ -28,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,42 +42,38 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
-import nodomain.freeyourgadget.gadgetbridge.adapter.ItemWithDetailsAdapter;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
-import nodomain.freeyourgadget.gadgetbridge.model.GenericItem;
 import nodomain.freeyourgadget.gadgetbridge.model.ItemWithDetails;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 
 public class FwAppInstallerActivity extends CommonActivityAbstract implements InstallActivity {
 
     private static final Logger LOG = LoggerFactory.getLogger(FwAppInstallerActivity.class);
-    private static final String ITEM_DETAILS = "details";
-
-    private TextView fwAppInstallTextView;
-    private ImageView previewImage;
-    private Button installButton;
+    private static final String ITEM_D5ETAILS = "details";
     private Uri uri;
     private GBDevice device;
     private InstallHandler installHandler;
     private boolean mayConnect;
 
-    private ProgressBar progressBar;
-    private TextView progressText;
-    private ListView itemListView;
-    private final List<ItemWithDetails> items = new ArrayList<>();
-    private ItemWithDetailsAdapter itemAdapter;
+    private ProgressBar mProgressBar;
+    private ImageView mPreviewImage;
+    private TextView mDetailsType;
+    private ImageView mDetailsTypeImg;
 
-    private ListView detailsListView;
-    private ItemWithDetailsAdapter detailsAdapter;
-    private ArrayList<ItemWithDetails> details = new ArrayList<>();
+    private TextView mDetailsTitle;
+
+    private TextView mInstallProgress;
+    private ImageView mInstallProgressImg;
+
+    private Button mInstallButton;
 
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -127,28 +122,28 @@ public class FwAppInstallerActivity extends CommonActivityAbstract implements In
 
     private void refreshBusyState(GBDevice dev) {
         if (dev.isConnecting() || dev.isBusy()) {
-            progressBar.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
         } else {
-            boolean wasBusy = progressBar.getVisibility() != View.GONE;
+            boolean wasBusy = mProgressBar.getVisibility() != View.INVISIBLE;
             if (wasBusy) {
-                progressBar.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.INVISIBLE);
                 // done!
             }
         }
     }
 
     public void setProgressIndeterminate(boolean indeterminate) {
-        progressBar.setVisibility(View.VISIBLE);
-        progressBar.setIndeterminate(indeterminate);
+        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.setIndeterminate(indeterminate);
     }
 
     public void setProgressBar(int progress) {
-        progressBar.setProgress(progress);
+        mProgressBar.setProgress(progress);
     }
 
     public void setProgressText(String text) {
-        progressText.setVisibility(View.VISIBLE);
-        progressText.setText(text);
+        mInstallProgress.setVisibility(View.VISIBLE);
+        mInstallProgress.setText(text);
     }
 
     private void connect() {
@@ -171,26 +166,17 @@ public class FwAppInstallerActivity extends CommonActivityAbstract implements In
         if (dev != null) {
             device = dev;
         }
-        if (savedInstanceState != null) {
-            details = savedInstanceState.getParcelableArrayList(ITEM_DETAILS);
-            if (details == null) {
-                details = new ArrayList<>();
-            }
-        }
 
         mayConnect = true;
-        itemListView = findViewById(R.id.itemListView);
-        itemAdapter = new ItemWithDetailsAdapter(this, items);
-        itemListView.setAdapter(itemAdapter);
-        fwAppInstallTextView = findViewById(R.id.infoTextView);
-        previewImage = findViewById(R.id.previewImage);
-        installButton = findViewById(R.id.installButton);
-        progressBar = findViewById(R.id.installProgressBar);
-        progressText = findViewById(R.id.installProgressText);
-        detailsListView = findViewById(R.id.detailsListView);
-        detailsAdapter = new ItemWithDetailsAdapter(this, details);
-        detailsAdapter.setSize(ItemWithDetailsAdapter.SIZE_SMALL);
-        detailsListView.setAdapter(detailsAdapter);
+
+        mProgressBar = findViewById(R.id.fw_install_progress_bar);
+        mPreviewImage = findViewById(R.id.fw_install_preview_image);
+        mDetailsType = findViewById(R.id.fw_install_app_type);
+        mDetailsTypeImg = findViewById(R.id.fw_install_app_type_icon);
+        mDetailsTitle = findViewById(R.id.fw_install_app_name);
+        mInstallProgress = findViewById(R.id.fw_install_status_text);
+        mInstallProgressImg = findViewById(R.id.fw_install_status_icon);
+        mInstallButton = findViewById(R.id.fw_install_button);
 
         setInstallEnabled(false);
         IntentFilter filter = new IntentFilter();
@@ -201,36 +187,36 @@ public class FwAppInstallerActivity extends CommonActivityAbstract implements In
         filter.addAction(GB.ACTION_SET_INFO_TEXT);
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
 
-        installButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setInstallEnabled(false);
-                installHandler.onStartInstall(device);
-                WearableApplication.deviceService(device).onInstallApp(uri);
-            }
+        mInstallButton.setOnClickListener(v -> {
+            setInstallEnabled(false);
+            installHandler.onStartInstall(device);
+            WearableApplication.deviceService(device).onInstallApp(uri);
         });
 
         uri = getIntent().getData();
         if (uri == null) { // For "share" intent
             uri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
         }
+
         installHandler = findInstallHandlerFor(uri);
         if (installHandler == null) {
             setInfoText(getString(R.string.installer_activity_unable_to_find_handler));
-        } else {
+        } else if (device == null) {
             setInfoText(getString(R.string.installer_activity_wait_while_determining_status));
 
             List<GBDevice> selectedDevices = WearableApplication.app().getDeviceManager().getSelectedDevices();
-            if(selectedDevices.size() == 0){
+            if (selectedDevices.isEmpty()) {
                 GB.toast(getString(R.string.open_fw_installer_connect_minimum_one_device), Toast.LENGTH_LONG, GB.ERROR);
                 finish();
                 return;
             }
-            if(selectedDevices.size() != 1){
+
+            if (selectedDevices.size() != 1) {
                 GB.toast(getString(R.string.open_fw_installer_connect_maximum_one_device), Toast.LENGTH_LONG, GB.ERROR);
                 finish();
                 return;
             }
+
             device = selectedDevices.get(0);
 
             // needed to get the device
@@ -245,7 +231,6 @@ public class FwAppInstallerActivity extends CommonActivityAbstract implements In
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(ITEM_DETAILS, details);
     }
 
     private InstallHandler findInstallHandlerFor(Uri uri) {
@@ -278,7 +263,6 @@ public class FwAppInstallerActivity extends CommonActivityAbstract implements In
             }
         }
 
-
         sortedCoordinators.addAll(connectedCoordinators);
         for (DeviceCoordinator coordinator : allCoordinators) {
             if (!connectedCoordinators.contains(coordinator)) {
@@ -306,46 +290,42 @@ public class FwAppInstallerActivity extends CommonActivityAbstract implements In
 
     @Override
     public void setInfoText(String text) {
-        fwAppInstallTextView.setText(text);
+        mInstallProgress.setText(text);
     }
 
     @Override
     public void setPreview(@Nullable final Bitmap bitmap) {
-        previewImage.setImageBitmap(bitmap);
-        if (previewImage == null) {
-            previewImage.setVisibility(View.GONE);
+        if (bitmap == null) {
+            mPreviewImage.setVisibility(View.GONE);
         } else {
-            previewImage.setVisibility(View.VISIBLE);
+            mPreviewImage.setImageBitmap(bitmap);
+            mPreviewImage.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public CharSequence getInfoText() {
-        return fwAppInstallTextView.getText();
+        return mInstallProgress.getText();
     }
 
     @Override
     public void setInstallEnabled(boolean enable) {
         boolean enabled = device != null && device.isConnected() && enable;
-        installButton.setEnabled(enabled);
-        installButton.setVisibility(enabled ? View.VISIBLE : View.GONE);
+        mInstallButton.setEnabled(enabled);
     }
 
     @Override
     public void clearInstallItems() {
-        items.clear();
-        itemAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void setInstallItem(ItemWithDetails item) {
-        items.clear();
-        items.add(item);
-        itemAdapter.notifyDataSetChanged();
+        mDetailsTypeImg.setImageDrawable(getDrawable(item.getIcon()));
+        mDetailsType.setText(item.getName());
+        mDetailsTitle.setText(item.getDetails());
     }
 
     private void addMessage(String message, int severity) {
-        details.add(new GenericItem(message));
-        detailsAdapter.notifyDataSetChanged();
+        mInstallProgress.setText(message);
     }
 }

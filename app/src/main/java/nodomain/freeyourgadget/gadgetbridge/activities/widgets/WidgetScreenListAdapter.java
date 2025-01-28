@@ -32,7 +32,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import dev.oneuiproject.oneui.widget.RoundedFrameLayout;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetPart;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetScreen;
 
@@ -107,7 +108,7 @@ public class WidgetScreenListAdapter extends RecyclerView.Adapter<WidgetScreenLi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final MaterialCardView container;
+        final RoundedFrameLayout container;
 
         final TextView widgetScreenName;
         final TextView widgetScreenDescription;

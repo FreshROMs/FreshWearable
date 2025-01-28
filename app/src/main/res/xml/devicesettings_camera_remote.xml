@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <SwitchPreferenceCompat
-        android:defaultValue="false"
-        android:icon="@drawable/ic_camera_remote"
-        android:key="camera_remote"
-        android:layout="@layout/preference_checkbox"
-        android:summary="@string/pref_camera_remote_summary"
-        android:title="@string/pref_camera_remote_title" />
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceScreen
+        android:icon="@drawable/ic_settings_camera_remote"
+        android:key="pref_screen_camera_remote"
+        android:persistent="false"
+        android:summary="Use your wearable device as a camera remote"
+        android:title="Camera remote">
+        <dev.oneuiproject.oneui.preference.SwitchBarPreference
+            android:key="camera_remote"
+            android:defaultValue="false" />
+
+        <EditTextPreference
+            android:layout="@layout/preference_summary"
+            android:key="pref_auto_reply_calls_summary"
+            android:persistent="false"
+            app:selectable="false"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:enableCopying="false"
+            android:summary="Turn your watch into a convenient camera remote for your smartphone. Capture photos or record videos from a distance with a simple tap on your watch, perfect for group shots, selfies, or creative angles without needing to hold your phone." />
+    </PreferenceScreen>
 </androidx.preference.PreferenceScreen>

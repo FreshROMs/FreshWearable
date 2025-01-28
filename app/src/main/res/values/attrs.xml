@@ -44,4 +44,21 @@
     <declare-styleable name="ImagePreference">
         <attr name="preferenceImage" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="WatchQuickAccessItem">
+        <attr name="qpImage" format="reference" />
+        <attr name="qpText" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="WatchQuickAccessPreference">
+        <attr name="qpWatchfaces" format="boolean" />
+        <attr name="qpApps" format="boolean" />
+        <attr name="qpTiles" format="boolean" />
+        <attr name="qpWidgets" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="WidgetPreviewItem">
+        <attr name="wpTitle" format="string" />
+        <attr name="wpSubtitle" format="string" />
+    </declare-styleable>
 </resources>

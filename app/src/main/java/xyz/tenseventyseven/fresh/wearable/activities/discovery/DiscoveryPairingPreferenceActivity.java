@@ -21,8 +21,8 @@ import android.widget.Toast;
 
 import androidx.preference.PreferenceFragmentCompat;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractSettingsActivityV2;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;

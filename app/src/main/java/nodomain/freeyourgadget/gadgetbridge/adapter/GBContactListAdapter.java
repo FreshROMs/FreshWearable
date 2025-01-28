@@ -21,6 +21,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureContacts;
 import nodomain.freeyourgadget.gadgetbridge.entities.Contact;
 
@@ -93,7 +94,7 @@ public class GBContactListAdapter extends RecyclerView.Adapter<GBContactListAdap
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final MaterialCardView container;
+        final LinearLayout container;
 
         final TextView contactName;
         final TextView contactNumber;

@@ -43,10 +43,10 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 
-import xyz.tenseventyseven.fresh.wearable.Logging;
+import xyz.tenseventyseven.fresh.Logging;
 
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.DevicePrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.AlarmUtils;

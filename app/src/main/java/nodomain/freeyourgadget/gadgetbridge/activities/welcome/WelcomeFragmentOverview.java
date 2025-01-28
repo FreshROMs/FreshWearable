@@ -28,7 +28,7 @@ import androidx.fragment.app.Fragment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class WelcomeFragmentOverview extends Fragment {
     private static final Logger LOG = LoggerFactory.getLogger(WelcomeFragmentOverview.class);

@@ -33,13 +33,13 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.AbstractZipBackupJob;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupCallback;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupExportJob;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupImportJob;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public class BackupRestoreProgressActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(BackupRestoreProgressActivity.class);

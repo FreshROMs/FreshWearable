@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.services;
 
 import android.content.Context;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.proto.xiaomi.XiaomiProto;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiSupport;

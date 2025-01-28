@@ -63,15 +63,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.annotation.RequiresPermission;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuProvider;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,10 +80,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DebugActivity;
-import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsActivity;
 import xyz.tenseventyseven.fresh.wearable.activities.discovery.DiscoveryPairingPreferenceActivity;
 import xyz.tenseventyseven.fresh.wearable.activities.discovery.GBScanEvent;
 import xyz.tenseventyseven.fresh.wearable.activities.discovery.GBScanEventProcessor;

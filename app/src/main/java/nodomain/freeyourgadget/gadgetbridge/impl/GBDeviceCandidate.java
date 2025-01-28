@@ -33,8 +33,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 
 /**

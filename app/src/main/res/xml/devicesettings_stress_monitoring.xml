@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen
+        android:icon="@drawable/ic_settings_stress_monitoring"
+        android:key="pref_screen_stress_monitoring"
+        android:persistent="false"
+        android:summary="All-day monitoring • Relaxation reminders"
+        android:title="Stress monitoring">
+
+        <dev.oneuiproject.oneui.preference.SwitchBarPreference
+            android:defaultValue="false"
+            android:key="heartrate_stress_monitoring" />
+
+        <PreferenceCategory>
+            <SwitchPreferenceCompat
+                android:defaultValue="false"
+                android:dependency="heartrate_stress_monitoring"
+                android:key="heartrate_stress_relaxation_reminder"
+                android:layout="@layout/preference_checkbox"
+                android:summary="@string/prefs_relaxation_reminder_description"
+                android:title="@string/prefs_relaxation_reminder_title" />
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+</androidx.preference.PreferenceScreen>

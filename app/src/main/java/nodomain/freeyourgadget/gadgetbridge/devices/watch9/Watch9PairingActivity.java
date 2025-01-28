@@ -32,8 +32,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
 import xyz.tenseventyseven.fresh.wearable.activities.DiscoveryActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;

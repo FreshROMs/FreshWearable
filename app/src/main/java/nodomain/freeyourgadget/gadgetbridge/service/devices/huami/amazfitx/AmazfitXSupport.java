@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.amazfitband5.AmazfitBand5FWHelper;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder;

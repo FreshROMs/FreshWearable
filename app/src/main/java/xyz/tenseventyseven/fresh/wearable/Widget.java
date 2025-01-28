@@ -39,6 +39,9 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
+import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.activities.DashboardActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.WidgetAlarmsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ActivityChartsActivity;

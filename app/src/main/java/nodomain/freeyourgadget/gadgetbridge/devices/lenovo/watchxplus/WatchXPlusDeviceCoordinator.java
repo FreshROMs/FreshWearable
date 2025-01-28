@@ -37,8 +37,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractBLEDeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;
@@ -55,7 +55,7 @@ import nodomain.freeyourgadget.gadgetbridge.service.ServiceDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.lenovo.watchxplus.WatchXPlusDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
-import static xyz.tenseventyseven.fresh.wearable.WearableApplication.getContext;
+import static xyz.tenseventyseven.fresh.WearableApplication.getContext;
 
 
 public class WatchXPlusDeviceCoordinator extends AbstractBLEDeviceCoordinator {

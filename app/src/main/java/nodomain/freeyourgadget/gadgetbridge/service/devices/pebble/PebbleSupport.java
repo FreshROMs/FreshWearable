@@ -34,8 +34,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.UUID;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.AlarmReceiver;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

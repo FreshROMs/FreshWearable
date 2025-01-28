@@ -67,9 +67,9 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import de.greenrobot.dao.query.Query;
-import xyz.tenseventyseven.fresh.wearable.BuildConfig;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.pebble.PebbleColor;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilter;

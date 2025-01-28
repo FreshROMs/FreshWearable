@@ -27,6 +27,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
@@ -35,7 +36,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import java.util.ArrayList;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.entities.Alarm;
@@ -130,7 +131,7 @@ public class GBAlarmListAdapter extends RecyclerView.Adapter<GBAlarmListAdapter.
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        MaterialCardView container;
+        CardView container;
 
         TextView alarmTime;
         MaterialSwitch isEnabled;

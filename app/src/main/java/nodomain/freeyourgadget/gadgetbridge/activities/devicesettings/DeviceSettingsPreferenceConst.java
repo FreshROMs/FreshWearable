@@ -284,6 +284,8 @@ public class DeviceSettingsPreferenceConst {
     public static final String PREF_WORLD_CLOCKS = "pref_world_clocks";
     public static final String PREF_CONTACTS = "pref_contacts";
     public static final String PREF_WIDGETS = "pref_widgets";
+    public static final String PREF_EARBUDS_ABOUT = "pref_screen_earbuds_about";
+    public static final String PREF_WATCH_ABOUT = "pref_screen_watch_about";
 
     public static final String PREF_MUSIC_MANAGEMENT = "pref_music_management";
 

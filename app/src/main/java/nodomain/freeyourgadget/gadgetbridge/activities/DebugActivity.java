@@ -95,9 +95,9 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.TreeMap;
 
-import xyz.tenseventyseven.fresh.wearable.BuildConfig;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.Widget;
 import nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconAdapter;
@@ -130,7 +130,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public class DebugActivity extends CommonActivityAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(DebugActivity.class);

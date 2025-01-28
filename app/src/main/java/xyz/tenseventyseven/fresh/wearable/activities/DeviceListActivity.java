@@ -36,10 +36,11 @@ import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
-import xyz.tenseventyseven.fresh.wearable.R;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.adapters.DeviceListItemAdapter;
-import xyz.tenseventyseven.fresh.wearable.databinding.ActivityDeviceListBinding;
+import xyz.tenseventyseven.fresh.databinding.ActivityDeviceListBinding;
 
 public class DeviceListActivity extends CommonActivityAbstract implements
         AdapterView.OnItemClickListener,
@@ -215,11 +216,8 @@ public class DeviceListActivity extends CommonActivityAbstract implements
                 }
             }
         });
-        builder.setNegativeButton(R.string.Cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // do nothing
-            }
+        builder.setNegativeButton(R.string.Cancel, (dialog, which) -> {
+            // do nothing
         });
 
         builder.show();

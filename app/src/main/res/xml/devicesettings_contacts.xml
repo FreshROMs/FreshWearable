@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
-        android:icon="@drawable/ic_person"
+        android:icon="@drawable/ic_settings_contacts"
         android:key="pref_contacts"
-        android:summary="@string/pref_contacts_summary"
-        android:title="@string/pref_contacts_title" />
+        android:title="@string/pref_contacts_title"
+        android:summary="Quickly call contacts from your watch" />
 </androidx.preference.PreferenceScreen>

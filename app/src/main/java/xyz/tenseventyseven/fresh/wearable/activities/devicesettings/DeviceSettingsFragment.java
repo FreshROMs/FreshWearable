@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
@@ -79,11 +79,6 @@ public class DeviceSettingsFragment extends DeviceSettingsFragmentCommon {
 
     private static DeviceSpecificSettings generateDeviceSettings(DeviceCoordinator coordinator, GBDevice device) {
         final DeviceSpecificSettings deviceSpecificSettings = new DeviceSpecificSettings();
-
-        if (coordinator.getSupportedLanguageSettings(device) != null) {
-            deviceSpecificSettings.addRootScreen(R.xml.devicesettings_language_generic);
-        }
-
         DeviceSpecificSettings coordinatorDeviceSettings = coordinator.getDeviceSpecificSettings(device);
         if (coordinatorDeviceSettings != null) {
             deviceSpecificSettings.mergeFrom(coordinatorDeviceSettings);
@@ -104,10 +99,27 @@ public class DeviceSettingsFragment extends DeviceSettingsFragmentCommon {
                 break;
         }
 
-        deviceSpecificSettings.addSubScreen(
-                moreSettings.getKey(),
-                R.xml.devicesettings_header_empty
-        );
+        /*
+         * In Fresh Wearable, we add advanced general settings for GB on a 'device-specific' screen
+         * meant to also include device-specific settings (like Galaxy Wearable does). Coordinators
+         * must be updated for this to work.
+         */
+        if (coordinator.getSupportedLanguageSettings(device) != null &&
+            coordinator.getGeneralDeviceType() == DeviceCoordinator.GeneralDeviceType.OTHER) {
+            deviceSpecificSettings.addSubScreen(
+                    moreSettings.getKey(),
+                    R.xml.devicesettings_language_generic
+            );
+        }
+
+//        if (coordinator.supportsActivityTracking()) {
+//            deviceSpecificSettings.addSubScreen(
+//                    moreSettings.getKey(),
+//                    DeviceSpecificSettingsScreen.ACTIVITY_INFO,
+//                    R.xml.devicesettings_chartstabs,
+//                    R.xml.devicesettings_device_card_activity_card_preferences
+//            );
+//        }
 
         if (coordinator.getBatteryCount() > 0) {
             deviceSpecificSettings.addSubScreen(
@@ -118,7 +130,8 @@ public class DeviceSettingsFragment extends DeviceSettingsFragmentCommon {
 
         final int[] supportedAuthSettings = coordinator.getSupportedDeviceSpecificAuthenticationSettings();
         if (supportedAuthSettings != null && supportedAuthSettings.length > 0) {
-            deviceSpecificSettings.addRootScreen(
+            deviceSpecificSettings.addSubScreen(
+                    moreSettings.getKey(),
                     DeviceSpecificSettingsScreen.AUTHENTICATION,
                     supportedAuthSettings
             );
@@ -129,15 +142,6 @@ public class DeviceSettingsFragment extends DeviceSettingsFragmentCommon {
                 DeviceSpecificSettingsScreen.CONNECTION,
                 coordinator.getSupportedDeviceSpecificConnectionSettings()
         );
-
-        if (coordinator.supportsActivityTracking()) {
-            deviceSpecificSettings.addSubScreen(
-                    moreSettings.getKey(),
-                    DeviceSpecificSettingsScreen.ACTIVITY_INFO,
-                    R.xml.devicesettings_chartstabs,
-                    R.xml.devicesettings_device_card_activity_card_preferences
-            );
-        }
 
         deviceSpecificSettings.addSubScreen(
                 moreSettings.getKey(),
@@ -151,6 +155,24 @@ public class DeviceSettingsFragment extends DeviceSettingsFragmentCommon {
                     DeviceSpecificSettingsScreen.DEVELOPER,
                     R.xml.devicesettings_ble_api
             );
+        }
+
+        DeviceSpecificSettingsScreen about = null;
+        switch (coordinator.getGeneralDeviceType()) {
+            case WATCH:
+            case FITNESS_TRACKER:
+                about = DeviceSpecificSettingsScreen.WATCH_ABOUT;
+                break;
+            case EARBUDS:
+                about = DeviceSpecificSettingsScreen.EARBUDS_ABOUT;
+                break;
+            case OTHER:
+            default:
+                break;
+        }
+
+        if (about != null) {
+            deviceSpecificSettings.addSubScreen(moreSettings.getKey(), about);
         }
 
         return deviceSpecificSettings;

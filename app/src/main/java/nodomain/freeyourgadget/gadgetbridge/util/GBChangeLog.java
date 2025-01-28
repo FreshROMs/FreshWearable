@@ -29,8 +29,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.cketti.library.changelog.ChangeLog;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 
 public class GBChangeLog extends ChangeLog {
     private static final Logger LOG = LoggerFactory.getLogger(GBChangeLog.class);

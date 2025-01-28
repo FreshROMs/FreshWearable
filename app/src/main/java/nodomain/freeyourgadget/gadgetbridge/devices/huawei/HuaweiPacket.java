@@ -28,7 +28,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.Alarms;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.AccountRelated;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.App;

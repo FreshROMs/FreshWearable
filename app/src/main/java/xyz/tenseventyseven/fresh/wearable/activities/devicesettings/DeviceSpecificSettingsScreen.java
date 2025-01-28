@@ -18,7 +18,7 @@ package xyz.tenseventyseven.fresh.wearable.activities.devicesettings;
 
 import androidx.annotation.XmlRes;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public enum DeviceSpecificSettingsScreen {
     ACTIVITY_INFO("pref_screen_activity_info", R.xml.devicesettings_root_activity_info),

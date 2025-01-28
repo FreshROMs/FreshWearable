@@ -18,8 +18,8 @@ package nodomain.freeyourgadget.gadgetbridge.devices.miband;
 
 import android.content.Context;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.profiles.alertnotification.AlertLevel;
 
 public class VibrationProfile {

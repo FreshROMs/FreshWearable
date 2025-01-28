@@ -34,9 +34,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.wearable.WearableException;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.HeartRateCapability;
@@ -317,7 +317,7 @@ public class CmfWatchProCoordinator extends AbstractBLEDeviceCoordinator {
         settings.add(R.xml.devicesettings_liftwrist_display_noshed);
 
         settings.add(R.xml.devicesettings_header_health);
-        settings.add(R.xml.devicesettings_heartrate_sleep_alert_activity_stress_spo2);
+        settings.add(R.xml.devicesettings_heartrate_sleep_alerts);
         settings.add(R.xml.devicesettings_inactivity_dnd);
         settings.add(R.xml.devicesettings_hydration_reminder_dnd);
 

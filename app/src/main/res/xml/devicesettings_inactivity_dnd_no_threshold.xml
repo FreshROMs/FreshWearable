@@ -1,50 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceScreen
-        android:icon="@drawable/ic_chair"
+        android:icon="@drawable/ic_settings_sedentary_alerts"
         android:key="pref_screen_inactivity_extended"
         android:persistent="false"
-        android:summary="@string/mi2_prefs_inactivity_warnings_summary"
-        android:title="@string/mi2_prefs_inactivity_warnings">
-
-        <SwitchPreferenceCompat
+        android:summary="Inactivity alerts • Do Not Disturb"
+        android:title="Sedentary alerts">
+        <dev.oneuiproject.oneui.preference.SwitchBarPreference
             android:defaultValue="false"
-            android:key="inactivity_warnings_enable"
-            android:layout="@layout/preference_checkbox"
-            android:summary="@string/mi2_prefs_inactivity_warnings_summary"
-            android:title="@string/mi2_prefs_inactivity_warnings" />
+            android:key="inactivity_warnings_enable" />
 
-        <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
-            android:defaultValue="06:00"
-            android:dependency="inactivity_warnings_enable"
-            android:key="inactivity_warnings_start"
-            android:title="@string/mi2_prefs_do_not_disturb_start" />
+        <EditTextPreference
+            android:layout="@layout/preference_summary"
+            android:persistent="false"
+            app:selectable="false"
+            app:allowDividerAbove="false"
+            app:allowDividerBelow="false"
+            app:enableCopying="false"
+            android:summary="Stay active and healthy with sedentary alerts that remind you to move after periods of inactivity. Customize the active hours to fit your schedule, and set a 'Do Not Disturb' period during lunch, naps, or other breaks to pause reminders when you need uninterrupted time." />
 
-        <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
-            android:defaultValue="22:00"
-            android:dependency="inactivity_warnings_enable"
-            android:key="inactivity_warnings_end"
-            android:title="@string/mi2_prefs_do_not_disturb_end" />
+        <PreferenceCategory>
+            <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
+                android:defaultValue="06:00"
+                android:dependency="inactivity_warnings_enable"
+                android:key="inactivity_warnings_start"
+                android:title="@string/mi2_prefs_do_not_disturb_start" />
 
-        <SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:dependency="inactivity_warnings_enable"
-            android:key="inactivity_warnings_dnd"
-            android:layout="@layout/preference_checkbox"
-            android:summary="@string/mi2_prefs_inactivity_warnings_dnd_summary"
-            android:title="@string/mi2_prefs_do_not_disturb" />
+            <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
+                android:defaultValue="22:00"
+                android:dependency="inactivity_warnings_enable"
+                android:key="inactivity_warnings_end"
+                android:title="@string/mi2_prefs_do_not_disturb_end" />
+        </PreferenceCategory>
 
-        <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
-            android:defaultValue="12:00"
-            android:dependency="inactivity_warnings_dnd"
-            android:key="inactivity_warnings_dnd_start"
-            android:title="@string/mi2_prefs_do_not_disturb_start" />
+        <PreferenceCategory>
+            <SwitchPreferenceCompat
+                android:defaultValue="false"
+                android:dependency="inactivity_warnings_enable"
+                android:key="inactivity_warnings_dnd"
+                android:layout="@layout/preference_checkbox"
+                android:summary="@string/mi2_prefs_inactivity_warnings_dnd_summary"
+                android:title="@string/mi2_prefs_do_not_disturb" />
 
-        <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
-            android:defaultValue="14:00"
-            android:dependency="inactivity_warnings_dnd"
-            android:key="inactivity_warnings_dnd_end"
-            android:title="@string/mi2_prefs_do_not_disturb_end" />
+            <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
+                android:defaultValue="12:00"
+                android:dependency="inactivity_warnings_dnd"
+                android:key="inactivity_warnings_dnd_start"
+                android:title="@string/mi2_prefs_do_not_disturb_start" />
 
+            <nodomain.freeyourgadget.gadgetbridge.util.XTimePreference
+                android:defaultValue="14:00"
+                android:dependency="inactivity_warnings_dnd"
+                android:key="inactivity_warnings_dnd_end"
+                android:title="@string/mi2_prefs_do_not_disturb_end" />
+        </PreferenceCategory>
     </PreferenceScreen>
 </androidx.preference.PreferenceScreen>

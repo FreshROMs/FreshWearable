@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
-        android:icon="@drawable/ic_calendar_today"
+        android:icon="@drawable/ic_settings_calendar"
         android:key="pref_screen_calendar"
         android:persistent="false"
-        android:title="@string/pref_header_calendar">
+        android:title="@string/pref_header_calendar"
+        android:summary="Sync events • Birthdays • Blacklist calendars">
     </PreferenceScreen>
 </androidx.preference.PreferenceScreen>

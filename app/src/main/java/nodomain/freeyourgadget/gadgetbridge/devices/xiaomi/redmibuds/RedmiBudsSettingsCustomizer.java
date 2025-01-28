@@ -39,7 +39,7 @@ import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpec
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.components.ButtonGroupPreference;
 import xyz.tenseventyseven.fresh.wearable.components.NoiseControlPreference;
 

@@ -66,6 +66,14 @@ public class DeviceSpecificSettings implements Parcelable {
         return addSubScreen(screen.getKey(), screen.getXml());
     }
 
+    public Screen addRootScreen(final DeviceSpecificSettingsScreen screen, boolean returnScreen) {
+        if (!root.hasSetting(screen.getKey())) {
+            root.addSetting(screen.getXml());
+        }
+
+        return addSubScreen(screen.getKey(), returnScreen, screen.getXml());
+    }
+
     public List<Integer> addRootScreen(final DeviceSpecificSettingsScreen screen, final int... subScreens) {
         addRootScreen(screen);
         return addSubScreen(screen, subScreens);
@@ -96,6 +104,15 @@ public class DeviceSpecificSettings implements Parcelable {
         }
 
         return parent.getSettings();
+    }
+
+    public Screen addSubScreen(final String parentKey, boolean r, final int... screens) {
+        Screen parent = getParent(parentKey, true);
+        for (final int screen : screens) {
+            parent.addSetting(screen);
+        }
+
+        return parent;
     }
 
     public List<Integer> addSubScreen(final DeviceSpecificSettingsScreen deviceSpecificSettingsScreen, final int... screens) {

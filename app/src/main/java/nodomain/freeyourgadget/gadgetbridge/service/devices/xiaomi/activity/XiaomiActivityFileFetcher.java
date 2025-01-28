@@ -32,7 +32,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.BLETypeConversions;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences;

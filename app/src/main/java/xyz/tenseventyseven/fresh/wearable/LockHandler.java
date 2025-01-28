@@ -22,6 +22,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoMaster;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
+import xyz.tenseventyseven.fresh.WearableApplication;
 
 /**
  * Provides low-level access to the database.

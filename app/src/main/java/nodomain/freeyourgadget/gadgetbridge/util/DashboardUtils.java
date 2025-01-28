@@ -24,8 +24,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.StepAnalysis;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -38,6 +37,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySession;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
 import nodomain.freeyourgadget.gadgetbridge.model.DailyTotals;
+import xyz.tenseventyseven.fresh.health.activities.dashboard.HomeFragment;
 
 public class DashboardUtils {
     private static final Logger LOG = LoggerFactory.getLogger(DashboardUtils.class);
@@ -48,7 +48,7 @@ public class DashboardUtils {
         return DailyTotals.getDailyTotalsForDevice(device, day, db);
     }
 
-    public static int getStepsTotal(DashboardFragment.DashboardData dashboardData) {
+    public static int getStepsTotal(HomeFragment.DashboardData dashboardData) {
         List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         int totalSteps = 0;
         try (DBHandler dbHandler = WearableApplication.acquireDB()) {
@@ -63,7 +63,7 @@ public class DashboardUtils {
         return totalSteps;
     }
 
-    public static int getActiveCaloriesTotal(DashboardFragment.DashboardData dashboardData) {
+    public static int getActiveCaloriesTotal(HomeFragment.DashboardData dashboardData) {
         List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         int totalActiveCalories = 0;
         try (DBHandler dbHandler = WearableApplication.acquireDB()) {
@@ -79,7 +79,7 @@ public class DashboardUtils {
         return totalActiveCalories / 1000;
     }
 
-    public static int getRestingCaloriesTotal(DashboardFragment.DashboardData dashboardData) {
+    public static int getRestingCaloriesTotal(HomeFragment.DashboardData dashboardData) {
         List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         int totalRestingCalories = 0;
         try (DBHandler dbHandler = WearableApplication.acquireDB()) {
@@ -94,7 +94,7 @@ public class DashboardUtils {
         return totalRestingCalories;
     }
 
-    public static float getStepsGoalFactor(DashboardFragment.DashboardData dashboardData) {
+    public static float getStepsGoalFactor(HomeFragment.DashboardData dashboardData) {
         ActivityUser activityUser = new ActivityUser();
         float stepsGoal = activityUser.getStepsGoal();
         float goalFactor = getStepsTotal(dashboardData) / stepsGoal;
@@ -109,7 +109,7 @@ public class DashboardUtils {
         return DailyTotals.getDailyTotalsForDevice(device, day, db).getSleep();
     }
 
-    public static long getSleepMinutesTotal(DashboardFragment.DashboardData dashboardData) {
+    public static long getSleepMinutesTotal(HomeFragment.DashboardData dashboardData) {
         List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         long totalSleepMinutes = 0;
         try (DBHandler dbHandler = WearableApplication.acquireDB()) {
@@ -124,7 +124,7 @@ public class DashboardUtils {
         return totalSleepMinutes;
     }
 
-    public static float getSleepMinutesGoalFactor(DashboardFragment.DashboardData dashboardData) {
+    public static float getSleepMinutesGoalFactor(HomeFragment.DashboardData dashboardData) {
         ActivityUser activityUser = new ActivityUser();
         int sleepMinutesGoal = activityUser.getSleepDurationGoal() * 60;
         float goalFactor = (float) getSleepMinutesTotal(dashboardData) / sleepMinutesGoal;
@@ -133,7 +133,7 @@ public class DashboardUtils {
         return goalFactor;
     }
 
-    public static float getDistanceTotal(DashboardFragment.DashboardData dashboardData) {
+    public static float getDistanceTotal(HomeFragment.DashboardData dashboardData) {
         ActivityUser activityUser = new ActivityUser();
         int stepLength = activityUser.getStepLengthCm();
 
@@ -156,7 +156,7 @@ public class DashboardUtils {
         return totalDistanceCm * 0.01f;
     }
 
-    public static float getDistanceGoalFactor(DashboardFragment.DashboardData dashboardData) {
+    public static float getDistanceGoalFactor(HomeFragment.DashboardData dashboardData) {
         ActivityUser activityUser = new ActivityUser();
         int distanceGoal = activityUser.getDistanceGoalMeters();
         float goalFactor = getDistanceTotal(dashboardData) / distanceGoal;
@@ -165,7 +165,7 @@ public class DashboardUtils {
         return goalFactor;
     }
 
-    public static float getActiveCaloriesGoalFactor(DashboardFragment.DashboardData dashboardData) {
+    public static float getActiveCaloriesGoalFactor(HomeFragment.DashboardData dashboardData) {
         ActivityUser activityUser = new ActivityUser();
         int caloriesGoal = activityUser.getCaloriesBurntGoal();
         float goalFactor = (float) getActiveCaloriesTotal(dashboardData) / caloriesGoal;
@@ -174,7 +174,7 @@ public class DashboardUtils {
         return goalFactor;
     }
 
-    public static long getActiveMinutesTotal(DashboardFragment.DashboardData dashboardData) {
+    public static long getActiveMinutesTotal(HomeFragment.DashboardData dashboardData) {
         List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
         long totalActiveMinutes = 0;
         try (DBHandler dbHandler = WearableApplication.acquireDB()) {
@@ -189,7 +189,7 @@ public class DashboardUtils {
         return totalActiveMinutes;
     }
 
-    public static float getActiveMinutesGoalFactor(DashboardFragment.DashboardData dashboardData) {
+    public static float getActiveMinutesGoalFactor(HomeFragment.DashboardData dashboardData) {
         ActivityUser activityUser = new ActivityUser();
         int activeTimeGoal = activityUser.getActiveTimeGoalMinutes();
         float goalFactor = (float) getActiveMinutesTotal(dashboardData) / activeTimeGoal;
@@ -198,7 +198,7 @@ public class DashboardUtils {
         return goalFactor;
     }
 
-    public static long getActiveMinutes(GBDevice gbDevice, DBHandler db, DashboardFragment.DashboardData dashboardData) {
+    public static long getActiveMinutes(GBDevice gbDevice, DBHandler db, HomeFragment.DashboardData dashboardData) {
         ActivitySession stepSessionsSummary = new ActivitySession();
         List<ActivitySession> stepSessions;
         List<? extends ActivitySample> activitySamples = getAllSamples(db, gbDevice, dashboardData);
@@ -216,7 +216,7 @@ public class DashboardUtils {
         return duration / 1000 / 60;
     }
 
-    public static List<? extends ActivitySample> getAllSamples(DBHandler db, GBDevice device, DashboardFragment.DashboardData dashboardData) {
+    public static List<? extends ActivitySample> getAllSamples(DBHandler db, GBDevice device, HomeFragment.DashboardData dashboardData) {
         SampleProvider<? extends ActivitySample> provider = getProvider(db, device);
         return provider.getAllActivitySamples(dashboardData.timeFrom, dashboardData.timeTo);
     }
@@ -226,7 +226,7 @@ public class DashboardUtils {
         return coordinator.getSampleProvider(device, db.getDaoSession());
     }
 
-    public static List<BaseActivitySummary> getWorkoutSamples(DBHandler db, DashboardFragment.DashboardData dashboardData) {
+    public static List<BaseActivitySummary> getWorkoutSamples(DBHandler db, HomeFragment.DashboardData dashboardData) {
         return db.getDaoSession().getBaseActivitySummaryDao().queryBuilder().where(
                 BaseActivitySummaryDao.Properties.StartTime.gt(new Date(dashboardData.timeFrom * 1000L)),
                 BaseActivitySummaryDao.Properties.EndTime.lt(new Date(dashboardData.timeTo * 1000L))

@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.zeppos.ZeppOsCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

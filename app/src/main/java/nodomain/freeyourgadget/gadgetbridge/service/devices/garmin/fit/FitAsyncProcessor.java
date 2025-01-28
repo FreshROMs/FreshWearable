@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.List;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.PendingFileProvider;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;

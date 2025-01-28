@@ -51,8 +51,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconAdapter;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconItem;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -63,7 +63,7 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 
 public class ActivitySummariesFilter extends CommonActivityAbstract {

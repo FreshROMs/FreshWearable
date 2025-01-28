@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmiwatch2lite;
 
 import java.util.regex.Pattern;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiCoordinator;
 
 public class RedmiWatch2LiteCoordinator extends XiaomiCoordinator {

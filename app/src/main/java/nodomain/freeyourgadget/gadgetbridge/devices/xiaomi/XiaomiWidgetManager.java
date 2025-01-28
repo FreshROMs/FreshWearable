@@ -16,6 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.devices.xiaomi;
 
+import android.graphics.Color;
 import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
@@ -32,12 +33,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetLayout;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetManager;
@@ -136,7 +136,7 @@ public class XiaomiWidgetManager implements WidgetManager {
         // Ensure that all names are unique
         for (final WidgetPart part : parts) {
             if (duplicatedNames.contains(part.getFullName())) {
-                part.setName(String.format(Locale.ROOT, "%s (%s)", part.getName(), part.getId()));
+                part.setName(part.getName());
             }
         }
 
@@ -190,15 +190,174 @@ public class XiaomiWidgetManager implements WidgetManager {
             }
         }
 
-        if ((widgetPart.getId() & 256) != 0) {
-            convertedPart.setName(WearableApplication.getContext().getString(R.string.widget_name_colored_tile, convertedPart.getName()));
+        // Ensure name is always proper case
+        convertedPart.setName(convertedPart.getName().toLowerCase().replaceFirst("^[a-z]", String.valueOf(Character.toUpperCase(convertedPart.getName().charAt(0)))));
+
+        // Remove ID at the end if it exists (e.g. "Weather (10257)")
+        if (convertedPart.getName().contains("(")) {
+            convertedPart.setName(convertedPart.getName().replaceFirst("\\s*\\(\\d+\\)$", ""));
         }
+
+        if ((widgetPart.getId() & 256) != 0) {
+            convertedPart.setAlternate(true);
+            convertedPart.setAlternateName(WearableApplication.getContext().getString(R.string.widget_name_colored_tile, convertedPart.getName()));
+        }
+
+        convertedPart.setIcon(getWidgetDrawableId(widgetPart.getId()));
+        convertedPart.setColor(getWidgetColorId(widgetPart.getId()));
 
         return convertedPart;
     }
 
+    private int getWidgetColorId(final int widgetId) {
+        switch (widgetId) {
+            case 3089: // stats
+            case 3105:
+                return Color.parseColor("#f5ae15");
+            case 3090: // steps
+            case 3346:
+            case 3362:
+            case 3106:
+                return Color.parseColor("#fcb317");
+            case 3091: // calories
+            case 3347:
+            case 3107:
+            case 3363:
+                return Color.parseColor("#f86a11");
+            case 3093: // moving
+            case 3349:
+            case 3109:
+            case 3365:
+                return Color.parseColor("#24b2f3");
+            case 3092: // standing time
+            case 3348:
+            case 3108:
+            case 3364:
+                return Color.parseColor("#36cf6f");
+            case 7183: // spo2 (oxygen)
+            case 7441:
+            case 7202:
+            case 7458:
+                return Color.parseColor("#fa224c");
+            case 6161: // stress
+            case 6417:
+                return Color.parseColor("#06ddc7");
+            case 8209: // sleep
+            case 8241:
+            case 8225:
+            case 8481:
+                return Color.parseColor("#6a5dfe");
+            case 2065: // workout
+            case 2321:
+            case 2081:
+            case 2337:
+                return Color.parseColor("#ffe720");
+            case 9249: // cycles
+            case 9505:
+                return Color.parseColor("#f5ae15");
+            case 18465: // events
+                return Color.parseColor("#297ee1");
+            case 10257: // weather
+            case 10513:
+            case 10273:
+            case 10529:
+                return Color.parseColor("#5c9ecf");
+            case 14353: // music
+            case 14609:
+            case 14369:
+            case 14625:
+                return Color.parseColor("#63d5b0");
+            case 17: // battery
+                return Color.parseColor("#32ef80");
+            case 17525: // timer
+            case 17442:
+                return Color.parseColor("#2b93ff");
+            case 4131: // heart rate
+            case 4113:
+            case 4369:
+            case 4387:
+                return Color.parseColor("#fa224c");
+            default:
+                return WearableApplication.getContext().getColor(dev.oneuiproject.oneui.design.R.color.oui_appinfolayout_button_bg_color);
+        }
+    }
+
+    private int getWidgetDrawableId(final int widgetId) {
+        switch (widgetId) {
+            case 3089: // stats
+            case 3105:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_lightning;
+            case 3090: // steps
+            case 3346:
+            case 3362:
+            case 3106:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_tag;
+            case 3091: // calories
+            case 3347:
+            case 3107:
+            case 3363:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_food;
+            case 3093: // moving
+            case 3349:
+            case 3109:
+            case 3365:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_accessibility_2;
+            case 3092: // standing time
+            case 3348:
+            case 3108:
+            case 3364:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_contact;
+            case 7183: // spo2 (oxygen)
+            case 7441:
+            case 7202:
+            case 7458:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_water_drop;
+            case 6161: // stress
+            case 6417:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_emoji_category_angry;
+            case 8209: // sleep
+            case 8241:
+            case 8225:
+            case 8481:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_bed;
+            case 2065: // workout
+            case 2321:
+            case 2081:
+            case 2337:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_workout;
+            case 9249: // cycles
+            case 9505:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_emoji;
+            case 18465: // events
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_calendar;
+            case 10257: // weather
+            case 10513:
+            case 10273:
+            case 10529:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_weather;
+            case 14353: // music
+            case 14609:
+            case 14369:
+            case 14625:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_audio;
+            case 17: // battery
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_battery;
+            case 17525: // timer
+            case 17442:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_timer;
+            case 4131: // heart rate
+            case 4113:
+            case 4369:
+            case 4387:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_health;
+            default:
+                return dev.oneuiproject.oneui.R.drawable.ic_oui_widget;
+        }
+    }
+
     @Override
     public List<WidgetScreen> getWidgetScreens() {
+
         final XiaomiProto.WidgetScreens rawWidgetScreens = getRawWidgetScreens();
 
         final List<WidgetScreen> convertedScreens = new ArrayList<>(rawWidgetScreens.getWidgetScreenCount());
@@ -249,6 +408,8 @@ public class XiaomiWidgetManager implements WidgetManager {
     public void saveScreen(final WidgetScreen widgetScreen) {
         final XiaomiProto.WidgetScreens rawWidgetScreens = getRawWidgetScreens();
 
+        LOG.debug("Saving widget screen {}", widgetScreen.getId());
+
         final int layoutNum = toRawLayout(widgetScreen.getLayout());
         if (layoutNum == -1) {
             return;
@@ -261,15 +422,15 @@ public class XiaomiWidgetManager implements WidgetManager {
                     .setId(rawWidgetScreens.getWidgetScreenCount() + 1); // ids start at 1
         } else {
             for (final XiaomiProto.WidgetScreen screen : rawWidgetScreens.getWidgetScreenList()) {
-                if (String.valueOf(screen.getId()).equals(widgetScreen.getId())) {
+                LOG.debug("Checking screen {} against {}", screen.getId(), widgetScreen.getId());
+                if (String.valueOf(screen.getId()).equals(String.valueOf(widgetScreen.getId()))) {
                     rawScreen = XiaomiProto.WidgetScreen.newBuilder(screen);
                     break;
                 }
-
-                LOG.warn("Failed to find original screen for {}", widgetScreen.getId());
             }
 
             if (rawScreen == null) {
+                LOG.warn("Failed to find original screen for {}", widgetScreen.getId());
                 rawScreen = XiaomiProto.WidgetScreen.newBuilder()
                         .setId(rawWidgetScreens.getWidgetScreenCount() + 1);
             }

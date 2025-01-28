@@ -29,7 +29,7 @@ import java.util.List;
 
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class DeviceHeaderBatteryWatch extends DeviceHeaderBatteryCommon {
     List<BatteryState> statusStates = Arrays.asList(

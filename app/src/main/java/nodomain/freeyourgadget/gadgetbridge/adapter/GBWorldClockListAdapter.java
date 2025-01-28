@@ -37,8 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureWorldClocks;
 import nodomain.freeyourgadget.gadgetbridge.entities.WorldClock;
 

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="sesl_btn_default_color">#2d2d30</color>
+    <color name="main_info_card_background">#17171a</color>
+    <color name="app_ripple_effect">@color/sesl_ripple_color_dark</color>
+    <color name="sesl_bottom_navigation_bar_bg">@color/sesl_round_and_bgcolor_dark</color>
 </resources>

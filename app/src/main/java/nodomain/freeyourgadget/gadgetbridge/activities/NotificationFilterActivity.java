@@ -33,9 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.dao.query.Query;
-import xyz.tenseventyseven.fresh.wearable.BuildConfig;
-import xyz.tenseventyseven.fresh.wearable.WearableApplication;
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppBlacklistAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilter;
@@ -43,7 +43,7 @@ import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilterDao;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilterEntry;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilterEntryDao;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
-import xyz.tenseventyseven.fresh.wearable.activities.CommonActivityAbstract;
+import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 
 public class NotificationFilterActivity extends CommonActivityAbstract {
 

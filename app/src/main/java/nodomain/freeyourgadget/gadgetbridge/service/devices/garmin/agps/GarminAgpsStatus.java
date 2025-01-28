@@ -2,7 +2,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.agps;
 
 import androidx.annotation.StringRes;
 
-import xyz.tenseventyseven.fresh.wearable.R;
+import xyz.tenseventyseven.fresh.R;
 
 
 public enum GarminAgpsStatus {
