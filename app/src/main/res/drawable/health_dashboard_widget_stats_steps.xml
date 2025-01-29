@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/health_steps_color" />
+            <size android:width="28.0dip" android:height="28.0dip" />
+        </shape>
+    </item>
+    <item android:gravity="center"
+        android:height="22.0dip" android:width="22.0dip">
+        <vector
+            android:width="24dp"
+            android:height="24dp"
+            android:viewportWidth="24"
+            android:viewportHeight="24">
+            <path
+                android:pathData="M13,4m-1,0a1,1 0,1 0,2 0a1,1 0,1 0,-2 0"
+                android:strokeLineJoin="round"
+                android:strokeWidth="2.5"
+                android:strokeColor="@color/oui_background_color"
+                android:strokeLineCap="round" />
+            <path
+                android:pathData="M7,21l3,-4"
+                android:strokeLineJoin="round"
+                android:strokeWidth="2.5"
+                android:strokeColor="@color/oui_background_color"
+                android:strokeLineCap="round" />
+            <path
+                android:pathData="M16,21l-2,-4l-3,-3l1,-6"
+                android:strokeLineJoin="round"
+                android:strokeWidth="2.5"
+                android:strokeColor="@color/oui_background_color"
+                android:strokeLineCap="round" />
+            <path
+                android:pathData="M6,12l2,-3l4,-1l3,3l3,1"
+                android:strokeLineJoin="round"
+                android:strokeWidth="2.5"
+                android:strokeColor="@color/oui_background_color"
+                android:strokeLineCap="round" />
+        </vector>
+    </item>
+</layer-list>

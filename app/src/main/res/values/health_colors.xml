@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="health_steps_color">#ffbe24</color>
+    <color name="health_calories_color">#fd6826</color>
+    <color name="health_active_time_color">#41b2ff</color>
+    <color name="health_distance_color">#fd6826</color>
+</resources>

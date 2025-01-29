@@ -16,9 +16,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 package xyz.tenseventyseven.fresh.health.activities.dashboard.widgets;
 
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,16 +32,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
+import nodomain.freeyourgadget.gadgetbridge.util.FormatUtils;
 import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.utils.AbstractDashboardWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.HomeFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
+import xyz.tenseventyseven.fresh.health.components.CircularProgressView;
 
 /**
  * A simple {@link AbstractDashboardWidget} subclass.
@@ -49,7 +58,13 @@ import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 public class DashboardGoalsWidget extends AbstractDashboardWidget {
     private static final Logger LOG = LoggerFactory.getLogger(DashboardGoalsWidget.class);
     private View goalsView;
-    private ImageView goalsChart;
+    private TextView statsSteps;
+    private TextView statsDistance;
+    private TextView statsActiveTime;
+
+    private CircularProgressView progessBarSteps;
+    private CircularProgressView progessBarDistance;
+    private CircularProgressView progessBarActiveTime;
 
     public DashboardGoalsWidget() {
         // Required empty public constructor
@@ -72,107 +87,86 @@ public class DashboardGoalsWidget extends AbstractDashboardWidget {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        goalsView = inflater.inflate(R.layout.dashboard_widget_goals, container, false);
-        goalsChart = goalsView.findViewById(R.id.dashboard_goals_chart);
-
-        // Initialize legend
-        TextView legend = goalsView.findViewById(R.id.dashboard_goals_legend);
-        SpannableString l_steps = new SpannableString("■ " + getString(R.string.steps));
-        l_steps.setSpan(new ForegroundColorSpan(color_activity), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        SpannableString l_distance = new SpannableString("■ " + getString(R.string.distance));
-        l_distance.setSpan(new ForegroundColorSpan(color_distance), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        SpannableString l_active_time = new SpannableString("■ " + getString(R.string.activity_list_summary_active_time));
-        l_active_time.setSpan(new ForegroundColorSpan(color_active_time), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        SpannableString l_sleep = new SpannableString("■ " + getString(R.string.menuitem_sleep));
-        l_sleep.setSpan(new ForegroundColorSpan(color_light_sleep), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        SpannableStringBuilder legendBuilder = new SpannableStringBuilder();
-        legend.setText(legendBuilder.append(l_steps).append(" ").append(l_distance).append("\n").append(l_active_time).append(" ").append(l_sleep));
-
-        Prefs prefs = WearableApplication.getPrefs();
-        legend.setVisibility(prefs.getBoolean("dashboard_widget_goals_legend", true) ? View.VISIBLE : View.GONE);
-
+        goalsView = inflater.inflate(R.layout.health_dashboard_widget_goals, container, false);
+        statsSteps = goalsView.findViewById(R.id.dashboard_goals_steps);
+        statsDistance = goalsView.findViewById(R.id.dashboard_goals_distance);
+        statsActiveTime = goalsView.findViewById(R.id.dashboard_goals_active_time);
+        progessBarSteps = goalsView.findViewById(R.id.dashboard_goals_steps_progress);
+        progessBarDistance = goalsView.findViewById(R.id.dashboard_goals_distance_progress);
+        progessBarActiveTime = goalsView.findViewById(R.id.dashboard_goals_active_time_progress);
         return goalsView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (goalsChart != null) fillData();
+        if (goalsView != null) fillData();
     }
 
     @Override
     protected void fillData() {
         if (goalsView == null) return;
-        goalsView.post(new Runnable() {
-            @Override
-            public void run() {
-                FillDataAsyncTask myAsyncTask = new FillDataAsyncTask();
-                myAsyncTask.execute();
-            }
-        });
+        if (dashboardData == null) return;
+        if (getContext() == null) return;
+
+        float stepsGoalFactor = dashboardData.getStepsGoalFactor();
+        float distanceGoalFactor = dashboardData.getDistanceGoalFactor();
+        float activeMinutesGoalFactor = dashboardData.getActiveMinutesGoalFactor();
+
+        LOG.debug("Steps goal factor: {}", stepsGoalFactor);
+        LOG.debug("Distance goal factor: {}", distanceGoalFactor);
+        LOG.debug("Active minutes goal factor: {}", activeMinutesGoalFactor);
+
+        // Set Progress color for all goals
+        progessBarSteps.setProgressColor(getProgressColor(R.color.health_steps_color, stepsGoalFactor));
+        progessBarDistance.setProgressColor(getProgressColor(R.color.health_distance_color, distanceGoalFactor));
+        progessBarActiveTime.setProgressColor(getProgressColor(R.color.health_active_time_color, activeMinutesGoalFactor));
+
+        // Set Progress background color for all goals
+        progessBarSteps.setProgressBackgroundColor(getBackgroundColor(R.color.health_steps_color, stepsGoalFactor));
+        progessBarDistance.setProgressBackgroundColor(getBackgroundColor(R.color.health_distance_color, distanceGoalFactor));
+        progessBarActiveTime.setProgressBackgroundColor(getBackgroundColor(R.color.health_active_time_color, activeMinutesGoalFactor));
+
+        // Set progress for all goals
+        progessBarSteps.setProgress(getProgress(stepsGoalFactor));
+        progessBarDistance.setProgress(getProgress(distanceGoalFactor));
+        progessBarActiveTime.setProgress(getProgress(activeMinutesGoalFactor));
+
+        statsSteps.setText(getString(R.string.dashboard_widget_goals_steps, dashboardData.getStepsTotal()));
+        statsDistance.setText(FormatUtils.getFormattedDistanceLabel(dashboardData.getDistanceTotal()));
+        statsActiveTime.setText(getString(R.string.dashboard_widget_goals_active_time, dashboardData.getActiveMinutesTotal()));
     }
 
-    private class FillDataAsyncTask extends AsyncTask<Void, Void, Void> {
-        private Bitmap goalsBitmap;
+    private int getProgressColor(int resId, float factor) {
+        // Return regular color if below goal
+        int color = requireContext().getColor(resId);
+        if (factor < 1) return color;
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            final long nanoStart = System.nanoTime();
+        // Get color beyond goal - make color brighter (15%)
+        return Color.argb(255, Math.min(255, (int) (Color.red(color) * 1.2)),
+                Math.min(255, (int) (Color.green(color) * 1.25)),
+                Math.min(255, (int) (Color.blue(color) * 1.25)));
+    }
 
-            int width = Resources.getSystem().getDisplayMetrics().widthPixels;
-            int height = width;
-            int barWidth = Math.round(height * 0.04f);
-            int barMargin = (int) Math.ceil(barWidth / 2f);
+    private int getBackgroundColor(int resId, float factor) {
+        // Return progress normal color if below goal
+        int color = requireContext().getColor(resId);
 
-            goalsBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(goalsBitmap);
-            Paint paint = new Paint();
-            paint.setAntiAlias(true);
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeCap(Paint.Cap.ROUND);
+        // Set the color to be more transparent - 25%
+        if (factor < 1)
+            return Color.argb(64, Color.red(color), Color.green(color), Color.blue(color));
 
-            paint.setStrokeWidth(barWidth * 0.75f);
-            paint.setColor(color_unknown);
-            canvas.drawArc(barMargin, barMargin, width - barMargin, height - barMargin, 270, 360, false, paint);
-            paint.setStrokeWidth(barWidth);
-            paint.setColor(color_activity);
-            canvas.drawArc(barMargin, barMargin, width - barMargin, height - barMargin, 270, 360 * dashboardData.getStepsGoalFactor(), false, paint);
+        // Return regular color if above goal
+        return color;
+    }
 
-            barMargin += barWidth * 1.5;
-            paint.setStrokeWidth(barWidth * 0.75f);
-            paint.setColor(color_unknown);
-            canvas.drawArc(barMargin, barMargin, width - barMargin, height - barMargin, 270, 360, false, paint);
-            paint.setStrokeWidth(barWidth);
-            paint.setColor(color_distance);
-            canvas.drawArc(barMargin, barMargin, width - barMargin, height - barMargin, 270, 360 * dashboardData.getDistanceGoalFactor(), false, paint);
+    private int getProgress(float factor) {
+        // Return regular progress if below goal
+        if (factor < 1) return (int) (factor * 100);
 
-            barMargin += barWidth * 1.5;
-            paint.setStrokeWidth(barWidth * 0.75f);
-            paint.setColor(color_unknown);
-            canvas.drawArc(barMargin, barMargin, width - barMargin, height - barMargin, 270, 360, false, paint);
-            paint.setStrokeWidth(barWidth);
-            paint.setColor(color_active_time);
-            canvas.drawArc(barMargin, barMargin, width - barMargin, height - barMargin, 270, 360 * dashboardData.getActiveMinutesGoalFactor(), false, paint);
-
-            barMargin += barWidth * 1.5;
-            paint.setStrokeWidth(barWidth * 0.75f);
-            paint.setColor(color_unknown);
-            canvas.drawArc(barMargin, barMargin, width - barMargin, height - barMargin, 270, 360, false, paint);
-            paint.setStrokeWidth(barWidth);
-            paint.setColor(color_light_sleep);
-            canvas.drawArc(barMargin, barMargin, width - barMargin, height - barMargin, 270, 360 * dashboardData.getSleepMinutesGoalFactor(), false, paint);
-
-            final long nanoEnd = System.nanoTime();
-            final long executionTime = (nanoEnd - nanoStart) / 1000000;
-            LOG.debug("fillData for {} took {}ms", DashboardGoalsWidget.this.getClass().getSimpleName(), executionTime);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void unused) {
-            super.onPostExecute(unused);
-            goalsChart.setImageBitmap(goalsBitmap);
-        }
+        // Get progress beyond goal, get excess and return it
+        float excess = (factor - 1);
+        LOG.debug("Excess: {}", excess);
+        return (int) (excess * 100);
     }
 }

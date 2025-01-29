@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_widget_goals_steps">%d steps</string>
+    <string name="dashboard_widget_goals_distance">%.2f km</string>
+    <string name="dashboard_widget_goals_active_time">%d mins</string>
+
+    <!-- Translators: the ### indicate number of digits, keep intact -->
+    <string name="distance_format_meters_spaced">### m</string>
+
+    <!-- Translators: the ### indicate number of digits, keep intact -->
+    <string name="distance_format_kilometers_spaced">###.# km</string>
+
+    <!-- Translators: the ### indicate number of digits, keep intact -->
+    <string name="distance_format_miles_spaced">###.# mi</string>
+
+    <!-- Translators: the ### indicate number of digits, keep intact -->
+    <string name="distance_format_feet_spaced">### ft</string>
+</resources>
