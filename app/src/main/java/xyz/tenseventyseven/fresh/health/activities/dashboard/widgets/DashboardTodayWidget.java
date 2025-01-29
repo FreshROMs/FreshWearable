@@ -96,7 +96,7 @@ public class DashboardTodayWidget extends AbstractDashboardWidget {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        todayView = inflater.inflate(R.layout.dashboard_widget_today, container, false);
+        todayView = inflater.inflate(R.layout.health_dashboard_widget_today, container, false);
         todayChart = todayView.findViewById(R.id.dashboard_today_chart);
 
         // Determine whether to draw a single or a double chart. In case 24h mode is selected,
