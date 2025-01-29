@@ -918,7 +918,7 @@
             android:exported="true"
             android:label="OpenTracks controller and intent receiver" />
         <activity
-            android:name=".health.activities.dashboard.widgets.DashboardCalendarActivity"
+            android:name=".health.activities.dashboard.DashboardCalendarActivity"
             android:label="@string/menuitem_calendar"
             android:parentActivityName=".wearable.activities.DashboardActivity" />
         <activity

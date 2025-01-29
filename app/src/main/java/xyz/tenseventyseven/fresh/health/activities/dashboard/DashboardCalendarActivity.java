@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>. */
-package xyz.tenseventyseven.fresh.health.activities.dashboard.widgets;
+package xyz.tenseventyseven.fresh.health.activities.dashboard;
 
 import android.content.Intent;
 import android.content.res.Resources;
@@ -54,7 +54,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
-import xyz.tenseventyseven.fresh.health.activities.dashboard.HomeFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.DashboardUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
