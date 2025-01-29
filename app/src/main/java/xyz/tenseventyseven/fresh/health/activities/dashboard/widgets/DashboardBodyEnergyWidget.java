@@ -43,7 +43,7 @@ public class DashboardBodyEnergyWidget extends AbstractGaugeWidget {
     private static final Logger LOG = LoggerFactory.getLogger(DashboardBodyEnergyWidget.class);
 
     public DashboardBodyEnergyWidget() {
-        super(R.string.body_energy, "bodyenergy");
+        super(R.string.body_energy, "bodyenergy", ir.alirezaivaz.tablericons.R.drawable.ic_bolt);
     }
 
     public static DashboardBodyEnergyWidget newInstance(final HomeFragment.DashboardData dashboardData) {

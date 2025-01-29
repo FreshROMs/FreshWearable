@@ -39,7 +39,7 @@ public class DashboardHrvWidget extends AbstractGaugeWidget {
     private static final Logger LOG = LoggerFactory.getLogger(DashboardHrvWidget.class);
 
     public DashboardHrvWidget() {
-        super(R.string.hrv, "hrvstatus");
+        super(R.string.hrv, "hrvstatus", ir.alirezaivaz.tablericons.R.drawable.ic_heartbeat);
     }
 
     public static DashboardHrvWidget newInstance(final HomeFragment.DashboardData dashboardData) {

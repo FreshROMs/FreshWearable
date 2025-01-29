@@ -6,10 +6,11 @@
         android:height="@dimen/health_widget_progress_height"
         android:gravity="fill_horizontal|center">
 
-        <nine-patch
-            android:src="@drawable/sesl_progress_bar"
-            android:tint="?attr/progressNormalColor" />
-
+        <shape android:shape="rectangle">
+            <solid android:color="?attr/progressNormalColor" />
+            <corners android:radius="900.0dip" />
+            <size android:width="4.0dip" android:height="12.0dip" />
+        </shape>
     </item>
 
     <item
@@ -18,11 +19,11 @@
         android:gravity="fill_horizontal|center">
 
         <scale android:scaleWidth="100%">
-
-            <nine-patch
-                android:src="@drawable/sesl_progress_bar"
-                android:tint="?attr/progressActivatedColor" />
-
+            <shape android:shape="rectangle">
+                <solid android:color="?attr/progressActivatedColor" />
+                <corners android:radius="900.0dip" />
+                <size android:width="4.0dip" android:height="12.0dip" />
+            </shape>
         </scale>
 
     </item>
@@ -33,11 +34,11 @@
         android:gravity="fill_horizontal|center">
 
         <scale android:scaleWidth="100%">
-
-            <nine-patch
-                android:src="@drawable/sesl_progress_bar"
-                android:tint="?attr/progressActivatedColor" />
-
+            <shape android:shape="rectangle">
+                <solid android:color="?attr/progressActivatedColor" />
+                <corners android:radius="900.0dip" />
+                <size android:width="4.0dip" android:height="12.0dip" />
+            </shape>
         </scale>
 
     </item>

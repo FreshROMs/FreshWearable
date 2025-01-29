@@ -33,7 +33,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
  */
 public class DashboardSleepWidget extends AbstractGaugeWidget {
     public DashboardSleepWidget() {
-        super(R.string.menuitem_sleep, "sleep");
+        super(R.string.menuitem_sleep, "sleep", dev.oneuiproject.oneui.R.drawable.ic_oui_bed);
     }
 
     /**

@@ -61,4 +61,12 @@
         <attr name="wpTitle" format="string" />
         <attr name="wpSubtitle" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="CircularProgressView">
+        <attr name="progress" format="float" />
+        <attr name="max" format="float" />
+        <attr name="stroke" format="dimension" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="progressColor" format="color" />
+    </declare-styleable>
 </resources>

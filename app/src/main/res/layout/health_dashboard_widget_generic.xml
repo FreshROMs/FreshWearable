@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingHorizontal="24.0dip"
-    android:paddingVertical="18.0dip"
+    android:paddingHorizontal="22.0dip"
+    android:paddingVertical="20.0dip"
     android:background="@drawable/sesl_btn_no_background"
     android:focusable="true"
     android:clickable="true">
@@ -24,17 +24,27 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="28.0dip"
-                android:layout_height="28.0dip"
+            <FrameLayout
+                android:layout_width="30.0dip"
+                android:layout_height="30.0dip"
                 android:layout_marginEnd="12.0dip"
-                android:src="@drawable/ic_oui_heart_outline" />
+                android:background="@drawable/health_dashboard_widget_ic_background">
+                <ImageView
+                    android:id="@+id/gauge_icon"
+                    android:layout_width="22.0dip"
+                    android:layout_height="22.0dip"
+                    android:layout_gravity="center"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_heartbeat"
+                    android:tint="@color/oui_background_color"
+                    tools:ignore="UseAppTint" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/gauge_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16.0sp"
+                android:textSize="18.0sp"
                 android:textColor="@color/oui_primary_text_color"
                 android:textFontWeight="700"
                 android:text="@string/no_data" />
@@ -44,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/stats_empty_value"
-            android:layout_marginTop="4.0dip"
+            android:layout_marginTop="6.0dip"
             android:textSize="30sp" />
     </LinearLayout>
 

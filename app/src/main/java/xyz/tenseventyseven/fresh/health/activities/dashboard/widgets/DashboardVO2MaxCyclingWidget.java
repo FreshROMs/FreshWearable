@@ -11,7 +11,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.Vo2MaxSample;
 public class DashboardVO2MaxCyclingWidget extends AbstractDashboardVO2MaxWidget {
 
     public DashboardVO2MaxCyclingWidget() {
-        super(R.string.vo2max_cycling, "vo2max");
+        super(R.string.vo2max_cycling, "vo2max", ir.alirezaivaz.tablericons.R.drawable.ic_bike);
     }
 
     public static DashboardVO2MaxCyclingWidget newInstance(final HomeFragment.DashboardData dashboardData) {

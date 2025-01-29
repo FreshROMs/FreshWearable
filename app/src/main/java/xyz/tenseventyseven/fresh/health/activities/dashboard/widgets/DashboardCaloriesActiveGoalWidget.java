@@ -19,7 +19,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
  */
 public class DashboardCaloriesActiveGoalWidget extends AbstractGaugeWidget {
     public DashboardCaloriesActiveGoalWidget() {
-        super(R.string.active_calories, "calories", CaloriesDailyFragment.GaugeViewMode.ACTIVE_CALORIES_GOAL.toString());
+        super(R.string.active_calories, "calories", CaloriesDailyFragment.GaugeViewMode.ACTIVE_CALORIES_GOAL.toString(), ir.alirezaivaz.tablericons.R.drawable.ic_activity);
     }
 
     /**

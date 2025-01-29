@@ -20,7 +20,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
  */
 public class DashboardCaloriesTotalSegmentedWidget extends AbstractGaugeWidget {
     public DashboardCaloriesTotalSegmentedWidget() {
-        super(R.string.calories, "calories", CaloriesDailyFragment.GaugeViewMode.TOTAL_CALORIES_SEGMENT.toString());
+        super(R.string.calories, "calories", CaloriesDailyFragment.GaugeViewMode.TOTAL_CALORIES_SEGMENT.toString(), ir.alirezaivaz.tablericons.R.drawable.ic_flame);
     }
 
     /**

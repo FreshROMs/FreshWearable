@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 package xyz.tenseventyseven.fresh.health.activities.dashboard.utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -125,7 +126,7 @@ public abstract class AbstractDashboardWidget extends Fragment {
             return;
         }
 
-        new MaterialAlertDialogBuilder(activity)
+        new AlertDialog.Builder(activity)
                 .setCancelable(true)
                 .setTitle(R.string.choose_device)
                 .setItems(deviceNames, (dialog, which) -> consumer.accept(devices.get(which)))

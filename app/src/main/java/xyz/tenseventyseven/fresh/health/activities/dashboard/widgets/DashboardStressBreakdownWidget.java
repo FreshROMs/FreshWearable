@@ -29,7 +29,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public class DashboardStressBreakdownWidget extends AbstractGaugeWidget {
     public DashboardStressBreakdownWidget() {
-        super(R.string.menuitem_stress, "stress");
+        super(R.string.menuitem_stress, "stress", ir.alirezaivaz.tablericons.R.drawable.ic_mood_check);
     }
 
     public static DashboardStressBreakdownWidget newInstance(final HomeFragment.DashboardData dashboardData) {

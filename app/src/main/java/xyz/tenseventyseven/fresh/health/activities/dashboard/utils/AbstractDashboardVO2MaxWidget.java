@@ -23,6 +23,9 @@ public abstract class AbstractDashboardVO2MaxWidget extends AbstractGaugeWidget 
     public AbstractDashboardVO2MaxWidget(int label, @Nullable String targetActivityTab) {
         super(label, targetActivityTab);
     }
+    public AbstractDashboardVO2MaxWidget(int label, @Nullable String targetActivityTab, int iconId) {
+        super(label, targetActivityTab, iconId);
+    }
 
     @Override
     protected void populateData(final HomeFragment.DashboardData dashboardData) {

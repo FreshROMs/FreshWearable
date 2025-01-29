@@ -11,7 +11,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.Vo2MaxSample;
 public class DashboardVO2MaxRunningWidget extends AbstractDashboardVO2MaxWidget {
 
     public DashboardVO2MaxRunningWidget() {
-        super(R.string.vo2max_running, "vo2max");
+        super(R.string.vo2max_running, "vo2max", ir.alirezaivaz.tablericons.R.drawable.ic_run);
     }
 
     public static DashboardVO2MaxRunningWidget newInstance(final HomeFragment.DashboardData dashboardData) {

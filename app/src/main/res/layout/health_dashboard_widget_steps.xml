@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingHorizontal="24.0dip"
-    android:paddingVertical="18.0dip"
+    android:paddingHorizontal="22.0dip"
+    android:paddingVertical="20.0dip"
     android:background="@drawable/sesl_btn_no_background"
     android:focusable="true"
     android:clickable="true">
@@ -25,7 +25,7 @@
             android:text="@string/stats_empty_value"
             android:textSize="36sp"
             android:textColor="@color/oui_primary_text_color"
-            android:textFontWeight="700" />
+            android:textFontWeight="600" />
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,22 +33,9 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16.0sp"
-                android:text="/" />
-            <TextView
-                android:id="@+id/gauge_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16.0sp"
-                android:layout_marginStart="4.0dip"
-                android:text="@string/no_data" />
-            <TextView
                 android:id="@+id/gauge_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4.0dip"
                 android:textSize="16.0sp"
                 android:text="@string/no_data" />
         </LinearLayout>

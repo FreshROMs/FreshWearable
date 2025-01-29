@@ -43,7 +43,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.SleepScoreSample;
 public class DashboardSleepScoreWidget extends AbstractGaugeWidget {
     protected static final Logger LOG = LoggerFactory.getLogger(AbstractDashboardVO2MaxWidget.class);
     public DashboardSleepScoreWidget() {
-        super(R.string.sleep_score, "sleep");
+        super(R.string.sleep_score, "sleep", ir.alirezaivaz.tablericons.R.drawable.ic_zzz);
     }
 
     /**

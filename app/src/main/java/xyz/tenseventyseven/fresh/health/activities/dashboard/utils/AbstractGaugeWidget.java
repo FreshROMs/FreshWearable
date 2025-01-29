@@ -45,12 +45,23 @@ public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {
 
     private ProgressBar gaugeBarNew;
 
+    private ImageView gaugeIcon;
+
     private final int label;
+
+    private final int iconId;
     private final String targetActivityTab;
     private String mode = "";
 
     public AbstractGaugeWidget(@StringRes final int label, @Nullable final String targetActivityTab) {
         this.label = label;
+        this.iconId = -1;
+        this.targetActivityTab = targetActivityTab;
+    }
+
+    public AbstractGaugeWidget(@StringRes final int label, @Nullable final String targetActivityTab, final int iconId) {
+        this.label = label;
+        this.iconId = iconId;
         this.targetActivityTab = targetActivityTab;
     }
 
@@ -59,9 +70,14 @@ public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {
         this.mode = mode;
     }
 
+    public AbstractGaugeWidget(@StringRes final int label, @Nullable final String targetActivityTab, final String mode, final int iconId) {
+        this(label, targetActivityTab, iconId);
+        this.mode = mode;
+    }
+
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View fragmentView = inflater.inflate(R.layout.dashboard_widget_generic_gauge, container, false);
+        final View fragmentView = inflater.inflate(R.layout.health_dashboard_widget_generic, container, false);
         setupView(fragmentView);
 
         return fragmentView;
@@ -76,8 +92,16 @@ public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {
         gaugeBar = fragmentView.findViewById(R.id.gauge_bar);
         gaugeBarNew = fragmentView.findViewById(R.id.gauge_progress);
         gaugeDrawer = new GaugeDrawer();
+        gaugeIcon = fragmentView.findViewById(R.id.gauge_icon);
+
         final TextView gaugeLabel = fragmentView.findViewById(R.id.gauge_label);
-        gaugeLabel.setText(label);
+        if (gaugeLabel != null) {
+            gaugeLabel.setText(label);
+        }
+
+        if (gaugeIcon != null && iconId != -1) {
+            gaugeIcon.setImageResource(iconId);
+        }
 
         fillData();
     }
@@ -141,6 +165,10 @@ public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {
 
     protected void setText(final CharSequence text) {
         gaugeValue.setText(text);
+    }
+
+    protected void setIcon(final int iconId) {
+        gaugeIcon.setImageResource(iconId);
     }
 
     /**

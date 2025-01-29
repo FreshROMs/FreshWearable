@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -53,7 +52,6 @@ import xyz.tenseventyseven.fresh.databinding.HealthFragmentHomeBinding;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.utils.AbstractDashboardWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardActiveTimeWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardBodyEnergyWidget;
-import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardCalendarActivity;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardCaloriesActiveGoalWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardCaloriesTotalSegmentedWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardDistanceWidget;

@@ -37,13 +37,13 @@ public class DashboardStepsWidget extends AbstractGaugeWidget {
     private TextView gaugeTotal;
 
     public DashboardStepsWidget() {
-        super(R.string.steps, "stepsweek");
+        super(R.string.steps, "stepsweek", ir.alirezaivaz.tablericons.R.drawable.ic_mood_check);
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View fragmentView = inflater.inflate(R.layout.health_dashboard_widget_steps, container, false);
-        gaugeTotal = fragmentView.findViewById(R.id.gauge_total);
+        gaugeTotal = fragmentView.findViewById(R.id.gauge_label);
         setupView(fragmentView);
         return fragmentView;
     }
@@ -74,11 +74,13 @@ public class DashboardStepsWidget extends AbstractGaugeWidget {
     protected void draw(final HomeFragment.DashboardData dashboardData) {
         setText(String.valueOf(dashboardData.getStepsTotal()));
         if (gaugeTotal != null) {
-            gaugeTotal.setText(String.valueOf(dashboardData.getStepsGoal()));
+            String str = "/" +
+                    getString(R.string.dashboard_widget_goals_steps, dashboardData.getStepsGoal());
+            gaugeTotal.setText(str);
         }
 
         drawSimpleGauge(
-                color_activity,
+                requireContext().getColor(R.color.health_steps_color),
                 dashboardData.getStepsGoalFactor()
         );
     }

@@ -32,7 +32,7 @@ import xyz.tenseventyseven.fresh.health.activities.dashboard.HomeFragment;
  */
 public class DashboardActiveTimeWidget extends AbstractGaugeWidget {
     public DashboardActiveTimeWidget() {
-        super(R.string.activity_list_summary_active_time, "activity");
+        super(R.string.activity_list_summary_active_time, "activity", dev.oneuiproject.oneui.R.drawable.ic_oui_time);
     }
 
     /**
@@ -58,18 +58,9 @@ public class DashboardActiveTimeWidget extends AbstractGaugeWidget {
 
     @Override
     protected void draw(final HomeFragment.DashboardData dashboardData) {
-        final long totalActiveMinutes = dashboardData.getActiveMinutesTotal();
-        final String valueText = String.format(
-                Locale.ROOT,
-                "%d:%02d",
-                (int) Math.floor(totalActiveMinutes / 60f),
-                (int) (totalActiveMinutes % 60f)
-        );
-
-        setText(valueText);
-
+        setText(getString(R.string.dashboard_widget_goals_active_time, dashboardData.getActiveMinutesTotal()));
         drawSimpleGauge(
-                color_active_time,
+                requireContext().getColor(R.color.health_active_time_color),
                 dashboardData.getActiveMinutesGoalFactor()
         );
     }

@@ -31,7 +31,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.FormatUtils;
  */
 public class DashboardDistanceWidget extends AbstractGaugeWidget {
     public DashboardDistanceWidget() {
-        super(R.string.distance, "stepsweek");
+        super(R.string.distance, "stepsweek", dev.oneuiproject.oneui.R.drawable.ic_oui_location);
     }
 
     /**
@@ -59,7 +59,7 @@ public class DashboardDistanceWidget extends AbstractGaugeWidget {
     protected void draw(final HomeFragment.DashboardData dashboardData) {
         setText(FormatUtils.getFormattedDistanceLabel(dashboardData.getDistanceTotal()));
         drawSimpleGauge(
-                color_distance,
+                requireContext().getColor(R.color.health_distance_color),
                 dashboardData.getDistanceGoalFactor()
         );
     }

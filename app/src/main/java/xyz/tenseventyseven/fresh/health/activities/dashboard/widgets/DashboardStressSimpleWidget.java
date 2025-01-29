@@ -28,7 +28,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public class DashboardStressSimpleWidget extends AbstractGaugeWidget {
     public DashboardStressSimpleWidget() {
-        super(R.string.menuitem_stress, "stress");
+        super(R.string.menuitem_stress, "stress", ir.alirezaivaz.tablericons.R.drawable.ic_mood_check);
     }
 
     public static DashboardStressSimpleWidget newInstance(final HomeFragment.DashboardData dashboardData) {
