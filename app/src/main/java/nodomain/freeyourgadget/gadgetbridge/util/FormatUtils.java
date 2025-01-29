@@ -39,19 +39,19 @@ public class FormatUtils {
         double distanceFeet = distanceMeters * 3.28084f;
         double distanceFormatted = 0;
 
-        String unit = WearableApplication.getContext().getString(R.string.distance_format_meters);
+        String unit = WearableApplication.getContext().getString(R.string.distance_format_meters_spaced);
         distanceFormatted = distanceMeters;
         if (distanceMeters > 2000) {
             distanceFormatted = distanceMeters / 1000;
-            unit = WearableApplication.getContext().getString(R.string.distance_format_kilometers);
+            unit = WearableApplication.getContext().getString(R.string.distance_format_kilometers_spaced);
         }
         String units = WearableApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, WearableApplication.getContext().getString(R.string.p_unit_metric));
         if (units.equals(WearableApplication.getContext().getString(R.string.p_unit_imperial))) {
-            unit = WearableApplication.getContext().getString(R.string.distance_format_feet);
+            unit = WearableApplication.getContext().getString(R.string.distance_format_feet_spaced);
             distanceFormatted = distanceFeet;
             if (distanceFeet > 6000) {
                 distanceFormatted = distanceFeet * 0.0001893939f;
-                unit = WearableApplication.getContext().getString(R.string.distance_format_miles);
+                unit = WearableApplication.getContext().getString(R.string.distance_format_miles_spaced);
             }
         }
         DecimalFormatSymbols symbols = new DecimalFormatSymbols(WearableApplication.getLanguage());
