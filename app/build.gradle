@@ -242,6 +242,9 @@ dependencies {
     implementation "io.github.tribalfs:oneui-design:0.3.7+oneui6"
     implementation "io.github.oneuiproject:icons:1.1.0"
 
+    def tablerIconsVersion = "1.13.1"
+    implementation "ir.alirezaivaz:tablericons:$tablerIconsVersion"
+
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation "com.google.code.gson:gson:2.11.0"
 
