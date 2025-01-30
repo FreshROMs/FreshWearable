@@ -32,18 +32,21 @@ import androidx.annotation.StringRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.GaugeDrawer;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.HomeFragment;
+import xyz.tenseventyseven.fresh.health.components.HorizontalProgressView;
 
 public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractGaugeWidget.class);
 
-    private TextView gaugeValue;
-    private ImageView gaugeBar;
+    protected TextView gaugeValue;
     protected GaugeDrawer gaugeDrawer;
 
-    private ProgressBar gaugeBarNew;
+    private HorizontalProgressView gaugeBar;
 
     private ImageView gaugeIcon;
 
@@ -89,8 +92,7 @@ public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {
         }
 
         gaugeValue = fragmentView.findViewById(R.id.gauge_value);
-        gaugeBar = fragmentView.findViewById(R.id.gauge_bar);
-        gaugeBarNew = fragmentView.findViewById(R.id.gauge_progress);
+        gaugeBar = fragmentView.findViewById(R.id.gauge_progress);
         gaugeDrawer = new GaugeDrawer();
         gaugeIcon = fragmentView.findViewById(R.id.gauge_icon);
 
@@ -109,13 +111,13 @@ public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {
     @Override
     public void onResume() {
         super.onResume();
-        if (gaugeValue != null && gaugeBarNew != null) fillData();
+        if (gaugeValue != null && gaugeBar != null) fillData();
     }
 
     @Override
     protected void fillData() {
-        if (gaugeBarNew == null) return;
-        gaugeBarNew.post(() -> {
+        if (gaugeBar == null) return;
+        gaugeBar.post(() -> {
             final FillDataAsyncTask myAsyncTask = new FillDataAsyncTask();
             myAsyncTask.execute();
         });
@@ -179,9 +181,12 @@ public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {
      */
     protected void drawSimpleGauge(final int color,
                                    final float value) {
-        // gaugeDrawer.drawSimpleGauge(gaugeBar, color, value);
-        gaugeBarNew.setProgress((int) (value * 100));
-        gaugeBarNew.setProgressTintList(ColorStateList.valueOf(color));
+        if (gaugeBar == null) {
+            return;
+        }
+
+        gaugeBar.setProgress(value);
+        gaugeBar.setProgressColor(color);
     }
 
     /**
@@ -201,6 +206,29 @@ public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {
         if (gaugeBar == null) {
             return;
         }
-        gaugeDrawer.drawSegmentedGauge(gaugeBar, colors, segments, value, fadeOutsideDot, gapBetweenSegments);
+
+        // Restructure segments to fit the gauge's new format
+        boolean dotMode = value != -1;
+        gaugeBar.setDotMode(dotMode);
+        gaugeBar.clearBackgroundSegments();
+        gaugeBar.clearProgressSegments();
+
+        float last = 0;
+        for (int i = 0; i < segments.length; i++) {
+            final float high = last + segments[i];
+            final int color = colors[i];
+
+            if (dotMode) {
+                gaugeBar.addBackgroundSegment(last, high, color);
+            } else {
+                gaugeBar.addProgressSegment(last, high, color);
+            }
+
+            last = high;
+        }
+
+        if (dotMode) {
+            gaugeBar.setProgress(value);
+        }
     }
 }

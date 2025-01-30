@@ -16,14 +16,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 package xyz.tenseventyseven.fresh.health.activities.dashboard.widgets;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.health.activities.dashboard.GaugeDrawer;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.utils.AbstractDashboardWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.utils.AbstractGaugeWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.HomeFragment;
@@ -35,6 +36,7 @@ import xyz.tenseventyseven.fresh.health.activities.dashboard.HomeFragment;
  */
 public class DashboardStepsWidget extends AbstractGaugeWidget {
     private TextView gaugeTotal;
+    private LinearLayout cardLayout;
 
     public DashboardStepsWidget() {
         super(R.string.steps, "stepsweek", ir.alirezaivaz.tablericons.R.drawable.ic_mood_check);
@@ -43,6 +45,7 @@ public class DashboardStepsWidget extends AbstractGaugeWidget {
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View fragmentView = inflater.inflate(R.layout.health_dashboard_widget_steps, container, false);
+        cardLayout = fragmentView.findViewById(R.id.card_layout);
         gaugeTotal = fragmentView.findViewById(R.id.gauge_label);
         setupView(fragmentView);
         return fragmentView;
@@ -79,8 +82,30 @@ public class DashboardStepsWidget extends AbstractGaugeWidget {
             gaugeTotal.setText(str);
         }
 
+        int color = requireContext().getColor(R.color.health_steps_color);
+
+        // If the user has reached their goal, highlight the card
+        if (dashboardData.getStepsGoalFactor() > 1) {
+            int bgColor =
+                    color = Color.rgb(
+                            Math.min(255, (int) (Color.red(color) * 0.95)),
+                            Math.min(255, (int) (Color.green(color) * 0.95)),
+                            Math.min(255, (int) (Color.blue(color) * 0.95))
+                    );
+            cardLayout.setBackgroundColor(color);
+            gaugeTotal.setTextColor(Color.parseColor("#FFFFFF"));
+            gaugeValue.setTextColor(Color.parseColor("#F2FFFFFF"));
+
+            // Make the color a bit brighter - about 20%
+            color = Color.rgb(
+                    Math.min(255, (int) (Color.red(color) * 1.25)),
+                    Math.min(255, (int) (Color.green(color) * 1.25)),
+                    Math.min(255, (int) (Color.blue(color) * 1.25))
+            );
+        }
+
         drawSimpleGauge(
-                requireContext().getColor(R.color.health_steps_color),
+                color,
                 dashboardData.getStepsGoalFactor()
         );
     }

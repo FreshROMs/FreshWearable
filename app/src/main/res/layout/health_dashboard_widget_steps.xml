@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_vertical"
+    android:gravity="center"
+    android:layout_gravity="center"
     android:orientation="horizontal"
     android:paddingHorizontal="22.0dip"
     android:paddingVertical="20.0dip"
-    android:background="@drawable/sesl_btn_no_background"
+    android:foreground="@drawable/sesl_btn_no_background"
     android:focusable="true"
     android:clickable="true">
 
@@ -29,7 +30,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2.0dip"
             android:orientation="horizontal"
             android:gravity="center_vertical">
             <TextView
@@ -41,20 +41,12 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/gauge_bar"
-        android:layout_width="150.0dp"
-        android:visibility="gone"
-        android:layout_height="74.0dip"
-        android:paddingStart="24.0dip"
-        android:paddingEnd="8.0dip"
-        android:gravity="center_vertical"
-        android:scaleType="fitStart" />
-
-    <ProgressBar
+    <xyz.tenseventyseven.fresh.health.components.HorizontalProgressView
         android:id="@+id/gauge_progress"
+        style="@style/Theme.Fresh.Health.Widget.Progress"
         android:layout_width="0dp"
-        android:layout_height="64.0dip"
+        android:layout_height="12.0dip"
         android:layout_weight="2"
-        style="@style/Theme.Fresh.Health.Widget.Progress" />
+        app:hBackgroundColor="?attr/progressNormalColor"
+        app:hProgressColor="?attr/progressActivatedColor" />
 </LinearLayout>
