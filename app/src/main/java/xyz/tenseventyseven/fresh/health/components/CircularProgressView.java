@@ -36,9 +36,9 @@ public class CircularProgressView extends View {
         super(context, attrs, defStyleAttr);
         if (attrs != null) {
             TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircularProgressView, 0, 0);
-            float stroke = typedArray.getDimension(R.styleable.CircularProgressView_stroke, context.getResources().getDimension(R.dimen._1dp));
-            int backgroundColor = typedArray.getColor(R.styleable.CircularProgressView_backgroundColor, ContextCompat.getColor(context, R.color.secondarytext));
-            int progressColor = typedArray.getColor(R.styleable.CircularProgressView_progressColor, ContextCompat.getColor(context, R.color.tertiarytext_black));
+            float stroke = typedArray.getDimension(R.styleable.CircularProgressView_cStroke, context.getResources().getDimension(R.dimen._1dp));
+            int backgroundColor = typedArray.getColor(R.styleable.CircularProgressView_cBackgroundColor, ContextCompat.getColor(context, R.color.secondarytext));
+            int progressColor = typedArray.getColor(R.styleable.CircularProgressView_cProgressColor, ContextCompat.getColor(context, R.color.tertiarytext_black));
             progressPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             progressPaint.setStyle(Paint.Style.STROKE);
             progressPaint.setStrokeWidth(stroke);
@@ -48,8 +48,8 @@ public class CircularProgressView extends View {
             backgroundPaint.setStyle(Paint.Style.STROKE);
             backgroundPaint.setStrokeWidth(stroke);
             backgroundPaint.setColor(backgroundColor);
-            max = typedArray.getFloat(R.styleable.CircularProgressView_max, MAX_PROGRESS);
-            setProgress(typedArray.getFloat(R.styleable.CircularProgressView_progress, START_PROGRESS));
+            max = typedArray.getFloat(R.styleable.CircularProgressView_cMax, MAX_PROGRESS);
+            setProgress(typedArray.getFloat(R.styleable.CircularProgressView_cProgress, START_PROGRESS));
             typedArray.recycle();
         }
     }

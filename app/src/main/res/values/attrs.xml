@@ -63,10 +63,20 @@
     </declare-styleable>
 
     <declare-styleable name="CircularProgressView">
-        <attr name="progress" format="float" />
-        <attr name="max" format="float" />
-        <attr name="stroke" format="dimension" />
-        <attr name="backgroundColor" format="color" />
-        <attr name="progressColor" format="color" />
+        <attr name="cProgress" format="float" />
+        <attr name="cMax" format="float" />
+        <attr name="cStroke" format="dimension" />
+        <attr name="cBackgroundColor" format="color" />
+        <attr name="cProgressColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="HorizontalProgressView">
+        <attr name="hProgress" format="float" />
+        <attr name="hMin" format="float" />
+        <attr name="hMax" format="float" />
+        <attr name="hBackgroundColor" format="color" />
+        <attr name="hProgressColor" format="color" />
+        <attr name="hDotColor" format="color" />
+        <attr name="hDotBorderColor" format="color" />
     </declare-styleable>
 </resources>
