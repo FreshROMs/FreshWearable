@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,7 +33,6 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
@@ -71,9 +69,6 @@ public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity 
     public static final String EXTRA_ACTIONBAR_TITLE = "actionbarTitle";
     public static final String EXTRA_TIMESTAMP = "timestamp";
     public static final String EXTRA_MODE = "mode";
-
-    private TextView mDateControl;
-
     private Date mStartDate;
     private Date mEndDate;
     private SwipeRefreshLayout swipeLayout;
@@ -81,7 +76,6 @@ public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity 
     List<String> enabledTabsList;
 
     private GBDevice mGBDevice;
-    private ViewGroup dateBar;
 
     private ActivityResultLauncher<Intent> chartsPreferencesLauncher;
     private final ActivityResultCallback<ActivityResult> chartsPreferencesCallback = result -> {
@@ -120,7 +114,7 @@ public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_charts);
+        setContentView(R.layout.health_activity_charts);
 
         final Bundle extras = getIntent().getExtras();
         if (extras == null) {
@@ -201,28 +195,6 @@ public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity 
                 enableSwipeRefresh(state == ViewPager.SCROLL_STATE_IDLE);
             }
         });
-
-        dateBar = findViewById(R.id.charts_date_bar);
-        mDateControl = findViewById(R.id.charts_text_date);
-        mDateControl.setOnClickListener(v -> {
-            String detailedDuration = formatDetailedDuration();
-            new ShowDurationDialog(detailedDuration, AbstractChartsActivity.this).show();
-        });
-
-        final Button mPrevButton = findViewById(R.id.charts_previous_day);
-        mPrevButton.setOnClickListener(v -> handleButtonClicked(DATE_PREV_DAY));
-        final Button mNextButton = findViewById(R.id.charts_next_day);
-        mNextButton.setOnClickListener(v -> handleButtonClicked(DATE_NEXT_DAY));
-
-        final Button mPrevWeekButton = findViewById(R.id.charts_previous_week);
-        mPrevWeekButton.setOnClickListener(v -> handleButtonClicked(DATE_PREV_WEEK));
-        final Button mNextWeekButton = findViewById(R.id.charts_next_week);
-        mNextWeekButton.setOnClickListener(v -> handleButtonClicked(DATE_NEXT_WEEK));
-
-        final Button mPrevMonthButton = findViewById(R.id.charts_previous_month);
-        mPrevMonthButton.setOnClickListener(v -> handleButtonClicked(DATE_PREV_MONTH));
-        final Button mNextMonthButton = findViewById(R.id.charts_next_month);
-        mNextMonthButton.setOnClickListener(v -> handleButtonClicked(DATE_NEXT_MONTH));
     }
 
     @Override
@@ -283,12 +255,11 @@ public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity 
 
     @Override
     public void setDateInfo(final String dateInfo) {
-        mDateControl.setText(dateInfo);
     }
 
     @Override
     public ViewGroup getDateBar() {
-        return dateBar;
+        return null;
     }
 
     private void handleButtonClicked(final String action) {

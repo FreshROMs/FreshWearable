@@ -508,12 +508,6 @@ public class LiveActivityFragment extends AbstractActivityChartFragment<ChartsDa
     }
 
     @Override
-    protected void showDateBar(boolean show) {
-        // never show the data bar
-        super.showDateBar(false);
-    }
-
-    @Override
     protected void refresh() {
         // do nothing, we don't have any db interaction
     }

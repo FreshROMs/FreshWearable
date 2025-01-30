@@ -153,7 +153,6 @@ public abstract class AbstractChartFragment<D extends ChartsData> extends Abstra
     @Override
     protected void onMadeVisibleInActivity() {
         super.onMadeVisibleInActivity();
-        showDateBar(true);
         updateDateInfo(getStartDate(), getEndDate());
         if (mChartDirty) {
             refresh();
@@ -198,10 +197,6 @@ public abstract class AbstractChartFragment<D extends ChartsData> extends Abstra
 
     protected int toTimestamp(Date date) {
         return (int) ((date.getTime() / 1000));
-    }
-
-    protected void showDateBar(boolean show) {
-        getChartsHost().getDateBar().setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     protected void onReceive(Context context, Intent intent) {
