@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_gravity="center"
     android:gravity="center"
     android:paddingHorizontal="22.0dip"
     android:paddingVertical="18.0dip">
@@ -94,24 +95,24 @@
             android:layout_width="60.0dip"
             android:layout_height="60.0dip"
             android:layout_gravity="center"
-            app:backgroundColor="?attr/progressNormalColor"
-            app:progressColor="@color/health_active_time_color"
-            app:stroke="12.0dip" />
+            app:cBackgroundColor="?attr/progressNormalColor"
+            app:cProgressColor="@color/health_active_time_color"
+            app:cStroke="11.0dip" />
         <xyz.tenseventyseven.fresh.health.components.CircularProgressView
             android:id="@+id/dashboard_goals_steps_progress"
             android:layout_width="95.0dip"
             android:layout_height="95.0dip"
             android:layout_gravity="center"
-            app:backgroundColor="?attr/progressNormalColor"
-            app:progressColor="@color/health_steps_color"
-            app:stroke="12.0dip" />
+            app:cBackgroundColor="?attr/progressNormalColor"
+            app:cProgressColor="@color/health_steps_color"
+            app:cStroke="12.0dip" />
         <xyz.tenseventyseven.fresh.health.components.CircularProgressView
             android:id="@+id/dashboard_goals_distance_progress"
             android:layout_width="130.0dip"
             android:layout_height="130.0dip"
             android:layout_gravity="center"
-            app:backgroundColor="?attr/progressNormalColor"
-            app:progressColor="@color/health_distance_color"
-            app:stroke="12.0dip" />
+            app:cBackgroundColor="?attr/progressNormalColor"
+            app:cProgressColor="@color/health_distance_color"
+            app:cStroke="13.0dip" />
     </FrameLayout>
 </LinearLayout>
