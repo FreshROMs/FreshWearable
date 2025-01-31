@@ -1,5 +1,6 @@
 package nodomain.freeyourgadget.gadgetbridge.activities.charts;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -38,12 +39,17 @@ import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
+import xyz.tenseventyseven.fresh.health.components.CircularProgressView;
+import xyz.tenseventyseven.fresh.health.components.HorizontalProgressView;
 
 public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsData> {
     protected static final Logger LOG = LoggerFactory.getLogger(BodyEnergyFragment.class);
 
     private TextView mDateView;
-    private ImageView stepsGauge;
+
+    private HorizontalProgressView stepsProgress;
+    private TextView stepsTotal;
+    private TextView stepsGoal;
     private TextView steps;
     private TextView distance;
     ImageView stepsStreaksButton;
@@ -58,7 +64,7 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_steps, container, false);
+        View rootView = inflater.inflate(R.layout.health_fragment_steps, container, false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             rootView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
@@ -67,10 +73,14 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         }
 
         mDateView = rootView.findViewById(R.id.steps_date_view);
-        stepsGauge = rootView.findViewById(R.id.steps_gauge);
         steps = rootView.findViewById(R.id.steps_count);
         distance = rootView.findViewById(R.id.steps_distance);
         stepsChart = rootView.findViewById(R.id.steps_daily_chart);
+
+        stepsProgress = rootView.findViewById(R.id.health_steps_progress);
+        stepsTotal = rootView.findViewById(R.id.health_steps_total);
+        stepsGoal = rootView.findViewById(R.id.health_steps_goal);
+
         setupStepsChart();
 
         STEPS_GOAL = WearableApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
@@ -121,14 +131,19 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
                 WearableApplication.getContext().getResources().getDisplayMetrics()
         );
 
-        stepsGauge.setImageBitmap(GaugeDrawer.drawCircleGauge(
-                width,
-                width / 15,
-                getResources().getColor(R.color.steps_color),
-                (int) stepsData.todayStepsDay.steps,
-                STEPS_GOAL,
-                getContext()
-        ));
+        float progress = (float) stepsData.todayStepsDay.steps / STEPS_GOAL;
+        stepsProgress.setProgressColor(getProgressColor(R.color.health_steps_color, progress));
+        stepsProgress.setProgressBackgroundColor(getBackgroundColor(R.color.health_steps_color, progress));
+
+        // Show the excess steps if the user has exceeded the goal
+        if (progress > 1.0f) {
+            progress = progress - 1.0f;
+        }
+
+        stepsProgress.setProgress(progress);
+
+        stepsTotal.setText(String.valueOf(stepsData.todayStepsDay.steps));
+        stepsGoal.setText(String.valueOf(STEPS_GOAL));
 
         steps.setText(String.format(String.valueOf(stepsData.todayStepsDay.steps)));
 
@@ -136,13 +151,7 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         distance.setText(valueFormatter.formatValue(stepsData.todayStepsDay.distance, "km"));
 
         // Chart
-        final List<LegendEntry> legendEntries = new ArrayList<>(1);
-        final LegendEntry stepsEntry = new LegendEntry();
-        stepsEntry.label = getString(R.string.steps);
-        stepsEntry.formColor = getResources().getColor(R.color.steps_color);
-        legendEntries.add(stepsEntry);
-        stepsChart.getLegend().setTextColor(TEXT_COLOR);
-        stepsChart.getLegend().setCustom(legendEntries);
+        stepsChart.getLegend().setEnabled(false);
 
         final List<Entry> lineEntries = new ArrayList<>();
         final TimestampTranslation tsTranslation = new TimestampTranslation();
@@ -163,21 +172,21 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         }
 
         final LineDataSet lineDataSet = new LineDataSet(lineEntries, getString(R.string.steps));
-        lineDataSet.setColor(getResources().getColor(R.color.steps_color));
+        lineDataSet.setColor(getResources().getColor(R.color.health_steps_color));
         lineDataSet.setDrawCircles(false);
         lineDataSet.setLineWidth(2f);
         lineDataSet.setFillAlpha(255);
         lineDataSet.setDrawCircles(false);
-        lineDataSet.setCircleColor(getResources().getColor(R.color.steps_color));
+        lineDataSet.setCircleColor(getResources().getColor(R.color.health_steps_color));
         lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         lineDataSet.setDrawValues(false);
         lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         lineDataSet.setDrawFilled(true);
         lineDataSet.setFillAlpha(60);
-        lineDataSet.setFillColor(getResources().getColor(R.color.steps_color ));
+        lineDataSet.setFillColor(getResources().getColor(R.color.health_steps_color ));
 
         final LimitLine goalLine = new LimitLine(STEPS_GOAL);
-        goalLine.setLineColor(getResources().getColor(R.color.steps_color));
+        goalLine.setLineColor(getResources().getColor(R.color.health_steps_color));
         goalLine.setLineWidth(1.5f);
         goalLine.enableDashedLine(15f, 10f, 0f);
         stepsChart.getAxisLeft().removeAllLimitLines();
@@ -188,6 +197,29 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         lineDataSets.add(lineDataSet);
         final LineData lineData = new LineData(lineDataSets);
         stepsChart.setData(lineData);
+    }
+
+    private int getProgressColor(int resId, float factor) {
+        // Return regular color if below goal
+        int color = requireContext().getColor(resId);
+        if (factor < 1) return color;
+
+        // Get color beyond goal - make color brighter (15%)
+        return Color.argb(255, Math.min(255, (int) (Color.red(color) * 1.2)),
+                Math.min(255, (int) (Color.green(color) * 1.25)),
+                Math.min(255, (int) (Color.blue(color) * 1.25)));
+    }
+
+    private int getBackgroundColor(int resId, float factor) {
+        // Return progress normal color if below goal
+        int color = requireContext().getColor(resId);
+
+        // Set the color to be more transparent - 25%
+        if (factor < 1)
+            return Color.argb(64, Color.red(color), Color.green(color), Color.blue(color));
+
+        // Return regular color if above goal
+        return color;
     }
 
     @Override

@@ -1,0 +1,195 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="12.0dip">
+            <TextView
+                android:id="@+id/steps_date_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                />
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/steps_streaks_button"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:visibility="visible"
+                app:srcCompat="@drawable/ic_events" />
+        </RelativeLayout>
+
+        <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@color/oui_background_color"
+            android:layout_marginHorizontal="8.0dip"
+            android:padding="24.0dip"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="24.0dip"
+                android:layout_marginVertical="22.0dip"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16.0dip"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/health_steps_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="30.0sp"
+                        android:textColor="@color/oui_primary_text_color"
+                        android:textFontWeight="700"
+                        tools:text="6024" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8.0dip"
+                        android:text="@string/steps"
+                        android:textFontWeight="600"
+                        android:textColor="@color/oui_primary_text_color"
+                        android:textSize="16.0dip" />
+                </LinearLayout>
+
+                <xyz.tenseventyseven.fresh.health.components.HorizontalProgressView
+                    android:id="@+id/health_steps_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="36.0dip"
+                    app:hBackgroundColor="?attr/progressNormalColor"
+                    app:hProgressColor="@color/health_steps_color" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12.0dip"
+                    android:layout_marginHorizontal="8.0dip"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:textSize="14.0sp"
+                        android:textFontWeight="500"
+                        android:layout_weight="1"
+                        android:text="0"
+                        tools:text="0"
+                        tools:ignore="HardcodedText" />
+                    <TextView
+                        android:id="@+id/health_steps_goal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:textSize="14.0sp"
+                        android:textFontWeight="500"
+                        android:text="0"
+                        tools:text="0"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:layout_marginTop="24.0dip"
+                android:layout_marginBottom="12.0dip"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/steps_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/oui_primary_text_color"
+                        android:textSize="20sp"
+                        android:textFontWeight="600"
+                        tools:text="0.00 km" />
+                </LinearLayout>
+                <View
+                    android:layout_width="@dimen/_1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/oui_list_divider_color" />
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal">
+                    <TextView
+                        android:id="@+id/steps_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textFontWeight="600"
+                        android:textColor="@color/oui_primary_text_color"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4.0dip"
+                        android:text="@string/steps"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
+
+        <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12.0dip"
+            android:layout_marginHorizontal="8.0dip"
+            android:padding="24.0dip"
+            android:background="@color/oui_background_color"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Steps by time of day"
+                android:textFontWeight="600"
+                android:textColor="@color/oui_primary_text_color"
+                android:textSize="16.0sp" />
+
+            <LinearLayout
+                android:layout_marginTop="12.0dip"
+                android:layout_width="match_parent"
+                android:layout_height="250sp">
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/steps_daily_chart"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="2" />
+            </LinearLayout>
+        </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
+    </LinearLayout>
+
+</ScrollView>
