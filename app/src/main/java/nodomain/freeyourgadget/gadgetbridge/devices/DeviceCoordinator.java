@@ -817,6 +817,11 @@ public interface DeviceCoordinator {
         return GeneralDeviceType.OTHER;
     }
 
+    default boolean isHealthTrackingDevice() {
+        GeneralDeviceType type = getGeneralDeviceType();
+        return type == GeneralDeviceType.FITNESS_TRACKER || type == GeneralDeviceType.HEART_RATE_MONITOR || type == GeneralDeviceType.BLOOD_PRESSURE_MONITOR || type == GeneralDeviceType.SCALE || type == GeneralDeviceType.THERMOMETER || type == GeneralDeviceType.SPO2_MONITOR || type == GeneralDeviceType.GLUCOSE_MONITOR || type == GeneralDeviceType.ECG_MONITOR || type == GeneralDeviceType.WATCH;
+    }
+
     /**
      * Whether the device supports a variety of vibration patterns for notifications.
      */
