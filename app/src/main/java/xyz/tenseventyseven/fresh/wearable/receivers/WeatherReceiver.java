@@ -16,7 +16,7 @@
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 
-package nodomain.freeyourgadget.gadgetbridge.externalevents;
+package xyz.tenseventyseven.fresh.wearable.receivers;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -38,8 +38,8 @@ import nodomain.freeyourgadget.gadgetbridge.model.Weather;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class GenericWeatherReceiver extends BroadcastReceiver {
-    private static final Logger LOG = LoggerFactory.getLogger(GenericWeatherReceiver.class);
+public class WeatherReceiver extends BroadcastReceiver {
+    private static final Logger LOG = LoggerFactory.getLogger(WeatherReceiver.class);
 
     public final static String ACTION_GENERIC_WEATHER = "nodomain.freeyourgadget.gadgetbridge.ACTION_GENERIC_WEATHER";
     public final static String EXTRA_WEATHER_JSON = "WeatherJson";
