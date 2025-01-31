@@ -1996,11 +1996,7 @@ public class WearableApplication extends Application {
     }
 
     public static int getTextColor(Context context) {
-        if (WearableApplication.isDarkThemeEnabled()) {
-            return context.getResources().getColor(R.color.primarytext_dark);
-        } else {
-            return context.getResources().getColor(R.color.primarytext_light);
-        }
+        return context.getResources().getColor(dev.oneuiproject.oneui.design.R.color.oui_primary_text_color);
     }
 
     public static int getSecondaryTextColor(Context context) {
