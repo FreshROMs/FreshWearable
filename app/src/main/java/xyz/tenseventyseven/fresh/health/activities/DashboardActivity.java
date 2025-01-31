@@ -1,5 +1,7 @@
 package xyz.tenseventyseven.fresh.health.activities;
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -18,7 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.oneuiproject.oneui.layout.ToolbarLayout;
+import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
+import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.common.CommonActivityAbstract;
 import xyz.tenseventyseven.fresh.databinding.HealthActivityMainBinding;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.ProfileFragment;
@@ -44,6 +50,9 @@ public class DashboardActivity extends CommonActivityAbstract {
         setContentView(binding.getRoot());
 
         setupNavigation();
+
+        // Connect to all devices in a Thread
+        new Thread(this::initDeviceConnections).start();
     }
 
     private void setupNavigation() {
@@ -90,6 +99,20 @@ public class DashboardActivity extends CommonActivityAbstract {
         });
 
         viewPager.setCurrentItem(0, false);
+    }
+
+    private void initDeviceConnections() {
+        WearableApplication.deviceService().requestDeviceInfo();
+        DeviceManager deviceManager = WearableApplication.app().getDeviceManager();
+        List<GBDevice> devices = deviceManager.getDevices();
+
+        if (!devices.isEmpty()) {
+            for (GBDevice device : devices) {
+                if (!device.isConnected() && device.getDeviceCoordinator().isHealthTrackingDevice()) {
+                    WearableApplication.deviceService(device).connect();
+                }
+            }
+        }
     }
 
     private interface FragmentChangeListener {
