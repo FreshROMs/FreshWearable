@@ -72,7 +72,7 @@ import nodomain.freeyourgadget.gadgetbridge.externalevents.BluetoothPairingReque
 import nodomain.freeyourgadget.gadgetbridge.externalevents.CMWeatherReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.CalendarReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.DeviceSettingsReceiver;
-import nodomain.freeyourgadget.gadgetbridge.externalevents.GenericWeatherReceiver;
+import xyz.tenseventyseven.fresh.wearable.receivers.WeatherReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.IntentApiReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.LineageOsWeatherReceiver;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.MusicPlaybackReceiver;
@@ -264,7 +264,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
     private CMWeatherReceiver mCMWeatherReceiver = null;
     private LineageOsWeatherReceiver mLineageOsWeatherReceiver = null;
     private TinyWeatherForecastGermanyReceiver mTinyWeatherForecastGermanyReceiver = null;
-    private GenericWeatherReceiver mGenericWeatherReceiver = null;
+    private WeatherReceiver mGenericWeatherReceiver = null;
     private OmniJawsObserver mOmniJawsObserver = null;
     private final DeviceSettingsReceiver deviceSettingsReceiver = new DeviceSettingsReceiver();
     private final IntentApiReceiver intentApiReceiver = new IntentApiReceiver();
@@ -1419,8 +1419,8 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                     ContextCompat.registerReceiver(this, mTinyWeatherForecastGermanyReceiver, new IntentFilter("de.kaffeemitkoffein.broadcast.WEATHERDATA"), ContextCompat.RECEIVER_EXPORTED);
                 }
                 if (mGenericWeatherReceiver == null) {
-                    mGenericWeatherReceiver = new GenericWeatherReceiver();
-                    ContextCompat.registerReceiver(this, mGenericWeatherReceiver, new IntentFilter(GenericWeatherReceiver.ACTION_GENERIC_WEATHER), ContextCompat.RECEIVER_EXPORTED);
+                    mGenericWeatherReceiver = new WeatherReceiver();
+                    ContextCompat.registerReceiver(this, mGenericWeatherReceiver, new IntentFilter(WeatherReceiver.ACTION_GENERIC_WEATHER), ContextCompat.RECEIVER_EXPORTED);
                 }
                 if (mOmniJawsObserver == null) {
                     try {
