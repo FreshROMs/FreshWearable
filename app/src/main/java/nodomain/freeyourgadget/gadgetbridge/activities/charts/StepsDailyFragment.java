@@ -125,21 +125,7 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         String formattedDate = new SimpleDateFormat("E, MMM dd").format(getEndDate());
         mDateView.setText(formattedDate);
 
-        final int width = (int) TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                300,
-                WearableApplication.getContext().getResources().getDisplayMetrics()
-        );
-
         float progress = (float) stepsData.todayStepsDay.steps / STEPS_GOAL;
-        stepsProgress.setProgressColor(getProgressColor(R.color.health_steps_color, progress));
-        stepsProgress.setProgressBackgroundColor(getBackgroundColor(R.color.health_steps_color, progress));
-
-        // Show the excess steps if the user has exceeded the goal
-        if (progress > 1.0f) {
-            progress = progress - 1.0f;
-        }
-
         stepsProgress.setProgress(progress);
 
         stepsTotal.setText(String.valueOf(stepsData.todayStepsDay.steps));
@@ -208,18 +194,6 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         return Color.argb(255, Math.min(255, (int) (Color.red(color) * 1.2)),
                 Math.min(255, (int) (Color.green(color) * 1.25)),
                 Math.min(255, (int) (Color.blue(color) * 1.25)));
-    }
-
-    private int getBackgroundColor(int resId, float factor) {
-        // Return progress normal color if below goal
-        int color = requireContext().getColor(resId);
-
-        // Set the color to be more transparent - 25%
-        if (factor < 1)
-            return Color.argb(64, Color.red(color), Color.green(color), Color.blue(color));
-
-        // Return regular color if above goal
-        return color;
     }
 
     @Override
