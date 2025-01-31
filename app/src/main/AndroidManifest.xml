@@ -146,6 +146,7 @@
             android:launchMode="singleInstancePerTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -157,10 +158,10 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeActivity"
             android:label="@string/first_start_welcome_title"
@@ -511,13 +512,14 @@
             android:foregroundServiceType="connectedDevice" />
 
         <receiver
-            android:name="nodomain.freeyourgadget.gadgetbridge.externalevents.GenericWeatherReceiver"
+            android:name=".wearable.receivers.WeatherReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="nodomain.freeyourgadget.gadgetbridge.ACTION_GENERIC_WEATHER" />
             </intent-filter>
         </receiver>
+
         <receiver
             android:name="nodomain.freeyourgadget.gadgetbridge.externalevents.WeatherNotificationReceiver"
             android:enabled="true"
