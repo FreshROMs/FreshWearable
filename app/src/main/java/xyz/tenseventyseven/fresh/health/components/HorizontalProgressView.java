@@ -136,29 +136,6 @@ public class HorizontalProgressView extends View {
         int width = getWidth();
         int height = getHeight();
 
-        // Draw background
-        if (hasBackgroundSegments) {
-            // Sort backgroundSegments by start position
-            backgroundSegments.sort((a, b) -> Float.compare(a.startPosition, b.startPosition));
-
-            if (backgroundSegments.size() == 1) {
-                backgroundPaint.setColor(backgroundSegments.get(0).color);
-                canvas.drawRoundRect(0, 0, width, height, cornerRadius, cornerRadius, backgroundPaint);
-            } else {
-                // Draw background segments
-                for (int i = 0; i < backgroundSegments.size(); i++) {
-                    BackgroundSegment segment = backgroundSegments.get(i);
-                    backgroundPaint.setColor(segment.color);
-                    float startX = width * segment.startPosition;
-                    float endX = width * segment.endPosition;
-                    canvas.drawRect(startX, 0, endX, height, backgroundPaint);
-                }
-            }
-        } else {
-            // Draw regular background
-            canvas.drawRoundRect(0, 0, width, height, cornerRadius, cornerRadius, backgroundPaint);
-        }
-
         // Save the canvas state before clipping
         int saveCount = canvas.save();
 
@@ -167,43 +144,38 @@ public class HorizontalProgressView extends View {
         clipPath.addRoundRect(0, 0, width, height, cornerRadius, cornerRadius, Path.Direction.CW);
         canvas.clipPath(clipPath);
 
+        // Draw background
+        if (hasBackgroundSegments) {
+            // Draw background segments
+            for (BackgroundSegment segment : backgroundSegments) {
+                backgroundPaint.setColor(segment.color);
+                float startX = width * segment.startPosition;
+                float endX = width * segment.endPosition;
+                canvas.drawRect(startX, 0, endX, height, backgroundPaint);
+            }
+        } else {
+            // Draw regular background
+            canvas.drawRect(0, 0, width, height, backgroundPaint);
+        }
+
         // Draw progress
         if (!isDotMode) {
             if (hasProgressSegments) {
-                // Sort progressSegments by start position
-                progressSegments.sort((a, b) -> Float.compare(a.startPosition, b.startPosition));
-
-                if (progressSegments.size() == 1) {
-                    progressPaint.setColor(progressSegments.get(0).color);
-                    canvas.drawRoundRect(
-                            width * progressSegments.get(0).startPosition,
-                            0,
-                            width * progressSegments.get(0).endPosition,
-                            height,
-                            cornerRadius,
-                            cornerRadius,
-                            progressPaint
-                    );
-                } else {
-                    // Draw progress segments
-                    for (int i = 0; i < progressSegments.size(); i++) {
-                        ProgressSegment segment = progressSegments.get(i);
-                        progressPaint.setColor(segment.color);
-                        float startX = width * segment.startPosition;
-                        float endX = width * segment.endPosition;
-                        canvas.drawRect(startX, 0, endX, height, progressPaint);
-                    }
+                // Draw progress segments
+                for (ProgressSegment segment : progressSegments) {
+                    progressPaint.setColor(segment.color);
+                    float startX = width * segment.startPosition;
+                    float endX = width * segment.endPosition;
+                    canvas.drawRect(startX, 0, endX, height, progressPaint);
                 }
             } else {
                 // Draw regular progress
                 float progressWidth = width * progress;
-                canvas.drawRoundRect(
+                canvas.drawRect(
                         width * min,
                         0,
                         width * min + progressWidth,
                         height,
-                        cornerRadius,
-                        cornerRadius,
                         progressPaint
                 );
             }
