@@ -38,24 +38,7 @@ public class HorizontalProgressView extends View {
     private boolean hasBackgroundSegments = false;
     private boolean hasProgressSegments = false;
 
-    private int margin = 0;
-
-    private float[] leftCorners = new float[]{
-            80, 80,        // Top left radius in px
-            0, 0,          // Top right radius in px
-            0, 0,          // Bottom right radius in px
-            80, 80         // Bottom left radius in px
-    };
-
-    private float[] rightCorners = new float[]{
-            0, 0,          // Top left radius in px
-            80, 80,        // Top right radius in px
-            80, 80,        // Bottom right radius in px
-            0, 0           // Bottom left radius in px
-    };
-
-    private final Path leftPath = new Path();
-    private final Path rightPath = new Path();
+    private Path clipPath = new Path();
 
     public static class BackgroundSegment {
         float startPosition;
@@ -141,48 +124,15 @@ public class HorizontalProgressView extends View {
 
         cornerRadius = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
-                20f,
+                128f,
                 context.getResources().getDisplayMetrics()
         ) / 2;
-
-        leftCorners = new float[]{
-                cornerRadius, cornerRadius, // Top left radius in px
-                0, 0,                       // Top right radius in px
-                0, 0,                       // Bottom right radius in px
-                cornerRadius, cornerRadius  // Bottom left radius in px
-        };
-
-        rightCorners = new float[]{
-                0, 0,                       // Top left radius in px
-                cornerRadius, cornerRadius, // Top right radius in px
-                cornerRadius, cornerRadius, // Bottom right radius in px
-                0, 0                        // Bottom left radius in px
-        };
-    }
-
-    private void drawLeftRoundedRect(Canvas canvas, float left, float top, float right, float bottom, Paint paint) {
-        leftPath.reset();
-        leftPath.addRoundRect(left, top, right, bottom, leftCorners, Path.Direction.CW);
-        canvas.drawPath(leftPath, paint);
-    }
-
-    private void drawRightRoundedRect(Canvas canvas, float left, float top, float right, float bottom, Paint paint) {
-        rightPath.reset();
-        rightPath.addRoundRect(left, top, right, bottom, rightCorners, Path.Direction.CW);
-        canvas.drawPath(rightPath, paint);
+        clipPath = new Path();
     }
 
     @Override
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
-
-        // Set a height margin if we're in dot mode
-        if (isDotMode) {
-            margin = (int) dotBorderSize;
-        } else {
-            margin = 0;
-        }
-
         int width = getWidth();
         int height = getHeight();
 
@@ -201,20 +151,21 @@ public class HorizontalProgressView extends View {
                     backgroundPaint.setColor(segment.color);
                     float startX = width * segment.startPosition;
                     float endX = width * segment.endPosition;
-
-                    if (i == 0) {
-                        drawLeftRoundedRect(canvas, startX, 0, endX, height, backgroundPaint);
-                    } else if (i == backgroundSegments.size() - 1) {
-                        drawRightRoundedRect(canvas, startX, 0, endX, height, backgroundPaint);
-                    } else {
-                        canvas.drawRect(startX, 0, endX, height, backgroundPaint);
-                    }
+                    canvas.drawRect(startX, 0, endX, height, backgroundPaint);
                 }
             }
         } else {
             // Draw regular background
             canvas.drawRoundRect(0, 0, width, height, cornerRadius, cornerRadius, backgroundPaint);
         }
+
+        // Save the canvas state before clipping
+        int saveCount = canvas.save();
+
+        // Clip the canvas to a rounded rectangle
+        clipPath.reset();
+        clipPath.addRoundRect(0, 0, width, height, cornerRadius, cornerRadius, Path.Direction.CW);
+        canvas.clipPath(clipPath);
 
         // Draw progress
         if (!isDotMode) {
@@ -240,16 +191,7 @@ public class HorizontalProgressView extends View {
                         progressPaint.setColor(segment.color);
                         float startX = width * segment.startPosition;
                         float endX = width * segment.endPosition;
-
-                        if (startX == 0 && endX == width) {
-                            canvas.drawRoundRect(0, 0, width, height, cornerRadius, cornerRadius, progressPaint);
-                        } else if (i == 0 || startX == 0) {
-                            drawLeftRoundedRect(canvas, startX, 0, endX, height, progressPaint);
-                        } else if (i == progressSegments.size() - 1 || endX == width) {
-                            drawRightRoundedRect(canvas, startX, 0, endX, height, progressPaint);
-                        } else {
-                            canvas.drawRect(startX, 0, endX, height, progressPaint);
-                        }
+                        canvas.drawRect(startX, 0, endX, height, progressPaint);
                     }
                 }
             } else {
@@ -265,12 +207,17 @@ public class HorizontalProgressView extends View {
                         progressPaint
                 );
             }
-        } else {
+        }
+
+        // Restore the canvas state to draw the dot without clipping
+        canvas.restoreToCount(saveCount);
+
+        if (isDotMode) {
             // Draw dot with border
             float centerX = width * progress;
             float centerY = height / 2f;
-            canvas.drawCircle(centerX, centerY, dotSize/2 + dotBorderSize, dotBorderPaint);
-            canvas.drawCircle(centerX, centerY, dotSize/2, dotPaint);
+            canvas.drawCircle(centerX, centerY, dotSize / 2 + dotBorderSize, dotBorderPaint);
+            canvas.drawCircle(centerX, centerY, dotSize / 2, dotPaint);
         }
     }
 
