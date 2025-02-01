@@ -232,7 +232,7 @@ public class DataManagementActivity extends AbstractGBActivity {
         testExportDBButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendBroadcast(new Intent(context, PeriodicExporter.class));
+                PeriodicExporter.trigger();
                 GB.toast(context,
                         context.getString(R.string.activity_DB_test_export_message),
                         Toast.LENGTH_SHORT, GB.INFO);
