@@ -160,39 +160,39 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeActivity"
             android:label="@string/first_start_welcome_title"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.PermissionsActivity"
             android:label="@string/first_start_permissions_title"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.DashboardPreferencesActivity"
             android:label="@string/dashboard_settings"
-            android:parentActivityName=".activities.SettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.SleepAsAndroidPreferencesActivity"
             android:label="@string/sleepasandroid_settings"
-            android:parentActivityName=".activities.SettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.AboutUserPreferencesActivity"
             android:label="@string/activity_prefs_about_you"
-            android:parentActivityName=".activities.AboutUserPreferencesActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.AboutUserPreferencesActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.preferences.AutomationsPreferencesActivity"
             android:label="@string/pref_header_automations"
-            android:parentActivityName=".activities.SettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsPreferencesActivity"
             android:label="@string/activity_prefs_charts"
-            android:parentActivityName=".activities.charts.ChartsPreferencesActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsPreferencesActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.files.FileManagerActivity"
             android:label="@string/activity_data_management_directory_content_title"
-            android:parentActivityName=".activities.DataManagementActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.DataManagementActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.fit.FitViewerActivity"
             android:exported="true"
@@ -200,52 +200,52 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.BackupRestoreProgressActivity"
             android:label="@string/activity_db_management_backup_restore_label"
-            android:parentActivityName=".activities.DataManagementActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.DataManagementActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryPairingPreferenceActivity"
             android:label="@string/activity_prefs_discovery_pairing"
-            android:parentActivityName=".activities.SettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.loyaltycards.LoyaltyCardsSettingsActivity"
             android:label="@string/loyalty_cards"
-            android:parentActivityName=".activities.devicesettings.DeviceSettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminRealtimeSettingsActivity"
             android:label="@string/loading"
-            android:parentActivityName=".activities.devicesettings.DeviceSettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummariesActivity"
             android:label="@string/activity_summaries"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity"
             android:label="@string/title_activity_appmanager"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.musicmanager.MusicManagerActivity"
             android:label="@string/title_activity_musicmanager"
-            android:parentActivityName=".activities.SettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.AppBlacklistActivity"
             android:label="@string/title_activity_notification_management"
-            android:parentActivityName=".activities.SettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.CalBlacklistActivity"
             android:label="@string/title_activity_calblacklist"
-            android:parentActivityName=".activities.SettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.vesc.VescControlActivity"
             android:label="@string/devicetype_vesc"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.idasen.IdasenControlActivity"
             android:label="@string/devicetype_idasen"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity"
             android:label="@string/title_activity_fw_app_insaller"
-            android:parentActivityName=".activities.ControlCenterv2"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -467,7 +467,7 @@
             android:exported="false"
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.app_specific_notifications.AppSpecificNotificationSettingsActivity"
             android:label="@string/prefs_wena3_notification_per_app_settings_title"
-            android:parentActivityName=".activities.devicesettings.DeviceSettingsActivity">
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsActivity">
             <intent-filter>
                 <action android:name="nodomain.freeyourgadget.gadgetbridge.SonyWena3PerAppNotificationSettingsActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -477,7 +477,7 @@
             android:exported="false"
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.app_specific_notifications.AppSpecificNotificationSettingsDetailActivity"
             android:label="@string/prefs_wena3_notification_per_app_settings_title"
-            android:parentActivityName=".activities.app_specific_notifications.AppSpecificNotificationSettingsActivity"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.app_specific_notifications.AppSpecificNotificationSettingsActivity"
             />
 
         <service
@@ -589,49 +589,49 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.DebugActivity"
             android:label="@string/title_activity_debug"
-            android:parentActivityName=".activities.ControlCenterv2"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.AboutActivity"
             android:label="@string/about_activity_title"
-            android:parentActivityName=".activities.ControlCenterv2"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.OpenFwAppInstallerActivity"
             android:label="@string/open_fw_installer_info_text_title"
-            android:parentActivityName=".activities.ControlCenterv2"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.BatteryInfoActivity"
             android:label="@string/battery_detail_activity_title"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
 
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummaryDetail"
             android:label="@string/activity_summary_detail"
-            android:parentActivityName=".activities.ActivitySummariesActivity"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummariesActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummariesFilter"
             android:label="@string/activity_filter_filter_title"
-            android:parentActivityName=".activities.ActivitySummariesActivity"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummariesActivity"
             android:excludeFromRecents="true"/>
 
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.DataManagementActivity"
             android:label="@string/title_activity_db_management"
-            android:parentActivityName=".activities.ControlCenterv2"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.NotificationManagementActivity"
             android:label="@string/title_activity_notification_management"
-            android:parentActivityName=".activities.ControlCenterv2"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2"
             android:label="@string/title_activity_discovery"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.AndroidPairingActivity"
             android:label="@string/title_activity_android_pairing" />
@@ -640,7 +640,7 @@
             android:label="@string/title_activity_appmanager"
             android:launchMode="singleTop"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|layoutDirection|uiMode"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandPairingActivity"
             android:label="@string/title_activity_mi_band_pairing" />
@@ -662,68 +662,68 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.charts.ActivityChartsActivity"
             android:label="@string/title_activity_charts"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms"
             android:label="@string/title_activity_set_alarm"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureReminders"
             android:label="@string/title_activity_set_reminders"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureContacts"
             android:label="@string/title_activity_set_contacts"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreensListActivity"
             android:label="@string/menuitem_widgets"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureWorldClocks"
             android:label="@string/pref_world_clocks_title"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsActivity"
             android:label="@string/title_activity_device_specific_settings"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.AlarmDetails"
             android:label="@string/title_activity_alarm_details"
-            android:parentActivityName=".activities.ConfigureAlarms"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms"
             android:screenOrientation="portrait" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ReminderDetails"
             android:label="@string/title_activity_reminder_details"
-            android:parentActivityName=".activities.ConfigureReminders"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureReminders"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ContactDetails"
             android:label="@string/title_activity_contact_details"
-            android:parentActivityName=".activities.ConfigureReminders"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureReminders"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreenDetailsActivity"
             android:label="@string/widget_screen"
-            android:parentActivityName=".activities.widgets.WidgetScreensListActivity"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreensListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.WorldClockDetails"
             android:label="@string/title_activity_world_clock_details"
-            android:parentActivityName=".activities.ConfigureWorldClocks"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ConfigureWorldClocks"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.VibrationActivity"
             android:label="@string/title_activity_vibration"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.NotificationFilterActivity"
             android:label="@string/title_activity_notification_filter"
-            android:parentActivityName=".activities.AppBlacklistActivity"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.AppBlacklistActivity"
             android:windowSoftInputMode="stateHidden|adjustPan" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.FindPhoneActivity"
@@ -799,7 +799,7 @@
             android:clearTaskOnLaunch="true"
             android:label="@string/app_configure"
             android:launchMode="singleTask"
-            android:parentActivityName=".activities.appmanager.AppManagerActivity"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -819,61 +819,61 @@
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridConfigActivity"
             android:label="@string/qhybrid_title_watchface"
             android:exported="true"
-            android:parentActivityName=".activities.devicesettings.DeviceSettingsActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridAppChoserActivity"
             android:label="@string/qhybrid_title_apps"
             android:exported="true"
-            android:parentActivityName=".devices.qhybrid.QHybridConfigActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridConfigActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity"
             android:label="@string/qhybrid_title_watchface"
             android:exported="true"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
         <activity android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.WidgetSettingsActivity"
             android:label="@string/add_widget"
-            android:parentActivityName=".devices.qhybrid.HRConfigActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.ImageEditActivity"
             android:label="@string/qhybrid_title_background_image"
             android:exported="true"
-            android:parentActivityName=".devices.qhybrid.HRConfigActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.FileManagementActivity"
             android:label="@string/qhybrid_title_file_management"
             android:exported="true"
-            android:parentActivityName=".devices.qhybrid.HRConfigActivity"/>
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity"/>
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.AppsManagementActivity"
             android:label="@string/qhybrid_title_apps_management"
             android:exported="true"
-            android:parentActivityName=".devices.qhybrid.HRConfigActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.CalibrationActivity"
             android:label="@string/qhybrid_title_calibration"
-            android:parentActivityName=".devices.qhybrid.HRConfigActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.withingssteelhr.WithingsCalibrationActivity"
             android:label="@string/qhybrid_title_calibration"
-            android:parentActivityName=".devices.withingssteelhr.WithingsCalibrationActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.withingssteelhr.WithingsCalibrationActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.CommuteActionsActivity"
             android:label="@string/qhybrid_pref_title_actions"
-            android:parentActivityName=".devices.qhybrid.HRConfigActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HybridHRWatchfaceDesignerActivity"
             android:label="@string/qhybrid_title_watchface_designer"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
-            android:parentActivityName=".activities.appmanager.AppManagerActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HybridHRWatchfaceSettingsActivity"
             android:label="@string/watchface_dialog_title_settings"
-            android:parentActivityName=".devices.qhybrid.HybridHRWatchfaceDesignerActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HybridHRWatchfaceDesignerActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HybridHRWatchfaceWidgetActivity"
             android:label="@string/watchface_dialog_title_widget"
-            android:parentActivityName=".devices.qhybrid.HybridHRWatchfaceDesignerActivity" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HybridHRWatchfaceDesignerActivity" />
 
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.um25.Activity.DataActivity"
@@ -931,7 +931,7 @@
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.dashboard.DashboardCalendarActivity"
             android:label="@string/menuitem_calendar"
-            android:parentActivityName=".activities.ControlCenterv2" />
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2" />
 
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.CameraActivity"
