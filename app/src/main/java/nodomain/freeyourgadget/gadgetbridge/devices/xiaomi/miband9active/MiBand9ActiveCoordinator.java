@@ -39,12 +39,6 @@ public class MiBand9ActiveCoordinator extends XiaomiCoordinator {
     }
 
     @Override
-    public ConnectionType getConnectionType() {
-        // Unconfirmed - but actually looks like SPPv2 packets over BLE?
-        return ConnectionType.BOTH;
-    }
-
-    @Override
     public int getDefaultIconResource() {
         return R.drawable.ic_device_default;
     }

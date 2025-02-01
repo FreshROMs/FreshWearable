@@ -130,6 +130,7 @@ public class XiaomiSppSupport extends XiaomiConnectionSupport {
     @Override
     public void dispose() {
         commsSupport.dispose();
+        mVersionResponseTimeoutHandler.removeCallbacksAndMessages(null);
     }
 
     protected XiaomiAuthService getAuthService() {
@@ -258,7 +259,7 @@ public class XiaomiSppSupport extends XiaomiConnectionSupport {
         // do not queue here, that's the job of the caller
     }
 
-    public void sendDataChunk(final String taskName, final byte[] chunk, @Nullable final XiaomiCharacteristic.SendCallback callback) {
+    public void sendDataChunk(final String taskName, final byte[] chunk, @Nullable final XiaomiSendCallback callback) {
         LOG.debug("sendDataChunk(): encoded data chunk for task '{}': {}", taskName, GB.hexdump(chunk));
         this.commsSupport.createTransactionBuilder("send " + taskName)
             .write(mProtocol.encodePacket(Channel.Data, chunk))

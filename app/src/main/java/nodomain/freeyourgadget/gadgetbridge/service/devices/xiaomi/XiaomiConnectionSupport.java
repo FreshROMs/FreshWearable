@@ -32,6 +32,6 @@ public abstract class XiaomiConnectionSupport {
     public abstract void dispose();
     public abstract void setContext(final GBDevice device, final BluetoothAdapter adapter, final Context context);
     public abstract void sendCommand(final String taskName, final XiaomiProto.Command command);
-    public abstract void sendDataChunk(final String taskName, final byte[] chunk, @Nullable final XiaomiCharacteristic.SendCallback callback);
+    public abstract void sendDataChunk(final String taskName, final byte[] chunk, @Nullable final XiaomiSendCallback callback);
     public void setAutoReconnect(final boolean enabled) {}
 }

@@ -27,7 +27,6 @@ import androidx.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -44,14 +43,10 @@ import nodomain.freeyourgadget.gadgetbridge.util.GB;
 public class XiaomiBleSupport extends XiaomiConnectionSupport {
     private static final Logger LOG = LoggerFactory.getLogger(XiaomiBleSupport.class);
 
-    private XiaomiCharacteristic characteristicCommandRead;
-    private XiaomiCharacteristic characteristicCommandWrite;
-    private XiaomiCharacteristic characteristicActivityData;
-    private XiaomiCharacteristic characteristicDataUpload;
-
     private final XiaomiSupport mXiaomiSupport;
+    private AbstractXiaomiBleProtocol bleProtocol;
 
-    final AbstractBTLEDeviceSupport commsSupport = new AbstractBTLEDeviceSupport(LOG) {
+    private final AbstractBTLEDeviceSupport commsSupport = new AbstractBTLEDeviceSupport(LOG) {
         @Override
         public boolean useAutoConnect() {
             return mXiaomiSupport.useAutoConnect();
@@ -59,7 +54,8 @@ public class XiaomiBleSupport extends XiaomiConnectionSupport {
 
         @Override
         protected Set<UUID> getSupportedServices() {
-            return XiaomiUuids.BLE_UUIDS.keySet();
+            // This actually includes V2 too
+            return XiaomiUuids.BLE_V1_UUIDS.keySet();
         }
 
         @Override
@@ -69,112 +65,19 @@ public class XiaomiBleSupport extends XiaomiConnectionSupport {
 
         @Override
         protected TransactionBuilder initializeDevice(final TransactionBuilder builder) {
-            XiaomiUuids.XiaomiBleUuidSet uuidSet = null;
-            BluetoothGattCharacteristic btCharacteristicCommandRead = null;
-            BluetoothGattCharacteristic btCharacteristicCommandWrite = null;
-            BluetoothGattCharacteristic btCharacteristicActivityData = null;
-            BluetoothGattCharacteristic btCharacteristicDataUpload = null;
-
-            // Attempt to find a known xiaomi service
-            for (Map.Entry<UUID, XiaomiUuids.XiaomiBleUuidSet> xiaomiUuid : XiaomiUuids.BLE_UUIDS.entrySet()) {
-                final XiaomiUuids.XiaomiBleUuidSet currentUuidSet = xiaomiUuid.getValue();
-                UUID currentChar;
-
-                if ((currentChar = currentUuidSet.getCharacteristicCommandRead()) == null ||
-                        (btCharacteristicCommandRead = getCharacteristic(currentChar)) == null) {
-                    continue;
-                }
-
-                if ((currentChar = currentUuidSet.getCharacteristicCommandWrite()) == null ||
-                        (btCharacteristicCommandWrite = getCharacteristic(currentChar)) == null) {
-                    continue;
-                }
-
-                if ((currentChar = currentUuidSet.getCharacteristicActivityData()) == null ||
-                        (btCharacteristicActivityData = getCharacteristic(currentChar)) == null) {
-                    continue;
-                }
-
-                if ((currentChar = currentUuidSet.getCharacteristicDataUpload()) == null ||
-                        (btCharacteristicDataUpload= getCharacteristic(currentChar)) == null) {
-                    LOG.warn("btCharacteristicDataUpload characteristic is null");
-                    // this characteristic may not be supported by all models
-                }
-
-                LOG.debug("Found Xiaomi service: {}", xiaomiUuid.getKey());
-                uuidSet = xiaomiUuid.getValue();
-
-                break;
-            }
-
-            if (uuidSet == null) {
-                GB.toast(getContext(), "Failed to find known Xiaomi service", Toast.LENGTH_LONG, GB.ERROR);
-                LOG.warn("Failed to find known Xiaomi service");
-                builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.NOT_CONNECTED, getContext()));
-                return builder;
-            }
-
-            // FIXME unsetDynamicState unsets the fw version, which causes problems..
-            if (getDevice().getFirmwareVersion() == null) {
-                getDevice().setFirmwareVersion(mXiaomiSupport.getCachedFirmwareVersion() != null ?
-                        mXiaomiSupport.getCachedFirmwareVersion() :
-                        "N/A");
-            }
-
-            if (btCharacteristicCommandRead == null || btCharacteristicCommandWrite == null) {
-                LOG.warn("Characteristics are null, will attempt to reconnect");
-                builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.WAITING_FOR_RECONNECT, getContext()));
-                return builder;
-            }
-
-            // FIXME:
-            // Because the first handshake packet is sent before the actions in the builder are run,
-            // the maximum message size is not properly initialized if the device itself does not request
-            // the MTU to be upgraded. However, since we will upgrade the MTU ourselves to the highest
-            // possible (512) and the device will (likely) respond with something higher than 247,
-            // we will initialize the characteristics with that MTU.
-            final int expectedMtu = 247;
-            characteristicCommandRead = new XiaomiCharacteristic(XiaomiBleSupport.this, btCharacteristicCommandRead, mXiaomiSupport.getAuthService());
-            characteristicCommandRead.setEncrypted(uuidSet.isEncrypted());
-            characteristicCommandRead.setChannelHandler(mXiaomiSupport::handleCommandBytes);
-            characteristicCommandRead.setMtu(expectedMtu);
-            characteristicCommandWrite = new XiaomiCharacteristic(XiaomiBleSupport.this, btCharacteristicCommandWrite, mXiaomiSupport.getAuthService());
-            characteristicCommandWrite.setEncrypted(uuidSet.isEncrypted());
-            characteristicCommandWrite.setMtu(expectedMtu);
-            characteristicActivityData = new XiaomiCharacteristic(XiaomiBleSupport.this, btCharacteristicActivityData, mXiaomiSupport.getAuthService());
-            characteristicActivityData.setChannelHandler(mXiaomiSupport.getHealthService().getActivityFetcher()::addChunk);
-            characteristicActivityData.setEncrypted(uuidSet.isEncrypted());
-            characteristicActivityData.setMtu(expectedMtu);
-            characteristicDataUpload = new XiaomiCharacteristic(XiaomiBleSupport.this, btCharacteristicDataUpload, mXiaomiSupport.getAuthService());
-            characteristicDataUpload.setEncrypted(uuidSet.isEncrypted());
-            characteristicDataUpload.setIncrementNonce(false);
-            characteristicDataUpload.setMtu(expectedMtu);
-
-            // request highest possible MTU; device should response with the highest supported MTU anyway
-            builder.requestMtu(512);
-            builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.INITIALIZING, getContext()));
-            builder.notify(btCharacteristicCommandWrite, true);
-            builder.notify(btCharacteristicCommandRead, true);
-            builder.notify(btCharacteristicActivityData, true);
-            builder.notify(btCharacteristicDataUpload, true);
-            builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.AUTHENTICATING, getContext()));
-
-            if (uuidSet.isEncrypted()) {
-                builder.add(new PlainAction() {
-                    @Override
-                    public boolean run(BluetoothGatt gatt) {
-                        mXiaomiSupport.getAuthService().startEncryptedHandshake();
-                        return true;
-                    }
-                });
+            final XiaomiBleProtocolV1 protocolV1 = new XiaomiBleProtocolV1(XiaomiBleSupport.this);
+            if (protocolV1.initializeDevice(builder)) {
+                bleProtocol = protocolV1;
             } else {
-                builder.add(new PlainAction() {
-                    @Override
-                    public boolean run(BluetoothGatt gatt) {
-                        mXiaomiSupport.getAuthService().startClearTextHandshake();
-                        return true;
-                    }
-                });
+                final XiaomiBleProtocolV2 protocolV2 = new XiaomiBleProtocolV2(XiaomiBleSupport.this);
+                if (!protocolV2.initializeDevice(builder)) {
+                    GB.toast(getContext(), "Failed to find a known Xiaomi BLE protocol", Toast.LENGTH_LONG, GB.ERROR);
+                    LOG.warn("Failed to find a known Xiaomi BLE protocol");
+                    builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.NOT_CONNECTED, getContext()));
+                    return builder;
+                }
+
+                bleProtocol = protocolV2;
             }
 
             return builder;
@@ -186,39 +89,20 @@ public class XiaomiBleSupport extends XiaomiConnectionSupport {
                 return true;
             }
 
-            final UUID characteristicUUID = characteristic.getUuid();
-            final byte[] value = characteristic.getValue();
-
-            if (characteristicCommandRead.getCharacteristicUUID().equals(characteristicUUID)) {
-                characteristicCommandRead.onCharacteristicChanged(value);
-                return true;
-            } else if (characteristicCommandWrite.getCharacteristicUUID().equals(characteristicUUID)) {
-                characteristicCommandWrite.onCharacteristicChanged(value);
-                return true;
-            } else if (characteristicActivityData.getCharacteristicUUID().equals(characteristicUUID)) {
-                characteristicActivityData.onCharacteristicChanged(value);
-                return true;
-            } else if (characteristicDataUpload.getCharacteristicUUID().equals(characteristicUUID)) {
-                characteristicDataUpload.onCharacteristicChanged(value);
+            if (bleProtocol != null && bleProtocol.onCharacteristicChanged(gatt, characteristic)) {
                 return true;
             }
 
-            LOG.warn("Unhandled characteristic changed: {} {}", characteristicUUID, GB.hexdump(value));
+            LOG.warn("Unhandled characteristic changed: {} {}", characteristic.getUuid(), GB.hexdump(characteristic.getValue()));
             return false;
         }
 
         @Override
-        public void onMtuChanged(BluetoothGatt gatt, int mtu, int status) {
+        public void onMtuChanged(final BluetoothGatt gatt, final int mtu, final int status) {
             super.onMtuChanged(gatt, mtu, status);
-
-            if (characteristicCommandRead != null)
-                characteristicCommandRead.setMtu(mtu);
-            if (characteristicCommandWrite != null)
-                characteristicCommandWrite.setMtu(mtu);
-            if (characteristicDataUpload != null)
-                characteristicDataUpload.setMtu(mtu);
-            if (characteristicActivityData != null)
-                characteristicActivityData.setMtu(mtu);
+            if (bleProtocol != null) {
+                bleProtocol.onMtuChanged(gatt, mtu, status);
+            }
         }
 
         @Override
@@ -228,15 +112,23 @@ public class XiaomiBleSupport extends XiaomiConnectionSupport {
         }
     };
 
+    XiaomiSupport getXiaomiSupport() {
+        return mXiaomiSupport;
+    }
+
+    AbstractBTLEDeviceSupport getCommsSupport() {
+        return commsSupport;
+    }
+
     public XiaomiBleSupport(final XiaomiSupport xiaomiSupport) {
         this.mXiaomiSupport = xiaomiSupport;
     }
 
+    @Override
     public void onAuthSuccess() {
-        characteristicCommandRead.reset();
-        characteristicCommandWrite.reset();
-        characteristicActivityData.reset();
-        characteristicDataUpload.reset();
+        if (bleProtocol != null) {
+            bleProtocol.onAuthSuccess();
+        }
     }
 
     @Override
@@ -244,24 +136,18 @@ public class XiaomiBleSupport extends XiaomiConnectionSupport {
         this.commsSupport.setContext(device, adapter, context);
     }
 
+    @Override
     public void sendCommand(final String taskName, final XiaomiProto.Command command) {
-        if (this.characteristicCommandWrite == null) {
-            // Can sometimes happen in race conditions when connecting + receiving calendar event or weather updates
-            LOG.warn("characteristicCommandWrite is null!");
-            return;
+        if (bleProtocol != null) {
+            bleProtocol.sendCommand(taskName, command);
         }
-
-        this.characteristicCommandWrite.write(taskName, command.toByteArray());
     }
 
     @Override
-    public void sendDataChunk(String taskName, byte[] chunk, @Nullable XiaomiCharacteristic.SendCallback callback) {
-        if (this.characteristicDataUpload == null) {
-            LOG.warn("characteristicDataUpload is null!");
-            return;
+    public void sendDataChunk(String taskName, byte[] chunk, @Nullable XiaomiSendCallback callback) {
+        if (bleProtocol != null) {
+            bleProtocol.sendDataChunk(taskName, chunk, callback);
         }
-
-        this.characteristicDataUpload.write(taskName, chunk, callback);
     }
 
     @Override
@@ -275,13 +161,9 @@ public class XiaomiBleSupport extends XiaomiConnectionSupport {
      * order.
      */
     public void sendCommand(final TransactionBuilder builder, final XiaomiProto.Command command) {
-        if (this.characteristicCommandWrite == null) {
-            // Can sometimes happen in race conditions when connecting + receiving calendar event or weather updates
-            LOG.warn("characteristicCommandWrite is null!");
-            return;
+        if (bleProtocol != null) {
+            bleProtocol.sendCommand(builder, command);
         }
-
-        this.characteristicCommandWrite.write(builder, command.toByteArray());
     }
 
     public TransactionBuilder createTransactionBuilder(String taskName) {
@@ -329,13 +211,8 @@ public class XiaomiBleSupport extends XiaomiConnectionSupport {
     @Override
     public void dispose() {
         commsSupport.dispose();
-        if (characteristicCommandRead != null)
-            characteristicCommandRead.dispose();
-        if (characteristicCommandWrite != null)
-            characteristicCommandWrite.dispose();
-        if (characteristicDataUpload != null)
-            characteristicDataUpload.dispose();
-        if (characteristicActivityData != null)
-            characteristicActivityData.dispose();
+        if (bleProtocol != null) {
+            bleProtocol.dispose();
+        }
     }
 }
