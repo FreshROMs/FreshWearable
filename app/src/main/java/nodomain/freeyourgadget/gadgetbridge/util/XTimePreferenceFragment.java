@@ -17,21 +17,20 @@
 package nodomain.freeyourgadget.gadgetbridge.util;
 
 import android.content.Context;
-import android.text.format.DateFormat;
 import android.view.View;
-import android.widget.TimePicker;
 
 import androidx.preference.DialogPreference;
 import androidx.preference.Preference;
+import androidx.picker.widget.SeslTimePicker;
 
 import nodomain.freeyourgadget.gadgetbridge.util.dialogs.MaterialPreferenceDialogFragment;
 
 public class XTimePreferenceFragment extends MaterialPreferenceDialogFragment implements DialogPreference.TargetFragment {
-    private TimePicker picker = null;
+    private SeslTimePicker picker = null;
 
     @Override
     protected View onCreateDialogView(Context context) {
-        picker = new TimePicker(context);
+        picker = new SeslTimePicker(context);
         picker.setIs24HourView(((XTimePreference) getPreference()).is24HourFormat());
         picker.setPadding(0, 50, 0, 50);
 
@@ -43,8 +42,8 @@ public class XTimePreferenceFragment extends MaterialPreferenceDialogFragment im
         super.onBindDialogView(v);
         XTimePreference pref = (XTimePreference) getPreference();
 
-        picker.setCurrentHour(pref.hour);
-        picker.setCurrentMinute(pref.minute);
+        picker.setHour(pref.hour);
+        picker.setMinute(pref.minute);
     }
 
     @Override
@@ -53,8 +52,8 @@ public class XTimePreferenceFragment extends MaterialPreferenceDialogFragment im
         if (positiveResult) {
             XTimePreference pref = (XTimePreference) getPreference();
 
-            pref.hour = picker.getCurrentHour();
-            pref.minute = picker.getCurrentMinute();
+            pref.hour = picker.getHour();
+            pref.minute = picker.getMinute();
 
             String time = pref.getTime24h();
             if (pref.callChangeListener(time)) {
