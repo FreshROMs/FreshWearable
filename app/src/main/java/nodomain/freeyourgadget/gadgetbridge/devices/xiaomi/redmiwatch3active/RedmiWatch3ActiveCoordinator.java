@@ -30,7 +30,7 @@ public class RedmiWatch3ActiveCoordinator extends XiaomiCoordinator {
 
     @Override
     public ConnectionType getConnectionType() {
-        return ConnectionType.BOTH;
+        return ConnectionType.BT_CLASSIC;
     }
 
     @Override
