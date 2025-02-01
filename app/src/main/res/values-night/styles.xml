@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="PrivateResource">
+    <style name="GadgetbridgeTheme" parent="Theme.AppCompat">
+        <item name="android:listChoiceBackgroundIndicator">?attr/listChoiceBackgroundIndicator</item>
+
+        <item name="colorSurface">@color/sesl_round_and_bgcolor_dark</item>
+        <item name="android:statusBarColor">@color/sesl_round_and_bgcolor_dark</item>
+        <item name="android:windowBackground">@color/sesl_round_and_bgcolor_dark</item>
+        <item name="android:navigationBarColor">@color/sesl_round_and_bgcolor_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
+
+        <item name="android:windowSplashScreenBackground" tools:targetApi="s">@color/sesl_round_and_bgcolor_dark</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="s">@color/sesl_round_and_bgcolor_dark</item>
+
+        <item name="collapsingToolbarLayoutStyle">@style/Widget.Design.CollapsingToolbar</item>
+        <item name="bottomNavigationStyle">@style/Widget.Design.BottomNavigationView</item>
+        <item name="tabStyle">@style/OneUI.TabLayoutStyle</item>
+
+        <item name="seekBarPreferenceProStyle">@style/OneUI.SeekBarPreferencePro</item>
+
+        <item name="floatingActionButtonStyle">@style/OneUI.FloatingActionButton</item>
+
+        <item name="bottomNavigationTextStyle">@style/Widget.Design.BottomNavigationView.Text</item>
+
+        <item name="alertDialogTheme">@style/OneUI.ThemeOverlay.AlertDialog</item>
+
+        <item name="bottomSheetDialogTheme">@style/OneUI.BottomSheetDialog</item>
+        <item name="bottomSheetDragHandleStyle">@style/OneUI.BottomSheet.DragHandle</item>
+        <item name="drawerBackgroundColor">@color/drawer_background_color</item>
+
+        <item name="android:buttonStyle">@style/Widget.AppCompat.Button</item>
+        <item name="android:spinnerStyle">@style/Widget.AppCompat.Spinner</item>
+        <item name="android:editTextStyle">@style/Widget.AppCompat.EditText</item>
+
+        <item name="datePickerDialogTheme">@style/Theme.AppCompat.PickerDialog.DatePicker</item>
+        <item name="timePickerDialogTheme">@style/Theme.AppCompat.PickerDialog.TimePicker</item>
+
+        <item name="android:fontFamily">sec</item>
+
+        <item name="textColorPrimary">@color/oui_primary_text_color</item>
+        <item name="textColorSecondary">@color/bottom_tip_textview_text_color</item>
+        <item name="textColorTertiary">@color/oui_unclickablepref_link_text_color</item>
+
+        <item name="cardview_background_color">@color/sesl_background_color_dark</item>
+        <item name="actionmenu_icon_color">@color/sesl_action_bar_text_color_title_dark</item>
+        <item name="chart_deep_sleep">@color/chart_deep_sleep_dark</item>
+        <item name="chart_light_sleep">@color/chart_light_sleep_dark</item>
+        <item name="chart_rem_sleep">@color/chart_rem_sleep_dark</item>
+        <item name="chart_awake_sleep">@color/chart_awake_sleep_dark</item>
+        <item name="chart_activity">@color/chart_activity_dark</item>
+        <item name="chart_not_worn">@color/chart_not_worn_light</item>
+        <item name="alternate_row_background">@color/alternate_row_background_light</item>
+        <item name="row_separator">@color/row_separator_light</item>
+        <item name="sports_activity_summary_background">@color/chart_heartrate_fill</item>
+
+        <item name="deviceIconPrimary">#2196f3</item>
+        <item name="deviceIconOnPrimary">#ffffff</item>
+        <item name="deviceIconLight">#1f7fdb</item>
+        <item name="deviceIconDark">#4dabf5</item>
+    </style>
+</resources>

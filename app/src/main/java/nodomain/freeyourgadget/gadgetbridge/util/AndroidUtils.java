@@ -120,24 +120,7 @@ public class AndroidUtils {
      * @param context the context to access the colour
      */
     public static String getTextColorHex(Context context) {
-        int color;
-        if (DynamicColors.isDynamicColorAvailable() && Application.areDynamicColorsEnabled()) {
-            Context dynamicColorContext;
-            if (Application.isDarkThemeEnabled()) {
-                dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.GadgetbridgeThemeDynamicDark);
-            } else {
-                dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.GadgetbridgeThemeDynamicLight);
-            }
-            int[] attrsToResolve = {com.google.android.material.R.attr.colorOnSurface};
-            @SuppressLint("ResourceType")
-            TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
-            color = ta.getColor(0, 0);
-            ta.recycle();
-        } else if (Application.isDarkThemeEnabled()) {
-            color = context.getResources().getColor(R.color.primarytext_dark);
-        } else {
-            color = context.getResources().getColor(R.color.primarytext_light);
-        }
+        int color = context.getResources().getColor(dev.oneuiproject.oneui.design.R.color.oui_primary_text_color);
         return colorToHex(color);
     }
 
@@ -146,24 +129,7 @@ public class AndroidUtils {
      * @param context the context to access the colour
      */
     public static String getBackgroundColorHex(Context context) {
-        int color;
-        if (DynamicColors.isDynamicColorAvailable() && Application.areDynamicColorsEnabled()) {
-            Context dynamicColorContext;
-            if (Application.isDarkThemeEnabled()) {
-                dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.GadgetbridgeThemeDynamicDark);
-            } else {
-                dynamicColorContext = DynamicColors.wrapContextIfAvailable(context, R.style.GadgetbridgeThemeDynamicLight);
-            }
-            int[] attrsToResolve = {com.google.android.material.R.attr.colorSurface};
-            @SuppressLint("ResourceType")
-            TypedArray ta = dynamicColorContext.obtainStyledAttributes(attrsToResolve);
-            color = ta.getColor(0, 0);
-            ta.recycle();
-        } else if (Application.isDarkThemeEnabled()) {
-            color = context.getResources().getColor(androidx.cardview.R.color.cardview_dark_background);
-        } else {
-            color = context.getResources().getColor(androidx.cardview.R.color.cardview_light_background);
-        }
+        int color = context.getResources().getColor(dev.oneuiproject.oneui.design.R.color.oui_round_and_bgcolor);
         return colorToHex(color);
     }
 

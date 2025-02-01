@@ -206,16 +206,7 @@ public class ControlCenterv2 extends AppCompatActivity
                 this, drawer, toolbar, R.string.controlcenter_navigation_drawer_open, R.string.controlcenter_navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        if (Application.areDynamicColorsEnabled()) {
-            TypedValue typedValue = new TypedValue();
-            Resources.Theme theme = getTheme();
-            theme.resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValue, true);
-            @ColorInt int toolbarBackground = typedValue.data;
-            toolbar.setBackgroundColor(toolbarBackground);
-        } else {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.primarydark_light));
-            toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-        }
+        toolbar.setBackgroundColor(getResources().getColor(dev.oneuiproject.oneui.design.R.color.oui_round_and_bgcolor));
 
         // Configure ViewPager2 with fragment adapter and default fragment
         viewPager = findViewById(R.id.dashboard_viewpager);

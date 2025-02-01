@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/drawer_header_color"
     android:gravity="bottom"
     android:orientation="vertical"
     android:layout_marginTop="16dp"
@@ -24,8 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:textAppearance="@style/TextAppearance.Material3.ActionBar.Title"
-        android:textColor="?attr/drawer_title_color"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
         android:text="@string/app_name" />
 
 </LinearLayout>

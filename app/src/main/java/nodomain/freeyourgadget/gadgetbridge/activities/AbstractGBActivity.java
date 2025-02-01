@@ -25,6 +25,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Locale;
@@ -52,6 +53,7 @@ public abstract class AbstractGBActivity extends AppCompatActivity implements GB
                     setLanguage(Application.getLanguage(), true);
                     break;
                 case Application.ACTION_THEME_CHANGE:
+                    getDelegate().applyDayNight();
                     recreate();
                     break;
                 case Application.ACTION_QUIT:
@@ -73,45 +75,18 @@ public abstract class AbstractGBActivity extends AppCompatActivity implements GB
     }
 
     public static void init(GBActivity activity, int flags) {
-        if (Application.areDynamicColorsEnabled()) {
-            if (Application.isDarkThemeEnabled()) {
-                if ((flags & NO_ACTIONBAR) != 0) {
-                    if (Application.isAmoledBlackEnabled())
-                        activity.setTheme(R.style.GadgetbridgeThemeDynamicDarkAmoled_NoActionBar);
-                    else
-                        activity.setTheme(R.style.GadgetbridgeThemeDynamicDark_NoActionBar);
-                } else {
-                    if (Application.isAmoledBlackEnabled())
-                        activity.setTheme(R.style.GadgetbridgeThemeDynamicDarkAmoled);
-                    else
-                        activity.setTheme(R.style.GadgetbridgeThemeDynamicDark);
-                }
-            } else {
-                if ((flags & NO_ACTIONBAR) != 0) {
-                    activity.setTheme(R.style.GadgetbridgeThemeDynamicLight_NoActionBar);
-                } else {
-                    activity.setTheme(R.style.GadgetbridgeThemeDynamicLight);
-                }
-            }
-        } else if (Application.isDarkThemeEnabled()) {
-            if ((flags & NO_ACTIONBAR) != 0) {
-                if (Application.isAmoledBlackEnabled())
-                    activity.setTheme(R.style.GadgetbridgeThemeBlack_NoActionBar);
-                else
-                    activity.setTheme(R.style.GadgetbridgeThemeDark_NoActionBar);
-            } else {
-                if (Application.isAmoledBlackEnabled())
-                    activity.setTheme(R.style.GadgetbridgeThemeBlack);
-                else
-                    activity.setTheme(R.style.GadgetbridgeThemeDark);
-            }
+        int style;
+        if ((flags & NO_ACTIONBAR) != 0) {
+            style = R.style.GadgetbridgeTheme_NoActionBar;
         } else {
-            if ((flags & NO_ACTIONBAR) != 0) {
-                activity.setTheme(R.style.GadgetbridgeTheme_NoActionBar);
-            } else {
-                activity.setTheme(R.style.GadgetbridgeTheme);
-            }
+            style = R.style.GadgetbridgeTheme;
         }
+
+        activity.setTheme(style);
+        AppCompatDelegate.setDefaultNightMode(Application.isDarkThemeEnabled() ?
+                AppCompatDelegate.MODE_NIGHT_YES :
+                AppCompatDelegate.MODE_NIGHT_NO
+        );
         activity.setLanguage(Application.getLanguage(), false);
     }
 

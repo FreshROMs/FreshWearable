@@ -169,12 +169,6 @@
             android:summary="%s"
             android:title="@string/pref_title_theme"
             app:iconSpaceReserved="false" />
-        <SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:key="pref_key_theme_amoled_black"
-            android:layout="@layout/preference_checkbox"
-            android:title="@string/pref_theme_black_background"
-            app:iconSpaceReserved="false" />
 
         <PreferenceCategory
             android:key="pref_screen_theme"

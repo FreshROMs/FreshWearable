@@ -2,9 +2,9 @@
 <resources>
     <color name="primary_light" type="color">#ff3d00</color>
     <color name="primarydark_light" type="color">#dd2c00</color>
+    <color name="primarydark_dark" type="color">#dd2c00</color>
 
     <color name="primary_dark" type="color">#ff3d00</color>
-    <color name="primarydark_dark" type="color">#dd2c00</color>
 
     <color name="accent" type="color">#0091ea</color>
 
@@ -13,8 +13,8 @@
 
     <color name="secondarytext" type="color">#ff808080</color>
     <color name="tertiarytext_light" type="color">#ffd0d0d0</color>
-    <color name="tertiarytext_dark" type="color">#ff606060</color>
     <color name="tertiarytext_black" type="color">#000000</color>
+    <color name="tertiarytext_dark" type="color">#ff606060</color>
 
     <color name="divider" type="color">#1f000000</color>
 
@@ -44,7 +44,6 @@
     <color name="chart_pai_today" type="color">#2ECC71</color>
 
     <color name="chart_not_worn_light" type="color">#545254</color>
-    <color name="chart_not_worn_dark" type="color">#d8d9d8</color>
 
     <color name="chart_stress_unknown" type="color">#545254</color>
     <color name="chart_stress_relaxed" type="color">#46acea</color>
@@ -73,7 +72,6 @@
 
     <color name="value_line_color" type="color">#858585</color>
     <color name="row_separator_light" type="color">#ffe2e2e5</color>
-    <color name="row_separator_dark" type="color">#19808080</color>
     <color name="gauge_line_color" type="color">#19808080</color>
 
     <color name="hr_zone_warm_up_color" type="color">#92a4ad</color>
@@ -84,7 +82,6 @@
 
     <attr name="row_separator" format="color" />
     <color name="alternate_row_background_light">#FFEDEDED</color>
-    <color name="alternate_row_background_dark">#545254</color>
 
     <color name="transparent">#00000000</color>
 

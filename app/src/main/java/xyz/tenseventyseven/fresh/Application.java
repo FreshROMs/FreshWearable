@@ -2019,21 +2019,8 @@ public class Application extends android.app.Application {
         }
     }
 
-    public static boolean isAmoledBlackEnabled() {
-        return prefs.getBoolean("pref_key_theme_amoled_black", false);
-    }
-
-    public static boolean areDynamicColorsEnabled() {
-        String selectedTheme = prefs.getString("pref_key_theme", context.getString(R.string.pref_theme_value_system));
-        return selectedTheme.equals(context.getString(R.string.pref_theme_value_dynamic));
-    }
-
     public static int getTextColor(Context context) {
-        if (Application.isDarkThemeEnabled()) {
-            return context.getResources().getColor(R.color.primarytext_dark);
-        } else {
-            return context.getResources().getColor(R.color.primarytext_light);
-        }
+        return context.getResources().getColor(dev.oneuiproject.oneui.design.R.color.oui_primary_text_color);
     }
 
     public static int getSecondaryTextColor(Context context) {

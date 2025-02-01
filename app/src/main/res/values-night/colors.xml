@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="chart_activity_light" type="color">@color/chart_activity_dark</color>
+    <color name="chart_not_worn_light" type="color">#d8d9d8</color>
+    <color name="row_separator_light" type="color">#19808080</color>
+    <color name="alternate_row_background_light">#545254</color>
+    <color name="primary_dark" type="color">@color/primarydark_dark</color>
+    <color name="primarytext_light" type="color">@color/primarytext_dark</color>
+    <color name="tertiarytext_light" type="color">@color/tertiarytext_dark</color>
+</resources>
