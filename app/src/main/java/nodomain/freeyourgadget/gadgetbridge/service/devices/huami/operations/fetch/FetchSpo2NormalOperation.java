@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -97,7 +97,7 @@ public class FetchSpo2NormalOperation extends AbstractRepeatingFetchOperation {
     }
 
     protected boolean persistSamples(final List<HuamiSpo2Sample> samples) {
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             final Device device = DBHelper.getDevice(getDevice(), session);

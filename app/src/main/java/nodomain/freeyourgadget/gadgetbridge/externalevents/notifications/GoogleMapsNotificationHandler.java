@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.model.NavigationInfoSpec;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
@@ -1256,7 +1256,7 @@ public class GoogleMapsNotificationHandler {
                 navInfo.distanceToTurn = distance;
             if (navLines[2].contains("ETA"))
               navInfo.ETA = navLines[2].replace("ETA","").trim();
-            GBApplication.deviceService().onSetNavigationInfo(navInfo);
+            Application.deviceService().onSetNavigationInfo(navInfo);
 
             return true;
         }
@@ -1270,14 +1270,14 @@ public class GoogleMapsNotificationHandler {
             if (!NotificationCompat.getLocalOnly(notification))
                 return false; // ignore non-local notifications
             NavigationInfoSpec navInfo = new NavigationInfoSpec(); // send a blank one to remove
-            GBApplication.deviceService().onSetNavigationInfo(navInfo);
+            Application.deviceService().onSetNavigationInfo(navInfo);
             return true;
         }
         return false;
     }
 
     private void checkShouldSendNavigation(Context context) {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
 
         boolean navigationForward = prefs.getBoolean("navigation_forward", true);
         boolean navigationGMaps = prefs.getBoolean("navigation_app_gmaps", true);

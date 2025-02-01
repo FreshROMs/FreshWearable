@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.AppException;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
@@ -66,7 +66,7 @@ public class SoundcoreMotion300Coordinator extends AbstractBLClassicDeviceCoordi
     @Override
     protected void deleteDevice(
             @NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session)
-            throws GBException {}
+            throws AppException {}
 
     @Override
     public DeviceSpecificSettings getDeviceSpecificSettings(final GBDevice device) {

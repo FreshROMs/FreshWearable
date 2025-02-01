@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiFWHelper;
@@ -75,7 +75,7 @@ public class AmazfitNeoSupport extends MiBand5Support {
     }
 
     private void setNeoFitnessGoal(TransactionBuilder builder) {
-        int fitnessGoal = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
+        int fitnessGoal = Application.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
         boolean fitnessGoalNotification = HuamiCoordinator.getGoalNotification(gbDevice.getAddress());
         LOG.info("Setting Amazfit Neo fitness goal to: " + fitnessGoal + ", notification: " + fitnessGoalNotification);
         byte[] bytes = ArrayUtils.addAll(

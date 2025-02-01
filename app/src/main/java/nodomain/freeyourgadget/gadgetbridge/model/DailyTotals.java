@@ -24,7 +24,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ActivityAnalysis;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractTimeSampleProvider;
@@ -79,7 +79,7 @@ public class DailyTotals implements Serializable {
 
     public static DailyTotals getDailyTotalsForDevice(GBDevice device, Calendar day) {
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             return getDailyTotalsForDevice(device, day, handler);
         } catch (Exception e) {
             //GB.toast("Error loading sleep/steps widget data for device: " + device, Toast.LENGTH_SHORT, GB.ERROR, e);

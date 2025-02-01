@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities.dashboard;
 
 import android.os.Bundle;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.StressChartFragment;
@@ -59,7 +59,7 @@ public class DashboardStressSimpleWidget extends AbstractGaugeWidget {
         final int color = StressChartFragment.StressType.fromStress(
                 stressData.value,
                 stressData.ranges
-        ).getColor(GBApplication.getContext());
+        ).getColor(Application.getContext());
 
         final float value = stressData.value / 100f;
         final String valueText = String.valueOf(stressData.value);

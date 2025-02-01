@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
@@ -55,7 +55,7 @@ public class DashboardPreferencesActivity extends AbstractSettingsActivityV2 {
 
             final MultiSelectListPreference dashboardDevices = findPreference("dashboard_devices_multiselect");
             if (dashboardDevices != null) {
-                List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+                List<GBDevice> devices = Application.app().getDeviceManager().getDevices();
                 List<String> deviceMACs = new ArrayList<>();
                 List<String> deviceNames = new ArrayList<>();
                 for (GBDevice dev : devices) {

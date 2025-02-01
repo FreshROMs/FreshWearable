@@ -25,7 +25,7 @@ import android.content.SharedPreferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceCommunicationService;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
@@ -58,12 +58,12 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
 
         LOG.info("connection attempt detected from {}", device.getAddress());
 
-        final GBDevice gbDevice = GBApplication.app().getDeviceManager().getDeviceByAddress(device.getAddress());
+        final GBDevice gbDevice = Application.app().getDeviceManager().getDeviceByAddress(device.getAddress());
         if (gbDevice == null) {
             LOG.info("Connected device {} unknown", device.getAddress());
             return;
         }
-        final SharedPreferences deviceSpecificPreferences = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        final SharedPreferences deviceSpecificPreferences = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
         boolean reactToConnection = deviceSpecificPreferences.getBoolean(GBPrefs.DEVICE_CONNECT_BACK, false);
         reactToConnection |= gbDevice.getState() == GBDevice.State.WAITING_FOR_RECONNECT;
         reactToConnection |= gbDevice.getState() == GBDevice.State.WAITING_FOR_SCAN;
@@ -72,6 +72,6 @@ public class BluetoothConnectReceiver extends BroadcastReceiver {
             return;
         }
         LOG.info("Will re-connect to {} ({})", gbDevice.getAddress(), gbDevice.getName());
-        GBApplication.deviceService(gbDevice).connect();
+        Application.deviceService(gbDevice).connect();
     }
 }

@@ -51,7 +51,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
@@ -100,7 +100,7 @@ public class DashboardCalendarActivity extends AbstractGBActivity {
             cal.setTimeInMillis(receivedTimestamp);
         }
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         showAllDevices = prefs.getBoolean("dashboard_devices_all", true);
         showDeviceList = prefs.getStringSet("dashboard_devices_multiselect", new HashSet<>());
 
@@ -279,7 +279,7 @@ public class DashboardCalendarActivity extends AbstractGBActivity {
                     GradientDrawable borderDrawable = new GradientDrawable();
                     borderDrawable.setShape(GradientDrawable.OVAL);
                     borderDrawable.setColor(Color.TRANSPARENT);
-                    borderDrawable.setStroke(5, GBApplication.getTextColor(getApplicationContext()));
+                    borderDrawable.setStroke(5, Application.getTextColor(getApplicationContext()));
                     LayerDrawable layerDrawable = new LayerDrawable(new Drawable[]{backgroundDrawable, borderDrawable});
                     text.setBackground(layerDrawable);
                 } else {

@@ -24,7 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;
 
@@ -74,7 +74,7 @@ public class TextReceiverActivity extends AbstractGBActivity {
         notificationSpec.type = NotificationType.UNKNOWN;
         notificationSpec.pebbleColor = notificationSpec.type.color;
 
-        GBApplication.deviceService().onNotification(notificationSpec);
+        Application.deviceService().onNotification(notificationSpec);
         finish();
     }
 }

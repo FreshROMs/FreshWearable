@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huami.HuamiFirmwareType;
@@ -75,7 +75,7 @@ public class MiBandFWHelper extends AbstractMiBandFWHelper {
     @NonNull
     @Override
     public String getFirmwareKind() {
-        return GBApplication.getContext().getString(R.string.kind_firmware);
+        return Application.getContext().getString(R.string.kind_firmware);
     }
 
     @Override

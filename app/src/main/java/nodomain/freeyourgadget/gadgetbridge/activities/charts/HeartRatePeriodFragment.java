@@ -31,17 +31,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.SampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.entities.AbstractActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.model.HeartRateSample;
 import nodomain.freeyourgadget.gadgetbridge.util.Accumulator;
@@ -130,9 +128,9 @@ public class HeartRatePeriodFragment extends AbstractChartFragment<HeartRatePeri
 
     @Override
     protected void init() {
-        Prefs prefs = GBApplication.getPrefs();
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(getContext());
-        DESCRIPTION_COLOR = LEGEND_TEXT_COLOR = GBApplication.getTextColor(getContext());
+        Prefs prefs = Application.getPrefs();
+        CHART_TEXT_COLOR = Application.getSecondaryTextColor(getContext());
+        DESCRIPTION_COLOR = LEGEND_TEXT_COLOR = Application.getTextColor(getContext());
         if (prefs.getBoolean("chart_heartrate_color", false)) {
             HEARTRATE_COLOR = ContextCompat.getColor(getContext(), R.color.chart_heartrate_alternative);
         }else{
@@ -244,7 +242,7 @@ public class HeartRatePeriodFragment extends AbstractChartFragment<HeartRatePeri
             legendEntries.add(hrRestingEntry);
         }
 
-        if (GBApplication.getPrefs().getBoolean("charts_show_average", true)) {
+        if (Application.getPrefs().getBoolean("charts_show_average", true)) {
             LegendEntry hrAverageEntry = new LegendEntry();
             hrAverageEntry.label = getString(R.string.hr_average);
             hrAverageEntry.formColor = TOTAL_DAYS != 1 ? HEARTRATE_COLOR : Color.RED;
@@ -369,7 +367,7 @@ public class HeartRatePeriodFragment extends AbstractChartFragment<HeartRatePeri
         hrLineChart.setData(new LineData(lineDataSets));
         hrLineChart.getAxisLeft().removeAllLimitLines();
 
-        if (data.average > 0 && GBApplication.getPrefs().getBoolean("charts_show_average", true)) {
+        if (data.average > 0 && Application.getPrefs().getBoolean("charts_show_average", true)) {
             final LimitLine averageLine = new LimitLine(data.average);
             averageLine.setLineWidth(1.5f);
             averageLine.enableDashedLine(15f, 10f, 0f);
@@ -436,7 +434,7 @@ public class HeartRatePeriodFragment extends AbstractChartFragment<HeartRatePeri
         setStatistics(average, minimum, maximum, restingAvg);
 
         List<ILineDataSet> dataSets = new ArrayList<ILineDataSet>();
-        if (GBApplication.getPrefs().getBoolean("charts_show_average", true)) {
+        if (Application.getPrefs().getBoolean("charts_show_average", true)) {
             dataSets.add(createHeartRateDataSet(avgLineData, HEARTRATE_COLOR));
         }
         dataSets.add(createHeartRateDataSet(minLineData, HEARTRATE_MIN_COLOR));

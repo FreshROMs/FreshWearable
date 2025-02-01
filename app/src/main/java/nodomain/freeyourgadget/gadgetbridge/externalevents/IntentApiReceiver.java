@@ -32,7 +32,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -67,7 +67,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
             return;
         }
 
-        final Prefs prefs = GBApplication.getPrefs();
+        final Prefs prefs = Application.getPrefs();
 
         switch (intent.getAction()) {
             case COMMAND_ACTIVITY_SYNC:
@@ -91,7 +91,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
 
                 LOG.info("Triggering activity sync for data types {}", String.format("0x%08x", dataTypes));
 
-                GBApplication.deviceService().onFetchRecordedData(dataTypes);
+                Application.deviceService().onFetchRecordedData(dataTypes);
                 break;
 
             case COMMAND_TRIGGER_EXPORT:
@@ -152,7 +152,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
                     replyAction.type = NotificationSpec.Action.TYPE_SYNTECTIC_REPLY_PHONENR;
                     notificationSpec.attachedActions.add(replyAction);
                 }
-                GBApplication.deviceService().onNotification(notificationSpec);
+                Application.deviceService().onNotification(notificationSpec);
                 break;
 
             case COMMAND_DEBUG_INCOMING_CALL:
@@ -167,7 +167,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
                 if (callSpec.number == null) {
                     callSpec.number = "DEBUG_INCOMING_CALL";
                 }
-                GBApplication.deviceService().onSetCallState(callSpec);
+                Application.deviceService().onSetCallState(callSpec);
                 break;
 
             case COMMAND_DEBUG_END_CALL:
@@ -178,7 +178,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
                 LOG.info("Triggering Debug End Call");
                 CallSpec callSpecEnd = new CallSpec();
                 callSpecEnd.command = CallSpec.CALL_END;
-                GBApplication.deviceService().onSetCallState(callSpecEnd);
+                Application.deviceService().onSetCallState(callSpecEnd);
                 break;
 
             case COMMAND_DEBUG_SET_DEVICE_ADDRESS:
@@ -195,7 +195,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
                     return;
                 }
                 LOG.info("Triggering Debug Test New Function");
-                GBApplication.deviceService().onTestNewFunction();
+                Application.deviceService().onTestNewFunction();
                 break;
         }
     }
@@ -228,7 +228,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
             return;
         }
 
-        final GBDevice oldDevice = GBApplication.app()
+        final GBDevice oldDevice = Application.app()
                 .getDeviceManager()
                 .getDeviceByAddress(oldAddress);
         if (oldDevice == null) {
@@ -236,7 +236,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
             return;
         }
 
-        final GBDevice newDevice = GBApplication.app()
+        final GBDevice newDevice = Application.app()
                 .getDeviceManager()
                 .getDeviceByAddress(newAddress);
         if (newDevice != null) {
@@ -246,8 +246,8 @@ public class IntentApiReceiver extends BroadcastReceiver {
 
         LOG.info("Updating device address from {} to {}", oldAddress, newAddress);
 
-        final SharedPreferences settingsOld = GBApplication.getDeviceSpecificSharedPrefs(oldAddress);
-        final SharedPreferences settingsNew = GBApplication.getDeviceSpecificSharedPrefs(newAddress);
+        final SharedPreferences settingsOld = Application.getDeviceSpecificSharedPrefs(oldAddress);
+        final SharedPreferences settingsNew = Application.getDeviceSpecificSharedPrefs(newAddress);
         final SharedPreferences.Editor editorNew = settingsNew.edit().clear();
         final Map<String, ?> allSettings = settingsOld.getAll();
         LOG.debug("Copying {} preferences to new device", allSettings.size());
@@ -274,7 +274,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
             return;
         }
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             final DaoSession session = dbHandler.getDaoSession();
             DBHelper.updateDeviceMacAddress(session, oldAddress, newAddress);
         } catch (final Exception e) {
@@ -284,7 +284,7 @@ public class IntentApiReceiver extends BroadcastReceiver {
 
         LOG.info("Quitting GB after device address update");
 
-        GBApplication.quit();
+        Application.quit();
     }
 
     private boolean validAddress(final String address) {

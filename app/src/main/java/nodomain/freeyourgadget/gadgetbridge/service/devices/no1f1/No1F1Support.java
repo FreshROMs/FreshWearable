@@ -34,7 +34,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -307,7 +307,7 @@ public class No1F1Support extends AbstractBTLEDeviceSupport {
                 0x00, // 1 - display distance in kilometers, 2 - in miles
                 0x00 // 1 - display 24-hour clock, 2 - for 12-hour with AM/PM
         };
-        String units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, getContext().getString(R.string.p_unit_metric));
+        String units = Application.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, getContext().getString(R.string.p_unit_metric));
         if (units.equals(getContext().getString(R.string.p_unit_metric))) {
             displayBytes[1] = 1;
         } else {
@@ -487,7 +487,7 @@ public class No1F1Support extends AbstractBTLEDeviceSupport {
                     getDevice().sendDeviceUpdateIntent(getContext());
                 }
             } else if (!samples.isEmpty()) {
-                try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                try (DBHandler dbHandler = Application.acquireDB()) {
                     Long userId = DBHelper.getUser(dbHandler.getDaoSession()).getId();
                     Long deviceId = DBHelper.getDevice(getDevice(), dbHandler.getDaoSession()).getId();
                     No1F1SampleProvider provider = new No1F1SampleProvider(getDevice(), dbHandler.getDaoSession());
@@ -577,7 +577,7 @@ public class No1F1Support extends AbstractBTLEDeviceSupport {
             sample.setTimestamp((int) (GregorianCalendar.getInstance().getTimeInMillis() / 1000L));
             sample.setHeartRate(data[3] & 0xff);
             LOG.info("Current heart rate is: " + sample.getHeartRate() + " BPM");
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 Long userId = DBHelper.getUser(dbHandler.getDaoSession()).getId();
                 Long deviceId = DBHelper.getDevice(getDevice(), dbHandler.getDaoSession()).getId();
                 No1F1SampleProvider provider = new No1F1SampleProvider(getDevice(), dbHandler.getDaoSession());

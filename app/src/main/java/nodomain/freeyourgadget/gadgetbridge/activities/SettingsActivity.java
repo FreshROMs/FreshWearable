@@ -58,7 +58,7 @@ import java.util.Locale;
 import java.util.Set;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ChartsPreferencesActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryPairingPreferenceActivity;
@@ -100,7 +100,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             setInputTypeFor("auto_export_interval", InputType.TYPE_CLASS_NUMBER);
             setInputTypeFor("auto_fetch_interval_limit", InputType.TYPE_CLASS_NUMBER);
 
-            Prefs prefs = GBApplication.getPrefs();
+            Prefs prefs = Application.getPrefs();
             Preference pref = findPreference("pref_category_activity_personal");
             if (pref != null) {
                 pref.setOnPreferenceClickListener(preference -> {
@@ -124,7 +124,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                 pref.setOnPreferenceChangeListener((preference, newVal) -> {
                     if (Boolean.TRUE.equals(newVal)) {
                         TimeChangeReceiver.scheduleNextDstChangeOrPeriodicSync(requireContext());
-                        GBApplication.deviceService().onSetTime();
+                        Application.deviceService().onSetTime();
                     }
                     return true;
                 });
@@ -138,7 +138,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                         if (doEnable) {
                             FileUtils.getExternalFilesDir(); // ensures that it is created
                         }
-                        GBApplication.setupLogging(doEnable);
+                        Application.setupLogging(doEnable);
                     } catch (IOException ex) {
                         GB.toast(requireContext().getApplicationContext(),
                                 getString(R.string.error_creating_directory_for_logfiles, ex.getLocalizedMessage()),
@@ -150,7 +150,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                 });
 
                 // If we didn't manage to initialize file logging, disable the preference
-                if (!GBApplication.getLogging().isFileLoggerInitialized()) {
+                if (!Application.getLogging().isFileLoggerInitialized()) {
                     pref.setEnabled(false);
                     pref.setSummary(R.string.pref_write_logfiles_not_available);
                 }
@@ -172,7 +172,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                 pref.setOnPreferenceChangeListener((preference, newVal) -> {
                     String newLang = newVal.toString();
                     try {
-                        GBApplication.setLanguage(newLang);
+                        Application.setLanguage(newLang);
                         requireActivity().recreate();
                     } catch (Exception ex) {
                         GB.toast(requireContext().getApplicationContext(),
@@ -203,7 +203,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             final Preference unit = findPreference(PREF_MEASUREMENT_SYSTEM);
             if (unit != null) {
                 unit.setOnPreferenceChangeListener((preference, newVal) -> {
-                    invokeLater(() -> GBApplication.deviceService().onSendConfiguration(PREF_MEASUREMENT_SYSTEM));
+                    invokeLater(() -> Application.deviceService().onSendConfiguration(PREF_MEASUREMENT_SYSTEM));
                     return true;
                 });
             }
@@ -257,7 +257,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             if (pref != null) {
                 pref.setOnPreferenceChangeListener((preference, newVal) -> {
                     // reset city id and force a new lookup
-                    GBApplication.getPrefs().getPreferences().edit().putString("weather_cityid", null).apply();
+                    Application.getPrefs().getPreferences().edit().putString("weather_cityid", null).apply();
                     Intent intent = new Intent("GB_UPDATE_WEATHER");
                     intent.setPackage(BuildConfig.APPLICATION_ID);
                     requireContext().sendBroadcast(intent);
@@ -406,7 +406,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                     selectionListSpinner.setAdapter(spinnerArrayAdapter);
                     fitnessAppSelectionListSpinnerFirstRun = 0;
                     addListenerOnSpinnerDeviceSelection(selectionListSpinner);
-                    Prefs prefs1 = GBApplication.getPrefs();
+                    Prefs prefs1 = Application.getPrefs();
                     String packageName = prefs1.getString("opentracks_packagename", "de.dennisguse.opentracks");
                     // Set the spinner to the selected package name by default
                     for (int i = 0; i < appListArray.length; i++) {
@@ -426,7 +426,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                             .setTitle(R.string.pref_title_opentracks_packagename)
                             .setView(outerLayout)
                             .setPositiveButton(R.string.ok, (dialog, which) -> {
-                                SharedPreferences.Editor editor = GBApplication.getPrefs().getPreferences().edit();
+                                SharedPreferences.Editor editor = Application.getPrefs().getPreferences().edit();
                                 editor.putString("opentracks_packagename", fitnessAppEditText.getText().toString());
                                 editor.apply();
                             })
@@ -466,7 +466,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
             String longitude = String.format(Locale.US, "%.6g", location.getLongitude());
             LOG.info("got location. Lat: {} Lng: {}", latitude, longitude);
             GB.toast(requireContext(), getString(R.string.toast_aqurired_networklocation), 2000, 0);
-            GBApplication.getPrefs().getPreferences()
+            Application.getPrefs().getPreferences()
                     .edit()
                     .putString("location_latitude", latitude)
                     .putString("location_longitude", longitude)
@@ -478,7 +478,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
          */
         private void sendThemeChangeIntent() {
             Intent intent = new Intent();
-            intent.setAction(GBApplication.ACTION_THEME_CHANGE);
+            intent.setAction(Application.ACTION_THEME_CHANGE);
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent);
         }
     }

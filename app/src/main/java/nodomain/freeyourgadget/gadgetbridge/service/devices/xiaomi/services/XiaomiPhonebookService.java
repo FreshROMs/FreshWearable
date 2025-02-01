@@ -25,10 +25,9 @@ import android.text.TextUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.model.Contact;
 import nodomain.freeyourgadget.gadgetbridge.proto.xiaomi.XiaomiProto;
@@ -98,7 +97,7 @@ public class XiaomiPhonebookService extends AbstractXiaomiService {
      */
     private XiaomiProto.ContactInfo getContactInfoForPhoneNumber(String number) {
         Context context = getSupport().getContext();
-        String currentPrivacyMode = GBApplication.getPrefs().getString("pref_call_privacy_mode", GBApplication.getContext().getString(R.string.p_call_privacy_mode_off));
+        String currentPrivacyMode = Application.getPrefs().getString("pref_call_privacy_mode", Application.getContext().getString(R.string.p_call_privacy_mode_off));
 
         // mask the display name if complete privacy is set in preferences
         if (currentPrivacyMode.equals(context.getString(R.string.p_call_privacy_mode_complete))) {

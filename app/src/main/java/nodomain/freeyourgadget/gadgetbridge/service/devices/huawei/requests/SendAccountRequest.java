@@ -21,8 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiConstants;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket.CryptoException;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.AccountRelated;
@@ -39,7 +38,7 @@ public class SendAccountRequest extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        String account = GBApplication
+        String account = Application
                 .getDeviceSpecificSharedPrefs(supportProvider.getDevice().getAddress())
                 .getString(HuaweiConstants.PREF_HUAWEI_ACCOUNT, "").trim();
         try {

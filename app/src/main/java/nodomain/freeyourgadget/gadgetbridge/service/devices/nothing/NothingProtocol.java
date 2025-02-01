@@ -23,15 +23,13 @@ import org.slf4j.LoggerFactory;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
@@ -186,7 +184,7 @@ public class NothingProtocol extends GBDeviceProtocol {
 
     //TODO: unify mapping between bytes and strings in the following two functions
     private GBDeviceEvent handleAudioModeStatus(byte[] payload) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         SharedPreferences.Editor editor = prefs.edit();
 
         if (Arrays.equals(payload, new byte[]{0x01, 0x01, 0x00})) {
@@ -232,7 +230,7 @@ public class NothingProtocol extends GBDeviceProtocol {
     @Override
     public byte[] encodeSendConfiguration(String config) {
 
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         switch (config) {
             case DeviceSettingsPreferenceConst.PREF_NOTHING_EAR1_INEAR:

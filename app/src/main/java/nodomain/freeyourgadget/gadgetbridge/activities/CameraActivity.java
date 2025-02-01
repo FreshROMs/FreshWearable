@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.ExecutionException;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCameraRemote;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -61,11 +61,11 @@ public class CameraActivity extends AppCompatActivity {
     private boolean reportClosing = true;
 
     public static boolean supportsCamera() {
-        return GBApplication.getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
+        return Application.getContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
     }
 
     public static boolean hasCameraPermission() {
-        return GBApplication.getContext().checkCallingOrSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+        return Application.getContext().checkCallingOrSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -76,7 +76,7 @@ public class CameraActivity extends AppCompatActivity {
         if (!supportsCamera()) {
             LOG.error("No camera support");
             GB.toast(getString(R.string.toast_camera_support_required), Toast.LENGTH_SHORT, GB.ERROR);
-            GBApplication.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.EXCEPTION, null);
+            Application.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.EXCEPTION, null);
             reportClosing = false;
             finish();
             return;
@@ -94,7 +94,7 @@ public class CameraActivity extends AppCompatActivity {
                             } else {
                                 LOG.error("Did not receive camera permission");
                                 GB.toast(getString(R.string.toast_camera_permission_required), Toast.LENGTH_SHORT, GB.ERROR);
-                                GBApplication.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.EXCEPTION, null);
+                                Application.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.EXCEPTION, null);
                                 reportClosing = false;
                                 finish();
                             }
@@ -165,7 +165,7 @@ public class CameraActivity extends AppCompatActivity {
         if (event == GBDeviceEventCameraRemote.Event.CLOSE_CAMERA) {
             finish();
         } else if (event == GBDeviceEventCameraRemote.Event.OPEN_CAMERA) {
-             GBApplication.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.OPEN_CAMERA, null);
+             Application.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.OPEN_CAMERA, null);
         } else if (event == GBDeviceEventCameraRemote.Event.TAKE_PICTURE) {
             ContentValues contentValues = new ContentValues();
             contentValues.put(MediaStore.Images.Media.TITLE, "Gadgetbridge photo");
@@ -181,7 +181,7 @@ public class CameraActivity extends AppCompatActivity {
                 public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
                     if (outputFileResults.getSavedUri() == null) {
                         // Shouldn't ever happen
-                        GBApplication.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.EXCEPTION, null);
+                        Application.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.EXCEPTION, null);
                         return;
                     }
 
@@ -193,7 +193,7 @@ public class CameraActivity extends AppCompatActivity {
                             GB.INFO
                     );
 
-                    GBApplication.deviceService().onCameraStatusChange(
+                    Application.deviceService().onCameraStatusChange(
                             GBDeviceEventCameraRemote.Event.TAKE_PICTURE,
                             outputFileResults.getSavedUri().getPath()
                     );
@@ -202,7 +202,7 @@ public class CameraActivity extends AppCompatActivity {
                 @Override
                 public void onError(@NonNull ImageCaptureException exception) {
                     LOG.error("Failed to save image", exception);
-                    GBApplication.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.EXCEPTION, null);
+                    Application.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.EXCEPTION, null);
                 }
             });
         }
@@ -213,6 +213,6 @@ public class CameraActivity extends AppCompatActivity {
         super.onStop();
 
         if (reportClosing)
-            GBApplication.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.CLOSE_CAMERA, null);
+            Application.deviceService().onCameraStatusChange(GBDeviceEventCameraRemote.Event.CLOSE_CAMERA, null);
     }
 }

@@ -98,7 +98,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ActivitySummariesActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.BatteryInfoActivity;
@@ -277,11 +277,11 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
     void handleDeviceConnect(GBDevice device){
         if(!device.getDeviceCoordinator().isConnectable()){
             device.setState(GBDevice.State.WAITING_FOR_SCAN);
-            device.sendDeviceUpdateIntent(GBApplication.getContext(), GBDevice.DeviceUpdateSubject.CONNECTION_STATE);
+            device.sendDeviceUpdateIntent(Application.getContext(), GBDevice.DeviceUpdateSubject.CONNECTION_STATE);
             return;
         }
 
-        GBApplication.deviceService(device).connect();
+        Application.deviceService(device).connect();
     }
 
     @Override
@@ -431,7 +431,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
         holder.heartRateStatusBox.setOnClickListener(new View.OnClickListener() {
                                                          @Override
                                                          public void onClick(View v) {
-                                                             GBApplication.deviceService(device).onHeartRateTest();
+                                                             Application.deviceService(device).onHeartRateTest();
                                                              HeartRateDialog dialog = new HeartRateDialog(device, context);
                                                              dialog.show();
                                                          }
@@ -462,7 +462,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                                                         @Override
                                                         public void onClick(View v) {
                                                             showTransientSnackbar(R.string.busy_task_fetch_activity_data);
-                                                            GBApplication.deviceService(device).onFetchRecordedData(RecordedDataTypes.TYPE_SYNC);
+                                                            Application.deviceService(device).onFetchRecordedData(RecordedDataTypes.TYPE_SYNC);
                                                         }
                                                     }
         );
@@ -476,7 +476,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                                                          @Override
                                                          public void onClick(View v) {
                                                              showTransientSnackbar(R.string.controlcenter_snackbar_requested_screenshot);
-                                                             GBApplication.deviceService(device).onScreenshotReq();
+                                                             Application.deviceService(device).onScreenshotReq();
                                                          }
                                                      }
         );
@@ -596,16 +596,16 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                                                                          context.startActivity(startIntent);
                                                                          return;
                                                                      }
-                                                                     GBApplication.deviceService(device).onFindDevice(true);
+                                                                     Application.deviceService(device).onFindDevice(true);
                                                                      Snackbar.make(parent, R.string.control_center_find_lost_device, Snackbar.LENGTH_INDEFINITE).setAction(R.string.find_lost_device_you_found_it, new View.OnClickListener() {
                                                                          @Override
                                                                          public void onClick(View v) {
-                                                                             GBApplication.deviceService(device).onFindDevice(false);
+                                                                             Application.deviceService(device).onFindDevice(false);
                                                                          }
                                                                      }).setCallback(new Snackbar.Callback() {
                                                                          @Override
                                                                          public void onDismissed(Snackbar snackbar, int event) {
-                                                                             GBApplication.deviceService(device).onFindDevice(false);
+                                                                             Application.deviceService(device).onFindDevice(false);
                                                                              super.onDismissed(snackbar, event);
                                                                          }
                                                                      }).show();
@@ -666,9 +666,9 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                 builder.setTitle(R.string.preferences_fm_frequency);
                 final float[] fm_presets = new float[3];
 
-                fm_presets[0] = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).getFloat("fm_preset0", 99);
-                fm_presets[1] = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).getFloat("fm_preset1", 100);
-                fm_presets[2] = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).getFloat("fm_preset2", 101);
+                fm_presets[0] = Application.getDeviceSpecificSharedPrefs(device.getAddress()).getFloat("fm_preset0", 99);
+                fm_presets[1] = Application.getDeviceSpecificSharedPrefs(device.getAddress()).getFloat("fm_preset1", 100);
+                fm_presets[2] = Application.getDeviceSpecificSharedPrefs(device.getAddress()).getFloat("fm_preset2", 101);
 
                 final NumberPicker frequency_decimal_picker = frequency_picker_view.findViewById(R.id.frequency_dec);
                 frequency_decimal_picker.setMinValue(FREQ_MIN_INT);
@@ -713,7 +713,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                             final float frequency = fm_presets[index];
                             device.setExtraInfo("fm_frequency", fm_presets[index]);
                             fmFrequencyLabel.setText(String.format(Locale.getDefault(), "%.1f", (float) frequency));
-                            GBApplication.deviceService(device).onSetFmFrequency(frequency);
+                            Application.deviceService(device).onSetFmFrequency(frequency);
                             alert[0].dismiss();
                         }
                     });
@@ -723,7 +723,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                             final float frequency = (float) (frequency_decimal_picker.getValue() + (0.1 * frequency_fraction_picker.getValue()));
                             fm_presets[index] = frequency;
                             button_presets[index].setText(String.valueOf(frequency));
-                            SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).edit();
+                            SharedPreferences.Editor editor = Application.getDeviceSpecificSharedPrefs(device.getAddress()).edit();
                             editor.putFloat((String.format("fm_preset%s", index)), frequency);
                             editor.apply();
                             return true;
@@ -758,7 +758,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                                 } else {
                                     device.setExtraInfo("fm_frequency", frequency);
                                     fmFrequencyLabel.setText(String.format(Locale.getDefault(), "%.1f", frequency));
-                                    GBApplication.deviceService(device).onSetFmFrequency(frequency);
+                                    Application.deviceService(device).onSetFmFrequency(frequency);
                                 }
                             }
                         });
@@ -810,7 +810,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                         public void onColorSelected(int dialogId, int color) {
                             ledColor.setColor(color);
                             device.setExtraInfo("led_color", color);
-                            GBApplication.deviceService(device).onSetLedColor(color);
+                            Application.deviceService(device).onSetLedColor(color);
                         }
 
                         @Override
@@ -835,7 +835,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                             .setIcon(R.drawable.ic_power_settings_new)
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(final DialogInterface dialog, final int whichButton) {
-                                    GBApplication.deviceService(device).onPowerOff();
+                                    Application.deviceService(device).onPowerOff();
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null)
@@ -913,7 +913,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                 } else if (itemId == R.id.controlcenter_device_submenu_disconnect) {
                     if (device.getState() != GBDevice.State.NOT_CONNECTED) {
                         showTransientSnackbar(R.string.controlcenter_snackbar_disconnecting);
-                        GBApplication.deviceService(device).disconnect();
+                        Application.deviceService(device).disconnect();
                     }
                     removeFromLastDeviceAddressesPref(device);
                     return true;
@@ -1088,7 +1088,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                        try (DBHandler dbHandler = Application.acquireDB()) {
                             DaoSession session = dbHandler.getDaoSession();
                             Device dbDevice = DBHelper.getDevice(device, session);
                             String parentFolder = selectedFolder[0];
@@ -1122,11 +1122,11 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
     }
 
     private void removeFromLastDeviceAddressesPref(GBDevice device) {
-        Set<String> lastDeviceAddresses = GBApplication.getPrefs().getStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, Collections.emptySet());
+        Set<String> lastDeviceAddresses = Application.getPrefs().getStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, Collections.emptySet());
         if (lastDeviceAddresses.contains(device.getAddress())) {
             lastDeviceAddresses = new HashSet<String>(lastDeviceAddresses);
             lastDeviceAddresses.remove(device.getAddress());
-            GBApplication.getPrefs().getPreferences().edit().putStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, lastDeviceAddresses).apply();
+            Application.getPrefs().getPreferences().edit().putStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, lastDeviceAddresses).apply();
         }
     }
 
@@ -1156,7 +1156,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                        try (DBHandler dbHandler = Application.acquireDB()) {
                             DaoSession session = dbHandler.getDaoSession();
                             Device dbDevice = DBHelper.getDevice(device, session);
                             String alias = input.getText().toString();
@@ -1384,7 +1384,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
     }
 
     private void setActivityCard(ViewHolder holder, final GBDevice device, DailyTotals dailyTotals) {
-        boolean showActivityCard = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD, true);
+        boolean showActivityCard = Application.getDeviceSpecificSharedPrefs(device.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD, true);
         holder.cardViewActivityCardLayout.setVisibility(showActivityCard ? View.VISIBLE : View.GONE);
 
         if (!showActivityCard) {
@@ -1413,9 +1413,9 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
         setChartsData(holder.SleepTimeChart, sleep, sleepGoalMinutes, context.getString(R.string.prefs_activity_in_device_card_sleep_title), String.format("%1s", getHM(sleep)), context);
 
 
-        boolean showActivitySteps = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD_STEPS, true);
-        boolean showActivitySleep = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD_SLEEP, true);
-        boolean showActivityDistance = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD_DISTANCE, true);
+        boolean showActivitySteps = Application.getDeviceSpecificSharedPrefs(device.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD_STEPS, true);
+        boolean showActivitySleep = Application.getDeviceSpecificSharedPrefs(device.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD_SLEEP, true);
+        boolean showActivityDistance = Application.getDeviceSpecificSharedPrefs(device.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREFS_ACTIVITY_IN_DEVICE_CARD_DISTANCE, true);
 
         //do the multiple mini-charts for activities in a loop
         Hashtable<PieChart, Pair<Boolean, Integer>> activitiesStatusMiniCharts = new Hashtable<>();

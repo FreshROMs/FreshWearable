@@ -50,7 +50,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBAccess;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -405,7 +405,7 @@ public class StepStreaksDashboard extends MaterialDialogFragment {
     public static Bitmap getScreenShot(View view, int height, int width, Context context) {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(GBApplication.getWindowBackgroundColor(context));
+        canvas.drawColor(Application.getWindowBackgroundColor(context));
         view.draw(canvas);
         return bitmap;
     }

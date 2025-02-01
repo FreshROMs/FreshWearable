@@ -7,7 +7,6 @@ import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.Dev
 import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst.PREFS_KEY_DEVICE_BLE_API_PACKAGE;
 
 import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattServer;
 import android.bluetooth.BluetoothGattService;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -16,7 +15,6 @@ import android.content.IntentFilter;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -114,7 +112,7 @@ public class BleIntentApi {
     };
 
     public static boolean isEnabled(GBDevice device) {
-        Prefs devicePrefs = GBApplication.getDevicePrefs(device);
+        Prefs devicePrefs = Application.getDevicePrefs(device);
 
         boolean intentApiEnabledReadWrite = devicePrefs.getBoolean(PREFS_KEY_DEVICE_BLE_API_DEVICE_READ_WRITE, false);
         boolean intentApiEnabledNotifications = devicePrefs.getBoolean(PREFS_KEY_DEVICE_BLE_API_DEVICE_NOTIFY, false);
@@ -215,7 +213,7 @@ public class BleIntentApi {
     }
 
     public void handleBLEApiPrefs(){
-        Prefs devicePrefs = GBApplication.getDevicePrefs(getDevice());
+        Prefs devicePrefs = Application.getDevicePrefs(getDevice());
         this.intentApiEnabledReadWrite = devicePrefs.getBoolean(PREFS_KEY_DEVICE_BLE_API_DEVICE_READ_WRITE, false);
         this.intentApiEnabledNotifications = devicePrefs.getBoolean(PREFS_KEY_DEVICE_BLE_API_DEVICE_NOTIFY, false);
         this.intentApiEnabledDeviceState = devicePrefs.getBoolean(PREFS_KEY_DEVICE_BLE_API_DEVICE_STATE, false);

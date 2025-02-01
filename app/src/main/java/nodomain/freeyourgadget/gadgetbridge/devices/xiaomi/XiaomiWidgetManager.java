@@ -36,7 +36,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetLayout;
@@ -155,7 +155,7 @@ public class XiaomiWidgetManager implements WidgetManager {
         final String stringifiedId = String.valueOf(widgetPart.getId());
         final WidgetPart convertedPart = new WidgetPart(
                 stringifiedId,
-                GBApplication.getContext().getString(R.string.widget_name_untitled, stringifiedId),
+                Application.getContext().getString(R.string.widget_name_untitled, stringifiedId),
                 type
         );
 
@@ -171,7 +171,7 @@ public class XiaomiWidgetManager implements WidgetManager {
 
         if (widgetPart.getFunction() == 16) {
             if (StringUtils.isBlank(convertedPart.getName())) {
-                convertedPart.setName(GBApplication.getContext().getString(R.string.menuitem_workout));
+                convertedPart.setName(Application.getContext().getString(R.string.menuitem_workout));
             }
 
             if (subtypes != null) {
@@ -191,7 +191,7 @@ public class XiaomiWidgetManager implements WidgetManager {
         }
 
         if ((widgetPart.getId() & 256) != 0) {
-            convertedPart.setName(GBApplication.getContext().getString(R.string.widget_name_colored_tile, convertedPart.getName()));
+            convertedPart.setName(Application.getContext().getString(R.string.widget_name_colored_tile, convertedPart.getName()));
         }
 
         return convertedPart;
@@ -368,11 +368,11 @@ public class XiaomiWidgetManager implements WidgetManager {
 
     @Override
     public void sendToDevice() {
-        GBApplication.deviceService(getDevice()).onSendConfiguration(DeviceSettingsPreferenceConst.PREF_WIDGETS);
+        Application.deviceService(getDevice()).onSendConfiguration(DeviceSettingsPreferenceConst.PREF_WIDGETS);
     }
 
     private Prefs getPrefs() {
-        return new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        return new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
     }
 
     @Nullable

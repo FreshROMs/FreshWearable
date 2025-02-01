@@ -62,7 +62,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ExternalPebbleJSActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.GBDeviceAppAdapter;
@@ -395,7 +395,7 @@ public abstract class AbstractAppManagerFragment extends Fragment {
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(mReceiver, filter);
 
         if (mCoordinator.supportsAppListFetching()) {
-            GBApplication.deviceService(mGBDevice).onAppInfoReq();
+            Application.deviceService(mGBDevice).onAppInfoReq();
             if (isCacheManager()) {
                 refreshList();
             }
@@ -487,7 +487,7 @@ public abstract class AbstractAppManagerFragment extends Fragment {
             ArrayList<UUID> concatUuids = AppManagerActivity.getUuidsFromFile(concatFilename);
             uuids.addAll(concatUuids);
         }
-        GBApplication.deviceService(mGBDevice).onAppReorder(uuids.toArray(new UUID[uuids.size()]));
+        Application.deviceService(mGBDevice).onAppReorder(uuids.toArray(new UUID[uuids.size()]));
     }
 
     public void onItemClick(View view, GBDeviceApp deviceApp) {
@@ -593,15 +593,15 @@ public abstract class AbstractAppManagerFragment extends Fragment {
             deleteAppConfirm(selectedApp, false);
             return true;
         } else if (itemId == R.id.appmanager_app_start || itemId == R.id.appmanager_watchface_activate) {
-            GBApplication.deviceService(mGBDevice).onAppStart(selectedApp.getUUID(), true);
+            Application.deviceService(mGBDevice).onAppStart(selectedApp.getUUID(), true);
             return true;
         } else if (itemId == R.id.appmanager_app_download) {
-            GBApplication.deviceService(mGBDevice).onAppDownload(selectedApp.getUUID());
+            Application.deviceService(mGBDevice).onAppDownload(selectedApp.getUUID());
             GB.toast(requireContext().getString(R.string.appmanager_download_started), Toast.LENGTH_LONG, GB.INFO);
             return true;
         } else if (itemId == R.id.appmanager_app_reinstall) {
             final File cachePath = new File(appCacheDir, selectedApp.getUUID() + mCoordinator.getAppFileExtension());
-            GBApplication.deviceService(mGBDevice).onInstallApp(Uri.fromFile(cachePath));
+            Application.deviceService(mGBDevice).onInstallApp(Uri.fromFile(cachePath));
             return true;
         } else if (itemId == R.id.appmanager_app_share) {
             final File origFilePath = new File(appCacheDir, selectedApp.getUUID() + mCoordinator.getAppFileExtension());
@@ -624,22 +624,22 @@ public abstract class AbstractAppManagerFragment extends Fragment {
             }
             return true;
         } else if (itemId == R.id.appmanager_health_activate) {
-            GBApplication.deviceService(mGBDevice).onInstallApp(Uri.parse("fake://health"));
+            Application.deviceService(mGBDevice).onInstallApp(Uri.parse("fake://health"));
             return true;
         } else if (itemId == R.id.appmanager_hrm_activate) {
-            GBApplication.deviceService(mGBDevice).onInstallApp(Uri.parse("fake://hrm"));
+            Application.deviceService(mGBDevice).onInstallApp(Uri.parse("fake://hrm"));
             return true;
         } else if (itemId == R.id.appmanager_weather_activate) {
-            GBApplication.deviceService(mGBDevice).onInstallApp(Uri.parse("fake://weather"));
+            Application.deviceService(mGBDevice).onInstallApp(Uri.parse("fake://weather"));
             return true;
         } else if (itemId == R.id.appmanager_health_deactivate || itemId == R.id.appmanager_hrm_deactivate || itemId == R.id.appmanager_weather_deactivate) {
-            GBApplication.deviceService(mGBDevice).onAppDelete(selectedApp.getUUID());
+            Application.deviceService(mGBDevice).onAppDelete(selectedApp.getUUID());
             return true;
         } else if (itemId == R.id.appmanager_weather_install_provider) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://f-droid.org/app/ru.gelin.android.weather.notification")));
             return true;
         } else if (itemId == R.id.appmanager_app_configure) {
-            GBApplication.deviceService(mGBDevice).onAppStart(selectedApp.getUUID(), true);
+            Application.deviceService(mGBDevice).onAppStart(selectedApp.getUUID(), true);
 
             final Intent startIntent = new Intent(getContext().getApplicationContext(), ExternalPebbleJSActivity.class);
             startIntent.putExtra(DeviceService.EXTRA_APP_UUID, selectedApp.getUUID());
@@ -711,7 +711,7 @@ public abstract class AbstractAppManagerFragment extends Fragment {
             LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(refreshIntent);
         }
 
-        GBApplication.deviceService(mGBDevice).onAppDelete(selectedApp.getUUID());
+        Application.deviceService(mGBDevice).onAppDelete(selectedApp.getUUID());
     }
 
     /**

@@ -53,7 +53,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -149,7 +149,7 @@ public class GarminRealtimeSettingsFragment extends AbstractPreferenceFragment {
 
                     LOG.debug("Got screen change for screenId={}", screenId);
 
-                    GBApplication.deviceService(device).onReadConfiguration("screenId:" + screenId);
+                    Application.deviceService(device).onReadConfiguration("screenId:" + screenId);
                     return;
                 default:
                     LOG.error("Unknown action {}", action);
@@ -198,7 +198,7 @@ public class GarminRealtimeSettingsFragment extends AbstractPreferenceFragment {
         filter.addAction(ACTION_CHANGE);
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(mReceiver, filter);
 
-        GBApplication.deviceService(device).onReadConfiguration("screenId:" + screenId);
+        Application.deviceService(device).onReadConfiguration("screenId:" + screenId);
     }
 
     @Override
@@ -225,11 +225,11 @@ public class GarminRealtimeSettingsFragment extends AbstractPreferenceFragment {
         screenDefinition = null;
         screenState = null;
         reload();
-        GBApplication.deviceService(device).onReadConfiguration("screenId:" + screenId);
+        Application.deviceService(device).onReadConfiguration("screenId:" + screenId);
     }
 
     void reload() {
-        final boolean debug = GBApplication.getDevicePrefs(device).getBoolean(PREF_DEBUG, BuildConfig.DEBUG);
+        final boolean debug = Application.getDevicePrefs(device).getBoolean(PREF_DEBUG, BuildConfig.DEBUG);
 
         final FragmentActivity activity = getActivity();
         if (activity == null) {
@@ -842,7 +842,7 @@ public class GarminRealtimeSettingsFragment extends AbstractPreferenceFragment {
     }
 
     void toggleDebug() {
-        final Prefs prefs = GBApplication.getDevicePrefs(device);
+        final Prefs prefs = Application.getDevicePrefs(device);
         prefs.getPreferences().edit()
                 .putBoolean(PREF_DEBUG, !prefs.getBoolean(PREF_DEBUG, BuildConfig.DEBUG))
                 .apply();
@@ -892,6 +892,6 @@ public class GarminRealtimeSettingsFragment extends AbstractPreferenceFragment {
                 .setSettingsService(GdiSettingsService.SettingsService.newBuilder()
                         .setChangeRequest(changeRequest)
                 ).build();
-        GBApplication.deviceService(device).onSendConfiguration("protobuf:" + GB.hexdump(smart.toByteArray()));
+        Application.deviceService(device).onSendConfiguration("protobuf:" + GB.hexdump(smart.toByteArray()));
     }
 }

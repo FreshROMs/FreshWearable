@@ -18,14 +18,13 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.Weather;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.HuaweiSupportProvider;
-import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 
 public class SendWeatherCurrentRequest extends Request {
     Weather.Settings settings;
@@ -42,8 +41,8 @@ public class SendWeatherCurrentRequest extends Request {
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
         Weather.HuaweiTemperatureFormat temperatureFormat = Weather.HuaweiTemperatureFormat.CELSIUS;
-        String unit = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
-        if (unit.equals(GBApplication.getContext().getString(R.string.p_unit_imperial)))
+        String unit = Application.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, Application.getContext().getString(R.string.p_unit_metric));
+        if (unit.equals(Application.getContext().getString(R.string.p_unit_imperial)))
             temperatureFormat = Weather.HuaweiTemperatureFormat.FAHRENHEIT;
         try {
             Short pm25 = null;

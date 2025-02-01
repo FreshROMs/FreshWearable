@@ -44,13 +44,12 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.AppException;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
-import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandConst;
 import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.entities.DeviceAttributes;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -101,7 +100,7 @@ public class DeviceHelper {
         }
 
         Set<GBDevice> availableDevices = new LinkedHashSet<>(getDatabaseDevices());
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         return availableDevices;
     }
 
@@ -156,7 +155,7 @@ public class DeviceHelper {
 
     private List<GBDevice> getDatabaseDevices() {
         List<GBDevice> result = new ArrayList<>();
-        try (DBHandler lockHandler = GBApplication.acquireDB()) {
+        try (DBHandler lockHandler = Application.acquireDB()) {
             List<Device> activeDevices = DBHelper.getActiveDevices(lockHandler.getDaoSession());
             for (Device dbDevice : activeDevices) {
                 GBDevice gbDevice = toGBDevice(dbDevice);
@@ -167,7 +166,7 @@ public class DeviceHelper {
             return result;
 
         } catch (Exception e) {
-            GB.toast(GBApplication.getContext().getString(R.string.error_retrieving_devices_database), Toast.LENGTH_SHORT, GB.ERROR, e);
+            GB.toast(Application.getContext().getString(R.string.error_retrieving_devices_database), Toast.LENGTH_SHORT, GB.ERROR, e);
             return Collections.emptyList();
         }
     }
@@ -205,7 +204,7 @@ public class DeviceHelper {
      * @param device
      * @return
      */
-    public boolean removeBond(GBDevice device) throws GBException {
+    public boolean removeBond(GBDevice device) throws AppException {
         BluetoothAdapter defaultAdapter = BluetoothAdapter.getDefaultAdapter();
         if (defaultAdapter != null) {
             BluetoothDevice remoteDevice = defaultAdapter.getRemoteDevice(device.getAddress());
@@ -215,7 +214,7 @@ public class DeviceHelper {
                     Object result = method.invoke(remoteDevice, (Object[]) null);
                     return Boolean.TRUE.equals(result);
                 } catch (Exception e) {
-                    throw new GBException("Error removing bond to device: " + device, e);
+                    throw new AppException("Error removing bond to device: " + device, e);
                 }
             }
         }

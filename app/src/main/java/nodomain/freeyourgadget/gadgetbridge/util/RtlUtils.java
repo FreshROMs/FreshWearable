@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 
 public class RtlUtils {
 
@@ -33,7 +33,7 @@ public class RtlUtils {
      */
     public static boolean rtlSupport()
     {
-        return GBApplication.getPrefs().getBoolean(GBPrefs.RTL_SUPPORT, false);
+        return Application.getPrefs().getBoolean(GBPrefs.RTL_SUPPORT, false);
     }
 
     public enum characterType{
@@ -80,7 +80,7 @@ public class RtlUtils {
      */
     public static boolean contextualSupport()
     {
-        return GBApplication.getPrefs().getBoolean(GBPrefs.RTL_CONTEXTUAL_ARABIC, false);
+        return Application.getPrefs().getBoolean(GBPrefs.RTL_CONTEXTUAL_ARABIC, false);
     }
 
     //map with brackets chars to change there direction
@@ -504,7 +504,7 @@ public class RtlUtils {
         String newString = "";
         List<String> lines = new ArrayList<>();
         char[] newWord = new char[length];
-        int line_max_size = GBApplication.getPrefs().getInt("rtl_max_line_length", 18);
+        int line_max_size = Application.getPrefs().getInt("rtl_max_line_length", 18);
 
         int startPos = 0;
         int endPos = 0;

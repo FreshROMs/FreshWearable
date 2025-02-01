@@ -25,7 +25,7 @@ import android.content.IntentFilter;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceCandidate;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
@@ -59,19 +59,19 @@ public class BondAction extends PlainAction implements BondingInterface {
 
     @Override
     public void unregisterBroadcastReceivers() {
-        AndroidUtils.safeUnregisterBroadcastReceiver(LocalBroadcastManager.getInstance(GBApplication.getContext()), pairingReceiver);
-        AndroidUtils.safeUnregisterBroadcastReceiver(GBApplication.getContext(), bondingReceiver);
+        AndroidUtils.safeUnregisterBroadcastReceiver(LocalBroadcastManager.getInstance(Application.getContext()), pairingReceiver);
+        AndroidUtils.safeUnregisterBroadcastReceiver(Application.getContext(), bondingReceiver);
     }
 
     @Override
     public void registerBroadcastReceivers() {
-        LocalBroadcastManager.getInstance(GBApplication.getContext()).registerReceiver(pairingReceiver, new IntentFilter(GBDevice.ACTION_DEVICE_CHANGED));
+        LocalBroadcastManager.getInstance(Application.getContext()).registerReceiver(pairingReceiver, new IntentFilter(GBDevice.ACTION_DEVICE_CHANGED));
         ContextCompat.registerReceiver(getContext(), bondingReceiver, new IntentFilter(BluetoothDevice.ACTION_BOND_STATE_CHANGED), ContextCompat.RECEIVER_EXPORTED);
     }
 
     @Override
     public Context getContext() {
-        return GBApplication.getContext();
+        return Application.getContext();
     }
 
     @Override

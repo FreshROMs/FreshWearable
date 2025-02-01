@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiConstants;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
@@ -48,7 +48,7 @@ public class SendDndAddRequest extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(supportProvider.getDeviceMac());
+        SharedPreferences sharedPrefs = Application.getDeviceSpecificSharedPrefs(supportProvider.getDeviceMac());
 
         int dndLiftWristType = sharedPrefs.getInt(HuaweiConstants.PREF_HUAWEI_DND_LIFT_WRIST_TYPE, 0x00); //Device allow content - accept activation
         boolean statusDndLiftWrist = sharedPrefs.getBoolean(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_LIFT_WRIST, false); //Activate on wrist lift with DND

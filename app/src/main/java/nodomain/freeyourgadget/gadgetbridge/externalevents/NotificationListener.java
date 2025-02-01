@@ -71,7 +71,7 @@ import java.util.concurrent.TimeUnit;
 
 import de.greenrobot.dao.query.Query;
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.pebble.PebbleColor;
@@ -164,7 +164,7 @@ public class NotificationListener extends NotificationListenerService {
 
             int handle = (int) intent.getLongExtra("handle", -1);
             switch (action) {
-                case GBApplication.ACTION_QUIT:
+                case Application.ACTION_QUIT:
                     stopSelf();
                     break;
 
@@ -197,10 +197,10 @@ public class NotificationListener extends NotificationListenerService {
                         break;
                     }
                     LOG.info("going to mute {}", packageName);
-                    if (GBApplication.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
-                        GBApplication.addAppToNotifBlacklist(packageName);
+                    if (Application.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
+                        Application.addAppToNotifBlacklist(packageName);
                     } else {
-                        GBApplication.removeFromAppsNotifBlacklist(packageName);
+                        Application.removeFromAppsNotifBlacklist(packageName);
                     }
                     break;
                 case ACTION_DISMISS: {
@@ -269,7 +269,7 @@ public class NotificationListener extends NotificationListenerService {
     public void onCreate() {
         super.onCreate();
         IntentFilter filterLocal = new IntentFilter();
-        filterLocal.addAction(GBApplication.ACTION_QUIT);
+        filterLocal.addAction(Application.ACTION_QUIT);
         filterLocal.addAction(ACTION_OPEN);
         filterLocal.addAction(ACTION_DISMISS);
         filterLocal.addAction(ACTION_DISMISS_ALL);
@@ -303,7 +303,7 @@ public class NotificationListener extends NotificationListenerService {
 
         if (isServiceNotRunningAndShouldIgnoreNotifications()) return;
 
-        final GBPrefs prefs = GBApplication.getPrefs();
+        final GBPrefs prefs = Application.getPrefs();
 
         if (isOutsideNotificationTimes(prefs)) {
             return;
@@ -540,7 +540,7 @@ public class NotificationListener extends NotificationListenerService {
         notificationsActive.add(notificationSpec.getId());
         // NOTE for future developers: this call goes to implementations of DeviceService.onNotification(NotificationSpec), like in GBDeviceService
         // this does NOT directly go to implementations of DeviceSupport.onNotification(NotificationSpec)!
-        GBApplication.deviceService().onNotification(notificationSpec);
+        Application.deviceService().onNotification(notificationSpec);
     }
 
     static boolean isOutsideNotificationTimes(final LocalTime now, final LocalTime start, final LocalTime end) {
@@ -576,7 +576,7 @@ public class NotificationListener extends NotificationListenerService {
         List<String> wordsList = new ArrayList<>();
         NotificationFilter notificationFilter;
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
 
             NotificationFilterDao notificationFilterDao = db.getDaoSession().getNotificationFilterDao();
             NotificationFilterEntryDao notificationFilterEntryDao = db.getDaoSession().getNotificationFilterEntryDao();
@@ -664,7 +664,7 @@ public class NotificationListener extends NotificationListenerService {
         }
         callSpec.command = callStarted ? CallSpec.CALL_START : CallSpec.CALL_INCOMING;
         mLastCallCommand = callSpec.command;
-        GBApplication.deviceService().onSetCallState(callSpec);
+        Application.deviceService().onSetCallState(callSpec);
     }
 
     boolean shouldContinueAfterFilter(String body, @NonNull List<String> wordsList, @NonNull NotificationFilter notificationFilter) {
@@ -821,7 +821,7 @@ public class NotificationListener extends NotificationListenerService {
             mSetMusicInfoRunnable = new Runnable() {
                 @Override
                 public void run() {
-                    GBApplication.deviceService().onSetMusicInfo(musicSpec);
+                    Application.deviceService().onSetMusicInfo(musicSpec);
                 }
             };
             mHandler.postDelayed(mSetMusicInfoRunnable, 100);
@@ -833,7 +833,7 @@ public class NotificationListener extends NotificationListenerService {
                 mSetMusicStateRunnable = new Runnable() {
                     @Override
                     public void run() {
-                        GBApplication.deviceService().onSetMusicState(stateSpec);
+                        Application.deviceService().onSetMusicState(stateSpec);
                     }
                 };
             }
@@ -854,7 +854,7 @@ public class NotificationListener extends NotificationListenerService {
 
         if (isServiceNotRunningAndShouldIgnoreNotifications()) return;
 
-        final GBPrefs prefs = GBApplication.getPrefs();
+        final GBPrefs prefs = Application.getPrefs();
 
         if (isOutsideNotificationTimes(prefs)) {
             return;
@@ -884,7 +884,7 @@ public class NotificationListener extends NotificationListenerService {
             CallSpec callSpec = new CallSpec();
             callSpec.command = CallSpec.CALL_END;
             mLastCallCommand = callSpec.command;
-            GBApplication.deviceService().onSetCallState(callSpec);
+            Application.deviceService().onSetCallState(callSpec);
         }
 
         if (shouldIgnoreNotification(sbn, true)) return;
@@ -911,17 +911,17 @@ public class NotificationListener extends NotificationListenerService {
         notificationsActive.removeAll(notificationsToRemove);
 
         // Send notification remove request to device
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = Application.app().getDeviceManager().getSelectedDevices();
         for (GBDevice device : devices) {
             if (!device.isInitialized()) {
                 continue;
             }
 
-            Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+            Prefs devicePrefs = new Prefs(Application.getDeviceSpecificSharedPrefs(device.getAddress()));
             if (devicePrefs.getBoolean("autoremove_notifications", true)) {
                 for (int id : notificationsToRemove) {
                     LOG.info("Notification {} removed, deleting from {}", id, device.getAliasOrName());
-                    GBApplication.deviceService(device).onDeleteNotification(id);
+                    Application.deviceService(device).onDeleteNotification(id);
                 }
             }
         }
@@ -988,7 +988,7 @@ public class NotificationListener extends NotificationListenerService {
     private boolean shouldIgnoreSource(StatusBarNotification sbn) {
         String source = sbn.getPackageName();
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
 
         /* do not display messages from "android"
          * This includes keyboard selection message, usb connection messages, etc
@@ -1017,13 +1017,13 @@ public class NotificationListener extends NotificationListenerService {
             }
         }
 
-        if (GBApplication.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
-            if (GBApplication.appIsNotifBlacklisted(source)) {
+        if (Application.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
+            if (Application.appIsNotifBlacklisted(source)) {
                 LOG.info("Ignoring notification, application is blacklisted");
                 return true;
             }
         } else {
-            if (GBApplication.appIsNotifBlacklisted(source)) {
+            if (Application.appIsNotifBlacklisted(source)) {
                 LOG.info("Allowing notification, application is whitelisted");
                 return false;
             } else {
@@ -1100,7 +1100,7 @@ public class NotificationListener extends NotificationListenerService {
             return true;
         }
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
 
         // Check for screen on when posting the notification; for removal, the screen
         // has to be on (obviously)

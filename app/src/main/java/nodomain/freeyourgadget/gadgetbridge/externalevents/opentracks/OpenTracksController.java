@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
@@ -66,7 +66,7 @@ public class OpenTracksController extends Activity {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        GBApplication gbApp = GBApplication.app();
+        Application gbApp = Application.app();
         Intent intent = getIntent();
         int protocolVersion = intent.getIntExtra(EXTRAS_PROTOCOL_VERSION, 1);
         final ArrayList<Uri> uris = intent.getParcelableArrayListExtra(ACTION_DASHBOARD_PAYLOAD);
@@ -88,7 +88,7 @@ public class OpenTracksController extends Activity {
     }
 
     public static void sendIntent(Context context, String className, String category, String icon) {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         String packageName = prefs.getString("opentracks_packagename", "de.dennisguse.opentracks");
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -136,15 +136,15 @@ public class OpenTracksController extends Activity {
 
     public static void stopRecording(Context context) {
         sendIntent(context, "de.dennisguse.opentracks.publicapi.StopRecording", null, null);
-        OpenTracksContentObserver openTracksObserver = GBApplication.app().getOpenTracksObserver();
+        OpenTracksContentObserver openTracksObserver = Application.app().getOpenTracksObserver();
         if (openTracksObserver != null) {
             openTracksObserver.finish();
         }
-        GBApplication.app().setOpenTracksObserver(null);
+        Application.app().setOpenTracksObserver(null);
     }
 
     public static void toggleRecording(Context context) {
-        OpenTracksContentObserver openTracksObserver = GBApplication.app().getOpenTracksObserver();
+        OpenTracksContentObserver openTracksObserver = Application.app().getOpenTracksObserver();
         if (openTracksObserver == null) {
             startRecording(context);
         } else {

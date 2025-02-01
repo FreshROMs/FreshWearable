@@ -33,7 +33,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.AbstractZipBackupJob;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupCallback;
@@ -118,11 +118,11 @@ public class BackupRestoreProgressActivity extends AbstractGBActivity {
                                 .setMessage(message.toString())
                                 .setOnCancelListener((dialog -> {
                                     finish();
-                                    GBApplication.restart();
+                                    Application.restart();
                                 }))
                                 .setPositiveButton(R.string.ok, (dialog, which) -> {
                                     finish();
-                                    GBApplication.restart();
+                                    Application.restart();
                                 }).show();
                         break;
                     case "export":
@@ -159,11 +159,11 @@ public class BackupRestoreProgressActivity extends AbstractGBActivity {
         switch (action) {
             case "import":
                 backupRestoreHint.setText(getString(R.string.backup_restore_do_not_exit, getString(R.string.backup_restore_importing)));
-                mZipBackupJob = new ZipBackupImportJob(GBApplication.getContext(), zipBackupCallback, uri);
+                mZipBackupJob = new ZipBackupImportJob(Application.getContext(), zipBackupCallback, uri);
                 break;
             case "export":
                 backupRestoreHint.setText(getString(R.string.backup_restore_do_not_exit, getString(R.string.backup_restore_exporting)));
-                mZipBackupJob = new ZipBackupExportJob(GBApplication.getContext(), zipBackupCallback, uri);
+                mZipBackupJob = new ZipBackupExportJob(Application.getContext(), zipBackupCallback, uri);
                 break;
             default:
                 LOG.error("Unknown action {}", action);

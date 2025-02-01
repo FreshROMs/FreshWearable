@@ -42,12 +42,12 @@ import java.util.List;
 import java.util.Set;
 
 import androidx.recyclerview.widget.RecyclerView;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.app_specific_notifications.AppSpecificNotificationSettingsDetailActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
-import static nodomain.freeyourgadget.gadgetbridge.GBApplication.packageNameToPebbleMsgSender;
+import static xyz.tenseventyseven.fresh.Application.packageNameToPebbleMsgSender;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,12 +131,12 @@ public class AppSpecificNotificationSettingsAppListAdapter extends RecyclerView.
     public List<ApplicationInfo> getAllApplications() {
         final Set<String> allPackageNames = new HashSet<>();
         final List<ApplicationInfo> ret = new LinkedList<>();
-        boolean filterInverted = !GBApplication.getPrefs().getString("notification_list_is_blacklist", "true").equals("true");
+        boolean filterInverted = !Application.getPrefs().getString("notification_list_is_blacklist", "true").equals("true");
 
         // Get apps for the current user
         final List<ApplicationInfo> currentUserApps = mPm.getInstalledApplications(PackageManager.GET_META_DATA);
         for (final ApplicationInfo app : currentUserApps) {
-            boolean blacklisted = GBApplication.appIsNotifBlacklisted(app.packageName) || GBApplication.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(app.packageName));
+            boolean blacklisted = Application.appIsNotifBlacklisted(app.packageName) || Application.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(app.packageName));
             if((!filterInverted && !blacklisted) || (filterInverted && blacklisted)) {
                 allPackageNames.add(app.packageName);
                 ret.add(app);
@@ -158,7 +158,7 @@ public class AppSpecificNotificationSettingsAppListAdapter extends RecyclerView.
 
                 for (final LauncherActivityInfo app : userActivityList) {
                     if (!allPackageNames.contains(app.getApplicationInfo().packageName)) {
-                        boolean blacklisted = GBApplication.appIsNotifBlacklisted(app.getApplicationInfo().packageName) || GBApplication.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(app.getApplicationInfo().packageName));
+                        boolean blacklisted = Application.appIsNotifBlacklisted(app.getApplicationInfo().packageName) || Application.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(app.getApplicationInfo().packageName));
                         if((!filterInverted && !blacklisted) || (filterInverted && blacklisted)) {
                             allPackageNames.add(app.getApplicationInfo().packageName);
                             ret.add(app.getApplicationInfo());

@@ -30,7 +30,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.um25.Data.MeasurementData;

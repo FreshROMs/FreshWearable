@@ -22,7 +22,7 @@ import android.location.Location;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
@@ -182,6 +182,6 @@ public abstract class GBDeviceProtocol {
     }
 
     protected DevicePrefs getDevicePrefs() {
-        return GBApplication.getDevicePrefs(getDevice());
+        return Application.getDevicePrefs(getDevice());
     }
 }

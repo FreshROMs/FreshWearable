@@ -40,7 +40,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.um25.Activity.DataActivity;
@@ -110,7 +110,7 @@ public class UM25Support extends UM25BaseSupport {
 
     @Override
     protected TransactionBuilder initializeDevice(TransactionBuilder builder) {
-        preferences = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        preferences = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         readPreferences();
 

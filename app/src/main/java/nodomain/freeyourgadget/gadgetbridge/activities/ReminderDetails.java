@@ -46,7 +46,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -132,7 +132,7 @@ public class ReminderDetails extends AbstractGBActivity implements TimePickerDia
                             ReminderDetails.this,
                             reminder.getDate().getHours(),
                             reminder.getDate().getMinutes(),
-                            DateFormat.is24HourFormat(GBApplication.getContext())
+                            DateFormat.is24HourFormat(Application.getContext())
                     ).show();
                 }
             });

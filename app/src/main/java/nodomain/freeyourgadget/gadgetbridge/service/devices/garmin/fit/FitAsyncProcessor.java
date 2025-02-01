@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.PendingFileProvider;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
@@ -52,7 +52,7 @@ public class FitAsyncProcessor {
                         continue; // do not remove from pending files
                     }
 
-                    try (DBHandler handler = GBApplication.acquireDB()) {
+                    try (DBHandler handler = Application.acquireDB()) {
                         final DaoSession session = handler.getDaoSession();
 
                         final PendingFileProvider pendingFileProvider = new PendingFileProvider(gbDevice, session);

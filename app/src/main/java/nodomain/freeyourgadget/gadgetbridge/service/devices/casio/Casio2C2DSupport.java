@@ -42,17 +42,13 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.Logging;
+import xyz.tenseventyseven.fresh.Logging;
 
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.Logging;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
-import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.DevicePrefs;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.AlarmUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.BcdUtil;
 import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
@@ -60,7 +56,6 @@ import nodomain.freeyourgadget.gadgetbridge.model.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder;
-import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.casio.CasioConstants;
 
 import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst.PREF_LANGUAGE;
@@ -333,7 +328,7 @@ public abstract class Casio2C2DSupport extends CasioSupport {
         // can not be done on initialization, since the SharedPreferences are not yet available
         void load() {
             values = new HashMap();
-            Set<String> serialized = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getStringSet("casio_features_current_values", new HashSet());
+            Set<String> serialized = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getStringSet("casio_features_current_values", new HashSet());
             if (serialized == null)
                 return;
 
@@ -453,7 +448,7 @@ public abstract class Casio2C2DSupport extends CasioSupport {
         requestFeatures(builder, deviceSettingFeatures, responses -> {
             LinkedHashSet<FeatureRequest> override = new LinkedHashSet();
 
-            SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
+            SharedPreferences.Editor editor = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
             for (DeviceSetting ds: deviceSettings) {
                 FeatureRequest[] requests = ds.getFeatureRequests();
                 byte[][] data = responses.get(requests);
@@ -499,7 +494,7 @@ public abstract class Casio2C2DSupport extends CasioSupport {
             }
             updateValues(currentValues, items);
 
-            SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
+            SharedPreferences.Editor editor = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
             featureCache.save(editor);
             editor.apply();
 
@@ -756,7 +751,7 @@ public abstract class Casio2C2DSupport extends CasioSupport {
         }
         pref.updateValue(currentValue);
 
-        SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
+        SharedPreferences.Editor editor = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
         featureCache.save(editor);
         editor.apply();
 

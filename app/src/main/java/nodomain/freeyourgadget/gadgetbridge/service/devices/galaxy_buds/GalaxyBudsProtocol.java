@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
@@ -340,7 +340,7 @@ public class GalaxyBudsProtocol extends GBDeviceProtocol {
     @Override
     public byte[] encodeSendConfiguration(String config) {
 
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         switch (config) {
             case DeviceSettingsPreferenceConst.PREF_GALAXY_PRO_DOUBLE_TAP_EDGE:

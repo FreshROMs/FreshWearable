@@ -13,7 +13,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 
 public class JoystickView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
@@ -59,7 +59,7 @@ public class JoystickView extends SurfaceView implements SurfaceHolder.Callback,
         if (getHolder().getSurface().isValid()) {
             Canvas myCanvas = this.getHolder().lockCanvas();
             Paint colors = new Paint();
-            myCanvas.drawColor(GBApplication.getWindowBackgroundColor(getContext()));
+            myCanvas.drawColor(Application.getWindowBackgroundColor(getContext()));
 
             float hypotenuse = (float) Math.sqrt(Math.pow(newX - centerX, 2) + Math.pow(newY - centerY, 2));
             float sin = (newY - centerY) / hypotenuse; //sin = o/h

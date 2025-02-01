@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -548,7 +548,7 @@ public class ZeTimeDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendUpcomingCalendarEvents(TransactionBuilder builder) {
-        boolean syncCalendar = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_SYNC_CALENDAR, false);
+        boolean syncCalendar = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_SYNC_CALENDAR, false);
         if (!syncCalendar) {
             return;
         }
@@ -1152,7 +1152,7 @@ public class ZeTimeDeviceSupport extends AbstractBTLEDeviceSupport {
         sample.setRawKind(ActivityKind.ACTIVITY.getCode());
         sample.setRawIntensity(sample.getSteps());
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             sample.setUserId(DBHelper.getUser(dbHandler.getDaoSession()).getId());
             sample.setDeviceId(DBHelper.getDevice(getDevice(), dbHandler.getDaoSession()).getId());
             ZeTimeSampleProvider provider = new ZeTimeSampleProvider(getDevice(), dbHandler.getDaoSession());
@@ -1201,7 +1201,7 @@ public class ZeTimeDeviceSupport extends AbstractBTLEDeviceSupport {
             sample.setRawKind(ActivityKind.UNKNOWN.getCode());
         }
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             sample.setUserId(DBHelper.getUser(dbHandler.getDaoSession()).getId());
             sample.setDeviceId(DBHelper.getDevice(getDevice(), dbHandler.getDaoSession()).getId());
             ZeTimeSampleProvider provider = new ZeTimeSampleProvider(getDevice(), dbHandler.getDaoSession());
@@ -1237,7 +1237,7 @@ public class ZeTimeDeviceSupport extends AbstractBTLEDeviceSupport {
         sample.setHeartRate(msg[11]);
         sample.setTimestamp(timestamp);
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             sample.setUserId(DBHelper.getUser(dbHandler.getDaoSession()).getId());
             sample.setDeviceId(DBHelper.getDevice(getDevice(), dbHandler.getDaoSession()).getId());
             ZeTimeSampleProvider provider = new ZeTimeSampleProvider(getDevice(), dbHandler.getDaoSession());
@@ -1258,7 +1258,7 @@ public class ZeTimeDeviceSupport extends AbstractBTLEDeviceSupport {
             sample.setHeartRate(msg[18]);
             sample.setTimestamp(timestamp);
 
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 sample.setUserId(DBHelper.getUser(dbHandler.getDaoSession()).getId());
                 sample.setDeviceId(DBHelper.getDevice(getDevice(), dbHandler.getDaoSession()).getId());
                 ZeTimeSampleProvider provider = new ZeTimeSampleProvider(getDevice(), dbHandler.getDaoSession());
@@ -1431,7 +1431,7 @@ public class ZeTimeDeviceSupport extends AbstractBTLEDeviceSupport {
 
     // function serving the settings
     private void setWrist(TransactionBuilder builder) {
-        String value = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_WEARLOCATION, "left");
+        String value = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_WEARLOCATION, "left");
 
         byte[] wrist = {ZeTimeConstants.CMD_PREAMBLE,
                 ZeTimeConstants.CMD_USAGE_HABITS,
@@ -2052,7 +2052,7 @@ public class ZeTimeDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void getWrist(byte[] msg) {
-        SharedPreferences.Editor prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
+        SharedPreferences.Editor prefs = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
 
         if (ZeTimeConstants.WEAR_ON_LEFT_WRIST == msg[5]) {
             prefs.putString(DeviceSettingsPreferenceConst.PREF_WEARLOCATION, "left");
@@ -2153,7 +2153,7 @@ public class ZeTimeDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void setLanguage(TransactionBuilder builder) {
-        String localeString = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_LANGUAGE, "auto");
+        String localeString = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_LANGUAGE, "auto");
 
         byte[] languageMsg = {
                 ZeTimeConstants.CMD_PREAMBLE,

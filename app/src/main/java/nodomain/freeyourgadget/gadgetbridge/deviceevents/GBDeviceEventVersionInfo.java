@@ -16,7 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.deviceevents;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 
 public class GBDeviceEventVersionInfo extends GBDeviceEvent {
@@ -25,10 +25,10 @@ public class GBDeviceEventVersionInfo extends GBDeviceEvent {
     public String hwVersion = "N/A";
 
     public GBDeviceEventVersionInfo() {
-        if (GBApplication.getContext() != null) {
+        if (Application.getContext() != null) {
             // Only get from context if there is one (eg. not in unit tests)
-            this.fwVersion = GBApplication.getContext().getString(R.string.n_a);
-            this.hwVersion = GBApplication.getContext().getString(R.string.n_a);
+            this.fwVersion = Application.getContext().getString(R.string.n_a);
+            this.hwVersion = Application.getContext().getString(R.string.n_a);
         }
     }
 

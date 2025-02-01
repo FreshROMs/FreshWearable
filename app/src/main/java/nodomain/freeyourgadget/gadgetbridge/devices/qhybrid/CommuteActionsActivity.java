@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
@@ -57,7 +57,7 @@ public class CommuteActionsActivity extends AbstractGBActivity implements Commut
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_commute_actions);
-        sharedPreferences = GBApplication.getPrefs().getPreferences();
+        sharedPreferences = Application.getPrefs().getPreferences();
 
         findViewById(R.id.actionAddFab).setOnClickListener(this);
 

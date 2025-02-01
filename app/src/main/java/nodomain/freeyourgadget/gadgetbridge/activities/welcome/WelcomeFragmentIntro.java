@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
@@ -50,7 +50,7 @@ public class WelcomeFragmentIntro extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_welcome_intro, container, false);
         final String[] themes = getResources().getStringArray(R.array.pref_theme_values);
-        final Prefs prefs = GBApplication.getPrefs();
+        final Prefs prefs = Application.getPrefs();
         final String currentTheme = prefs.getString("pref_key_theme", getString(R.string.pref_theme_value_system));
         final int currentThemeIndex = Arrays.asList(themes).indexOf(currentTheme);
 
@@ -65,7 +65,7 @@ public class WelcomeFragmentIntro extends Fragment {
                 // Delay recreation of the Activity to give the dropdown some time to settle.
                 // If we recreate it immediately, the theme popup will reopen, which is not what the user expects.
                 Intent intent = new Intent();
-                intent.setAction(GBApplication.ACTION_THEME_CHANGE);
+                intent.setAction(Application.ACTION_THEME_CHANGE);
                 LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent);
             }, 500);
         });

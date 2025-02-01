@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.GBContactListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -106,7 +106,7 @@ public class ConfigureContacts extends AbstractGBActivity {
             }
 
             final Contact contact;
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = Application.acquireDB()) {
                 final DaoSession daoSession = db.getDaoSession();
                 final Device device = DBHelper.getDevice(gbDevice, daoSession);
                 final User user = DBHelper.getUser(daoSession);
@@ -167,7 +167,7 @@ public class ConfigureContacts extends AbstractGBActivity {
 
     private void sendContactsToDevice() {
         if (gbDevice.isInitialized()) {
-            GBApplication.deviceService(gbDevice).onSetContacts(mGBContactListAdapter.getContactList());
+            Application.deviceService(gbDevice).onSetContacts(mGBContactListAdapter.getContactList());
         }
     }
 }

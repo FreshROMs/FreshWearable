@@ -49,7 +49,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -146,7 +146,7 @@ public class MakibesHR3DeviceSupport extends AbstractBTLEDeviceSupport implement
      * @param timeStamp Time stamp at some point during the requested day.
      */
     private int getStepsOnDay(int timeStamp) {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
 
             Calendar dayStart = new GregorianCalendar();
             Calendar dayEnd = new GregorianCalendar();
@@ -360,7 +360,7 @@ public class MakibesHR3DeviceSupport extends AbstractBTLEDeviceSupport implement
 
     private void onReverseFindDevice(boolean start) {
         if (start) {
-            SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(
+            SharedPreferences sharedPreferences = Application.getDeviceSpecificSharedPrefs(
                     this.getDevice().getAddress());
 
             int findPhone = MakibesHR3Coordinator.getFindPhone(sharedPreferences);
@@ -410,7 +410,7 @@ public class MakibesHR3DeviceSupport extends AbstractBTLEDeviceSupport implement
 
     private void syncPreferences(TransactionBuilder transaction) {
 
-        SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(this.getDevice().getAddress());
+        SharedPreferences sharedPreferences = Application.getDeviceSpecificSharedPrefs(this.getDevice().getAddress());
 
         this.setTimeMode(transaction, sharedPreferences);
         this.setDateTime(transaction);
@@ -512,7 +512,7 @@ public class MakibesHR3DeviceSupport extends AbstractBTLEDeviceSupport implement
         getDevice().setFirmwareVersion("N/A");
         getDevice().setFirmwareVersion2("N/A");
 
-        SharedPreferences preferences = GBApplication.getDeviceSpecificSharedPrefs(this.getDevice().getAddress());
+        SharedPreferences preferences = Application.getDeviceSpecificSharedPrefs(this.getDevice().getAddress());
 
         preferences.registerOnSharedPreferenceChangeListener(this);
 
@@ -520,7 +520,7 @@ public class MakibesHR3DeviceSupport extends AbstractBTLEDeviceSupport implement
     }
 
     private void addGBActivitySamples(MakibesHR3ActivitySample[] samples) {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
 
             User user = DBHelper.getUser(dbHandler.getDaoSession());
             Device device = DBHelper.getDevice(this.getDevice(), dbHandler.getDaoSession());
@@ -836,7 +836,7 @@ public class MakibesHR3DeviceSupport extends AbstractBTLEDeviceSupport implement
      * {@link MakibesHR3Constants#RPRT_FITNESS}
      */
     private MakibesHR3DeviceSupport requestFitness(TransactionBuilder transaction) {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
 
             MakibesHR3SampleProvider provider = new MakibesHR3SampleProvider(this.getDevice(), dbHandler.getDaoSession());
 

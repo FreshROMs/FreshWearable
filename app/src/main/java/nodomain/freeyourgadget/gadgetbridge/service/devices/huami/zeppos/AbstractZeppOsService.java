@@ -23,7 +23,7 @@ import androidx.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.zeppos.ZeppOsCoordinator;
@@ -84,7 +84,7 @@ public abstract class AbstractZeppOsService {
     }
 
     protected Prefs getDevicePrefs() {
-        return new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getSupport().getDevice().getAddress()));
+        return new Prefs(Application.getDeviceSpecificSharedPrefs(getSupport().getDevice().getAddress()));
     }
 
     protected void write(final String taskName, final byte b) {

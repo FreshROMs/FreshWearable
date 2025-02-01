@@ -14,22 +14,22 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge;
+package xyz.tenseventyseven.fresh;
 
-public class GBException extends Exception {
-    public GBException(String message, Throwable cause) {
+public class AppException extends Exception {
+    public AppException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public GBException(String message) {
+    public AppException(String message) {
         super(message);
     }
 
-    public GBException(Throwable cause) {
+    public AppException(Throwable cause) {
         super(cause);
     }
 
-    public GBException() {
+    public AppException() {
         super();
     }
 }

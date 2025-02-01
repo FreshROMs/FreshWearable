@@ -23,7 +23,7 @@ import android.content.Intent;
 
 import java.util.ArrayList;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;
@@ -81,13 +81,13 @@ public class AlarmClockReceiver extends BroadcastReceiver {
             notificationSpec.attachedActions.add(dismissAllAction);
 
             // can we get the alarm title somehow?
-            GBApplication.deviceService().onNotification(notificationSpec);
+            Application.deviceService().onNotification(notificationSpec);
         }
     }
 
     private void dismissLastAlarm() {
         if (lastId != 0) {
-            GBApplication.deviceService().onDeleteNotification(lastId);
+            Application.deviceService().onDeleteNotification(lastId);
             lastId = 0;
         }
     }

@@ -31,7 +31,6 @@ import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
-import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
@@ -52,7 +51,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.GaugeDrawer;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -94,8 +93,8 @@ public class PaiChartFragment extends AbstractChartFragment<PaiChartFragment.Pai
 
     @Override
     protected void init() {
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(requireContext());
-        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = GBApplication.getTextColor(requireContext());
+        BACKGROUND_COLOR = Application.getBackgroundColor(requireContext());
+        LEGEND_TEXT_COLOR = DESCRIPTION_COLOR = Application.getTextColor(requireContext());
         CHART_TEXT_COLOR = ContextCompat.getColor(requireContext(), R.color.secondarytext);
 
         PAI_TOTAL_COLOR = ContextCompat.getColor(requireContext(), R.color.chart_pai_weekly);
@@ -185,7 +184,7 @@ public class PaiChartFragment extends AbstractChartFragment<PaiChartFragment.Pai
     }
 
     private int getRangeDays() {
-        if (GBApplication.getPrefs().getBoolean("charts_range", true)) {
+        if (Application.getPrefs().getBoolean("charts_range", true)) {
             return 30;
         } else {
             return 7;
@@ -198,7 +197,7 @@ public class PaiChartFragment extends AbstractChartFragment<PaiChartFragment.Pai
 
     @Override
     public String getTitle() {
-        if (GBApplication.getPrefs().getBoolean("charts_range", true)) {
+        if (Application.getPrefs().getBoolean("charts_range", true)) {
             return getString(R.string.pai_chart_per_month);
         } else {
             return getString(R.string.pai_chart_per_week);
@@ -220,13 +219,13 @@ public class PaiChartFragment extends AbstractChartFragment<PaiChartFragment.Pai
     protected void updateChartsnUIThread(final PaiChartsData pcd) {
         setupLegend(mWeekChart);
         int[] colors = new int[] {
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_pai_weekly),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_pai_today)
+                ContextCompat.getColor(Application.getContext(), R.color.chart_pai_weekly),
+                ContextCompat.getColor(Application.getContext(), R.color.chart_pai_today)
         };
         final int width = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 300,
-                GBApplication.getContext().getResources().getDisplayMetrics()
+                Application.getContext().getResources().getDisplayMetrics()
         );
         mGoalMinutesGauge.setImageBitmap(GaugeDrawer.drawCircleGaugeSegmented(
                 width,
@@ -240,7 +239,7 @@ public class PaiChartFragment extends AbstractChartFragment<PaiChartFragment.Pai
         ));
 
         // set custom renderer for 30days bar charts
-        if (GBApplication.getPrefs().getBoolean("charts_range", true)) {
+        if (Application.getPrefs().getBoolean("charts_range", true)) {
             mWeekChart.setRenderer(new AngledLabelsChartRenderer(mWeekChart, mWeekChart.getAnimator(), mWeekChart.getViewPortHandler()));
         }
 
@@ -265,7 +264,7 @@ public class PaiChartFragment extends AbstractChartFragment<PaiChartFragment.Pai
     }
 
     protected String getWeeksChartsLabel(final Calendar day) {
-        if (GBApplication.getPrefs().getBoolean("charts_range", true)) {
+        if (Application.getPrefs().getBoolean("charts_range", true)) {
             // month, show day date
             return String.valueOf(day.get(Calendar.DAY_OF_MONTH));
         } else {

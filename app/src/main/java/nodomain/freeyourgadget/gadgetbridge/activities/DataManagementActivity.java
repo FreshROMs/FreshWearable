@@ -48,7 +48,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.files.FileManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -109,7 +109,7 @@ public class DataManagementActivity extends AbstractGBActivity {
                             .setMessage(R.string.dbmanagementactivity_overwrite_database_confirmation)
                             .setPositiveButton(R.string.dbmanagementactivity_overwrite, (dialog, which) -> {
                                 // Disconnect from all devices right away
-                                GBApplication.deviceService().disconnect();
+                                Application.deviceService().disconnect();
 
                                 final Intent startBackupIntent = new Intent(DataManagementActivity.this, BackupRestoreProgressActivity.class);
                                 startBackupIntent.putExtra(BackupRestoreProgressActivity.EXTRA_URI, uri);
@@ -181,8 +181,8 @@ public class DataManagementActivity extends AbstractGBActivity {
                 cleanExportDirectory();
             }
         });
-        GBApplication gbApp = GBApplication.app();
-        Prefs prefs = GBApplication.getPrefs();
+        Application gbApp = Application.app();
+        Prefs prefs = Application.getPrefs();
         boolean autoExportEnabled = prefs.getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
         int autoExportInterval = prefs.getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
         //returns an ugly content://...
@@ -243,7 +243,7 @@ public class DataManagementActivity extends AbstractGBActivity {
     }
 
     private String getAutoExportLocationPreferenceString() {
-        String autoExportLocation = GBApplication.getPrefs().getString(GBPrefs.AUTO_EXPORT_LOCATION, null);
+        String autoExportLocation = Application.getPrefs().getString(GBPrefs.AUTO_EXPORT_LOCATION, null);
         if (autoExportLocation == null) {
             return "";
         }
@@ -306,10 +306,10 @@ public class DataManagementActivity extends AbstractGBActivity {
         } catch (IOException ex) {
             GB.toast(this, getString(R.string.dbmanagementactivity_error_exporting_shared, ex.getMessage()), Toast.LENGTH_LONG, GB.ERROR, ex);
         }
-        try (DBHandler lockHandler = GBApplication.acquireDB()) {
+        try (DBHandler lockHandler = Application.acquireDB()) {
             List<Device> activeDevices = DBHelper.getActiveDevices(lockHandler.getDaoSession());
             for (Device dbDevice : activeDevices) {
-                SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                 if (sharedPrefs != null) {
                     File myPath = FileUtils.getExternalFilesDir();
                     File myFile = new File(myPath, "Export_preference_" + FileUtils.makeValidFileName(dbDevice.getIdentifier()));
@@ -334,10 +334,10 @@ public class DataManagementActivity extends AbstractGBActivity {
             GB.toast(DataManagementActivity.this, getString(R.string.dbmanagementactivity_error_importing_db, ex.getMessage()), Toast.LENGTH_LONG, GB.ERROR, ex);
         }
 
-        try (DBHandler lockHandler = GBApplication.acquireDB()) {
+        try (DBHandler lockHandler = Application.acquireDB()) {
             List<Device> activeDevices = DBHelper.getActiveDevices(lockHandler.getDaoSession());
             for (Device dbDevice : activeDevices) {
-                SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                 if (sharedPrefs != null) {
                     File myPath = FileUtils.getExternalFilesDir();
                     File myFile = new File(myPath, "Export_preference_" + FileUtils.makeValidFileName(dbDevice.getIdentifier()));
@@ -370,7 +370,7 @@ public class DataManagementActivity extends AbstractGBActivity {
                 .setPositiveButton(R.string.activity_DB_ExportButton, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                        try (DBHandler dbHandler = Application.acquireDB()) {
                             exportShared();
                             DBHelper helper = new DBHelper(DataManagementActivity.this);
                             File dir = FileUtils.getExternalFilesDir();
@@ -398,7 +398,7 @@ public class DataManagementActivity extends AbstractGBActivity {
                 .setPositiveButton(R.string.dbmanagementactivity_overwrite, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                        try (DBHandler dbHandler = Application.acquireDB()) {
                             DBHelper helper = new DBHelper(DataManagementActivity.this);
                             File dir = FileUtils.getExternalFilesDir();
                             SQLiteOpenHelper sqLiteOpenHelper = dbHandler.getHelper();
@@ -429,7 +429,7 @@ public class DataManagementActivity extends AbstractGBActivity {
                 .setPositiveButton(R.string.Delete, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (GBApplication.deleteActivityDatabase(DataManagementActivity.this)) {
+                        if (Application.deleteActivityDatabase(DataManagementActivity.this)) {
                             GB.toast(DataManagementActivity.this, getString(R.string.dbmanagementactivity_database_successfully_deleted), Toast.LENGTH_SHORT, GB.INFO);
                         } else {
                             GB.toast(DataManagementActivity.this, getString(R.string.dbmanagementactivity_db_deletion_failed), Toast.LENGTH_SHORT, GB.INFO);
@@ -453,7 +453,7 @@ public class DataManagementActivity extends AbstractGBActivity {
                 .setPositiveButton(R.string.Delete, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (GBApplication.deleteOldActivityDatabase(DataManagementActivity.this)) {
+                if (Application.deleteOldActivityDatabase(DataManagementActivity.this)) {
                     GB.toast(DataManagementActivity.this, getString(R.string.dbmanagementactivity_old_activity_db_successfully_deleted), Toast.LENGTH_SHORT, GB.INFO);
                 } else {
                     GB.toast(DataManagementActivity.this, getString(R.string.dbmanagementactivity_old_activity_db_deletion_failed), Toast.LENGTH_SHORT, GB.INFO);

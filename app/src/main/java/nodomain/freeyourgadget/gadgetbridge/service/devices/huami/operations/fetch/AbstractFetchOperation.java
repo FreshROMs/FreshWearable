@@ -22,7 +22,6 @@ import android.bluetooth.BluetoothGattCharacteristic;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
-import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 
 import org.slf4j.Logger;
@@ -36,8 +35,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.Logging;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.Logging;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiService;
@@ -353,13 +352,13 @@ public abstract class AbstractFetchOperation extends AbstractHuamiOperation {
     }
 
     protected void saveLastSyncTimestamp(@NonNull final GregorianCalendar timestamp) {
-        final SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).edit();
+        final SharedPreferences.Editor editor = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()).edit();
         editor.putLong(getLastSyncTimeKey(), timestamp.getTimeInMillis());
         editor.apply();
     }
 
     protected GregorianCalendar getLastSuccessfulSyncTime() {
-        final long timeStampMillis = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getLong(getLastSyncTimeKey(), 0);
+        final long timeStampMillis = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getLong(getLastSyncTimeKey(), 0);
         if (timeStampMillis != 0) {
             GregorianCalendar calendar = BLETypeConversions.createCalendar();
             calendar.setTimeInMillis(timeStampMillis);

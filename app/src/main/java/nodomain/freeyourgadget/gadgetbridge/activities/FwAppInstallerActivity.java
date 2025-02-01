@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.ItemWithDetailsAdapter;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -53,7 +53,6 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.model.GenericItem;
 import nodomain.freeyourgadget.gadgetbridge.model.ItemWithDetails;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 
@@ -158,7 +157,7 @@ public class FwAppInstallerActivity extends AbstractGBActivity implements Instal
 
     private void connect() {
         mayConnect = false; // only do that once per #onCreate
-        GBApplication.deviceService(device).connect();
+        Application.deviceService(device).connect();
     }
 
     private void validateInstallation() {
@@ -213,7 +212,7 @@ public class FwAppInstallerActivity extends AbstractGBActivity implements Instal
             public void onClick(View v) {
                 setInstallEnabled(false);
                 installHandler.onStartInstall(device);
-                GBApplication.deviceService(device).onInstallApp(uri);
+                Application.deviceService(device).onInstallApp(uri);
             }
         });
 
@@ -229,7 +228,7 @@ public class FwAppInstallerActivity extends AbstractGBActivity implements Instal
         } else {
             setInfoText(getString(R.string.installer_activity_wait_while_determining_status));
 
-            List<GBDevice> selectedDevices = GBApplication.app().getDeviceManager().getSelectedDevices();
+            List<GBDevice> selectedDevices = Application.app().getDeviceManager().getSelectedDevices();
             if(selectedDevices.size() == 0){
                 GB.toast(getString(R.string.open_fw_installer_connect_minimum_one_device), Toast.LENGTH_LONG, GB.ERROR);
                 finish();
@@ -246,7 +245,7 @@ public class FwAppInstallerActivity extends AbstractGBActivity implements Instal
             if (device == null || !device.isConnected()) {
                 connect();
             } else {
-                GBApplication.deviceService(device).requestDeviceInfo();
+                Application.deviceService(device).requestDeviceInfo();
             }
         }
     }
@@ -269,7 +268,7 @@ public class FwAppInstallerActivity extends AbstractGBActivity implements Instal
     }
 
     private List<DeviceCoordinator> getAllCoordinatorsConnectedFirst() {
-        DeviceManager deviceManager = ((GBApplication) getApplicationContext()).getDeviceManager();
+        DeviceManager deviceManager = ((Application) getApplicationContext()).getDeviceManager();
         List<DeviceCoordinator> connectedCoordinators = new ArrayList<>();
         List<DeviceCoordinator> allCoordinators = new ArrayList<>(DeviceType.values().length);
         for(DeviceType type : DeviceType.values()){

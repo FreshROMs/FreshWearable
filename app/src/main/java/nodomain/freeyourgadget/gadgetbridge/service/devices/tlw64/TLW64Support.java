@@ -33,7 +33,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
@@ -340,14 +340,14 @@ public class TLW64Support extends AbstractBTLEDeviceSupport {
                 (byte) 0x00,   // 1 - display distance in kilometers, 2 - in miles
                 (byte) 0x00    // 1 - display 24-hour clock, 2 - for 12-hour with AM/PM
         };
-        String units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, getContext().getString(R.string.p_unit_metric));
+        String units = Application.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, getContext().getString(R.string.p_unit_metric));
         if (units.equals(getContext().getString(R.string.p_unit_metric))) {
             displayBytes[1] = 1;
         } else {
             displayBytes[1] = 2;
         }
 
-        String timeformat = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_TIMEFORMAT, "auto");
+        String timeformat = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString(DeviceSettingsPreferenceConst.PREF_TIMEFORMAT, "auto");
         switch (timeformat) {
             case "24h":
                 displayBytes[2] = 1;
@@ -393,7 +393,7 @@ public class TLW64Support extends AbstractBTLEDeviceSupport {
                 (byte) 0x02   // unknown
         };
 
-        if (GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_LIFTWRIST_NOSHED, false)) {
+        if (Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_LIFTWRIST_NOSHED, false)) {
             userBytes[10] = (byte) 0x01;
         }
 
@@ -425,7 +425,7 @@ public class TLW64Support extends AbstractBTLEDeviceSupport {
                 (byte) 0x00    // unknown, sniffed by original app
         };
 
-        if (GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_INACTIVITY_ENABLE_NOSHED, false)) {
+        if (Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(DeviceSettingsPreferenceConst.PREF_INACTIVITY_ENABLE_NOSHED, false)) {
             deviceBytes[1] = (byte) 0x01;
         }
 
@@ -517,7 +517,7 @@ public class TLW64Support extends AbstractBTLEDeviceSupport {
                     getDevice().sendDeviceUpdateIntent(getContext());
                 }
             } else if (!samples.isEmpty()) {
-                try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                try (DBHandler dbHandler = Application.acquireDB()) {
                     Long userId = DBHelper.getUser(dbHandler.getDaoSession()).getId();
                     Long deviceId = DBHelper.getDevice(getDevice(), dbHandler.getDaoSession()).getId();
                     TLW64SampleProvider provider = new TLW64SampleProvider(getDevice(), dbHandler.getDaoSession());

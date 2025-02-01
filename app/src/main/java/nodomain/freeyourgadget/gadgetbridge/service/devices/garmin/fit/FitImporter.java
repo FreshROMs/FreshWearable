@@ -16,7 +16,7 @@ import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.AbstractTimeSampleProvider;
@@ -329,7 +329,7 @@ public class FitImporter {
             return;
         }
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
 
             switch (fileId.getType()) {

@@ -14,8 +14,8 @@ import java.util.Map;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.AppException;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
@@ -64,7 +64,7 @@ public abstract class GarminCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     @Override
-    protected void deleteDevice(@NonNull final GBDevice gbDevice, @NonNull final Device device, @NonNull final DaoSession session) throws GBException {
+    protected void deleteDevice(@NonNull final GBDevice gbDevice, @NonNull final Device device, @NonNull final DaoSession session) throws AppException {
         deleteAllActivityData(device, session);
     }
 
@@ -403,7 +403,7 @@ public abstract class GarminCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     protected static Prefs getPrefs(final GBDevice device) {
-        return new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        return new Prefs(Application.getDeviceSpecificSharedPrefs(device.getAddress()));
     }
 
     @Override

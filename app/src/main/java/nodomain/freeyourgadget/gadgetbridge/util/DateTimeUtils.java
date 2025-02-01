@@ -34,7 +34,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 
 public class DateTimeUtils {
@@ -66,11 +66,11 @@ public class DateTimeUtils {
     }; //no public access, we have to workaround Android bugs
 
     public static String formatDateTime(Date date) {
-        return DateUtils.formatDateTime(GBApplication.getContext(), date.getTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_NO_YEAR);
+        return DateUtils.formatDateTime(Application.getContext(), date.getTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_NO_YEAR);
     }
 
     public static String formatIso8601(Date date) {
-        if(GBApplication.isRunningNougatOrLater()){
+        if(Application.isRunningNougatOrLater()){
             return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US).format(date);
         }
         ISO_8601_FORMAT.setTimeZone(TimeZone.getDefault());
@@ -78,7 +78,7 @@ public class DateTimeUtils {
     }
 
     public static String formatIso8601UTC(Date date) {
-        if(GBApplication.isRunningNougatOrLater()){
+        if(Application.isRunningNougatOrLater()){
             final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US);
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
             return sdf.format(date);
@@ -88,11 +88,11 @@ public class DateTimeUtils {
     }
 
     public static String formatDate(Date date) {
-        return DateUtils.formatDateTime(GBApplication.getContext(), date.getTime(), DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_ABBREV_ALL);
+        return DateUtils.formatDateTime(Application.getContext(), date.getTime(), DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_ABBREV_ALL);
     }
 
     public static String formatDate(Date date, int extraFlags) {
-        return DateUtils.formatDateTime(GBApplication.getContext(), date.getTime(), DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_ABBREV_ALL|extraFlags);
+        return DateUtils.formatDateTime(Application.getContext(), date.getTime(), DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_ABBREV_ALL|extraFlags);
     }
 
     public static String formatDurationHoursMinutes(long duration, TimeUnit unit) {
@@ -106,11 +106,11 @@ public class DateTimeUtils {
     }
 
     public static String formatDateRange(Date from, Date to) {
-        return DateUtils.formatDateRange(GBApplication.getContext(), from.getTime(), to.getTime(), DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_ABBREV_ALL);
+        return DateUtils.formatDateRange(Application.getContext(), from.getTime(), to.getTime(), DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_ABBREV_ALL);
     }
 
     public static String formatDateRange(Date from, Date to, int extraFlags) {
-        return DateUtils.formatDateRange(GBApplication.getContext(), from.getTime(), to.getTime(), DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_ABBREV_ALL|extraFlags);
+        return DateUtils.formatDateRange(Application.getContext(), from.getTime(), to.getTime(), DateUtils.FORMAT_SHOW_DATE|DateUtils.FORMAT_ABBREV_ALL|extraFlags);
     }
 
     public static Date shiftByDays(Date date, int offset) {

@@ -53,6 +53,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
 import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 
 public class Widget extends AppWidgetProvider {
@@ -64,10 +65,10 @@ public class Widget extends AppWidgetProvider {
 
 
     private DailyTotals getSteps(GBDevice gbDevice) {
-        Context context = GBApplication.getContext();
+        Context context = Application.getContext();
         Calendar day = GregorianCalendar.getInstance();
 
-        if (!(context instanceof GBApplication)) {
+        if (!(context instanceof Application)) {
             return new DailyTotals();
         }
         return DailyTotals.getDailyTotalsForDevice(gbDevice, day);
@@ -163,14 +164,14 @@ public class Widget extends AppWidgetProvider {
     }
 
     public void refreshData(int appWidgetId) {
-        Context context = GBApplication.getContext();
+        Context context = Application.getContext();
         GBDevice deviceForWidget = new WidgetPreferenceStorage().getDeviceForWidget(appWidgetId);
 
         if (deviceForWidget == null || !deviceForWidget.isInitialized()) {
             GB.toast(context,
                     context.getString(R.string.device_not_connected),
                     Toast.LENGTH_SHORT, GB.ERROR);
-            GBApplication.deviceService(deviceForWidget).connect();
+            Application.deviceService(deviceForWidget).connect();
             GB.toast(context,
                     context.getString(R.string.connecting),
                     Toast.LENGTH_SHORT, GB.INFO);
@@ -181,11 +182,11 @@ public class Widget extends AppWidgetProvider {
                 context.getString(R.string.busy_task_fetch_activity_data),
                 Toast.LENGTH_SHORT, GB.INFO);
 
-        GBApplication.deviceService(deviceForWidget).onFetchRecordedData(RecordedDataTypes.TYPE_ACTIVITY);
+        Application.deviceService(deviceForWidget).onFetchRecordedData(RecordedDataTypes.TYPE_ACTIVITY);
     }
 
     public void updateWidget() {
-        Context context = GBApplication.getContext();
+        Context context = Application.getContext();
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
         ComponentName thisAppWidget = new ComponentName(context.getPackageName(), Widget.class.getName());
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
@@ -217,7 +218,7 @@ public class Widget extends AppWidgetProvider {
                 }
             };
             IntentFilter intentFilter = new IntentFilter();
-            intentFilter.addAction(GBApplication.ACTION_NEW_DATA);
+            intentFilter.addAction(Application.ACTION_NEW_DATA);
             intentFilter.addAction(GBDevice.ACTION_DEVICE_CHANGED);
             LocalBroadcastManager.getInstance(context).registerReceiver(broadcastReceiver, intentFilter);
         }

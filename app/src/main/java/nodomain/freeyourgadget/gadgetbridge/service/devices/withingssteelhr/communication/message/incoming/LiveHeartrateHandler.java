@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.withingssteelhr.WithingsSteelHRSampleProvider;
@@ -71,7 +71,7 @@ public class LiveHeartrateHandler implements IncomingMessageHandler {
         WithingsSteelHRActivitySample sample = new WithingsSteelHRActivitySample();
         sample.setTimestamp((int) (GregorianCalendar.getInstance().getTimeInMillis() / 1000L));
         sample.setHeartRate(heartRate);
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             Long userId = DBHelper.getUser(dbHandler.getDaoSession()).getId();
             Long deviceId = DBHelper.getDevice(support.getDevice(), dbHandler.getDaoSession()).getId();
             WithingsSteelHRSampleProvider provider = new WithingsSteelHRSampleProvider(support.getDevice(), dbHandler.getDaoSession());

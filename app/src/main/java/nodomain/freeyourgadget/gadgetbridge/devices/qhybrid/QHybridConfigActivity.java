@@ -69,7 +69,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -117,7 +117,7 @@ public class QHybridConfigActivity extends AbstractGBActivity {
             }
         });
 
-        prefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+        prefs = Application.getDeviceSpecificSharedPrefs(device.getAddress());
         timeOffsetView = findViewById(R.id.qhybridTimeOffset);
         timeOffsetView.setOnClickListener(new View.OnClickListener() {
             @Override

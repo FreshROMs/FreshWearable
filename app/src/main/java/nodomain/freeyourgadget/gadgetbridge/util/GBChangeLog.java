@@ -29,7 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.cketti.library.changelog.ChangeLog;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 
 public class GBChangeLog extends ChangeLog {
@@ -41,7 +41,7 @@ public class GBChangeLog extends ChangeLog {
 
     @Override
     protected SparseArray<ReleaseItem> getMasterChangeLog(boolean full) {
-        if (GBApplication.isNightly()) {
+        if (Application.isNightly()) {
             try {
                 return readChangeLogFromResource(R.xml.changelog_git, full);
             } catch (final Exception e) {

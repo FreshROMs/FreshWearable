@@ -29,10 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.model.Weather;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;
 
@@ -74,7 +73,7 @@ public class OmniJawsObserver extends ContentObserver {
 
     public OmniJawsObserver(Handler handler) throws NameNotFoundException {
         super(handler);
-        mContext = GBApplication.getContext();
+        mContext = Application.getContext();
         mInstalled = isOmniJawsServiceAvailable();
         LOG.info("OmniJaws installation status: " + mInstalled);
         checkSettings();
@@ -140,7 +139,7 @@ public class OmniJawsObserver extends ContentObserver {
 
                 ArrayList<WeatherSpec> weatherSpecs = new ArrayList<>(Collections.singletonList(weatherSpec));
                 Weather.getInstance().setWeatherSpec(weatherSpecs);
-                GBApplication.deviceService().onSendWeather(weatherSpecs);
+                Application.deviceService().onSendWeather(weatherSpecs);
 
             } finally {
                 c.close();

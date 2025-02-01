@@ -57,7 +57,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.CameraActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.FindPhoneActivity;
@@ -413,7 +413,7 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
             return;
         }
 
-        savePreferencesEvent.update(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        savePreferencesEvent.update(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         gbDevice.sendDeviceUpdateIntent(context);
     }
 
@@ -519,7 +519,7 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
                 break;
             case REPLY:
                 if (deviceEvent.phoneNumber == null) {
-                    deviceEvent.phoneNumber = GBApplication.getIDSenderLookup().lookup((int) (deviceEvent.handle >> 4));
+                    deviceEvent.phoneNumber = Application.getIDSenderLookup().lookup((int) (deviceEvent.handle >> 4));
                 }
                 if (deviceEvent.phoneNumber != null) {
                     LOG.info("Got notification reply for SMS from {} : {}", deviceEvent.phoneNumber, deviceEvent.reply);
@@ -535,7 +535,7 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
             notificationListenerIntent.putExtra("handle", deviceEvent.handle);
             notificationListenerIntent.putExtra("title", deviceEvent.title);
             if (deviceEvent.reply != null) {
-                SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+                SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
                 String suffix = prefs.getString("canned_reply_suffix", null);
                 if (suffix != null && !Objects.equals(suffix, "")) {
                     deviceEvent.reply += suffix;
@@ -553,7 +553,7 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
         gbDevice.setBatteryState(deviceEvent.state);
         gbDevice.setBatteryVoltage(deviceEvent.voltage, deviceEvent.batteryIndex);
 
-        final DevicePrefs devicePrefs = GBApplication.getDevicePrefs(gbDevice);
+        final DevicePrefs devicePrefs = Application.getDevicePrefs(gbDevice);
         final BatteryConfig batteryConfig = gbDevice.getDeviceCoordinator().getBatteryConfig(gbDevice)[deviceEvent.batteryIndex];
 
         if (deviceEvent.level == GBDevice.BATTERY_UNKNOWN) {
@@ -846,7 +846,7 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
     }
 
     public DevicePrefs getDevicePrefs() {
-        return GBApplication.getDevicePrefs(gbDevice);
+        return Application.getDevicePrefs(gbDevice);
     }
 
     @Override

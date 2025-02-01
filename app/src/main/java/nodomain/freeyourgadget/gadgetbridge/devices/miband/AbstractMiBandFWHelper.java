@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huami.HuamiFirmwareType;
@@ -81,7 +81,7 @@ public abstract class AbstractMiBandFWHelper {
 
     public static String formatFirmwareVersion(int version) {
         if (version == -1) {
-            return GBApplication.getContext().getString(R.string._unknown_);
+            return Application.getContext().getString(R.string._unknown_);
         }
 
         return String.format(Locale.UK,

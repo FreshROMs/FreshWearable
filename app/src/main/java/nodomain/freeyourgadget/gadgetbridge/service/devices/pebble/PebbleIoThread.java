@@ -46,7 +46,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.ExternalPebbleJSActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AbstractAppManagerFragment;
@@ -74,7 +74,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.preferences.DevicePrefs;
 class PebbleIoThread extends GBDeviceIoThread {
     private static final Logger LOG = LoggerFactory.getLogger(PebbleIoThread.class);
 
-    private final Prefs prefs = GBApplication.getPrefs();
+    private final Prefs prefs = Application.getPrefs();
     private final DevicePrefs devicePrefs;
 
     private final PebbleProtocol mPebbleProtocol;
@@ -149,7 +149,7 @@ class PebbleIoThread extends GBDeviceIoThread {
 
     PebbleIoThread(PebbleSupport pebbleSupport, GBDevice gbDevice, GBDeviceProtocol gbDeviceProtocol, BluetoothAdapter btAdapter, Context context) {
         super(gbDevice, context);
-        devicePrefs = GBApplication.getDevicePrefs(gbDevice);
+        devicePrefs = Application.getDevicePrefs(gbDevice);
         mPebbleProtocol = (PebbleProtocol) gbDeviceProtocol;
         mBtAdapter = btAdapter;
         mPebbleSupport = pebbleSupport;
@@ -247,7 +247,7 @@ class PebbleIoThread extends GBDeviceIoThread {
     public void run() {
         mIsConnected = connect();
         if (!mIsConnected) {
-            if (GBApplication.getPrefs().getAutoReconnect(getDevice()) && !mQuit) {
+            if (Application.getPrefs().getAutoReconnect(getDevice()) && !mQuit) {
                 gbDevice.setState(GBDevice.State.WAITING_FOR_RECONNECT);
                 gbDevice.sendDeviceUpdateIntent(getContext());
             }
@@ -411,7 +411,7 @@ class PebbleIoThread extends GBDeviceIoThread {
 
         enablePebbleKitSupport(false);
 
-        if (mQuit || !GBApplication.getPrefs().getAutoReconnect(getDevice())) {
+        if (mQuit || !Application.getPrefs().getAutoReconnect(getDevice())) {
             gbDevice.setState(GBDevice.State.NOT_CONNECTED);
         } else {
             gbDevice.setState(GBDevice.State.WAITING_FOR_RECONNECT);

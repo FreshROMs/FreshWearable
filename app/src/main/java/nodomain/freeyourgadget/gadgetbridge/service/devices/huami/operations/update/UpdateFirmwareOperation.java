@@ -29,7 +29,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventDisplayMessage;
 import nodomain.freeyourgadget.gadgetbridge.devices.huami.HuamiFWHelper;
@@ -51,7 +51,7 @@ public class UpdateFirmwareOperation extends AbstractHuamiOperation {
     protected final Uri uri;
     final BluetoothGattCharacteristic fwCControlChar;
     final BluetoothGattCharacteristic fwCDataChar;
-    protected final Prefs prefs = GBApplication.getPrefs();
+    protected final Prefs prefs = Application.getPrefs();
     protected AbstractHuamiFirmwareInfo firmwareInfo;
 
     public UpdateFirmwareOperation(Uri uri, HuamiSupport support) {

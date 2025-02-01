@@ -43,7 +43,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity;
@@ -349,7 +349,7 @@ public class MusicManagerActivity extends AbstractGBActivity {
 
         // Load music data without timeout
         startLoading(0);
-        GBApplication.deviceService(mGBDevice).onMusicListReq();
+        Application.deviceService(mGBDevice).onMusicListReq();
     }
 
     @Override
@@ -443,27 +443,27 @@ public class MusicManagerActivity extends AbstractGBActivity {
 
     private void addPlaylistToDevice(final String playlistName) {
         startLoading();
-        GBApplication.deviceService(mGBDevice).onMusicOperation(0, -1, playlistName, null);
+        Application.deviceService(mGBDevice).onMusicOperation(0, -1, playlistName, null);
     }
 
     private void deletePlaylistFromDevice(final GBDeviceMusicPlaylist playlist) {
         startLoading();
-        GBApplication.deviceService(mGBDevice).onMusicOperation(1, playlist.getId(), null, null);
+        Application.deviceService(mGBDevice).onMusicOperation(1, playlist.getId(), null, null);
     }
 
     private void renamePlaylistOnDevice(final GBDeviceMusicPlaylist playlist, String newPlaylistName) {
         startLoading();
-        GBApplication.deviceService(mGBDevice).onMusicOperation(2, playlist.getId(), newPlaylistName, null);
+        Application.deviceService(mGBDevice).onMusicOperation(2, playlist.getId(), newPlaylistName, null);
     }
 
     private void addMusicToDevicePlaylist(GBDeviceMusicPlaylist playlist, final ArrayList<Integer> list) {
         startLoading();
-        GBApplication.deviceService(mGBDevice).onMusicOperation(3, playlist.getId(), null, list);
+        Application.deviceService(mGBDevice).onMusicOperation(3, playlist.getId(), null, list);
     }
 
     private void deleteMusicFromDevice(GBDeviceMusicPlaylist playlist, final ArrayList<Integer> list) {
         startLoading();
-        GBApplication.deviceService(mGBDevice).onMusicOperation(4, playlist.getId(), null, list);
+        Application.deviceService(mGBDevice).onMusicOperation(4, playlist.getId(), null, list);
     }
 
     private void addMusicPlaylist() {

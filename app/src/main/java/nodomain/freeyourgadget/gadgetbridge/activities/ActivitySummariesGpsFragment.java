@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityPoint;
 import nodomain.freeyourgadget.gadgetbridge.model.GPSCoordinate;
@@ -155,7 +155,7 @@ public class ActivitySummariesGpsFragment extends AbstractGBFragment {
     private Canvas createCanvas(ImageView imageView) {
         Bitmap bitmap = createBitmap(CANVAS_SIZE, CANVAS_SIZE, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(GBApplication.getWindowBackgroundColor(requireActivity()));
+        canvas.drawColor(Application.getWindowBackgroundColor(requireActivity()));
         //frame around, but it doesn't look so nice
         /*
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);

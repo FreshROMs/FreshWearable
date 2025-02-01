@@ -78,7 +78,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.fit.FitViewerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
@@ -125,7 +125,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
     public static Bitmap getScreenShot(View view, int height, int width, Context context) {
         Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawColor(GBApplication.getWindowBackgroundColor(context));
+        canvas.drawColor(Application.getWindowBackgroundColor(context));
         view.draw(canvas);
         return bitmap;
     }
@@ -136,7 +136,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
         super.onCreate(savedInstanceState);
 
         final Context appContext = this.getApplicationContext();
-        if (appContext instanceof GBApplication) {
+        if (appContext instanceof Application) {
             setContentView(R.layout.activity_summary_details);
         }
 
@@ -407,7 +407,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setGravity(Gravity.CENTER);
         linearLayout.setPadding(dpToPx(15), dpToPx(15), dpToPx(15), dpToPx(15));
-        linearLayout.setBackgroundColor(GBApplication.getWindowBackgroundColor(ActivitySummaryDetail.this));
+        linearLayout.setBackgroundColor(Application.getWindowBackgroundColor(ActivitySummaryDetail.this));
         int marginLeft = 0;
         int marginTop = 0;
         int marginBottom = 0;
@@ -727,7 +727,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
 
     @Nullable
     private static GBDevice getGBDevice(final Device findDevice) {
-        return GBApplication.app().getDeviceManager().getDevices()
+        return Application.app().getDeviceManager().getDevices()
                 .stream()
                 .filter(d -> d.getAddress().equalsIgnoreCase(findDevice.getIdentifier()))
                 .findFirst()

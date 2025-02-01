@@ -16,7 +16,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySummaryEntries;
@@ -32,8 +32,8 @@ public class WorkoutValueFormatter {
     private final DecimalFormat df = new DecimalFormat("#.##");
 
     public WorkoutValueFormatter() {
-        this.units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
-        this.UNIT_IMPERIAL = GBApplication.getContext().getString(R.string.p_unit_imperial);
+        this.units = Application.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, Application.getContext().getString(R.string.p_unit_metric));
+        this.UNIT_IMPERIAL = Application.getContext().getString(R.string.p_unit_imperial);
     }
 
     public void toggleRawData() {
@@ -42,7 +42,7 @@ public class WorkoutValueFormatter {
 
     public String formatValue(final Object rawValue, String unit) {
         if (rawValue == null) {
-            return GBApplication.getContext().getString(R.string.stats_empty_value);
+            return Application.getContext().getString(R.string.stats_empty_value);
         }
 
         if (ActivitySummaryEntries.UNIT_RAW_STRING.equals(unit)) {
@@ -148,12 +148,12 @@ public class WorkoutValueFormatter {
 
     public String getStringResourceByName(String aString) {
         String packageName = BuildConfig.APPLICATION_ID;
-        int resId = GBApplication.getContext().getResources().getIdentifier(aString, "string", packageName);
+        int resId = Application.getContext().getResources().getIdentifier(aString, "string", packageName);
         if (resId == 0) {
             //LOG.warn("SportsActivity " + "Missing string in strings:" + aString);
             return aString;
         } else {
-            return GBApplication.getContext().getString(resId);
+            return Application.getContext().getString(resId);
         }
     }
 }

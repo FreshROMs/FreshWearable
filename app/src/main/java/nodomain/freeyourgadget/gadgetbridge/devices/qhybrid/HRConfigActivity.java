@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -77,7 +77,7 @@ public class HRConfigActivity extends AbstractGBActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qhybrid_hr_settings);
 
-        sharedPreferences = GBApplication.getPrefs().getPreferences();
+        sharedPreferences = Application.getPrefs().getPreferences();
 
         initMappings();
         loadWidgetConfigs();
@@ -172,7 +172,7 @@ public class HRConfigActivity extends AbstractGBActivity {
         }
 
         // Disable some functions on watches with too new firmware (from official app 4.6.0 and higher)
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = Application.app().getDeviceManager().getSelectedDevices();
         for (GBDevice device : devices) {
             if (device.getType() == DeviceType.FOSSILQHYBRID) {
                 String fwVersion_str = device.getFirmwareVersion2();

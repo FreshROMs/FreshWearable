@@ -36,7 +36,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsUtils;
@@ -262,7 +262,7 @@ public class XiaomiSystemService extends AbstractXiaomiService implements Xiaomi
     }
 
     public void setLanguage() {
-        String localeString = GBApplication.getDeviceSpecificSharedPrefs(getSupport().getDevice().getAddress()).getString(
+        String localeString = Application.getDeviceSpecificSharedPrefs(getSupport().getDevice().getAddress()).getString(
                 DeviceSettingsPreferenceConst.PREF_LANGUAGE, DeviceSettingsPreferenceConst.PREF_LANGUAGE_AUTO
         );
         if (DeviceSettingsPreferenceConst.PREF_LANGUAGE_AUTO.equals(localeString)) {

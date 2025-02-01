@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -221,7 +221,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
                 return true;
             }
             else if(request.requestType == StatusRequestType.BACKGROUND_SYNC_REQUEST.value) {
-                Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+                Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
                 boolean enableSync = prefs.getBoolean(SonyWena3SettingKeys.BACKGROUND_SYNC, true);
                 if(enableSync) {
                     LOG.info("Request for background activity sync received");
@@ -321,7 +321,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
             Date eventsLastSyncTime = null; // TODO: find out what this is
 
             if(!syncAll) {
-                try (DBHandler db = GBApplication.acquireDB()) {
+                try (DBHandler db = Application.acquireDB()) {
                     Wena3HeartRateSample heartSample = new SonyWena3HeartRateSampleProvider(getDevice(), db.getDaoSession()).getLatestSample();
                     if(heartSample != null) {
                         heartLastSyncTime = new Date(heartSample.getTimestamp());
@@ -438,7 +438,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onSetCallState(CallSpec callSpec) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         boolean enableNotifications = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_NOTIFICATION_ENABLE, false);
         boolean enableCalls = prefs.getBoolean(SonyWena3SettingKeys.RECEIVE_CALLS, true);
         if(!enableCalls || !enableNotifications) {
@@ -487,7 +487,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onNotification(NotificationSpec notificationSpec) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         boolean enableNotifications = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_NOTIFICATION_ENABLE, false);
         if(!enableNotifications) return;
 
@@ -581,7 +581,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onDeleteNotification(int id) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         boolean enableNotifications = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_NOTIFICATION_ENABLE, false);
         if(!enableNotifications) return;
 
@@ -627,7 +627,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     @Override
     public void onSetAlarms(ArrayList<? extends Alarm> alarms) {
         try {
-            Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+            Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
             TransactionBuilder builder = performInitialized("alarmSetting");
 
             assert alarms.size() <= SonyWena3Constants.ALARM_SLOTS;
@@ -670,7 +670,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendDisplaySettings(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
 
         String localeString = prefs.getString(DeviceSettingsPreferenceConst.PREF_LANGUAGE, DeviceSettingsPreferenceConst.PREF_LANGUAGE_AUTO);
         if (localeString == null || localeString.equals(DeviceSettingsPreferenceConst.PREF_LANGUAGE_AUTO)) {
@@ -714,7 +714,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendDnDSettings(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         String dndMode = prefs.getString(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_NOAUTO, DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_OFF);
         boolean isDndOn = (dndMode != null && dndMode.equals(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_SCHEDULED));
         String start = prefs.getString(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_NOAUTO_START, "22:00");
@@ -744,7 +744,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendAutoPowerSettings(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         String autoPowerMode = prefs.getString(SonyWena3SettingKeys.AUTO_POWER_SCHEDULE_KIND, DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_OFF);
         boolean isAutoPowerOffEnabled = (autoPowerMode != null && autoPowerMode.equals(DeviceSettingsPreferenceConst.PREF_DO_NOT_DISTURB_SCHEDULED));
         String start = prefs.getString(SonyWena3SettingKeys.AUTO_POWER_SCHEDULE_START_HHMM, "22:00");
@@ -774,7 +774,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendVibrationSettings(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         boolean smartVibration = prefs.getBoolean(SonyWena3SettingKeys.SMART_VIBRATION, true);
         VibrationStrength strength = VibrationStrength.valueOf(prefs.getString(SonyWena3SettingKeys.VIBRATION_STRENGTH, VibrationStrength.NORMAL.name()).toUpperCase());
         VibrationSetting pkt = new VibrationSetting(smartVibration, strength);
@@ -786,7 +786,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendHomeScreenSettings(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         String leftIdName = prefs.getString(SonyWena3SettingKeys.LEFT_HOME_ICON, HomeIconId.MUSIC.name()).toUpperCase();
         String centerIdName = prefs.getString(SonyWena3SettingKeys.CENTER_HOME_ICON, HomeIconId.PEDOMETER.name()).toUpperCase();
         String rightIdName = prefs.getString(SonyWena3SettingKeys.RIGHT_HOME_ICON, HomeIconId.CALORIES.name()).toUpperCase();
@@ -802,7 +802,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendMenuSettings(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         String[] csv = prefs.getString(SonyWena3SettingKeys.MENU_ICON_CSV_KEY,
                         TextUtils.join(",", getContext().getResources().getStringArray(R.array.prefs_wena3_menu_icons_default_list)))
                 .toUpperCase()
@@ -823,7 +823,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendStatusPageSettings(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         StatusPageOrderSetting pageOrderSetting = new StatusPageOrderSetting();
         String[] csv = prefs.getString(SonyWena3SettingKeys.STATUS_PAGE_CSV_KEY,
                         TextUtils.join(",", getContext().getResources().getStringArray(R.array.prefs_wena3_status_page_default_list)))
@@ -842,7 +842,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendActivityGoalSettings(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         ActivityUser user = new ActivityUser();
         LocalDate dateOfBirth = user.getDateOfBirth();
         if(dateOfBirth.getYear() < 1920) {
@@ -876,7 +876,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendDayStartHour(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         int hour = prefs.getInt(SonyWena3SettingKeys.DAY_START_HOUR, 6);
         DayStartHourSetting setting = new DayStartHourSetting(hour);
 
@@ -887,7 +887,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendButtonActions(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         String doubleIdName = prefs.getString(SonyWena3SettingKeys.BUTTON_DOUBLE_PRESS_ACTION, DeviceButtonActionId.NONE.name()).toUpperCase();
         String longIdName = prefs.getString(SonyWena3SettingKeys.BUTTON_LONG_PRESS_ACTION, DeviceButtonActionId.NONE.name()).toUpperCase();
         DeviceButtonActionSetting setting = new DeviceButtonActionSetting(
@@ -902,7 +902,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void sendCalendarNotificationToggles(TransactionBuilder b) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         boolean enableCalendar = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_SYNC_CALENDAR, false);
         boolean enableNotifications = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_NOTIFICATION_ENABLE, false);
         CalendarNotificationEnableSetting setting = new CalendarNotificationEnableSetting(enableCalendar, enableNotifications);
@@ -934,7 +934,7 @@ public class SonyWena3DeviceSupport extends AbstractBTLEDeviceSupport {
 
     private void sendAllCalendarEvents(TransactionBuilder b) {
         try {
-            Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+            Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
             boolean enableCalendar = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_SYNC_CALENDAR, false);
 
             TransactionBuilder builder = b == null ? performInitialized("updateCalendarEvents") : b;

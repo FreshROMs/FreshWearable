@@ -16,18 +16,13 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiWorkoutType;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.proto.xiaomi.XiaomiProto;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
@@ -88,7 +83,7 @@ public final class XiaomiPreferences {
     }
 
     public static boolean keepActivityDataOnDevice(final GBDevice gbDevice) {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        final Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         return prefs.getBoolean("keep_activity_data_on_device", false);
     }
 }

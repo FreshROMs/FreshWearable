@@ -30,7 +30,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -98,7 +98,7 @@ public class FetchActivityOperation extends AbstractRepeatingFetchOperation {
         LOG.info("Saving {} samples", samples.size());
 
         // save all the samples that we got
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             DaoSession session = handler.getDaoSession();
 
             DeviceCoordinator coordinator = getDevice().getDeviceCoordinator();

@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -87,11 +87,11 @@ public class StepsPeriodFragment extends StepsFragment<StepsPeriodFragment.Steps
         distanceAvg = rootView.findViewById(R.id.distance_avg);
         stepsTotal = rootView.findViewById(R.id.steps_total);
         distanceTotal = rootView.findViewById(R.id.distance_total);
-        STEPS_GOAL = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
+        STEPS_GOAL = Application.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
 
         mBalanceView = rootView.findViewById(R.id.balance);
 
-        SHOW_BALANCE = GBApplication.getPrefs().getBoolean("charts_show_balance_steps", true);
+        SHOW_BALANCE = Application.getPrefs().getBoolean("charts_show_balance_steps", true);
         if (SHOW_BALANCE) {
             mBalanceView.setVisibility(View.VISIBLE);
         } else {
@@ -147,11 +147,11 @@ public class StepsPeriodFragment extends StepsFragment<StepsPeriodFragment.Steps
 
     @Override
     protected void init() {
-        TEXT_COLOR = GBApplication.getTextColor(requireContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(requireContext());
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(getContext());
-        DESCRIPTION_COLOR = GBApplication.getTextColor(getContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(getContext());
+        TEXT_COLOR = Application.getTextColor(requireContext());
+        CHART_TEXT_COLOR = Application.getSecondaryTextColor(requireContext());
+        BACKGROUND_COLOR = Application.getBackgroundColor(getContext());
+        DESCRIPTION_COLOR = Application.getTextColor(getContext());
+        CHART_TEXT_COLOR = Application.getSecondaryTextColor(getContext());
     }
 
     @Override

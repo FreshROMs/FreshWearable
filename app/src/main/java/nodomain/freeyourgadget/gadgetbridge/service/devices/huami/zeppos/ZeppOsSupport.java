@@ -77,7 +77,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventAppInfo;
@@ -427,12 +427,12 @@ public class ZeppOsSupport extends HuamiSupport implements ZeppOsFileTransferSer
 
     @Override
     protected ZeppOsSupport setFitnessGoal(final TransactionBuilder builder) {
-        final int goalSteps = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
-        final int goalCalories = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_CALORIES_BURNT, ActivityUser.defaultUserCaloriesBurntGoal);
-        final int goalSleep = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_SLEEP_DURATION, ActivityUser.defaultUserSleepDurationGoal);
-        final int goalWeight = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_GOAL_WEIGHT_KG, ActivityUser.defaultUserGoalWeightKg);
-        final int goalStandingTime = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_GOAL_STANDING_TIME_HOURS, ActivityUser.defaultUserGoalStandingTimeHours);
-        final int goalFatBurnTime = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_GOAL_FAT_BURN_TIME_MINUTES, ActivityUser.defaultUserFatBurnTimeMinutes);
+        final int goalSteps = Application.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
+        final int goalCalories = Application.getPrefs().getInt(ActivityUser.PREF_USER_CALORIES_BURNT, ActivityUser.defaultUserCaloriesBurntGoal);
+        final int goalSleep = Application.getPrefs().getInt(ActivityUser.PREF_USER_SLEEP_DURATION, ActivityUser.defaultUserSleepDurationGoal);
+        final int goalWeight = Application.getPrefs().getInt(ActivityUser.PREF_USER_GOAL_WEIGHT_KG, ActivityUser.defaultUserGoalWeightKg);
+        final int goalStandingTime = Application.getPrefs().getInt(ActivityUser.PREF_USER_GOAL_STANDING_TIME_HOURS, ActivityUser.defaultUserGoalStandingTimeHours);
+        final int goalFatBurnTime = Application.getPrefs().getInt(ActivityUser.PREF_USER_GOAL_FAT_BURN_TIME_MINUTES, ActivityUser.defaultUserFatBurnTimeMinutes);
         LOG.info("Setting Fitness Goals to steps={}, calories={}, sleep={}, weight={}, standingTime={}, fatBurn={}", goalSteps, goalCalories, goalSleep, goalWeight, goalStandingTime, goalFatBurnTime);
 
         configService.newSetter()
@@ -451,7 +451,7 @@ public class ZeppOsSupport extends HuamiSupport implements ZeppOsFileTransferSer
     protected ZeppOsSupport setUserInfo(final TransactionBuilder builder) {
         LOG.info("Attempting to set user info...");
 
-        final Prefs prefs = GBApplication.getPrefs();
+        final Prefs prefs = Application.getPrefs();
         final Prefs devicePrefs = getDevicePrefs();
 
         final String alias = prefs.getString(PREF_USER_NAME, null);
@@ -981,7 +981,7 @@ public class ZeppOsSupport extends HuamiSupport implements ZeppOsFileTransferSer
         ArrayList<Alarm> alarms = new ArrayList<>(1);
         alarms.add(alarm);
 
-        GBApplication.deviceService(gbDevice).onSetAlarms(alarms);
+        Application.deviceService(gbDevice).onSetAlarms(alarms);
     }
 
     private ScheduledExecutorService startRealtimeHeartRateMeasurement() {
@@ -1098,7 +1098,7 @@ public class ZeppOsSupport extends HuamiSupport implements ZeppOsFileTransferSer
 
     @Override
     protected ZeppOsSupport setLanguage(final TransactionBuilder builder) {
-        final String localeString = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress())
+        final String localeString = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress())
                 .getString("language", "auto");
 
         LOG.info("Setting device language to {}", localeString);

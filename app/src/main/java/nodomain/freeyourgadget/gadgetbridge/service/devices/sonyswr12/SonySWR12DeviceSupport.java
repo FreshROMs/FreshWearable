@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
@@ -140,7 +140,7 @@ public class SonySWR12DeviceSupport extends AbstractBTLEDeviceSupport {
         try {
             BluetoothGattCharacteristic alarmCharacteristic = getCharacteristic(SonySWR12Constants.UUID_CHARACTERISTIC_ALARM);
             TransactionBuilder builder = performInitialized("alarm");
-            int prefInterval = Integer.valueOf(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress())
+            int prefInterval = Integer.valueOf(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress())
                     .getString(DeviceSettingsPreferenceConst.PREF_SONYSWR12_SMART_INTERVAL, "0"));
             ArrayList<BandAlarm> bandAlarmList = new ArrayList<>();
             for (Alarm alarm : alarms) {
@@ -210,7 +210,7 @@ public class SonySWR12DeviceSupport extends AbstractBTLEDeviceSupport {
                 case DeviceSettingsPreferenceConst.PREF_SONYSWR12_STAMINA: {
                     //stamina can be:
                     //disabled = 0, enabled = 1 or todo auto on low battery = 2
-                    int status = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(config, false) ? 1 : 0;
+                    int status = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(config, false) ? 1 : 0;
                     TransactionBuilder builder = performInitialized(config);
                     ControlPointWithValue vibrationControl = new ControlPointWithValue(CommandCode.STAMINA_MODE, status);
                     builder.write(getCharacteristic(SonySWR12Constants.UUID_CHARACTERISTIC_CONTROL_POINT), vibrationControl.toByteArray());
@@ -218,7 +218,7 @@ public class SonySWR12DeviceSupport extends AbstractBTLEDeviceSupport {
                     break;
                 }
                 case DeviceSettingsPreferenceConst.PREF_SONYSWR12_LOW_VIBRATION: {
-                    boolean isEnabled = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(config, false);
+                    boolean isEnabled = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(config, false);
                     TransactionBuilder builder = performInitialized(config);
                     ControlPointLowVibration vibrationControl = new ControlPointLowVibration(isEnabled);
                     builder.write(getCharacteristic(SonySWR12Constants.UUID_CHARACTERISTIC_CONTROL_POINT), vibrationControl.toByteArray());

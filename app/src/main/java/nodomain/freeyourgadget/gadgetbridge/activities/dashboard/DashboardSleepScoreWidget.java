@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -64,7 +64,7 @@ public class DashboardSleepScoreWidget extends AbstractGaugeWidget {
         final SleepScoreData data = new SleepScoreData();
 
         SleepScoreSample sample = null;
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             for (GBDevice dev : devices) {
                 TimeSampleProvider<? extends SleepScoreSample> provider = dev.getDeviceCoordinator().getSleepScoreProvider(dev, dbHandler.getDaoSession());
                 final SleepScoreSample latestSample = provider.getLatestSample(dashboardData.timeTo * 1000L);

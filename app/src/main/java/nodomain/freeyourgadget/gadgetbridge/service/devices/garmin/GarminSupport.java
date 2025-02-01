@@ -33,7 +33,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
@@ -149,7 +149,7 @@ public class GarminSupport extends AbstractBTLEDeviceSupport implements ICommuni
 
     @Override
     public GarminPrefs getDevicePrefs() {
-        return new GarminPrefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()), gbDevice);
+        return new GarminPrefs(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()), gbDevice);
     }
 
     @Override
@@ -324,7 +324,7 @@ public class GarminSupport extends AbstractBTLEDeviceSupport implements ICommuni
             LOG.debug("FILE DOWNLOAD COMPLETE {}", filename);
 
             if (entry.getFiletype().isFitFile()) {
-                try (DBHandler handler = GBApplication.acquireDB()) {
+                try (DBHandler handler = Application.acquireDB()) {
                     final DaoSession session = handler.getDaoSession();
 
                     final PendingFileProvider pendingFileProvider = new PendingFileProvider(gbDevice, session);
@@ -632,7 +632,7 @@ public class GarminSupport extends AbstractBTLEDeviceSupport implements ICommuni
 
         if (filesToDownload.isEmpty() && !fileTransferHandler.isDownloading() && isBusyFetching) {
             final List<File> filesToProcess;
-            try (DBHandler handler = GBApplication.acquireDB()) {
+            try (DBHandler handler = Application.acquireDB()) {
                 final DaoSession session = handler.getDaoSession();
 
                 final PendingFileProvider pendingFileProvider = new PendingFileProvider(gbDevice, session);

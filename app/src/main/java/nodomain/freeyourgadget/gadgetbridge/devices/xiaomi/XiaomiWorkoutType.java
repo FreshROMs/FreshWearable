@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
@@ -144,7 +144,7 @@ public class XiaomiWorkoutType {
     }
 
     public static Collection<XiaomiWorkoutType> getWorkoutTypesSupportedByDevice(final GBDevice device) {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        final Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(device.getAddress()));
         final List<String> codes = prefs.getList(XiaomiPreferences.PREF_WORKOUT_TYPES, Collections.emptyList());
         final List<XiaomiWorkoutType> ret = new ArrayList<>(codes.size());
 
@@ -154,8 +154,8 @@ public class XiaomiWorkoutType {
             ret.add(new XiaomiWorkoutType(
                     codeInt,
                     codeNameStringRes != -1 ?
-                            GBApplication.getContext().getString(codeNameStringRes) :
-                            GBApplication.getContext().getString(R.string.widget_unknown_workout, code)
+                            Application.getContext().getString(codeNameStringRes) :
+                            Application.getContext().getString(R.string.widget_unknown_workout, code)
             ));
         }
 

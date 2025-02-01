@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventUpdatePreferences;
@@ -56,7 +56,6 @@ import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.calendar.CalendarEvent;
 import nodomain.freeyourgadget.gadgetbridge.util.calendar.CalendarManager;
-import nodomain.freeyourgadget.gadgetbridge.util.preferences.DevicePrefs;
 
 public class ProtocolBufferHandler implements MessageHandler {
 
@@ -255,7 +254,7 @@ public class ProtocolBufferHandler implements MessageHandler {
         if (calendarService.hasCalendarRequest()) {
             GdiCalendarService.CalendarService.CalendarServiceRequest calendarServiceRequest = calendarService.getCalendarRequest();
 
-            final boolean syncEnabled = GBApplication.getDeviceSpecificSharedPrefs(deviceSupport.getDevice().getAddress())
+            final boolean syncEnabled = Application.getDeviceSpecificSharedPrefs(deviceSupport.getDevice().getAddress())
                     .getBoolean(PREF_SYNC_CALENDAR, false);
 
             if (!syncEnabled) {

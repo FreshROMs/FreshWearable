@@ -41,7 +41,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import nodomain.freeyourgadget.gadgetbridge.devices.pebble.PebbleCoordinator;
@@ -91,7 +91,7 @@ public class ExternalPebbleJSActivity extends AbstractGBActivity {
                 }
 
                 //first check if we are still connected to a pebble
-                DeviceManager deviceManager = ((GBApplication) getApplication()).getDeviceManager();
+                DeviceManager deviceManager = ((Application) getApplication()).getDeviceManager();
                 List<GBDevice> deviceList = deviceManager.getDevices();
                 for (GBDevice device : deviceList) {
                     if (device.getState() == GBDevice.State.INITIALIZED && device.getType().equals(DeviceType.PEBBLE)) {
@@ -101,7 +101,7 @@ public class ExternalPebbleJSActivity extends AbstractGBActivity {
                 }
                 if (currentDevice == null) {
                     //then try to reconnect to one of last connected Pebble devices
-                    Set<String> lastDeviceAddresses = GBApplication.getPrefs().getStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, Collections.emptySet());
+                    Set<String> lastDeviceAddresses = Application.getPrefs().getStringSet(GBPrefs.LAST_DEVICE_ADDRESSES, Collections.emptySet());
                     for (GBDevice device : deviceList) {
                         if (!device.isConnected() && device.getType() == DeviceType.PEBBLE && lastDeviceAddresses.contains(device.getAddress())) {
                             Intent intent = new Intent(this, DeviceCommunicationService.class)

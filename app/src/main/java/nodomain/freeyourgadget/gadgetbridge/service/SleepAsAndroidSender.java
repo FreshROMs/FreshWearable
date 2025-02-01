@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.SleepAsAndroidFeature;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.sleepasandroid.SleepAsAndroidAction;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -81,22 +81,22 @@ public class SleepAsAndroidSender {
         if (enabled) {
             switch (feature) {
                 case ACCELEROMETER:
-                    enabled = GBApplication.getPrefs().getBoolean("pref_key_sleepasandroid_feat_movement", false);
+                    enabled = Application.getPrefs().getBoolean("pref_key_sleepasandroid_feat_movement", false);
                     break;
                 case HEART_RATE:
-                    enabled = GBApplication.getPrefs().getBoolean("pref_key_sleepasandroid_feat_hr", false);
+                    enabled = Application.getPrefs().getBoolean("pref_key_sleepasandroid_feat_hr", false);
                     break;
                 case SPO2:
-                    enabled = GBApplication.getPrefs().getBoolean("pref_key_sleepasandroid_feat_spo2", false);
+                    enabled = Application.getPrefs().getBoolean("pref_key_sleepasandroid_feat_spo2", false);
                     break;
                 case OXIMETRY:
-                    enabled = GBApplication.getPrefs().getBoolean("pref_key_sleepasandroid_feat_oximetry", false);
+                    enabled = Application.getPrefs().getBoolean("pref_key_sleepasandroid_feat_oximetry", false);
                     break;
                 case NOTIFICATIONS:
-                    enabled = GBApplication.getPrefs().getBoolean("pref_key_sleepasandroid_feat_notifications", false);
+                    enabled = Application.getPrefs().getBoolean("pref_key_sleepasandroid_feat_notifications", false);
                     break;
                 case ALARMS:
-                    enabled = GBApplication.getPrefs().getBoolean("pref_key_sleepasandroid_feat_alarms", false);
+                    enabled = Application.getPrefs().getBoolean("pref_key_sleepasandroid_feat_alarms", false);
                     break;
                 default:
                     break;
@@ -363,7 +363,7 @@ public class SleepAsAndroidSender {
 
         if (!isDeviceDefault() || !trackingOngoing) return;
         if (trackingPaused) return;
-        Context context = GBApplication.getContext();
+        Context context = Application.getContext();
         Intent intent = new Intent(ACTION_EXTRA_DATA_UPDATE);
 
         // Heart Rate
@@ -487,7 +487,7 @@ public class SleepAsAndroidSender {
     private void broadcastToSleepAsAndroid(Intent intent) {
         if (!isDeviceDefault()) return;
         intent.setPackage(PACKAGE_SLEEP_AS_ANDROID);
-        GBApplication.getContext().sendBroadcast(intent);
+        Application.getContext().sendBroadcast(intent);
     }
 
     /**
@@ -498,13 +498,13 @@ public class SleepAsAndroidSender {
     public boolean isDeviceDefault() {
         if (device == null || !device.isInitialized()) return false;
         if (isSleepAsAndroidEnabled()) {
-            return device.getAddress().equals(GBApplication.getPrefs().getString("sleepasandroid_device", ""));
+            return device.getAddress().equals(Application.getPrefs().getString("sleepasandroid_device", ""));
         }
         return false;
     }
 
     public boolean isSleepAsAndroidEnabled() {
-        return GBApplication.getPrefs().getBoolean("pref_key_sleepasandroid_enable", false);
+        return Application.getPrefs().getBoolean("pref_key_sleepasandroid_enable", false);
     }
 
     /**
@@ -563,7 +563,7 @@ public class SleepAsAndroidSender {
      * @return the alarm slot to be used for setting alarms on the watch
      */
     public static int getAlarmSlot() {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         String slotString = prefs.getString("sleepasandroid_alarm_slot", "");
         if (!slotString.isEmpty()) {
             return Integer.parseInt(slotString);

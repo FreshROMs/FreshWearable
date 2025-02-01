@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -47,7 +47,6 @@ import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
 
 public class WidgetConfigurationActivity extends Activity implements GBActivity {
@@ -118,11 +117,11 @@ public class WidgetConfigurationActivity extends Activity implements GBActivity 
 
     public LinkedHashMap getAllDevices(Context appContext) {
         DaoSession daoSession;
-        GBApplication gbApp = (GBApplication) appContext;
+        Application gbApp = (Application) appContext;
         LinkedHashMap<String, Pair<String, Integer>> newMap = new LinkedHashMap<>(1);
         List<? extends GBDevice> devices = gbApp.getDeviceManager().getDevices();
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             daoSession = handler.getDaoSession();
             for (GBDevice device : devices) {
                 DeviceCoordinator coordinator = device.getDeviceCoordinator();

@@ -40,7 +40,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -365,7 +365,7 @@ public class MiBandSupport extends AbstractBTLEDeviceSupport {
 // Unfortunately this extra pairing causes problems when bonding is not used/does not work
 // so we only do this when configured to keep data on the device
 
-        Prefs prefs = GBApplication.getDevicePrefs(gbDevice);
+        Prefs prefs = Application.getDevicePrefs(gbDevice);
         if (prefs.getBoolean("keep_activity_data_on_device", false)) {
             LOG.info("Attempting to pair MI device...");
             BluetoothGattCharacteristic characteristic = getCharacteristic(MiBandService.UUID_CHARACTERISTIC_PAIR);
@@ -389,7 +389,7 @@ public class MiBandSupport extends AbstractBTLEDeviceSupport {
         LOG.info("Attempting to set Fitness Goal...");
         BluetoothGattCharacteristic characteristic = getCharacteristic(MiBandService.UUID_CHARACTERISTIC_CONTROL_POINT);
         if (characteristic != null) {
-            int fitnessGoal = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
+            int fitnessGoal = Application.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
             transaction.write(characteristic, new byte[]{
                     MiBandService.COMMAND_SET_FITNESS_GOAL,
                     0,
@@ -945,7 +945,7 @@ public class MiBandSupport extends AbstractBTLEDeviceSupport {
                 @Override
                 public void doCurrentSample() {
 
-                    try (DBHandler handler = GBApplication.acquireDB()) {
+                    try (DBHandler handler = Application.acquireDB()) {
                         DaoSession session = handler.getDaoSession();
 
                         Device device = DBHelper.getDevice(getDevice(), session);
@@ -1159,7 +1159,7 @@ public class MiBandSupport extends AbstractBTLEDeviceSupport {
             TransactionBuilder builder = performInitialized("Send upcoming events");
             BluetoothGattCharacteristic characteristic = getCharacteristic(MiBandService.UUID_CHARACTERISTIC_CONTROL_POINT);
 
-            Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+            Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
             int availableSlots = prefs.getInt(DeviceSettingsPreferenceConst.PREF_RESERVER_ALARMS_CALENDAR, 0);
             if (availableSlots >3) {
                 availableSlots = 3;

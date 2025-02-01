@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
@@ -59,7 +59,7 @@ public class WidgetAlarmsActivity extends Activity implements View.OnClickListen
             return;
         }
 
-        if (appContext instanceof GBApplication) {
+        if (appContext instanceof Application) {
 
             if (deviceForWidget == null || !deviceForWidget.isInitialized()) {
                 GB.toast(this,
@@ -138,7 +138,7 @@ public class WidgetAlarmsActivity extends Activity implements View.OnClickListen
         Alarm alarm = AlarmUtils.createSingleShot(0, true, true, calendar);
         ArrayList<Alarm> alarms = new ArrayList<>(1);
         alarms.add(alarm);
-        GBApplication.deviceService(deviceForWidget).onSetAlarms(alarms);
+        Application.deviceService(deviceForWidget).onSetAlarms(alarms);
 
     }
 }

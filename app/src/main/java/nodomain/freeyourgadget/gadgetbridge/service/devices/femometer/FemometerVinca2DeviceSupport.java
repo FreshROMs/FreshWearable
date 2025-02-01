@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -211,7 +211,7 @@ public class FemometerVinca2DeviceSupport extends AbstractBTLEDeviceSupport {
     @Override
     public void onSendConfiguration(String config) {
         TransactionBuilder builder;
-        SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(this.getDevice().getAddress());
+        SharedPreferences sharedPreferences = Application.getDeviceSpecificSharedPrefs(this.getDevice().getAddress());
         LOG.info(" onSendConfiguration: " + config);
         try {
             builder = performInitialized("sendConfig: " + config);
@@ -284,7 +284,7 @@ public class FemometerVinca2DeviceSupport extends AbstractBTLEDeviceSupport {
         Date timestamp = info.getTimestamp();
         float temperature = info.getTemperature();
         int temperatureType = info.getTemperatureType();
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             Long userId = DBHelper.getUser(db.getDaoSession()).getId();
             Long deviceId = DBHelper.getDevice(getDevice(), db.getDaoSession()).getId();
             long time = timestamp.getTime();

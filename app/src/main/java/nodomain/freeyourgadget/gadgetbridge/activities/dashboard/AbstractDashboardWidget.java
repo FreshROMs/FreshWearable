@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ActivityChartsActivity;
@@ -80,7 +80,7 @@ public abstract class AbstractDashboardWidget extends Fragment {
     }
 
     protected List<GBDevice> getSupportedDevices(final DashboardFragment.DashboardData dashboardData) {
-        return GBApplication.app().getDeviceManager().getDevices()
+        return Application.app().getDeviceManager().getDevices()
                 .stream()
                 .filter(dev -> dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress()))
                 .filter(this::isSupportedBy)
@@ -112,7 +112,7 @@ public abstract class AbstractDashboardWidget extends Fragment {
         }
 
         if (devices.isEmpty()) {
-            GB.toast(GBApplication.getContext(), R.string.no_supported_devices_found, Toast.LENGTH_LONG, GB.WARN);
+            GB.toast(Application.getContext(), R.string.no_supported_devices_found, Toast.LENGTH_LONG, GB.WARN);
             return;
         }
 

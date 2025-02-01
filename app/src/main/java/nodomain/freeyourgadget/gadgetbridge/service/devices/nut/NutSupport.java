@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventVersionInfo;
 import nodomain.freeyourgadget.gadgetbridge.devices.nut.NutConstants;
@@ -130,7 +130,7 @@ public class NutSupport extends AbstractBTLEDeviceSupport {
         builder.add(new SetDeviceStateAction(getDevice(), GBDevice.State.INITIALIZED, getContext()));
 
         // Init prefs
-        prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         loadKeysFromPrefs();
 
         LOG.debug("Requesting device info!");

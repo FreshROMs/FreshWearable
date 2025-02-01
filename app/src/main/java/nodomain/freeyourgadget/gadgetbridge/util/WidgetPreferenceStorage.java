@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public class WidgetPreferenceStorage {
@@ -153,8 +153,8 @@ public class WidgetPreferenceStorage {
     }
 
     public GBDevice getDeviceForWidget(int appWidgetId) {
-        Context context = GBApplication.getContext();
-        if (!(context instanceof GBApplication)) {
+        Context context = Application.getContext();
+        if (!(context instanceof Application)) {
             return null;
         }
 
@@ -167,7 +167,7 @@ public class WidgetPreferenceStorage {
     }
 
     private GBDevice getDeviceByMAC(Context appContext, String HwAddress) {
-        GBApplication gbApp = (GBApplication) appContext;
+        Application gbApp = (Application) appContext;
         List<? extends GBDevice> devices = gbApp.getDeviceManager().getDevices();
         for (GBDevice device : devices) {
             if (device.getAddress().equals(HwAddress)) {

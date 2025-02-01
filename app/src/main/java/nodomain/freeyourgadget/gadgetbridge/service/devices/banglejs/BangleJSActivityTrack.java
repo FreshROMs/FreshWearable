@@ -25,7 +25,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -39,7 +39,6 @@ import nodomain.freeyourgadget.gadgetbridge.export.ActivityTrackExporter;
 import nodomain.freeyourgadget.gadgetbridge.export.GPXExporter;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityKind;
-import nodomain.freeyourgadget.gadgetbridge.model.ActivityPoint;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySummaryData;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityTrack;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
@@ -191,7 +190,7 @@ class BangleJSActivityTrack {
             track.startNewSegment();
             track.setBaseTime(startTime);
             track.setName(log);
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 DaoSession session = dbHandler.getDaoSession();
                 Device deviceDB = DBHelper.getDevice(device, session);
                 User user = DBHelper.getUser(session);
@@ -244,7 +243,7 @@ class BangleJSActivityTrack {
 
             //summary.setSummaryData(null); // remove json before saving to database,
 
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 DaoSession session = dbHandler.getDaoSession();
                 Device deviceDB = DBHelper.getDevice(device, session);
                 User user = DBHelper.getUser(session);
@@ -340,11 +339,11 @@ class BangleJSActivityTrack {
         // `ActivitySummaryActivity.resetFetchTimestampToChosenDate()` uses, so we have to
         // control if the user changed that value, and if so recompile a new sync id from that info.
 
-        String lastSyncedId = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).
+        String lastSyncedId = Application.getDeviceSpecificSharedPrefs(device.getAddress()).
                 getString("lastSportsActivityIdBangleJS","19700101a");
         LOG.debug("lastSyncedId: " + lastSyncedId);
 
-        long lastSportsActivityTimeMillis = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).
+        long lastSportsActivityTimeMillis = Application.getDeviceSpecificSharedPrefs(device.getAddress()).
                 getLong("lastSportsActivityTimeMillis",0);
         LOG.debug("lastSportsActivityTimeMillis: " + lastSportsActivityTimeMillis);
 
@@ -383,7 +382,7 @@ class BangleJSActivityTrack {
     private static void setLatestFetchedRecorderLog(String log, GBDevice device) {
         Calendar date = parseCalendarFromBangleJSLogId(log);
 
-        SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()).edit();
+        SharedPreferences.Editor editor = Application.getDeviceSpecificSharedPrefs(device.getAddress()).edit();
         editor.remove("lastSportsActivityIdBangleJS"); //FIXME: key reconstruction is BAD (FIXME inherited from `ActivitySummaryActivity`.
         editor.remove("lastSportsActivityTimeMillis"); //FIXME: key reconstruction is BAD
         editor.putString("lastSportsActivityIdBangleJS", log);

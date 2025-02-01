@@ -1,9 +1,5 @@
 package nodomain.freeyourgadget.gadgetbridge.activities.charts;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -13,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.fragment.app.FragmentManager;
 
 import com.github.mikephil.charting.charts.Chart;
@@ -35,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.GaugeDrawer;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
@@ -78,7 +73,7 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         stepsChart = rootView.findViewById(R.id.steps_daily_chart);
         setupStepsChart();
 
-        STEPS_GOAL = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
+        STEPS_GOAL = Application.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
         refresh();
 
         stepsStreaksButton = rootView.findViewById(R.id.steps_streaks_button);
@@ -123,7 +118,7 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         final int width = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 300,
-                GBApplication.getContext().getResources().getDisplayMetrics()
+                Application.getContext().getResources().getDisplayMetrics()
         );
 
         stepsGauge.setImageBitmap(GaugeDrawer.drawCircleGauge(

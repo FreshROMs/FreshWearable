@@ -38,7 +38,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
@@ -236,7 +236,7 @@ public class ColmiR0xDeviceSupport extends AbstractBTLEDeviceSupport {
                                 sampleCal.set(Calendar.SECOND, 0);
                                 LOG.info("Value {} is {} bpm, time of day is {}", i, value[i] & 0xff, sampleCal.getTime());
                                 // Build sample object and save in database
-                                try (DBHandler db = GBApplication.acquireDB()) {
+                                try (DBHandler db = Application.acquireDB()) {
                                     ColmiHeartRateSampleProvider sampleProvider = new ColmiHeartRateSampleProvider(getDevice(), db.getDaoSession());
                                     Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                                     Long deviceId = DBHelper.getDevice(getDevice(), db.getDaoSession()).getId();

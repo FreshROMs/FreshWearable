@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
@@ -42,8 +42,8 @@ public class PeriodicExporter {
     private static final String TAG = "exporter_db";
 
     public static void enablePeriodicExport(final Context context) {
-        Prefs prefs = GBApplication.getPrefs();
-        GBApplication gbApp = GBApplication.app();
+        Prefs prefs = Application.getPrefs();
+        Application gbApp = Application.app();
         final long autoExportScheduled = gbApp.getAutoExportScheduledTimestamp();
         final boolean autoExportEnabled = prefs.getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
         final int autoExportInterval = prefs.getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
@@ -66,7 +66,7 @@ public class PeriodicExporter {
             return;
         }
         LOG.info("Scheduling periodic export");
-        GBApplication gbApp = GBApplication.app();
+        Application gbApp = Application.app();
         gbApp.setAutoExportScheduledTimestamp(System.currentTimeMillis() + exportPeriodMillis);
 
         final PeriodicWorkRequest exportRequest =
@@ -78,7 +78,7 @@ public class PeriodicExporter {
     }
 
     public static void trigger() {
-        final WorkManager workManager = WorkManager.getInstance(GBApplication.getContext());
+        final WorkManager workManager = WorkManager.getInstance(Application.getContext());
         final OneTimeWorkRequest exportRequest =
                 new OneTimeWorkRequest.Builder(DatabaseExportWorker.class)
                         .addTag(TAG)

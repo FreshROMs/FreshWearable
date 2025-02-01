@@ -14,8 +14,8 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.AppException;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.test.TestBase;
@@ -33,7 +33,7 @@ public class DeviceCommunicationServiceTestCase extends TestBase {
         }
 
         @Override
-        public synchronized DeviceSupport createDeviceSupport(GBDevice device) throws GBException {
+        public synchronized DeviceSupport createDeviceSupport(GBDevice device) throws AppException {
             return mockSupport;
         }
     }
@@ -106,7 +106,7 @@ public class DeviceCommunicationServiceTestCase extends TestBase {
     @Ignore //FIXME, probably broken after adding multi-device support
     @Test
     public void testTransliterationSupport() {
-        SharedPreferences settings = GBApplication.getPrefs().getPreferences();
+        SharedPreferences settings = Application.getPrefs().getPreferences();
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("transliteration", true);
         editor.commit();
@@ -120,7 +120,7 @@ public class DeviceCommunicationServiceTestCase extends TestBase {
 
     @Test
     public void testRtlSupport() {
-        SharedPreferences settings = GBApplication.getPrefs().getPreferences();
+        SharedPreferences settings = Application.getPrefs().getPreferences();
         SharedPreferences.Editor editor = settings.edit();
         editor.putBoolean("transliteration", false);
         editor.putBoolean(GBPrefs.RTL_SUPPORT, true);

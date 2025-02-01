@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -71,7 +71,7 @@ public class DashboardBodyEnergyWidget extends AbstractGaugeWidget {
             // Latest stress sample for today
             BodyEnergySample sample = null;
 
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 for (GBDevice dev : devices) {
                     final BodyEnergySample latestSample = dev.getDeviceCoordinator().getBodyEnergySampleProvider(dev, dbHandler.getDaoSession())
                             .getLatestSample();
@@ -90,7 +90,7 @@ public class DashboardBodyEnergyWidget extends AbstractGaugeWidget {
             }
         } else {
             // Gain / loss for the period
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 for (GBDevice dev : devices) {
                     if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsBodyEnergy()) {
                         final List<? extends BodyEnergySample> samples = dev.getDeviceCoordinator()
@@ -131,7 +131,7 @@ public class DashboardBodyEnergyWidget extends AbstractGaugeWidget {
             return;
         }
 
-        final int colorEnergy = ContextCompat.getColor(GBApplication.getContext(), R.color.body_energy_level_color);
+        final int colorEnergy = ContextCompat.getColor(Application.getContext(), R.color.body_energy_level_color);
 
         if (bodyEnergyData.isToday) {
             if (bodyEnergyData.value < 0) {
@@ -165,7 +165,7 @@ public class DashboardBodyEnergyWidget extends AbstractGaugeWidget {
 
             final int[] colors = {
                     colorEnergy,
-                    ContextCompat.getColor(GBApplication.getContext(), R.color.body_energy_lost_color)
+                    ContextCompat.getColor(Application.getContext(), R.color.body_energy_lost_color)
             };
             final float[] segments = {
                     bodyEnergyData.gained / (float) (bodyEnergyData.gained + bodyEnergyData.lost),

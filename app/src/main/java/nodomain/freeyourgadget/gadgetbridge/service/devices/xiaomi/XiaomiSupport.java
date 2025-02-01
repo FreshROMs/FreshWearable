@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventUpdatePreferences;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -424,7 +424,7 @@ public class XiaomiSupport extends AbstractDeviceSupport {
 
         getConnectionSpecificSupport().onAuthSuccess();
 
-        if (GBApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
+        if (Application.getPrefs().getBoolean("datetime_synconconnect", true)) {
             systemService.setCurrentTime();
         }
 

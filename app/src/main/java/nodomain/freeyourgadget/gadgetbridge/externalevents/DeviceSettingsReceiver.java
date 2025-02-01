@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public class DeviceSettingsReceiver extends BroadcastReceiver {
@@ -57,7 +57,7 @@ public class DeviceSettingsReceiver extends BroadcastReceiver {
             return;
         }
 
-        final GBDevice targetDevice = GBApplication.app()
+        final GBDevice targetDevice = Application.app()
                 .getDeviceManager()
                 .getDeviceByAddress(deviceAddress);
 
@@ -66,7 +66,7 @@ public class DeviceSettingsReceiver extends BroadcastReceiver {
             return;
         }
 
-        final SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(targetDevice.getAddress());
+        final SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(targetDevice.getAddress());
 
         if (!prefs.getBoolean("third_party_apps_set_settings", false)) {
             LOG.warn("Setting device settings from 3rd party apps not allowed for {}", deviceAddress);
@@ -105,6 +105,6 @@ public class DeviceSettingsReceiver extends BroadcastReceiver {
 
         editor.commit();
 
-        GBApplication.deviceService().onSendConfiguration(key);
+        Application.deviceService().onSendConfiguration(key);
     }
 }

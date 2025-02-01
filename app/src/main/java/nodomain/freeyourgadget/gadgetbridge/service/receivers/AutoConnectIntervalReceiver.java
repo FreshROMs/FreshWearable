@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Calendar;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceCommunicationService;
@@ -85,7 +85,7 @@ public class AutoConnectIntervalReceiver extends BroadcastReceiver {
             for(GBDevice device : devices){
                 if(device.getState() == GBDevice.State.WAITING_FOR_RECONNECT) {
                     LOG.info("Will re-connect to " + device.getAddress() + "(" + device.getName() + ")");
-                    GBApplication.deviceService(device).connect();
+                    Application.deviceService(device).connect();
                 }
             }
         }
@@ -101,10 +101,10 @@ public class AutoConnectIntervalReceiver extends BroadcastReceiver {
 
     public void scheduleReconnect(int delay) {
         LOG.info("scheduling reconnect in " + delay + " seconds");
-        AlarmManager am = (AlarmManager) (GBApplication.getContext().getSystemService(Context.ALARM_SERVICE));
+        AlarmManager am = (AlarmManager) (Application.getContext().getSystemService(Context.ALARM_SERVICE));
         Intent intent = new Intent("GB_RECONNECT");
         intent.setPackage(BuildConfig.APPLICATION_ID);
-        PendingIntent pendingIntent = PendingIntentUtils.getBroadcast(GBApplication.getContext(), 0, intent, 0, false);
+        PendingIntent pendingIntent = PendingIntentUtils.getBroadcast(Application.getContext(), 0, intent, 0, false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             am.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, Calendar.getInstance().
                     getTimeInMillis() + delay * 1000, pendingIntent);

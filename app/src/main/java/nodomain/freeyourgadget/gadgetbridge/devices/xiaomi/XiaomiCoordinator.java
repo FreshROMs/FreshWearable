@@ -36,8 +36,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.AppException;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
@@ -109,7 +109,7 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     @Override
     protected void deleteDevice(@NonNull final GBDevice gbDevice,
                                 @NonNull final Device device,
-                                @NonNull final DaoSession session) throws GBException {
+                                @NonNull final DaoSession session) throws AppException {
         final Long deviceId = device.getId();
 
         session.getXiaomiActivitySampleDao().queryBuilder()
@@ -585,7 +585,7 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     protected static Prefs getPrefs(final GBDevice device) {
-        return new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        return new Prefs(Application.getDeviceSpecificSharedPrefs(device.getAddress()));
     }
 
     public boolean supports(final GBDevice device, final String feature) {

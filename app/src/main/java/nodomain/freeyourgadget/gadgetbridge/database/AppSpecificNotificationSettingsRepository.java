@@ -23,7 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import de.greenrobot.dao.query.QueryBuilder;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.entities.AppSpecificNotificationSettingDao;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.AppSpecificNotificationSetting;
@@ -41,7 +41,7 @@ public class AppSpecificNotificationSettingsRepository {
 
     @Nullable
     public AppSpecificNotificationSetting getSettingsForAppId(String appId) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             DaoSession session = db.getDaoSession();
             QueryBuilder<AppSpecificNotificationSetting> qb = session.getAppSpecificNotificationSettingDao().queryBuilder();
             return qb.where(
@@ -55,7 +55,7 @@ public class AppSpecificNotificationSettingsRepository {
     }
 
     private void deleteForAppId(@NonNull String appId) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             DaoSession session = db.getDaoSession();
             QueryBuilder<AppSpecificNotificationSetting> qb = session.getAppSpecificNotificationSettingDao().queryBuilder();
             qb.where(
@@ -72,7 +72,7 @@ public class AppSpecificNotificationSettingsRepository {
             deleteForAppId(appId);
         } else {
             settings.setPackageId(appId);
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = Application.acquireDB()) {
                 DaoSession session = db.getDaoSession();
                 Device dbDevice = DBHelper.findDevice(mGbDevice, session);
                 settings.setDeviceId(dbDevice.getId());

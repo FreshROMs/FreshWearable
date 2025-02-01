@@ -26,7 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceCommunicationService;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
@@ -43,7 +43,7 @@ public class BluetoothStateChangeReceiver extends BroadcastReceiver {
                 final Intent refreshIntent = new Intent(DeviceManager.ACTION_REFRESH_DEVICELIST);
                 LocalBroadcastManager.getInstance(context).sendBroadcast(refreshIntent);
 
-                final GBPrefs prefs = GBApplication.getPrefs();
+                final GBPrefs prefs = Application.getPrefs();
                 if (!DeviceCommunicationService.isRunning(context) && !prefs.getAutoStart()) {
                     // Prevent starting the service if it isn't yet running
                     LOG.debug("DeviceCommunicationService not running, ignoring bluetooth on");
@@ -55,7 +55,7 @@ public class BluetoothStateChangeReceiver extends BroadcastReceiver {
                 }
 
                 LOG.info("Bluetooth turned on (ACTION_STATE_CHANGED) => connecting...");
-                GBApplication.deviceService().connect();
+                Application.deviceService().connect();
             } else if (intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, -1) == BluetoothAdapter.STATE_OFF) {
                 if (!DeviceCommunicationService.isRunning(context)) {
                     // Prevent starting the service if it isn't yet running
@@ -63,7 +63,7 @@ public class BluetoothStateChangeReceiver extends BroadcastReceiver {
                     return;
                 }
                 LOG.info("Bluetooth turned off => disconnecting...");
-                GBApplication.deviceService().disconnect();
+                Application.deviceService().disconnect();
             }
         }
     }

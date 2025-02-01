@@ -82,7 +82,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.DebugActivity;
@@ -623,7 +623,7 @@ public class DiscoveryActivityV2 extends AbstractGBActivity implements AdapterVi
         LOG.info("Using device candidate {} with coordinator {}", deviceCandidate, coordinator.getClass());
 
         if (coordinator.getBondingStyle() == DeviceCoordinator.BONDING_STYLE_REQUIRE_KEY) {
-            final SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceCandidate.getMacAddress());
+            final SharedPreferences sharedPrefs = Application.getDeviceSpecificSharedPrefs(deviceCandidate.getMacAddress());
 
             final String authKey = sharedPrefs.getString("authkey", null);
             if (authKey == null || authKey.isEmpty()) {
@@ -828,7 +828,7 @@ public class DiscoveryActivityV2 extends AbstractGBActivity implements AdapterVi
     }
 
     private void loadSettings() {
-        final Prefs prefs = GBApplication.getPrefs();
+        final Prefs prefs = Application.getPrefs();
         deviceFoundProcessor.setDiscoverUnsupported(prefs.getBoolean("discover_unsupported_devices", false));
     }
 

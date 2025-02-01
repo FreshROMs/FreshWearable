@@ -46,7 +46,7 @@ import de.greenrobot.dao.Property;
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
 import de.greenrobot.dao.query.WhereCondition;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.ActivityDescription;
@@ -73,7 +73,6 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
 import nodomain.freeyourgadget.gadgetbridge.model.ValidByDate;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
@@ -601,12 +600,12 @@ public class DBHelper {
     @NonNull
     public static List<Alarm> getAlarms(@NonNull GBDevice gbDevice) {
         DeviceCoordinator coordinator = gbDevice.getDeviceCoordinator();
-        GBPrefs prefs = new GBPrefs(new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress())));
+        GBPrefs prefs = new GBPrefs(new Prefs(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress())));
 
         int reservedSlots = prefs.getInt(DeviceSettingsPreferenceConst.PREF_RESERVER_ALARMS_CALENDAR, 0);
         int alarmSlots = coordinator.getAlarmSlotCount(gbDevice);
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             DaoSession daoSession = db.getDaoSession();
             User user = getUser(daoSession);
             Device dbDevice = DBHelper.findDevice(gbDevice, daoSession);
@@ -626,7 +625,7 @@ public class DBHelper {
     }
 
     public static void store(Alarm alarm) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             DaoSession daoSession = db.getDaoSession();
             daoSession.insertOrReplace(alarm);
         } catch (Exception e) {
@@ -645,10 +644,10 @@ public class DBHelper {
     public static List<Reminder> getReminders(@NonNull GBDevice gbDevice) {
         final DeviceCoordinator coordinator = gbDevice.getDeviceCoordinator();
 
-        final int reservedSlots = GBApplication.getDevicePrefs(gbDevice).getReservedReminderCalendarSlots();
+        final int reservedSlots = Application.getDevicePrefs(gbDevice).getReservedReminderCalendarSlots();
         final int reminderSlots = coordinator.getReminderSlotCount(gbDevice);
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             final User user = getUser(daoSession);
             final Device dbDevice = DBHelper.findDevice(gbDevice, daoSession);
@@ -670,7 +669,7 @@ public class DBHelper {
 
     @NonNull
     public static List<WorldClock> getWorldClocks(@NonNull GBDevice gbDevice) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             final User user = getUser(daoSession);
             final Device dbDevice = DBHelper.findDevice(gbDevice, daoSession);
@@ -692,7 +691,7 @@ public class DBHelper {
 
     @NonNull
     public static List<Contact> getContacts(@NonNull GBDevice gbDevice) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             final User user = getUser(daoSession);
             final Device dbDevice = DBHelper.findDevice(gbDevice, daoSession);
@@ -713,7 +712,7 @@ public class DBHelper {
     }
 
     public static void store(final Reminder reminder) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             daoSession.insertOrReplace(reminder);
         } catch (final Exception e) {
@@ -722,7 +721,7 @@ public class DBHelper {
     }
 
     public static void store(final WorldClock worldClock) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             daoSession.insertOrReplace(worldClock);
         } catch (final Exception e) {
@@ -731,7 +730,7 @@ public class DBHelper {
     }
 
     public static void store(final Contact contact) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             daoSession.insertOrReplace(contact);
         } catch (final Exception e) {
@@ -740,7 +739,7 @@ public class DBHelper {
     }
 
     public static void delete(final Reminder reminder) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             daoSession.delete(reminder);
         } catch (final Exception e) {
@@ -749,7 +748,7 @@ public class DBHelper {
     }
 
     public static void delete(final WorldClock worldClock) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             daoSession.delete(worldClock);
         } catch (final Exception e) {
@@ -758,7 +757,7 @@ public class DBHelper {
     }
 
     public static void delete(final Contact contact) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
             daoSession.delete(contact);
         } catch (final Exception e) {
@@ -767,7 +766,7 @@ public class DBHelper {
     }
 
     public static void clearSession() {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             DaoSession session = dbHandler.getDaoSession();
             session.clear();
         } catch (Exception e) {

@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -62,7 +62,7 @@ public class WithingsCalibrationActivity extends AbstractGBActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withings_calibration);
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = Application.app().getDeviceManager().getSelectedDevices();
         for(GBDevice device : devices){
             if(device.getType() == DeviceType.WITHINGS_STEEL_HR ){
                 this.device = device;

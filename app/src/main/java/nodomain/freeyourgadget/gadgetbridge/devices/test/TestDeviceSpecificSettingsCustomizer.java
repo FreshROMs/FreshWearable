@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -73,7 +73,7 @@ public class TestDeviceSpecificSettingsCustomizer implements DeviceSpecificSetti
             addTestActivities.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(@NonNull final Preference preference) {
-                    try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                    try (DBHandler dbHandler = Application.acquireDB()) {
                         final DaoSession session = dbHandler.getDaoSession();
                         final Device device = DBHelper.getDevice(handler.getDevice(), session);
                         final User user = DBHelper.getUser(session);

@@ -35,15 +35,13 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
@@ -93,7 +91,7 @@ public class CalendarManager {
     public List<CalendarEvent> getCalendarEventList() {
         loadCalendarsBlackList();
 
-        final SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceAddress);
+        final SharedPreferences sharedPrefs = Application.getDeviceSpecificSharedPrefs(deviceAddress);
         final Prefs prefs = new Prefs(sharedPrefs);
         int lookaheadDays = Math.max(1, prefs.getInt("calendar_lookahead_days", 7));
         final List<CalendarEvent> calendarEventList = getCalendarEvents(lookaheadDays);
@@ -301,7 +299,7 @@ public class CalendarManager {
     }
 
     private void loadCalendarsBlackList() {
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceAddress);
+        SharedPreferences sharedPrefs = Application.getDeviceSpecificSharedPrefs(deviceAddress);
 
         LOG.info("Loading calendars_blacklist");
         calendars_blacklist = (HashSet<String>) sharedPrefs.getStringSet(GBPrefs.CALENDAR_BLACKLIST, null);
@@ -312,7 +310,7 @@ public class CalendarManager {
     }
 
     private void saveCalendarsBlackList() {
-        final SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(deviceAddress);
+        final SharedPreferences sharedPrefs = Application.getDeviceSpecificSharedPrefs(deviceAddress);
 
         LOG.info("Saving calendars_blacklist with {} entries", calendars_blacklist.size());
         SharedPreferences.Editor editor = sharedPrefs.edit();

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventSendBytes;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -48,7 +48,7 @@ class AppMessageHandler {
     AppMessageHandler(UUID uuid, PebbleProtocol pebbleProtocol) {
         mUUID = uuid;
         mPebbleProtocol = pebbleProtocol;
-        devicePrefs = GBApplication.getDevicePrefs(pebbleProtocol.getDevice());
+        devicePrefs = Application.getDevicePrefs(pebbleProtocol.getDevice());
     }
 
     public boolean isEnabled() {

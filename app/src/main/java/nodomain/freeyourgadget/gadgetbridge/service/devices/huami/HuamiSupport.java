@@ -72,8 +72,8 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import cyanogenmod.weather.util.WeatherUtils;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.Logging;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.Logging;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
@@ -581,7 +581,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
                 return new Mi2NotificationStrategy(this);
             }
         }
-        if (GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(MiBandConst.PREF_MI2_ENABLE_TEXT_NOTIFICATIONS, true)) {
+        if (Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(MiBandConst.PREF_MI2_ENABLE_TEXT_NOTIFICATIONS, true)) {
             return new Mi2TextNotificationStrategy(this);
         }
         return new Mi2NotificationStrategy(this);
@@ -616,7 +616,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
         LOG.info("Attempting to set Fitness Goal...");
         BluetoothGattCharacteristic characteristic = getCharacteristic(HuamiService.UUID_CHARACTERISTIC_8_USER_SETTINGS);
         if (characteristic != null) {
-            int fitnessGoal = GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
+            int fitnessGoal = Application.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal);
             byte[] bytes = ArrayUtils.addAll(
                     HuamiService.COMMAND_SET_FITNESS_GOAL_START,
                     BLETypeConversions.fromUint16(fitnessGoal));
@@ -642,7 +642,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
         }
 
         LOG.info("Attempting to set user info...");
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         String alias = prefs.getString(PREF_USER_NAME, null);
         ActivityUser activityUser = new ActivityUser();
         int height = activityUser.getHeightCm();
@@ -1066,7 +1066,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     private void sendReminders(final TransactionBuilder builder, final List<? extends Reminder> reminders) {
         final DeviceCoordinator coordinator = gbDevice.getDeviceCoordinator();
 
-        int reservedSlots = GBApplication.getDevicePrefs(gbDevice).getReservedReminderCalendarSlots();
+        int reservedSlots = Application.getDevicePrefs(gbDevice).getReservedReminderCalendarSlots();
         LOG.info("On Set Reminders. Reminders: {}, Reserved slots: {}", reminders.size(), reservedSlots);
 
         // Send the reminders, skipping the reserved slots for calendar events
@@ -1841,7 +1841,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     private void sendSystemBroadcastWithButtonId() {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         String requiredButtonPressMessage = prefs.getString(HuamiConst.PREF_BUTTON_ACTION_BROADCAST,
                 this.getContext().getString(R.string.mi2_prefs_button_press_broadcast_default_value));
         Intent in = new Intent();
@@ -2237,7 +2237,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     private void handleLongButtonEvent(){
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
 
         if (!prefs.getBoolean(HuamiConst.PREF_BUTTON_ACTION_ENABLE, false)) {
             return;
@@ -2253,7 +2253,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     private void handleButtonEvent() {
 
         // If disabled we return from function immediately
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         if (!prefs.getBoolean(HuamiConst.PREF_BUTTON_ACTION_ENABLE, false)) {
             return;
         }
@@ -2624,7 +2624,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
                 @Override
                 public void doCurrentSample() {
 
-                    try (DBHandler handler = GBApplication.acquireDB()) {
+                    try (DBHandler handler = Application.acquireDB()) {
                         DaoSession session = handler.getDaoSession();
 
                         Device device = DBHelper.getDevice(gbDevice, session);
@@ -2755,7 +2755,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
      */
     private HuamiSupport sendCalendarEventsAsAlarms(TransactionBuilder builder) {
         DeviceCoordinator coordinator = gbDevice.getDeviceCoordinator();
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
         int maxAlarms = coordinator.getAlarmSlotCount(gbDevice);
         int availableSlots = Math.min(prefs.getInt(PREF_RESERVER_ALARMS_CALENDAR, 0), maxAlarms);
 
@@ -2787,13 +2787,13 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     private HuamiSupport sendCalendarEventsAsReminders(TransactionBuilder builder) {
-        boolean syncCalendar = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_SYNC_CALENDAR, false);
+        boolean syncCalendar = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_SYNC_CALENDAR, false);
         if (!syncCalendar) {
             return this;
         }
         final DeviceCoordinator coordinator = gbDevice.getDeviceCoordinator();
 
-        int availableSlots = GBApplication.getDevicePrefs(gbDevice).getReservedReminderCalendarSlots();
+        int availableSlots = Application.getDevicePrefs(gbDevice).getReservedReminderCalendarSlots();
 
         CalendarManager upcomingEvents = new CalendarManager(getContext(), getDevice().getAddress());
         List<CalendarEvent> calendarEvents = upcomingEvents.getCalendarEventList();
@@ -3339,7 +3339,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
                 LOG.error("Error sending wind/humidity", ex);
             }
 
-            float[] longlat = GBApplication.getPrefs().getLongLat(getContext());
+            float[] longlat = Application.getPrefs().getLongLat(getContext());
             float longitude = longlat[0];
             float latitude = longlat[1];
             if (longitude != 0 && latitude != 0) {
@@ -3392,7 +3392,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     protected HuamiSupport setDateFormat(TransactionBuilder builder) {
-        String dateFormat = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("dateformat", "MM/dd/yyyy");
+        String dateFormat = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("dateformat", "MM/dd/yyyy");
         if (dateFormat == null) {
             return this;
         }
@@ -3412,7 +3412,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     protected HuamiSupport setTimeFormat(TransactionBuilder builder) {
-        String timeFormat = GBApplication.getDevicePrefs(gbDevice).getTimeFormat();
+        String timeFormat = Application.getDevicePrefs(gbDevice).getTimeFormat();
 
         LOG.info("Setting time format to " + timeFormat);
         if (timeFormat.equals(DeviceSettingsPreferenceConst.PREF_TIMEFORMAT_24H)) {
@@ -3486,7 +3486,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     protected HuamiSupport setDisplayItems(TransactionBuilder builder) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
         Set<String> pages = prefs.getStringSet(HuamiConst.PREF_DISPLAY_ITEMS, new HashSet<>(Arrays.asList(getContext().getResources().getStringArray(R.array.pref_mi2_display_items_default))));
 
         LOG.info("Setting display items to " + (pages == null ? "none" : pages));
@@ -3516,7 +3516,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     protected HuamiSupport setDisplayItemsOld(TransactionBuilder builder, boolean isShortcuts, int defaultSettings, Map<String, Integer> keyPosMap) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
         String pages;
         List<String> enabledList;
         if (isShortcuts) {
@@ -3587,7 +3587,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     protected HuamiSupport setDisplayItemsNew(TransactionBuilder builder, boolean isShortcuts, boolean forceWatchface, int defaultSettings) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
         String pages;
         ArrayList<String> enabledList;
         byte menuType;
@@ -3649,7 +3649,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     protected HuamiSupport setWorkoutActivityTypes(final TransactionBuilder builder) {
-        final SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        final SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
 
         final List<String> defaultActivityTypes = Arrays.asList(HuamiWorkoutScreenActivityType.Freestyle.name().toLowerCase(Locale.ROOT));
         final String activityTypesPref = prefs.getString(HuamiConst.PREF_WORKOUT_ACTIVITY_TYPES_SORTABLE, null);
@@ -3694,7 +3694,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     protected HuamiSupport setBeepSounds(TransactionBuilder builder) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
         Set<String> sounds = prefs.getStringSet(PREF_SOUNDS, new HashSet<>(Arrays.asList(getContext().getResources().getStringArray(R.array.pref_amazfitneo_sounds_default))));
 
         LOG.info("Setting sounds to " + (sounds == null ? "none" : sounds));
@@ -3955,7 +3955,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     protected HuamiSupport setLanguage(TransactionBuilder builder) {
-        String localeString = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("language", "auto");
+        String localeString = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("language", "auto");
         if (localeString == null || localeString.equals("auto")) {
             String language = Locale.getDefault().getLanguage();
             String country = Locale.getDefault().getCountry();
@@ -4018,7 +4018,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     protected byte getLanguageId() {
         byte language_code = 0x02; // english default
 
-        String localeString = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("language", "auto");
+        String localeString = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getString("language", "auto");
         if (localeString == null || localeString.equals("auto")) {
             String language = Locale.getDefault().getLanguage();
             String country = Locale.getDefault().getCountry();
@@ -4280,7 +4280,7 @@ public abstract class HuamiSupport extends AbstractBTLEDeviceSupport implements 
     }
 
     public boolean force2021Protocol() {
-        return GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean("force_new_protocol", false);
+        return Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean("force_new_protocol", false);
     }
 
     protected HuamiCoordinator getCoordinator() {

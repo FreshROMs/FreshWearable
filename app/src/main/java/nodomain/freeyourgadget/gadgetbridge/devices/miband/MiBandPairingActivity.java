@@ -40,7 +40,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AboutUserPreferencesActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
@@ -52,7 +52,6 @@ import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceCandidate;
-import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.BondingInterface;
 import nodomain.freeyourgadget.gadgetbridge.util.BondingUtil;
@@ -93,7 +92,7 @@ public class MiBandPairingActivity extends AbstractGBActivity implements Bonding
         GBDevice device = DeviceHelper.getInstance().toSupportedDevice(deviceCandidate);
 
         if (coordinator.getSupportedDeviceSpecificAuthenticationSettings() != null) { // FIXME: this will no longer be sane in the future
-            SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+            SharedPreferences sharedPrefs = Application.getDeviceSpecificSharedPrefs(device.getAddress());
             String authKey = sharedPrefs.getString("authkey", null);
             if (authKey == null || authKey.isEmpty()) {
                 SharedPreferences.Editor editor = sharedPrefs.edit();
@@ -183,7 +182,7 @@ public class MiBandPairingActivity extends AbstractGBActivity implements Bonding
             BluetoothDevice device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(macAddress);
             if (device != null && device.getBondState() == BluetoothDevice.BOND_NONE) {
                 // Persist the device directly to the database
-                try (DBHandler db = GBApplication.acquireDB()) {
+                try (DBHandler db = Application.acquireDB()) {
                     final DaoSession daoSession = db.getDaoSession();
                     final GBDevice gbDevice = DeviceHelper.getInstance().toSupportedDevice(deviceCandidate);
                     DBHelper.getDevice(gbDevice, daoSession);

@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.entries.ActivitySummaryProgressEntry;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiWorkoutType;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
@@ -140,7 +140,7 @@ public class XiaomiSimpleActivityParser {
                                     zoneTime,
                                     UNIT_SECONDS,
                                     ((100 * zoneTime) / totalTime),
-                                    zoneColor != 0 ? GBApplication.getContext().getResources().getColor(zoneColor) : 0
+                                    zoneColor != 0 ? Application.getContext().getResources().getColor(zoneColor) : 0
                             )
                     );
                 }

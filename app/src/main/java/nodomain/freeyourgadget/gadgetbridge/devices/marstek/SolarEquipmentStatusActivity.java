@@ -38,7 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.GaugeDrawer;
@@ -93,29 +93,29 @@ public class SolarEquipmentStatusActivity extends AbstractGBActivity {
 
     public static int[] getColors() {
         return new int[]{
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_stress_unknown),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_poor_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_fair_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.body_energy_level_color),
+                ContextCompat.getColor(Application.getContext(), R.color.chart_stress_unknown),
+                ContextCompat.getColor(Application.getContext(), R.color.vo2max_value_poor_color),
+                ContextCompat.getColor(Application.getContext(), R.color.vo2max_value_fair_color),
+                ContextCompat.getColor(Application.getContext(), R.color.body_energy_level_color),
         };
     }
 
     public static int[] getColorsTemp() {
         return new int[]{
-                ContextCompat.getColor(GBApplication.getContext(), R.color.calories_resting_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_excellent_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.body_energy_level_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_fair_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_poor_color),
+                ContextCompat.getColor(Application.getContext(), R.color.calories_resting_color),
+                ContextCompat.getColor(Application.getContext(), R.color.vo2max_value_excellent_color),
+                ContextCompat.getColor(Application.getContext(), R.color.body_energy_level_color),
+                ContextCompat.getColor(Application.getContext(), R.color.vo2max_value_fair_color),
+                ContextCompat.getColor(Application.getContext(), R.color.vo2max_value_poor_color),
         };
     }
 
     public static int[] getColorsOutput() {
         return new int[]{
-                ContextCompat.getColor(GBApplication.getContext(), R.color.chart_stress_unknown),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.body_energy_level_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_fair_color),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.vo2max_value_poor_color),
+                ContextCompat.getColor(Application.getContext(), R.color.chart_stress_unknown),
+                ContextCompat.getColor(Application.getContext(), R.color.body_energy_level_color),
+                ContextCompat.getColor(Application.getContext(), R.color.vo2max_value_fair_color),
+                ContextCompat.getColor(Application.getContext(), R.color.vo2max_value_poor_color),
         };
     }
 
@@ -198,7 +198,7 @@ public class SolarEquipmentStatusActivity extends AbstractGBActivity {
                 GB.toast(getString(R.string.info_no_devices_connected), Toast.LENGTH_LONG, GB.WARN);
                 return;
             }
-            GBApplication.deviceService(gBDevice).onFetchRecordedData(0);
+            Application.deviceService(gBDevice).onFetchRecordedData(0);
         });
 
         IntentFilter filterLocal = new IntentFilter();

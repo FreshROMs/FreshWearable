@@ -46,12 +46,12 @@ import java.util.List;
 import java.util.Set;
 
 import androidx.recyclerview.widget.RecyclerView;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.NotificationFilterActivity;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-import static nodomain.freeyourgadget.gadgetbridge.GBApplication.packageNameToPebbleMsgSender;
+import static xyz.tenseventyseven.fresh.Application.packageNameToPebbleMsgSender;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,7 +83,7 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
             if (name == null) {
                 name = ai.packageName;
             }
-            if (GBApplication.appIsNotifBlacklisted(ai.packageName) || GBApplication.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(ai.packageName))) {
+            if (Application.appIsNotifBlacklisted(ai.packageName) || Application.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(ai.packageName))) {
                 // sort blacklisted first by prefixing with a '!'
                 name = "!" + name;
             }
@@ -115,17 +115,17 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
         holder.deviceAppNameLabel.setText(mNameMap.get(appInfo));
         holder.deviceImageView.setImageDrawable(appInfo.loadIcon(mPm));
 
-        holder.blacklist_checkbox.setChecked(GBApplication.appIsNotifBlacklisted(appInfo.packageName));
-        holder.blacklist_pebble_checkbox.setChecked(GBApplication.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(appInfo.packageName)));
+        holder.blacklist_checkbox.setChecked(Application.appIsNotifBlacklisted(appInfo.packageName));
+        holder.blacklist_pebble_checkbox.setChecked(Application.appIsPebbleBlacklisted(packageNameToPebbleMsgSender(appInfo.packageName)));
 
         holder.blacklist_pebble_checkbox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ((CheckedTextView) view).toggle();
                 if (((CheckedTextView) view).isChecked()) {
-                    GBApplication.addAppToPebbleBlacklist(appInfo.packageName);
+                    Application.addAppToPebbleBlacklist(appInfo.packageName);
                 } else {
-                    GBApplication.removeFromAppsPebbleBlacklist(appInfo.packageName);
+                    Application.removeFromAppsPebbleBlacklist(appInfo.packageName);
                 }
 
             }
@@ -136,9 +136,9 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
                 CheckedTextView checkBox = (v.findViewById(R.id.item_checkbox));
                 checkBox.toggle();
                 if (checkBox.isChecked()) {
-                    GBApplication.addAppToNotifBlacklist(appInfo.packageName);
+                    Application.addAppToNotifBlacklist(appInfo.packageName);
                 } else {
-                    GBApplication.removeFromAppsNotifBlacklist(appInfo.packageName);
+                    Application.removeFromAppsNotifBlacklist(appInfo.packageName);
                 }
             }
         });
@@ -147,7 +147,7 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
             @Override
             public void onClick(View view) {
 
-                if (GBApplication.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
+                if (Application.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
                     if (holder.blacklist_checkbox.isChecked()) {
                         GB.toast(mContext, mContext.getString(R.string.toast_app_must_not_be_selected), Toast.LENGTH_SHORT, GB.INFO);
                     } else {
@@ -215,13 +215,13 @@ public class AppBlacklistAdapter extends RecyclerView.Adapter<AppBlacklistAdapte
         for (ApplicationInfo ai : allApps) {
             apps_blacklist.add(ai.packageName);
         }
-        GBApplication.setAppsNotifBlackList(apps_blacklist);
+        Application.setAppsNotifBlackList(apps_blacklist);
         notifyDataSetChanged();
     }
 
     public void uncheckAllApplications() {
         Set<String> apps_blacklist = new HashSet<>();
-        GBApplication.setAppsNotifBlackList(apps_blacklist);
+        Application.setAppsNotifBlackList(apps_blacklist);
         notifyDataSetChanged();
     }
 

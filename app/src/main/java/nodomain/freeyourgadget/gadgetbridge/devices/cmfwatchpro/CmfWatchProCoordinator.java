@@ -34,8 +34,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.AppException;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
@@ -95,7 +95,7 @@ public class CmfWatchProCoordinator extends AbstractBLEDeviceCoordinator {
     @Override
     protected void deleteDevice(@NonNull final GBDevice gbDevice,
                                 @NonNull final Device device,
-                                @NonNull final DaoSession session) throws GBException {
+                                @NonNull final DaoSession session) throws AppException {
         final Long deviceId = device.getId();
 
         session.getCmfActivitySampleDao().queryBuilder()
@@ -368,7 +368,7 @@ public class CmfWatchProCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     protected static Prefs getPrefs(final GBDevice device) {
-        return new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        return new Prefs(Application.getDeviceSpecificSharedPrefs(device.getAddress()));
     }
 
     public boolean supportsSunriseSunset() {

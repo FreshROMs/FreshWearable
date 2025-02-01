@@ -51,7 +51,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconAdapter;
 import nodomain.freeyourgadget.gadgetbridge.adapter.SpinnerWithIconItem;
@@ -96,10 +96,10 @@ public class ActivitySummariesFilter extends AbstractGBActivity {
         nameContainsFilter = bundle.getString("nameContainsFilter");
 
         Context appContext = this.getApplicationContext();
-        if (appContext instanceof GBApplication) {
+        if (appContext instanceof Application) {
             setContentView(R.layout.sport_activity_filter);
         }
-        BACKGROUND_COLOR = GBApplication.getBackgroundColor(appContext);
+        BACKGROUND_COLOR = Application.getBackgroundColor(appContext);
 
         allDevices = getAllDevices(appContext);
 
@@ -383,12 +383,12 @@ public class ActivitySummariesFilter extends AbstractGBActivity {
 
     public LinkedHashMap<String, Pair<Long, Integer>> getAllDevices(Context appContext) {
         DaoSession daoSession;
-        GBApplication gbApp = (GBApplication) appContext;
+        Application gbApp = (Application) appContext;
         LinkedHashMap<String, Pair<Long, Integer>> newMap = new LinkedHashMap<>(1);
         List<? extends GBDevice> devices = gbApp.getDeviceManager().getDevices();
         newMap.put(getString(R.string.activity_summaries_all_devices), new Pair<>(ALL_DEVICES, R.drawable.ic_device_default_disabled));
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             daoSession = handler.getDaoSession();
             for (GBDevice device : devices) {
                 DeviceCoordinator coordinator = device.getType().getDeviceCoordinator();

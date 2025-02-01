@@ -115,7 +115,7 @@
         android:required="false" />
 
     <application
-        android:name="nodomain.freeyourgadget.gadgetbridge.GBApplication"
+        android:name=".Application"
         android:allowBackup="false"
         android:supportsRtl="true"
         android:fullBackupContent="false"

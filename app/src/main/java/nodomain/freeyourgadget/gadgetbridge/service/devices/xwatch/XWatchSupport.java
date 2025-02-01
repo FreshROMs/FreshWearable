@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventVersionInfo;
@@ -340,7 +340,7 @@ public class XWatchSupport extends AbstractBTLEDeviceSupport {
                 LOG.warn("DATA: " + String.format("0x%4x", b));
             }
         } else {
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 XWatchSampleProvider provider = new XWatchSampleProvider(getDevice(), dbHandler.getDaoSession());
                 User user = DBHelper.getUser(dbHandler.getDaoSession());
                 Device device = DBHelper.getDevice(getDevice(), dbHandler.getDaoSession());

@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.id115.ID115Constants;
@@ -136,7 +136,7 @@ public class FetchActivityOperation extends AbstractID115Operation {
             }
         }
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             ID115ActivitySample[] sampleArray = samples.toArray(new ID115ActivitySample[0]);
             long userId = DBHelper.getUser(dbHandler.getDaoSession()).getId();
             long deviceId = DBHelper.getDevice(getDevice(), dbHandler.getDaoSession()).getId();

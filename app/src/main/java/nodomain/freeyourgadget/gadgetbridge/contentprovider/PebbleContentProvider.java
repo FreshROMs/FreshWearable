@@ -30,7 +30,7 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.DevicePrefs;
@@ -80,7 +80,7 @@ public class PebbleContentProvider extends ContentProvider {
             int pebbleKit = 0;
             String fwString = "unknown";
             if (mGBDevice != null && mGBDevice.getType() == DeviceType.PEBBLE && mGBDevice.isInitialized()) {
-                final DevicePrefs deviceSpecificSharedPrefsrefs = GBApplication.getDevicePrefs(mGBDevice);
+                final DevicePrefs deviceSpecificSharedPrefsrefs = Application.getDevicePrefs(mGBDevice);
                 if (deviceSpecificSharedPrefsrefs.getBoolean("third_party_apps_set_settings", false)) {
                     pebbleKit = 1;
                 }

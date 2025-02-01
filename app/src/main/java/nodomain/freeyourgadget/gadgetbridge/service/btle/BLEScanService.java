@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -277,7 +277,7 @@ public class BLEScanService extends Service {
                 restartScan(true);
                 return;
             }
-            if (GBApplication.ACTION_QUIT.equals(intent.getAction())) {
+            if (Application.ACTION_QUIT.equals(intent.getAction())) {
                 LOG.debug("stopping scan service...");
                 if (currentState.isDoingAnyScan()) {
                     if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_SCAN) != PackageManager.PERMISSION_GRANTED) {
@@ -315,7 +315,7 @@ public class BLEScanService extends Service {
     private void registerReceivers() {
         IntentFilter filter = new IntentFilter();
         filter.addAction(GBDevice.ACTION_DEVICE_CHANGED);
-        filter.addAction(GBApplication.ACTION_QUIT);
+        filter.addAction(Application.ACTION_QUIT);
         localBroadcastManager.registerReceiver(
                 deviceStateUpdateReceiver,
                 filter
@@ -374,7 +374,7 @@ public class BLEScanService extends Service {
         ArrayList<ScanFilter> scanFilters = null;
 
         if (applyFilters) {
-            List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+            List<GBDevice> devices = Application.app().getDeviceManager().getDevices();
 
             scanFilters = new ArrayList<>(devices.size());
 

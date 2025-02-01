@@ -18,11 +18,10 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge;
+package xyz.tenseventyseven.fresh;
 
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
-import android.app.Application;
 import android.app.NotificationManager;
 import android.app.NotificationManager.Policy;
 import android.app.PendingIntent;
@@ -92,8 +91,6 @@ import nodomain.freeyourgadget.gadgetbridge.util.LimitedQueue;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.DevicePrefs;
-import xyz.tenseventyseven.fresh.BuildConfig;
-import xyz.tenseventyseven.fresh.R;
 
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceType.AMAZFITBIP;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceType.AMAZFITCOR;
@@ -118,12 +115,12 @@ import org.json.JSONObject;
  * Main Application class that initializes and provides access to certain things like
  * logging and DB access.
  */
-public class GBApplication extends Application {
+public class Application extends android.app.Application {
     // Since this class must not log to slf4j, we use plain android.util.Log
     private static final String TAG = "GBApplication";
     public static final String DATABASE_NAME = "Gadgetbridge";
 
-    private static GBApplication context;
+    private static Application context;
     private static final Lock dbLock = new ReentrantLock();
     private static DeviceService deviceService;
     private static SharedPreferences sharedPrefs;
@@ -145,12 +142,12 @@ public class GBApplication extends Application {
     public static final String ACTION_THEME_CHANGE = "nodomain.freeyourgadget.gadgetbridge.gbapplication.action.theme_change";
     public static final String ACTION_NEW_DATA = "nodomain.freeyourgadget.gadgetbridge.action.new_data";
 
-    private static GBApplication app;
+    private static Application app;
 
     private static final Logging logging = new Logging() {
         @Override
         protected String createLogDirectory() throws IOException {
-            if (GBEnvironment.env().isLocalTest()) {
+            if (AppEnvironment.env().isLocalTest()) {
                 return System.getProperty(Logging.PROP_LOGFILES_DIR);
             } else {
                 File dir = FileUtils.getExternalFilesDir();
@@ -170,17 +167,17 @@ public class GBApplication extends Application {
 
     public static void quit() {
         GB.log("Quitting Gadgetbridge...", GB.INFO, null);
-        Intent quitIntent = new Intent(GBApplication.ACTION_QUIT);
+        Intent quitIntent = new Intent(Application.ACTION_QUIT);
         LocalBroadcastManager.getInstance(context).sendBroadcast(quitIntent);
-        GBApplication.deviceService().quit();
+        Application.deviceService().quit();
         System.exit(0);
     }
 
     public static void restart() {
         GB.log("Restarting Gadgetbridge...", GB.INFO, null);
-        final Intent quitIntent = new Intent(GBApplication.ACTION_QUIT);
+        final Intent quitIntent = new Intent(Application.ACTION_QUIT);
         LocalBroadcastManager.getInstance(context).sendBroadcast(quitIntent);
-        GBApplication.deviceService().quit();
+        Application.deviceService().quit();
 
         final Intent startActivity = new Intent(context, ControlCenterv2.class);
         final PendingIntent pendingIntent = PendingIntentUtils.getActivity(context, 1337, startActivity, PendingIntent.FLAG_CANCEL_CURRENT, false);
@@ -190,7 +187,7 @@ public class GBApplication extends Application {
         Runtime.getRuntime().exit(0);
     }
 
-    public GBApplication() {
+    public Application() {
         context = this;
         // don't do anything here, add it to onCreate instead
 
@@ -228,8 +225,8 @@ public class GBApplication extends Application {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         prefs = new GBPrefs(sharedPrefs);
 
-        if (!GBEnvironment.isEnvironmentSetup()) {
-            GBEnvironment.setupEnvironment(GBEnvironment.createDeviceEnvironment());
+        if (!AppEnvironment.isEnvironmentSetup()) {
+            AppEnvironment.setupEnvironment(AppEnvironment.createDeviceEnvironment());
             // setup db after the environment is set up, but don't do it in test mode
             // in test mode, it's done individually, see TestBase
             setupDatabase();
@@ -322,7 +319,7 @@ public class GBApplication extends Application {
     }
 
     private void setupExceptionHandler(final boolean notifyOnCrash) {
-        final GBExceptionHandler handler = new GBExceptionHandler(Thread.getDefaultUncaughtExceptionHandler(), notifyOnCrash);
+        final AppExceptionHandler handler = new AppExceptionHandler(Thread.getDefaultUncaughtExceptionHandler(), notifyOnCrash);
         Thread.setDefaultUncaughtExceptionHandler(handler);
     }
 
@@ -336,7 +333,7 @@ public class GBApplication extends Application {
 
     public void setupDatabase() {
         DaoMaster.OpenHelper helper;
-        GBEnvironment env = GBEnvironment.env();
+        AppEnvironment env = AppEnvironment.env();
         if (env.isTest()) {
             helper = new DaoMaster.DevOpenHelper(this, null, null);
         } else {
@@ -384,10 +381,10 @@ public class GBApplication extends Application {
      * will be invalidated at some point.
      *
      * @return the DBHandler
-     * @throws GBException
+     * @throws AppException
      * @see #releaseDB()
      */
-    public static DBHandler acquireDB() throws GBException {
+    public static DBHandler acquireDB() throws AppException {
         try {
             if (dbLock.tryLock(30, TimeUnit.SECONDS)) {
                 return lockHandler;
@@ -395,7 +392,7 @@ public class GBApplication extends Application {
         } catch (InterruptedException ex) {
             Log.i(TAG, "Interrupted while waiting for DB lock");
         }
-        throw new GBException("Unable to access the database.");
+        throw new AppException("Unable to access the database.");
     }
 
     /**
@@ -477,7 +474,7 @@ public class GBApplication extends Application {
 
     @TargetApi(Build.VERSION_CODES.M)
     public static int getGrantedInterruptionFilter() {
-        if (GBApplication.isRunningMarshmallowOrLater() && notificationManager.isNotificationPolicyAccessGranted()) {
+        if (Application.isRunningMarshmallowOrLater() && notificationManager.isNotificationPolicyAccessGranted()) {
             return notificationManager.getCurrentInterruptionFilter();
         }
         return NotificationManager.INTERRUPTION_FILTER_ALL;
@@ -655,7 +652,7 @@ public class GBApplication extends Application {
             DaoSession daoSession = db.getDaoSession();
             List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
             for (Device dbDevice : activeDevices) {
-                SharedPreferences deviceSpecificSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                SharedPreferences deviceSpecificSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                 if (deviceSpecificSharedPrefs != null) {
                     SharedPreferences.Editor deviceSharedPrefsEdit = deviceSpecificSharedPrefs.edit();
                     DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
@@ -681,7 +678,7 @@ public class GBApplication extends Application {
             DaoSession daoSession = db.getDaoSession();
             List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
             for (Device dbDevice : activeDevices) {
-                SharedPreferences deviceSpecificSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                SharedPreferences deviceSpecificSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                 if (deviceSpecificSharedPrefs != null) {
                     SharedPreferences.Editor deviceSharedPrefsEdit = deviceSpecificSharedPrefs.edit();
                     DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
@@ -774,7 +771,7 @@ public class GBApplication extends Application {
                 DaoSession daoSession = db.getDaoSession();
                 List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
                 for (Device dbDevice : activeDevices) {
-                    SharedPreferences deviceSpecificSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    SharedPreferences deviceSpecificSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     if (deviceSpecificSharedPrefs != null) {
                         SharedPreferences.Editor deviceSharedPrefsEdit = deviceSpecificSharedPrefs.edit();
                         String preferenceKey = dbDevice.getIdentifier() + "_lastSportsActivityTimeMillis";
@@ -889,7 +886,7 @@ public class GBApplication extends Application {
                 DaoSession daoSession = db.getDaoSession();
                 List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
                 for (Device dbDevice : activeDevices) {
-                    SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
                     DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
 
@@ -909,7 +906,7 @@ public class GBApplication extends Application {
                 DaoSession daoSession = db.getDaoSession();
                 List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
                 for (Device dbDevice : activeDevices) {
-                    SharedPreferences deviceSpecificSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    SharedPreferences deviceSpecificSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     if (deviceSpecificSharedPrefs != null) {
                         SharedPreferences.Editor deviceSharedPrefsEdit = deviceSpecificSharedPrefs.edit();
                         DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
@@ -1010,7 +1007,7 @@ public class GBApplication extends Application {
                 DaoSession daoSession = db.getDaoSession();
                 List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
                 for (Device dbDevice : activeDevices) {
-                    SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
                     DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
 
@@ -1030,7 +1027,7 @@ public class GBApplication extends Application {
                 DaoSession daoSession = db.getDaoSession();
                 List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
                 for (Device dbDevice : activeDevices) {
-                    SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
                     DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
                     if (deviceType == WATCHXPLUS || deviceType == FITPRO || deviceType == LEFUN) {
@@ -1128,7 +1125,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                     if (dbDevice.getManufacturer().equals("Huami")) {
@@ -1163,7 +1160,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                     if (DeviceType.MIBAND.equals(dbDevice.getType()) || dbDevice.getManufacturer().equals("Huami")) {
@@ -1187,7 +1184,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                     if (DeviceType.FITPRO.equals(dbDevice.getType())) {
@@ -1208,7 +1205,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                     if (deviceSharedPrefs.getBoolean("pref_transliteration_enabled", false)) {
@@ -1232,7 +1229,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                     deviceSharedPrefsEdit.putBoolean("sync_calendar", prefs.getBoolean("enable_calendar_sync", true));
@@ -1261,7 +1258,7 @@ public class GBApplication extends Application {
                         continue;
                     }
 
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                     deviceSharedPrefsEdit.putString("huami_vibration_profile_find_band", "long");
@@ -1286,7 +1283,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1316,7 +1313,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1365,7 +1362,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1394,7 +1391,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                     for (final Map.Entry<String, ?> entry : deviceSharedPrefs.getAll().entrySet()) {
@@ -1425,7 +1422,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
                     boolean shouldApply = false;
 
@@ -1469,7 +1466,7 @@ public class GBApplication extends Application {
                 for (Device dbDevice : activeDevices) {
                     final DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
                     if (deviceType == DeviceType.HPLUS) {
-                        final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                        final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                         final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                         deviceSharedPrefsEdit.putString("hplus_screentime", sharedPrefs.getString("hplus_screentime", "5"));
@@ -1491,7 +1488,7 @@ public class GBApplication extends Application {
                 for (Device dbDevice : activeDevices) {
                     final DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
                     if (deviceType == DeviceType.FOSSILQHYBRID) {
-                        final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                        final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                         final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                         deviceSharedPrefsEdit.putInt("QHYBRID_TIME_OFFSET", sharedPrefs.getInt("QHYBRID_TIME_OFFSET", 0));
@@ -1511,7 +1508,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1541,7 +1538,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1571,7 +1568,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1603,7 +1600,7 @@ public class GBApplication extends Application {
                 for (Device dbDevice : activeDevices) {
                     final DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
                     if (deviceType == MIBAND || deviceType == MIBAND2 || deviceType == MIBAND2_HRX) {
-                        final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                        final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                         final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                         deviceSharedPrefsEdit.putString("mi_vibration_profile_generic_sms", sharedPrefs.getString("mi_vibration_profile_generic_sms", "staccato"));
@@ -1644,7 +1641,7 @@ public class GBApplication extends Application {
                 for (Device dbDevice : activeDevices) {
                     final DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
                     if (deviceType == DeviceType.ZETIME) {
-                        final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                        final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                         final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                         // Vibration Profiles
@@ -1709,7 +1706,7 @@ public class GBApplication extends Application {
                 for (Device dbDevice : activeDevices) {
                     final DeviceType deviceType = DeviceType.fromName(dbDevice.getTypeName());
                     if (deviceType == PEBBLE) {
-                        final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                        final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                         final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
 
                         deviceSharedPrefsEdit.putBoolean("pebble_enable_outgoing_call", sharedPrefs.getBoolean("pebble_enable_outgoing_call", true));
@@ -1770,7 +1767,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1802,7 +1799,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1847,7 +1844,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1895,7 +1892,7 @@ public class GBApplication extends Application {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
 
                 for (final Device dbDevice : activeDevices) {
-                    final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
 
                     final String chartsTabsValue = deviceSharedPrefs.getString("charts_tabs", null);
                     if (chartsTabsValue == null) {
@@ -1930,7 +1927,7 @@ public class GBApplication extends Application {
 
                 for (Device dbDevice : activeDevices) {
                     if (dbDevice.getTypeName().startsWith("GARMIN")) {
-                        final SharedPreferences deviceSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                        final SharedPreferences deviceSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                         final SharedPreferences.Editor deviceSharedPrefsEdit = deviceSharedPrefs.edit();
                         deviceSharedPrefsEdit.putBoolean("sync_calendar", true);
                         deviceSharedPrefsEdit.apply();
@@ -2032,7 +2029,7 @@ public class GBApplication extends Application {
     }
 
     public static int getTextColor(Context context) {
-        if (GBApplication.isDarkThemeEnabled()) {
+        if (Application.isDarkThemeEnabled()) {
             return context.getResources().getColor(R.color.primarytext_dark);
         } else {
             return context.getResources().getColor(R.color.primarytext_light);
@@ -2071,7 +2068,7 @@ public class GBApplication extends Application {
         return deviceManager;
     }
 
-    public static GBApplication app() {
+    public static Application app() {
         return app;
     }
 

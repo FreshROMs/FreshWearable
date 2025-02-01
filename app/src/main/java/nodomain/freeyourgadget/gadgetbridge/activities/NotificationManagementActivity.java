@@ -29,7 +29,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
@@ -57,7 +57,7 @@ public class NotificationManagementActivity extends AbstractSettingsActivityV2 {
         protected void onSharedPreferenceChanged(final Preference preference) {
             if (GBPrefs.PING_TONE.equals(preference.getKey())) {
                 try {
-                    final Prefs prefs = GBApplication.getPrefs();
+                    final Prefs prefs = Application.getPrefs();
                     // This fails on some ROMs. The actual implementation falls-back to an internal ping tone
                     preference.setSummary(RingtoneManager.getRingtone(requireContext(), Uri.parse(prefs.getString(GBPrefs.PING_TONE, DEFAULT_RINGTONE_URI))).getTitle(requireContext()));
                 } catch (final Exception e) {
@@ -115,17 +115,17 @@ public class NotificationManagementActivity extends AbstractSettingsActivityV2 {
 
             final PreferenceCategory notificationsCategory = findPreference("pref_key_notifications");
 
-            if (!GBApplication.isRunningMarshmallowOrLater()) {
+            if (!Application.isRunningMarshmallowOrLater()) {
                 pref = findPreference("notification_filter");
                 notificationsCategory.removePreference(pref);
             }
 
-            if (GBApplication.isRunningTenOrLater()) {
+            if (Application.isRunningTenOrLater()) {
                 pref = findPreference("minimize_priority");
                 notificationsCategory.removePreference(pref);
             }
 
-            if (!GBApplication.isRunningOreoOrLater()) {
+            if (!Application.isRunningOreoOrLater()) {
                 pref = findPreference("notifications_settings");
                 notificationsCategory.removePreference(pref);
             }
@@ -137,7 +137,7 @@ public class NotificationManagementActivity extends AbstractSettingsActivityV2 {
             if (requestCode == RINGTONE_REQUEST_CODE && intent != null) {
                 if (intent.getExtras().getParcelable(RingtoneManager.EXTRA_RINGTONE_PICKED_URI) != null) {
                     final Uri uri = intent.getExtras().getParcelable(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-                    GBApplication.getPrefs()
+                    Application.getPrefs()
                             .getPreferences()
                             .edit()
                             .putString(GBPrefs.PING_TONE, uri.toString())

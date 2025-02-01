@@ -28,7 +28,6 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.PhoneStateListener;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -65,7 +64,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
 import nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeActivity;
@@ -102,13 +101,13 @@ public class ControlCenterv2 extends AppCompatActivity
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             switch (Objects.requireNonNull(action)) {
-                case GBApplication.ACTION_LANGUAGE_CHANGE:
-                    setLanguage(GBApplication.getLanguage(), true);
+                case Application.ACTION_LANGUAGE_CHANGE:
+                    setLanguage(Application.getLanguage(), true);
                     break;
-                case GBApplication.ACTION_THEME_CHANGE:
+                case Application.ACTION_THEME_CHANGE:
                     isThemeInvalid = true;
                     break;
-                case GBApplication.ACTION_QUIT:
+                case Application.ACTION_QUIT:
                     finish();
                     break;
                 case DeviceService.ACTION_REALTIME_SAMPLES:
@@ -150,11 +149,11 @@ public class ControlCenterv2 extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
 
         // Determine availability of device with activity tracking functionality
         boolean activityTrackerAvailable = false;
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        List<GBDevice> devices = Application.app().getDeviceManager().getDevices();
         for (GBDevice dev : devices) {
             if (dev.getDeviceCoordinator().supportsActivityTracking()) {
                 activityTrackerAvailable = true;
@@ -207,7 +206,7 @@ public class ControlCenterv2 extends AppCompatActivity
                 this, drawer, toolbar, R.string.controlcenter_navigation_drawer_open, R.string.controlcenter_navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        if (GBApplication.areDynamicColorsEnabled()) {
+        if (Application.areDynamicColorsEnabled()) {
             TypedValue typedValue = new TypedValue();
             Resources.Theme theme = getTheme();
             theme.resolveAttribute(com.google.android.material.R.attr.colorSurface, typedValue, true);
@@ -261,9 +260,9 @@ public class ControlCenterv2 extends AppCompatActivity
         swipeLayout = findViewById(R.id.dashboard_swipe_layout);
         swipeLayout.setOnRefreshListener(() -> {
             // Fetch activity for all connected devices
-            GBApplication.deviceService().onFetchRecordedData(RecordedDataTypes.TYPE_SYNC);
+            Application.deviceService().onFetchRecordedData(RecordedDataTypes.TYPE_SYNC);
             // Hide 'refreshing' animation immediately if no health devices are connected
-            List<GBDevice> devices1 = GBApplication.app().getDeviceManager().getDevices();
+            List<GBDevice> devices1 = Application.app().getDeviceManager().getDevices();
             for (GBDevice dev : devices1) {
                 if (dev.getDeviceCoordinator().supportsActivityTracking() && dev.isInitialized()) {
                     return;
@@ -275,9 +274,9 @@ public class ControlCenterv2 extends AppCompatActivity
 
         // Set up local intent listener
         IntentFilter filterLocal = new IntentFilter();
-        filterLocal.addAction(GBApplication.ACTION_LANGUAGE_CHANGE);
-        filterLocal.addAction(GBApplication.ACTION_THEME_CHANGE);
-        filterLocal.addAction(GBApplication.ACTION_QUIT);
+        filterLocal.addAction(Application.ACTION_LANGUAGE_CHANGE);
+        filterLocal.addAction(Application.ACTION_THEME_CHANGE);
+        filterLocal.addAction(Application.ACTION_QUIT);
         filterLocal.addAction(DeviceService.ACTION_REALTIME_SAMPLES);
         filterLocal.addAction(GBDevice.ACTION_DEVICE_CHANGED);
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, filterLocal);
@@ -304,7 +303,7 @@ public class ControlCenterv2 extends AppCompatActivity
             }
         }
 
-        GBApplication.deviceService().requestDeviceInfo();
+        Application.deviceService().requestDeviceInfo();
     }
 
     @Override
@@ -354,7 +353,7 @@ public class ControlCenterv2 extends AppCompatActivity
             launchDiscoveryActivity();
             return false;
         } else if (itemId == R.id.action_quit) {
-            GBApplication.quit();
+            Application.quit();
             return false;
         } else if (itemId == R.id.donation_link) {
             final Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://liberapay.com/Gadgetbridge")); //TODO: centralize if ever used somewhere else
@@ -398,7 +397,7 @@ public class ControlCenterv2 extends AppCompatActivity
             if(btDeviceAddress!=null){
                 GBDevice candidate = DeviceHelper.getInstance().findAvailableDevice(btDeviceAddress, this);
                 if (candidate != null && !candidate.isConnected()) {
-                    GBApplication.deviceService(candidate).connect();
+                    Application.deviceService(candidate).connect();
                 }
             }
         }

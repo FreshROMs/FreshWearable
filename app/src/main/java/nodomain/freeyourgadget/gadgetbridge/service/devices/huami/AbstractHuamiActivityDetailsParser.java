@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.huami;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.AppException;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityTrack;
 import nodomain.freeyourgadget.gadgetbridge.model.GPSCoordinate;
@@ -27,7 +27,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.GPSCoordinate;
 public abstract class AbstractHuamiActivityDetailsParser {
     private static final BigDecimal HUAMI_TO_DECIMAL_DEGREES_DIVISOR = new BigDecimal("3000000.0");
 
-    public abstract ActivityTrack parse(final byte[] bytes) throws GBException;
+    public abstract ActivityTrack parse(final byte[] bytes) throws AppException;
 
     public static double convertHuamiValueToDecimalDegrees(final long huamiValue) {
         BigDecimal result = new BigDecimal(huamiValue)

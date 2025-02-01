@@ -18,7 +18,6 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.mijia_lywsd;
 
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
@@ -32,7 +31,7 @@ import java.util.Objects;
 import java.util.SimpleTimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
@@ -105,7 +104,7 @@ public class MijiaLywsdSupport extends AbstractBTLEDeviceSupport {
         requestDeviceInfo(builder);
 
         final boolean supportsSetTime = getCoordinator().supportsSetTime();
-        if (supportsSetTime && GBApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
+        if (supportsSetTime && Application.getPrefs().getBoolean("datetime_synconconnect", true)) {
             setTime(builder);
         } else {
             getTime(builder);
@@ -253,7 +252,7 @@ public class MijiaLywsdSupport extends AbstractBTLEDeviceSupport {
             return;
         }
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
             final GBDevice gbDevice = getDevice();
             final Device device = DBHelper.getDevice(gbDevice, session);
@@ -301,7 +300,7 @@ public class MijiaLywsdSupport extends AbstractBTLEDeviceSupport {
                 voltage / 1000f
         );
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
             final GBDevice gbDevice = getDevice();
             final Device device = DBHelper.getDevice(gbDevice, session);
@@ -374,7 +373,7 @@ public class MijiaLywsdSupport extends AbstractBTLEDeviceSupport {
                 return;
         }
 
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         prefs.edit()
              .putInt(PREF_MIJIA_LYWSD_COMFORT_CHARACTERISTIC_LENGTH, value.length)
@@ -486,7 +485,7 @@ public class MijiaLywsdSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onSendConfiguration(String config) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress());
 
         try {
             TransactionBuilder builder = performInitialized("Sending configuration for option: " + config);

@@ -29,7 +29,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 
@@ -48,13 +48,13 @@ public abstract class AbstractGBActivity extends AppCompatActivity implements GB
                 return;
             }
             switch (action) {
-                case GBApplication.ACTION_LANGUAGE_CHANGE:
-                    setLanguage(GBApplication.getLanguage(), true);
+                case Application.ACTION_LANGUAGE_CHANGE:
+                    setLanguage(Application.getLanguage(), true);
                     break;
-                case GBApplication.ACTION_THEME_CHANGE:
+                case Application.ACTION_THEME_CHANGE:
                     recreate();
                     break;
-                case GBApplication.ACTION_QUIT:
+                case Application.ACTION_QUIT:
                     finish();
                     break;
             }
@@ -73,15 +73,15 @@ public abstract class AbstractGBActivity extends AppCompatActivity implements GB
     }
 
     public static void init(GBActivity activity, int flags) {
-        if (GBApplication.areDynamicColorsEnabled()) {
-            if (GBApplication.isDarkThemeEnabled()) {
+        if (Application.areDynamicColorsEnabled()) {
+            if (Application.isDarkThemeEnabled()) {
                 if ((flags & NO_ACTIONBAR) != 0) {
-                    if (GBApplication.isAmoledBlackEnabled())
+                    if (Application.isAmoledBlackEnabled())
                         activity.setTheme(R.style.GadgetbridgeThemeDynamicDarkAmoled_NoActionBar);
                     else
                         activity.setTheme(R.style.GadgetbridgeThemeDynamicDark_NoActionBar);
                 } else {
-                    if (GBApplication.isAmoledBlackEnabled())
+                    if (Application.isAmoledBlackEnabled())
                         activity.setTheme(R.style.GadgetbridgeThemeDynamicDarkAmoled);
                     else
                         activity.setTheme(R.style.GadgetbridgeThemeDynamicDark);
@@ -93,14 +93,14 @@ public abstract class AbstractGBActivity extends AppCompatActivity implements GB
                     activity.setTheme(R.style.GadgetbridgeThemeDynamicLight);
                 }
             }
-        } else if (GBApplication.isDarkThemeEnabled()) {
+        } else if (Application.isDarkThemeEnabled()) {
             if ((flags & NO_ACTIONBAR) != 0) {
-                if (GBApplication.isAmoledBlackEnabled())
+                if (Application.isAmoledBlackEnabled())
                     activity.setTheme(R.style.GadgetbridgeThemeBlack_NoActionBar);
                 else
                     activity.setTheme(R.style.GadgetbridgeThemeDark_NoActionBar);
             } else {
-                if (GBApplication.isAmoledBlackEnabled())
+                if (Application.isAmoledBlackEnabled())
                     activity.setTheme(R.style.GadgetbridgeThemeBlack);
                 else
                     activity.setTheme(R.style.GadgetbridgeThemeDark);
@@ -112,15 +112,15 @@ public abstract class AbstractGBActivity extends AppCompatActivity implements GB
                 activity.setTheme(R.style.GadgetbridgeTheme);
             }
         }
-        activity.setLanguage(GBApplication.getLanguage(), false);
+        activity.setLanguage(Application.getLanguage(), false);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         IntentFilter filterLocal = new IntentFilter();
-        filterLocal.addAction(GBApplication.ACTION_QUIT);
-        filterLocal.addAction(GBApplication.ACTION_LANGUAGE_CHANGE);
-        filterLocal.addAction(GBApplication.ACTION_THEME_CHANGE);
+        filterLocal.addAction(Application.ACTION_QUIT);
+        filterLocal.addAction(Application.ACTION_LANGUAGE_CHANGE);
+        filterLocal.addAction(Application.ACTION_THEME_CHANGE);
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, filterLocal);
 
         init(this);

@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.ref.WeakReference;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 
 public class VolumeChangeReceiver {
     private final Logger LOG = LoggerFactory.getLogger(VolumeChangeReceiver.class);
@@ -76,7 +76,7 @@ public class VolumeChangeReceiver {
             int currentMusicVolume;
             if (VolumeChangeReceiver.VOLUME_CHANGED_ACTION.equals(intent.getAction()) && intent.getIntExtra(VolumeChangeReceiver.EXTRA_VOLUME_STREAM_TYPE, -1) == AudioManager.STREAM_MUSIC && (volumeChangeObserver = this.observerWeakReference.get()) != null && (currentMusicVolume = volumeChangeObserver.getCurrentMusicVolume()) >= 0) {
                 final int volumePercentage = (byte) Math.round(100 * (currentMusicVolume / (float) volumeChangeObserver.getMaxMusicVolume()));
-                GBApplication.deviceService().onSetPhoneVolume(volumePercentage);
+                Application.deviceService().onSetPhoneVolume(volumePercentage);
             }
         }
     }

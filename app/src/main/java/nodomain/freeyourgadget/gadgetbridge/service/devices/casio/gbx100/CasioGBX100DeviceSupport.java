@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -121,11 +121,11 @@ public class CasioGBX100DeviceSupport extends Casio2C2DSupport implements Shared
 
         //preferences.registerOnSharedPreferenceChangeListener(this);
 
-        SharedPreferences prefs = GBApplication.getPrefs().getPreferences();
+        SharedPreferences prefs = Application.getPrefs().getPreferences();
         prefs.registerOnSharedPreferenceChangeListener(this);
 
         if(mFirstConnect) {
-            SharedPreferences preferences = GBApplication.getDeviceSpecificSharedPrefs(this.getDevice().getAddress());
+            SharedPreferences preferences = Application.getDeviceSpecificSharedPrefs(this.getDevice().getAddress());
             SharedPreferences.Editor editor = preferences.edit();
 
             editor.putString(DeviceSettingsPreferenceConst.PREFS_DEVICE_CHARTS_TABS, "activity,activitylist,stepsweek");
@@ -151,7 +151,7 @@ public class CasioGBX100DeviceSupport extends Casio2C2DSupport implements Shared
     public CasioGBX100ActivitySample getSumWithinRange(int timestamp_from, int timestamp_to) {
         int steps = 0;
         int calories = 0;
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
 
             User user = DBHelper.getUser(dbHandler.getDaoSession());
             Device device = DBHelper.getDevice(this.getDevice(), dbHandler.getDaoSession());
@@ -177,7 +177,7 @@ public class CasioGBX100DeviceSupport extends Casio2C2DSupport implements Shared
     }
 
     private void addGBActivitySamples(ArrayList<CasioGBX100ActivitySample> samples) {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
 
             User user = DBHelper.getUser(dbHandler.getDaoSession());
             Device device = DBHelper.getDevice(this.getDevice(), dbHandler.getDaoSession());
@@ -275,7 +275,7 @@ public class CasioGBX100DeviceSupport extends Casio2C2DSupport implements Shared
      * @param id Notification id
      */
     private void showNotification(byte icon, String sender, String title, String subtitle, String message, int id, boolean delete) {
-        SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences sharedPreferences = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         boolean showMessagePreview = sharedPreferences.getBoolean(PREF_PREVIEW_MESSAGE_IN_TITLE, true);
 
         boolean shouldAlert = true;
@@ -425,7 +425,7 @@ public class CasioGBX100DeviceSupport extends Casio2C2DSupport implements Shared
                 break;
             case GENERIC_SMS:
                 icon = CasioConstants.CATEGORY_SNS;
-                SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+                SharedPreferences sharedPreferences = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
                 autoremove = sharedPreferences.getBoolean(PREF_AUTOREMOVE_MESSAGE, false);
                 break;
             case GENERIC_PHONE:
@@ -465,7 +465,7 @@ public class CasioGBX100DeviceSupport extends Casio2C2DSupport implements Shared
 
     private void onReverseFindDevice(boolean start) {
         if (start) {
-            SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+            SharedPreferences sharedPreferences = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
             String findPhone = sharedPreferences.getString(PREF_FIND_PHONE, getContext().getString(R.string.p_off));
 
@@ -569,7 +569,7 @@ public class CasioGBX100DeviceSupport extends Casio2C2DSupport implements Shared
         switch (callSpec.command) {
             case CallSpec.CALL_INCOMING:
                 showNotification(CasioConstants.CATEGORY_INCOMING_CALL, callSpec.name, callSpec.number, "Phone Call", mLastCallId, false);
-                SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+                SharedPreferences sharedPreferences = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
                 boolean fakeRingDuration = sharedPreferences.getBoolean(PREF_FAKE_RING_DURATION, false);
                 if(fakeRingDuration && mFakeRingDurationCounter < CasioConstants.CASIO_FAKE_RING_RETRIES) {
                     mFakeRingDurationCounter++;

@@ -15,7 +15,7 @@ import androidx.annotation.ColorInt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 
 public class GaugeDrawer {
@@ -34,7 +34,7 @@ public class GaugeDrawer {
         final int width = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 150,
-                GBApplication.getContext().getResources().getDisplayMetrics()
+                Application.getContext().getResources().getDisplayMetrics()
         );
 
         // Draw gauge
@@ -99,7 +99,7 @@ public class GaugeDrawer {
         final int width = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 150,
-                GBApplication.getContext().getResources().getDisplayMetrics()
+                Application.getContext().getResources().getDisplayMetrics()
         );
 
         final int barWidth = Math.round(width * 0.075f);
@@ -204,7 +204,7 @@ public class GaugeDrawer {
                                                   String text,
                                                   String lowerText,
                                                   Context context) {
-        int TEXT_COLOR = GBApplication.getTextColor(context);
+        int TEXT_COLOR = Application.getTextColor(context);
         int height = width;
         int barMargin = (int) Math.ceil(barWidth / 2f);
 
@@ -292,7 +292,7 @@ public class GaugeDrawer {
                                          int value,
                                          int maxValue,
                                          Context context) {
-        int TEXT_COLOR = GBApplication.getTextColor(context);
+        int TEXT_COLOR = Application.getTextColor(context);
         int height = width;
         int barMargin = (int) Math.ceil(barWidth / 2f);
         float filledFactor = (float) value / maxValue;

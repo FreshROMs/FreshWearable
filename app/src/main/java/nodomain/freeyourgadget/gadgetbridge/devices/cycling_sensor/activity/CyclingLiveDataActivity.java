@@ -13,7 +13,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
@@ -60,7 +60,7 @@ public class CyclingLiveDataActivity extends AbstractGBActivity {
         tripDistanceView = findViewById(R.id.cycling_data_trip_distance);
         totalDistanceView = findViewById(R.id.cycling_data_total_distance);
 
-        tripStartDistance = GBApplication
+        tripStartDistance = Application
                 .getDevicePrefs(selectedDevice)
                 .getFloat(PREFS_KEY_TRIP_START, 0);
 
@@ -73,7 +73,7 @@ public class CyclingLiveDataActivity extends AbstractGBActivity {
 
                 tripStartDistance = tripCurrentDistance;
 
-                GBApplication
+                Application
                         .getDeviceSpecificSharedPrefs(selectedDevice.getAddress())
                         .edit()
                         .putFloat(PREFS_KEY_TRIP_START, tripStartDistance)
@@ -85,7 +85,7 @@ public class CyclingLiveDataActivity extends AbstractGBActivity {
             }
         });
 
-        String measurementSystem = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, "metric");
+        String measurementSystem = Application.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, "metric");
 
         if(!measurementSystem.equals("metric")) {
             toUnitFactor = 0.621371f;
@@ -97,7 +97,7 @@ public class CyclingLiveDataActivity extends AbstractGBActivity {
     }
 
     private GBDevice getStoredCyclingSensor(){
-        List<GBDevice> devices = GBApplication
+        List<GBDevice> devices = Application
                 .app()
                 .getDeviceManager()
                 .getDevices();

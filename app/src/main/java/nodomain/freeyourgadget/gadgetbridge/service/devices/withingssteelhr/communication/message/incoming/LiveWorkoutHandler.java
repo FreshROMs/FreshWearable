@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
@@ -133,7 +133,7 @@ public class LiveWorkoutHandler implements IncomingMessageHandler {
     }
 
     private void saveBaseActivitySummary() {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             DaoSession session = dbHandler.getDaoSession();
             Device device = DBHelper.getDevice(support.getDevice(), session);
             User user = DBHelper.getUser(session);

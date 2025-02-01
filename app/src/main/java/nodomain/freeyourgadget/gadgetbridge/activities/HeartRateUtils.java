@@ -16,7 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
@@ -50,7 +50,7 @@ public class HeartRateUtils {
     }
 
     public void updateCachedHeartRatePreferences(){
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         maxHeartRateValue = prefs.getInt(GBPrefs.CHART_MAX_HEART_RATE, MAX_HEART_RATE_VALUE);
         minHeartRateValue = prefs.getInt(GBPrefs.CHART_MIN_HEART_RATE, MIN_HEART_RATE_VALUE);
     }

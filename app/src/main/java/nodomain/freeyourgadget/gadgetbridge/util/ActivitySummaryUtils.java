@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
 import nodomain.freeyourgadget.gadgetbridge.export.ActivityTrackExporter;
 import nodomain.freeyourgadget.gadgetbridge.export.GPXExporter;
@@ -73,7 +73,7 @@ public final class ActivitySummaryUtils {
         activityTrack.setName(summary.getName());
         activityTrack.addTrackPoints(activityPoints);
 
-        final File cacheDir = GBApplication.getContext().getCacheDir();
+        final File cacheDir = Application.getContext().getCacheDir();
         final File rawCacheDir = new File(cacheDir, "gpx");
         //noinspection ResultOfMethodCallIgnored
         rawCacheDir.mkdir();

@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.miband;
 
 import android.content.Context;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.profiles.alertnotification.AlertLevel;
 
@@ -32,7 +32,7 @@ public class VibrationProfile {
     public static final String ID_ALARM_CLOCK;
 
     static {
-        Context CONTEXT = GBApplication.getContext();
+        Context CONTEXT = Application.getContext();
         ID_STACCATO = CONTEXT.getString(R.string.p_staccato);
         ID_SHORT = CONTEXT.getString(R.string.p_short);
         ID_MEDIUM = CONTEXT.getString(R.string.p_medium);

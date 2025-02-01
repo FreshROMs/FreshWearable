@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.OutputStream;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
@@ -36,9 +36,9 @@ public class DatabaseExportWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             final DBHelper helper = new DBHelper(mContext);
-            final String dst = GBApplication.getPrefs().getString(GBPrefs.AUTO_EXPORT_LOCATION, null);
+            final String dst = Application.getPrefs().getString(GBPrefs.AUTO_EXPORT_LOCATION, null);
             if (dst == null) {
                 LOG.warn("Unable to export DB, export location not set");
                 broadcastSuccess(false);
@@ -48,7 +48,7 @@ public class DatabaseExportWorker extends Worker {
             final Uri dstUri = Uri.parse(dst);
             try (OutputStream out = mContext.getContentResolver().openOutputStream(dstUri)) {
                 helper.exportDB(dbHandler, out);
-                GBApplication.app().setLastAutoExportTimestamp(System.currentTimeMillis());
+                Application.app().setLastAutoExportTimestamp(System.currentTimeMillis());
             }
         } catch (final Exception e) {
             GB.updateExportFailedNotification(mContext.getString(R.string.notif_export_failed_title), mContext);
@@ -71,7 +71,7 @@ public class DatabaseExportWorker extends Worker {
     }
 
     private void broadcastSuccess(final boolean success) {
-        if (!GBApplication.getPrefs().getBoolean("intent_api_broadcast_export", false)) {
+        if (!Application.getPrefs().getBoolean("intent_api_broadcast_export", false)) {
             return;
         }
 

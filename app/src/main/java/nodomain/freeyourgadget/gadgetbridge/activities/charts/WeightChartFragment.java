@@ -22,8 +22,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -38,11 +36,10 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -74,10 +71,10 @@ public class WeightChartFragment extends AbstractChartFragment<WeightChartFragme
 
     @Override
     protected void init() {
-        GBPrefs prefs = GBApplication.getPrefs();
+        GBPrefs prefs = Application.getPrefs();
 
-        colorBackground = GBApplication.getBackgroundColor(requireContext());
-        colorSecondaryText = GBApplication.getSecondaryTextColor(requireContext());
+        colorBackground = Application.getBackgroundColor(requireContext());
+        colorSecondaryText = Application.getSecondaryTextColor(requireContext());
 
         if (prefs.getBoolean("charts_range", true))
             totalDays = 30;

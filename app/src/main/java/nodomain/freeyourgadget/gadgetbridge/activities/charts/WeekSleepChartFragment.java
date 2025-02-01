@@ -38,14 +38,12 @@ import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityAmount;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityAmounts;
@@ -146,7 +144,7 @@ public class WeekSleepChartFragment extends AbstractWeekChartFragment {
 
         mBalanceView = rootView.findViewById(R.id.balance);
 
-        SHOW_BALANCE = GBApplication.getPrefs().getBoolean("charts_show_balance_sleep", true);
+        SHOW_BALANCE = Application.getPrefs().getBoolean("charts_show_balance_sleep", true);
         if (SHOW_BALANCE) {
             mBalanceView.setVisibility(View.VISIBLE);
         } else {
@@ -279,7 +277,7 @@ public class WeekSleepChartFragment extends AbstractWeekChartFragment {
 
     @Override
     public String getTitle() {
-        if (GBApplication.getPrefs().getBoolean("charts_range", true)) {
+        if (Application.getPrefs().getBoolean("charts_range", true)) {
             return getString(R.string.weeksleepchart_sleep_a_month);
         }
         else{
@@ -294,7 +292,7 @@ public class WeekSleepChartFragment extends AbstractWeekChartFragment {
 
     @Override
     int getGoal() {
-        return GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_SLEEP_DURATION, 8) * 60;
+        return Application.getPrefs().getInt(ActivityUser.PREF_USER_SLEEP_DURATION, 8) * 60;
     }
 
     @Override

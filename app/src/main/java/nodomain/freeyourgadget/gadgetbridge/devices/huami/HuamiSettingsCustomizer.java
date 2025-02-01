@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsHandler;
@@ -80,7 +80,7 @@ public class HuamiSettingsCustomizer implements DeviceSpecificSettingsCustomizer
             final Preference tryPref = handler.findPreference(tryPrefKey);
             if (tryPref != null) {
                 tryPref.setOnPreferenceClickListener(preference -> {
-                    GBApplication.deviceService(device).onSendConfiguration(tryPrefKey);
+                    Application.deviceService(device).onSendConfiguration(tryPrefKey);
                     return true;
                 });
             }

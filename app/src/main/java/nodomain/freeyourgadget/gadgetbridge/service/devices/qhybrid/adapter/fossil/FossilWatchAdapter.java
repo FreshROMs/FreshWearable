@@ -48,7 +48,7 @@ import java.util.TimeZone;
 import java.util.UUID;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -250,7 +250,7 @@ public class FossilWatchAdapter extends WatchAdapter {
     }
 
     protected SharedPreferences getDeviceSpecificPreferences() {
-        return GBApplication.getDeviceSpecificSharedPrefs(
+        return Application.getDeviceSpecificSharedPrefs(
                 getDeviceSupport().getDevice().getAddress()
         );
     }
@@ -548,7 +548,7 @@ public class FossilWatchAdapter extends WatchAdapter {
         queueWrite(new FileLookupAndGetRequest(FileHandle.ACTIVITY_FILE, this) {
             @Override
             public void handleFileData(byte[] fileData) {
-                try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                try (DBHandler dbHandler = Application.acquireDB()) {
                     ActivityFileParser parser = new ActivityFileParser();
                     ArrayList<ActivityEntry> entries = parser.parseFile(fileData).getKey();
                     HybridHRActivitySampleProvider provider = new HybridHRActivitySampleProvider(getDeviceSupport().getDevice(), dbHandler.getDaoSession());

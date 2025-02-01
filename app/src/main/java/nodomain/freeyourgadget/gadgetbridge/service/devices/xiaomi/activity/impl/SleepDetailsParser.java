@@ -27,7 +27,7 @@ import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.HeartPulseSampleProvider;
@@ -280,7 +280,7 @@ public class SleepDetailsParser extends XiaomiActivityParser {
         boolean persistSuccess = !stagesParseFailed;
 
         // save all the samples that we got
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
             final GBDevice gbDevice = support.getDevice();
 
@@ -314,7 +314,7 @@ public class SleepDetailsParser extends XiaomiActivityParser {
             LOG.debug("Persisting {} sleep stage samples", stages.size());
 
             // Save the sleep stage samples
-            try (DBHandler handler = GBApplication.acquireDB()) {
+            try (DBHandler handler = Application.acquireDB()) {
                 final DaoSession session = handler.getDaoSession();
                 final GBDevice gbDevice = support.getDevice();
                 final Device device = DBHelper.getDevice(gbDevice, session);
@@ -336,7 +336,7 @@ public class SleepDetailsParser extends XiaomiActivityParser {
         }
 
         // Save the heart pulse samples
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             final DaoSession session = handler.getDaoSession();
             final GBDevice gbDevice = support.getDevice();
             final Device device = DBHelper.getDevice(gbDevice, session);

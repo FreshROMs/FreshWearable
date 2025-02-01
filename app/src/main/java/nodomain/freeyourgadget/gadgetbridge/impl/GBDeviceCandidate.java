@@ -33,11 +33,9 @@ import java.util.Set;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 
 /**
  * A device candidate is a Bluetooth device that is not yet managed by
@@ -106,7 +104,7 @@ public class GBDeviceCandidate implements Parcelable, Cloneable {
     }
 
     public String getMacAddress() {
-        return device != null ? device.getAddress() : GBApplication.getContext().getString(R.string._unknown_);
+        return device != null ? device.getAddress() : Application.getContext().getString(R.string._unknown_);
     }
 
     private ParcelUuid[] mergeServiceUuids(ParcelUuid[] serviceUuids, ParcelUuid[] deviceUuids) {

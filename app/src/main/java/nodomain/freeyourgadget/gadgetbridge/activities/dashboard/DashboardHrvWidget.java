@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -59,7 +59,7 @@ public class DashboardHrvWidget extends AbstractGaugeWidget {
 
         HrvSummarySample latestSummary = null;
 
-        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (DBHandler dbHandler = Application.acquireDB()) {
             for (GBDevice dev : devices) {
                 final List<? extends HrvSummarySample> deviceLatestSummaries = dev.getDeviceCoordinator().getHrvSummarySampleProvider(dev, dbHandler.getDaoSession())
                         .getAllSamples(dashboardData.timeFrom * 1000L, dashboardData.timeTo * 1000L);
@@ -107,10 +107,10 @@ public class DashboardHrvWidget extends AbstractGaugeWidget {
 
     public static int[] getColors() {
         return new int[]{
-                ContextCompat.getColor(GBApplication.getContext(), R.color.hrv_status_low),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.hrv_status_unbalanced),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.hrv_status_balanced),
-                ContextCompat.getColor(GBApplication.getContext(), R.color.hrv_status_unbalanced),
+                ContextCompat.getColor(Application.getContext(), R.color.hrv_status_low),
+                ContextCompat.getColor(Application.getContext(), R.color.hrv_status_unbalanced),
+                ContextCompat.getColor(Application.getContext(), R.color.hrv_status_balanced),
+                ContextCompat.getColor(Application.getContext(), R.color.hrv_status_unbalanced),
         };
     }
 

@@ -2,7 +2,6 @@ package nodomain.freeyourgadget.gadgetbridge.activities.charts;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,7 +37,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -90,9 +89,9 @@ public class BodyEnergyFragment extends AbstractChartFragment<BodyEnergyFragment
 
     @Override
     protected void init() {
-        TEXT_COLOR = GBApplication.getTextColor(requireContext());
-        LEGEND_TEXT_COLOR = GBApplication.getTextColor(requireContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(requireContext());
+        TEXT_COLOR = Application.getTextColor(requireContext());
+        LEGEND_TEXT_COLOR = Application.getTextColor(requireContext());
+        CHART_TEXT_COLOR = Application.getSecondaryTextColor(requireContext());
     }
 
     @Override
@@ -157,7 +156,7 @@ public class BodyEnergyFragment extends AbstractChartFragment<BodyEnergyFragment
         final int width = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 300,
-                GBApplication.getContext().getResources().getDisplayMetrics()
+                Application.getContext().getResources().getDisplayMetrics()
         );
 
         bodyEnergyGauge.setImageBitmap(drawGauge(

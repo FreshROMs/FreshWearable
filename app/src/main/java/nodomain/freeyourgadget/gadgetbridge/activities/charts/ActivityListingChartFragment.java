@@ -42,7 +42,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -158,7 +158,7 @@ public class ActivityListingChartFragment extends AbstractActivityChartFragment<
         Date activityDate = new Date(tsDateTo * 1000L);
         stepsDateView.setText(DateTimeUtils.formatDate(activityDate, DateUtils.FORMAT_SHOW_WEEKDAY));
 
-        if (GBApplication.getPrefs().getBoolean("charts_show_ongoing_activity", true)) {
+        if (Application.getPrefs().getBoolean("charts_show_ongoing_activity", true)) {
             if (mcd.getOngoingSession() != null && DateUtils.isToday(activityDate.getTime())) {
                 showOngoingActivitySnackbar(mcd.getOngoingSession());
             }

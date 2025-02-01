@@ -36,7 +36,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -91,7 +91,7 @@ public final class BtBRQueue {
             }
 
             LOG.debug("Exited read thread loop, disconnecting");
-            GBApplication.deviceService(mGbDevice).disconnect();
+            Application.deviceService(mGbDevice).disconnect();
         }
     };
 

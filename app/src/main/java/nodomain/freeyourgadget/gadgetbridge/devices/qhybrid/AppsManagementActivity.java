@@ -34,16 +34,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.widget.PopupMenuCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -70,7 +68,7 @@ public class AppsManagementActivity extends AbstractGBActivity {
 
     private void refreshInstalledApps() {
         try {
-            List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+            List<GBDevice> devices = Application.app().getDeviceManager().getSelectedDevices();
             boolean deviceFound = false;
             for(GBDevice device : devices){
                 if (

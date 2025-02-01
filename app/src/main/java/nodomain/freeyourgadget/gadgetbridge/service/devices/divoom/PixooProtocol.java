@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 
 import lineageos.weather.util.WeatherUtils;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
@@ -60,7 +60,6 @@ import nodomain.freeyourgadget.gadgetbridge.service.btle.BLETypeConversions;
 import nodomain.freeyourgadget.gadgetbridge.service.serial.GBDeviceProtocol;
 import nodomain.freeyourgadget.gadgetbridge.util.BitmapUtil;
 import nodomain.freeyourgadget.gadgetbridge.util.NotificationUtils;
-import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
 
 public class PixooProtocol extends GBDeviceProtocol {
@@ -159,13 +158,13 @@ public class PixooProtocol extends GBDeviceProtocol {
 
         if (numUpdatedAlarms > 0) {
             final Intent intent = new Intent(DeviceService.ACTION_SAVE_ALARMS);
-            LocalBroadcastManager.getInstance(GBApplication.getContext()).sendBroadcast(intent);
+            LocalBroadcastManager.getInstance(Application.getContext()).sendBroadcast(intent);
         }
     }
 
     @Override
     public byte[] encodeSendConfiguration(String config) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         switch (config) {
             case DeviceSettingsPreferenceConst.PREF_DEVICE_NAME:
@@ -330,8 +329,8 @@ public class PixooProtocol extends GBDeviceProtocol {
         }
 
         byte temp = (byte) (weatherSpec.currentTemp - 273);
-        String units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
-        if (units.equals(GBApplication.getContext().getString(R.string.p_unit_imperial))) {
+        String units = Application.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, Application.getContext().getString(R.string.p_unit_metric));
+        if (units.equals(Application.getContext().getString(R.string.p_unit_imperial))) {
             temp = (byte) WeatherUtils.celsiusToFahrenheit(temp);
         }
 
@@ -343,7 +342,7 @@ public class PixooProtocol extends GBDeviceProtocol {
     }
 
     private byte[] encodeDrawIcon(String packageName) {
-        Drawable icon = NotificationUtils.getAppIcon(GBApplication.getContext(), packageName);
+        Drawable icon = NotificationUtils.getAppIcon(Application.getContext(), packageName);
         if (icon == null) {
             LOG.warn("could not get icon for package: " + packageName);
             return null;
@@ -355,7 +354,7 @@ public class PixooProtocol extends GBDeviceProtocol {
 
     protected byte[] encodeShowFrame(Uri uri) {
         try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(GBApplication.getContext().getContentResolver(), uri);
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(Application.getContext().getContentResolver(), uri);
             return encodeShowFrame(bitmap);
         } catch (IOException e) {
             LOG.error("could not decode Image",e);

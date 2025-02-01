@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminActivitySampleProvider;
@@ -409,7 +409,7 @@ public class CommunicatorV2 implements ICommunicator {
 
     private void broadcastRealtimeActivity(final int hr, final int steps) {
         final GarminActivitySample sample;
-        try (final DBHandler dbHandler = GBApplication.acquireDB()) {
+        try (final DBHandler dbHandler = Application.acquireDB()) {
             final DaoSession session = dbHandler.getDaoSession();
 
             final GBDevice gbDevice = mSupport.getDevice();

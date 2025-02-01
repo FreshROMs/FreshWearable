@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventVersionInfo;
@@ -153,7 +153,7 @@ public class BandWPSeriesDeviceSupport extends AbstractBTLEDeviceSupport {
             GB.toast("Could not extract ancMode from payload: " + Arrays.toString(response.payload), Toast.LENGTH_SHORT, GB.ERROR);
             return false;
         }
-        Editor editor = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
+        Editor editor = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
         editor.putBoolean(PREF_ACTIVE_NOISE_CANCELLING_TOGGLE, payloadValue == ANC_MODE_ON);
         editor.apply();
         return true;
@@ -188,7 +188,7 @@ public class BandWPSeriesDeviceSupport extends AbstractBTLEDeviceSupport {
             GB.toast("Failed to unpack wear sensor status from payload " + Arrays.toString(response.payload), Toast.LENGTH_SHORT, GB.ERROR);
             return false;
         }
-        Editor editor = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
+        Editor editor = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
         editor.putBoolean(PREF_WEAR_SENSOR_TOGGLE, wearSensorEnabled);
         editor.apply();
         return true;
@@ -232,8 +232,8 @@ public class BandWPSeriesDeviceSupport extends AbstractBTLEDeviceSupport {
             GB.toast("Could not extract vptEnabled from payload: " + Arrays.toString(response.payload), Toast.LENGTH_SHORT, GB.ERROR);
             return false;
         }
-        int vptLevel = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getInt(PREF_BANDW_PSERIES_VPT_LEVEL, 0);
-        Editor editor = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
+        int vptLevel = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getInt(PREF_BANDW_PSERIES_VPT_LEVEL, 0);
+        Editor editor = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
         editor.putBoolean(PREF_BANDW_PSERIES_VPT_ENABLED, payloadValue);
         editor.putInt(PREF_BANDW_PSERIES_GUI_VPT_LEVEL, payloadValue ? vptLevel + 1 : 0);
         editor.apply();
@@ -252,8 +252,8 @@ public class BandWPSeriesDeviceSupport extends AbstractBTLEDeviceSupport {
             GB.toast("Could not extract vptLevel from payload: " + Arrays.toString(response.payload), Toast.LENGTH_SHORT, GB.ERROR);
             return false;
         }
-        boolean vptEnabled = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_BANDW_PSERIES_VPT_ENABLED, false);
-        Editor editor = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
+        boolean vptEnabled = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_BANDW_PSERIES_VPT_ENABLED, false);
+        Editor editor = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).edit();
         editor.putInt(PREF_BANDW_PSERIES_VPT_LEVEL, payloadValue);
         editor.putInt(PREF_BANDW_PSERIES_GUI_VPT_LEVEL, vptEnabled ? payloadValue + 1 : 0);
         editor.apply();
@@ -265,18 +265,18 @@ public class BandWPSeriesDeviceSupport extends AbstractBTLEDeviceSupport {
             TransactionBuilder builder = performInitialized("sendConfig");
             switch (config) {
                 case PREF_ACTIVE_NOISE_CANCELLING_TOGGLE:
-                    boolean ancMode = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_ACTIVE_NOISE_CANCELLING_TOGGLE, true);
+                    boolean ancMode = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_ACTIVE_NOISE_CANCELLING_TOGGLE, true);
                     BandWBLEProfile.setAncModeState(builder, ancMode);
                     break;
                 case PREF_BANDW_PSERIES_GUI_VPT_LEVEL:
-                    int level = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getInt(PREF_BANDW_PSERIES_GUI_VPT_LEVEL, 0);
+                    int level = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getInt(PREF_BANDW_PSERIES_GUI_VPT_LEVEL, 0);
                     BandWBLEProfile.setVptEnabled(builder, level != 0);
                     if (level != 0) {
                         BandWBLEProfile.setVptLevel(builder, level - 1);
                     }
                     break;
                 case PREF_WEAR_SENSOR_TOGGLE:
-                    boolean wearSensorEnabled = GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_WEAR_SENSOR_TOGGLE, true);
+                    boolean wearSensorEnabled = Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()).getBoolean(PREF_WEAR_SENSOR_TOGGLE, true);
                     BandWBLEProfile.setWearSensorEnabled(builder, wearSensorEnabled);
                     break;
             }

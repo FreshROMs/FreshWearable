@@ -28,7 +28,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiTLV;
@@ -442,7 +442,7 @@ public class HuaweiP2PCalendarService extends HuaweiBaseP2PService {
 
                 // TODO: scheduleCount can be a max number of events to send, but I am not sure. Ignore it for now.
                 // NOTE: device can initiate calendar sync. So we need to check and answer properly.
-                final boolean syncEnabled = GBApplication.getDeviceSpecificSharedPrefs(manager.getSupportProvider().getDevice().getAddress()).getBoolean(PREF_SYNC_CALENDAR, false);
+                final boolean syncEnabled = Application.getDeviceSpecificSharedPrefs(manager.getSupportProvider().getDevice().getAddress()).getBoolean(PREF_SYNC_CALENDAR, false);
                 if(!syncEnabled) {
                     sendCalendarCmd((byte) 0x01, (byte) 0x07, null);  //sync disabled
                     return;

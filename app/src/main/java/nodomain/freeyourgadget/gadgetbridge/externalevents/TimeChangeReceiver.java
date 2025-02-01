@@ -35,7 +35,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -52,7 +52,7 @@ public class TimeChangeReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        final Prefs prefs = GBApplication.getPrefs();
+        final Prefs prefs = Application.getPrefs();
         final String action = intent.getAction();
         if (action == null) {
             LOG.warn("Null action");
@@ -80,7 +80,7 @@ public class TimeChangeReceiver extends BroadcastReceiver {
 
         final Date newTime = GregorianCalendar.getInstance().getTime();
         LOG.info("Time/Timezone changed or periodic sync, syncing with device: {} ({}), {}", DateTimeUtils.formatDate(newTime), newTime.toGMTString(), intent.getAction());
-        GBApplication.deviceService().onSetTime();
+        Application.deviceService().onSetTime();
 
         // Reschedule the next DST change (since the timezone may have changed) or periodic sync
         scheduleNextDstChangeOrPeriodicSync(context);
@@ -150,7 +150,7 @@ public class TimeChangeReceiver extends BroadcastReceiver {
     }
 
     public static void ifEnabledScheduleNextDstChangeOrPeriodicSync(final Context context) {
-        if (GBApplication.getPrefs().getBoolean("datetime_synconconnect", true)) {
+        if (Application.getPrefs().getBoolean("datetime_synconconnect", true)) {
             scheduleNextDstChangeOrPeriodicSync(context);
         }
     }

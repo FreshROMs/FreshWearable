@@ -60,7 +60,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.AbstractDashboardWidget;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.DashboardCaloriesActiveGoalWidget;
@@ -117,7 +117,7 @@ public class DashboardFragment extends Fragment implements MenuProvider {
             String action = intent.getAction();
             if (action == null) return;
             switch (action) {
-                case GBApplication.ACTION_NEW_DATA:
+                case Application.ACTION_NEW_DATA:
                     final GBDevice dev = intent.getParcelableExtra(GBDevice.EXTRA_DEVICE);
                     if (dev != null) {
                         if (dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) {
@@ -172,7 +172,7 @@ public class DashboardFragment extends Fragment implements MenuProvider {
 
         IntentFilter filterLocal = new IntentFilter();
         filterLocal.addAction(GBDevice.ACTION_DEVICE_CHANGED);
-        filterLocal.addAction(GBApplication.ACTION_NEW_DATA);
+        filterLocal.addAction(Application.ACTION_NEW_DATA);
         filterLocal.addAction(ACTION_CONFIG_CHANGE);
         LocalBroadcastManager.getInstance(requireContext()).registerReceiver(mReceiver, filterLocal);
 
@@ -239,7 +239,7 @@ public class DashboardFragment extends Fragment implements MenuProvider {
     }
 
     private void reloadPreferences() {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         dashboardData.showAllDevices = prefs.getBoolean("dashboard_devices_all", true);
         dashboardData.showDeviceList = prefs.getStringSet("dashboard_devices_multiselect", new HashSet<>());
         dashboardData.hrIntervalSecs = prefs.getInt("dashboard_widget_today_hr_interval", 1) * 60;
@@ -248,7 +248,7 @@ public class DashboardFragment extends Fragment implements MenuProvider {
     }
 
     private void draw() {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         String defaultWidgetsOrder = String.join(",", getResources().getStringArray(R.array.pref_dashboard_widgets_order_default));
         String widgetsOrderPref = prefs.getString("pref_dashboard_widgets_order", defaultWidgetsOrder);
         String[] widgetsOrder = widgetsOrderPref.split(",");

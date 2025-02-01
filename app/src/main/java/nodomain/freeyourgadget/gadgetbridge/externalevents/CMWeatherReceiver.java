@@ -36,7 +36,7 @@ import cyanogenmod.weather.WeatherInfo;
 import cyanogenmod.weather.WeatherLocation;
 import cyanogenmod.weather.util.WeatherUtils;
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.model.Weather;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
@@ -59,13 +59,13 @@ public class CMWeatherReceiver extends BroadcastReceiver implements CMWeatherMan
     private PendingIntent mPendingIntent = null;
 
     public CMWeatherReceiver() {
-        mContext = GBApplication.getContext();
+        mContext = Application.getContext();
         final CMWeatherManager weatherManager = CMWeatherManager.getInstance(mContext);
         if (weatherManager == null) {
             return;
         }
 
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
 
         String city = prefs.getString("weather_city", null);
         String cityId = prefs.getString("weather_cityid", null);
@@ -115,7 +115,7 @@ public class CMWeatherReceiver extends BroadcastReceiver implements CMWeatherMan
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
 
         String city = prefs.getString("weather_city", null);
         String cityId = prefs.getString("weather_cityid", null);
@@ -128,7 +128,7 @@ public class CMWeatherReceiver extends BroadcastReceiver implements CMWeatherMan
     }
 
     private void requestWeather() {
-        final CMWeatherManager weatherManager = CMWeatherManager.getInstance(GBApplication.getContext());
+        final CMWeatherManager weatherManager = CMWeatherManager.getInstance(Application.getContext());
         if (weatherManager.getActiveWeatherServiceProviderLabel() != null && weatherLocation != null) {
             weatherManager.requestWeatherUpdate(weatherLocation, this);
         }
@@ -179,7 +179,7 @@ public class CMWeatherReceiver extends BroadcastReceiver implements CMWeatherMan
             }
             ArrayList<WeatherSpec> weatherSpecs = new ArrayList<>(Collections.singletonList(weatherSpec));
             Weather.getInstance().setWeatherSpec(weatherSpecs);
-            GBApplication.deviceService().onSendWeather(weatherSpecs);
+            Application.deviceService().onSendWeather(weatherSpecs);
         } else {
             LOG.info("request has returned null for WeatherInfo");
         }
@@ -212,7 +212,7 @@ public class CMWeatherReceiver extends BroadcastReceiver implements CMWeatherMan
             String cityId = weatherLocation.getCityId();
             String city = weatherLocation.getCity();
 
-            SharedPreferences.Editor editor = GBApplication.getPrefs().getPreferences().edit();
+            SharedPreferences.Editor editor = Application.getPrefs().getPreferences().edit();
             editor.putString("weather_city", city).apply();
             editor.putString("weather_cityid", cityId).apply();
             enablePeriodicAlarm(true);

@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.sony.wena3.SonyWena3ActivitySampleCombiner;
@@ -41,7 +41,7 @@ public class HeartRatePacketParser extends OneBytePerSamplePacketParser {
 
     @Override
     public void finishReceiving(GBDevice device) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             SonyWena3HeartRateSampleProvider sampleProvider = new SonyWena3HeartRateSampleProvider(device, db.getDaoSession());
             Long userId = DBHelper.getUser(db.getDaoSession()).getId();
             Long deviceId = DBHelper.getDevice(device, db.getDaoSession()).getId();

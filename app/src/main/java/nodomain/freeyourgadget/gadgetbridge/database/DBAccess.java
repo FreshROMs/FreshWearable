@@ -23,7 +23,7 @@ import android.widget.Toast;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
@@ -47,7 +47,7 @@ public abstract class DBAccess extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] params) {
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             doInBackground(db);
         } catch (Exception e) {
             LOG.error("Error during DBAccess for {}", mTask, e);

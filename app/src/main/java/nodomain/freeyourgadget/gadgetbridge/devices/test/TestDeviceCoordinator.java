@@ -23,19 +23,16 @@ import android.net.Uri;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.AppException;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
@@ -87,7 +84,7 @@ public class TestDeviceCoordinator extends AbstractDeviceCoordinator {
     @Override
     protected void deleteDevice(@NonNull final GBDevice gbDevice,
                                 @NonNull final Device device,
-                                @NonNull final DaoSession session) throws GBException {
+                                @NonNull final DaoSession session) throws AppException {
         // Nothing to do
     }
 
@@ -677,11 +674,11 @@ public class TestDeviceCoordinator extends AbstractDeviceCoordinator {
         // HACK: Avoid the refactor of adding a device as a parameter on all functions
         // This means that it's only possible to have a single test device
 
-        if (GBApplication.app() == null || GBApplication.app().getDeviceManager() == null) {
+        if (Application.app() == null || Application.app().getDeviceManager() == null) {
             return null;
         }
 
-        final List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        final List<GBDevice> devices = Application.app().getDeviceManager().getDevices();
         for (GBDevice device : devices) {
             if (DeviceType.TEST == device.getType()) {
                 return device;
@@ -692,6 +689,6 @@ public class TestDeviceCoordinator extends AbstractDeviceCoordinator {
     }
 
     protected static Prefs getPrefs(final GBDevice device) {
-        return new Prefs(GBApplication.getDeviceSpecificSharedPrefs(device.getAddress()));
+        return new Prefs(Application.getDeviceSpecificSharedPrefs(device.getAddress()));
     }
 }

@@ -39,7 +39,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
@@ -109,7 +109,7 @@ public class FindPhoneActivity extends AbstractGBActivity {
         if (ring) {
             playRingtone();
         }
-        GBApplication.deviceService().onFindPhone(true);
+        Application.deviceService().onFindPhone(true);
     }
 
     private void vibrate() {
@@ -160,7 +160,7 @@ public class FindPhoneActivity extends AbstractGBActivity {
      */
     private boolean playConfiguredRingtone() {
         try {
-            Uri ringtoneUri = Uri.parse(GBApplication.getPrefs().getString(GBPrefs.PING_TONE, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE).toString()));
+            Uri ringtoneUri = Uri.parse(Application.getPrefs().getString(GBPrefs.PING_TONE, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE).toString()));
             mp.setDataSource(this, ringtoneUri);
             mp.setAudioStreamType(AudioManager.STREAM_ALARM);
             mp.setLooping(true);
@@ -210,7 +210,7 @@ public class FindPhoneActivity extends AbstractGBActivity {
 
         stopVibration();
         stopSound();
-        GBApplication.deviceService().onFindPhone(false);
+        Application.deviceService().onFindPhone(false);
 
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
         unregisterReceiver(mReceiver);

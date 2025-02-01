@@ -39,7 +39,7 @@ import java.util.Random;
 import java.util.SimpleTimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
@@ -1146,8 +1146,8 @@ public class PebbleProtocol extends GBDeviceProtocol {
             tomorrowConditionCode = tomorrow.conditionCode;
         }
 
-        String units = GBApplication.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
-        if (units.equals(GBApplication.getContext().getString(R.string.p_unit_imperial))) {
+        String units = Application.getPrefs().getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, Application.getContext().getString(R.string.p_unit_metric));
+        if (units.equals(Application.getContext().getString(R.string.p_unit_imperial))) {
             currentTemp = (short) (currentTemp * 1.8f + 32);
             todayMax = (short) (todayMax * 1.8f + 32);
             todayMin = (short) (todayMin * 1.8f + 32);

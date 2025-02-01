@@ -61,7 +61,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.CalBlacklistActivity;
@@ -330,7 +330,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
         invokeLater(new Runnable() {
             @Override
             public void run() {
-                GBApplication.deviceService(device).onSendConfiguration(preferenceKey);
+                Application.deviceService(device).onSendConfiguration(preferenceKey);
             }
         });
     }
@@ -971,7 +971,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
         if (phoneSilentMode != null) {
             phoneSilentMode.setOnPreferenceChangeListener((preference, newVal) -> {
                 final AudioManager audioManager = (AudioManager) requireContext().getSystemService(Context.AUDIO_SERVICE);
-                GBApplication.deviceService(device).onChangePhoneSilentMode(audioManager.getRingerMode());
+                Application.deviceService(device).onChangePhoneSilentMode(audioManager.getRingerMode());
                 return true;
             });
         }
@@ -1153,7 +1153,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
                     CannedMessagesSpec cannedMessagesSpec = new CannedMessagesSpec();
                     cannedMessagesSpec.type = CannedMessagesSpec.TYPE_REJECTEDCALLS;
                     cannedMessagesSpec.cannedMessages = messages.toArray(new String[0]);
-                    GBApplication.deviceService(device).onSetCannedMessages(cannedMessagesSpec);
+                    Application.deviceService(device).onSetCannedMessages(cannedMessagesSpec);
                     return true;
                 }
             });
@@ -1182,7 +1182,7 @@ public class DeviceSpecificSettingsFragment extends AbstractPreferenceFragment i
                     final CannedMessagesSpec cannedMessagesSpec = new CannedMessagesSpec();
                     cannedMessagesSpec.type = CannedMessagesSpec.TYPE_GENERIC;
                     cannedMessagesSpec.cannedMessages = messages.toArray(new String[0]);
-                    GBApplication.deviceService().onSetCannedMessages(cannedMessagesSpec);
+                    Application.deviceService().onSetCannedMessages(cannedMessagesSpec);
                     return true;
                 }
             });

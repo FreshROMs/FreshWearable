@@ -16,8 +16,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities.charts;
 
-import static java.util.stream.Collectors.toCollection;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -49,7 +47,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.DashboardHrvWidget;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.GaugeDrawer;
@@ -118,9 +116,9 @@ public class HRVStatusFragment extends AbstractChartFragment<HRVStatusFragment.H
 
     @Override
     protected void init() {
-        TEXT_COLOR = GBApplication.getTextColor(requireContext());
-        LEGEND_TEXT_COLOR = GBApplication.getTextColor(requireContext());
-        CHART_TEXT_COLOR = GBApplication.getSecondaryTextColor(requireContext());
+        TEXT_COLOR = Application.getTextColor(requireContext());
+        LEGEND_TEXT_COLOR = Application.getTextColor(requireContext());
+        CHART_TEXT_COLOR = Application.getSecondaryTextColor(requireContext());
     }
 
     @Override

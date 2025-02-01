@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.deviceevents.FileDownloadedDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.messages.CreateFileMessage;
@@ -195,29 +195,29 @@ public CreateFileMessage initiateUpload(byte[] fileAsByteArray, FileType.FILETYP
     }
 
     private void updateUploadProgress(final int percentage) {
-        final LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(GBApplication.getContext());
+        final LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(Application.getContext());
 
         if (percentage < 0) {
             // Failure
-            GB.updateInstallNotification(GBApplication.getContext().getString(R.string.installation_failed_), false, 100, GBApplication.getContext());
+            GB.updateInstallNotification(Application.getContext().getString(R.string.installation_failed_), false, 100, Application.getContext());
             broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_INFO_TEXT).putExtra(GB.DISPLAY_MESSAGE_MESSAGE, ""));
-            broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_PROGRESS_TEXT).putExtra(GB.DISPLAY_MESSAGE_MESSAGE, GBApplication.getContext().getString(R.string.installation_failed_)));
+            broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_PROGRESS_TEXT).putExtra(GB.DISPLAY_MESSAGE_MESSAGE, Application.getContext().getString(R.string.installation_failed_)));
             broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_FINISHED));
         } else if (percentage >= 100) {
             // Success
-            GB.updateInstallNotification(GBApplication.getContext().getString(R.string.installation_successful), false, 100, GBApplication.getContext());
+            GB.updateInstallNotification(Application.getContext().getString(R.string.installation_successful), false, 100, Application.getContext());
 
             deviceSupport.getDevice().sendDeviceUpdateIntent(deviceSupport.getContext());
 
             broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_INFO_TEXT).putExtra(GB.DISPLAY_MESSAGE_MESSAGE, ""));
-            broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_PROGRESS_TEXT).putExtra(GB.DISPLAY_MESSAGE_MESSAGE, GBApplication.getContext().getString(R.string.installation_successful)));
+            broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_PROGRESS_TEXT).putExtra(GB.DISPLAY_MESSAGE_MESSAGE, Application.getContext().getString(R.string.installation_successful)));
             broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_FINISHED));
         } else {
             // In Progress
-            GB.updateInstallNotification(GBApplication.getContext().getString(R.string.uploading), true, percentage, GBApplication.getContext());
+            GB.updateInstallNotification(Application.getContext().getString(R.string.uploading), true, percentage, Application.getContext());
 
             broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_INFO_TEXT).putExtra(GB.DISPLAY_MESSAGE_MESSAGE, ""));
-            broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_PROGRESS_TEXT).putExtra(GB.DISPLAY_MESSAGE_MESSAGE, GBApplication.getContext().getString(R.string.uploading)));
+            broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_PROGRESS_TEXT).putExtra(GB.DISPLAY_MESSAGE_MESSAGE, Application.getContext().getString(R.string.uploading)));
             broadcastManager.sendBroadcast(new Intent(GB.ACTION_SET_PROGRESS_BAR).putExtra(GB.PROGRESS_BAR_PROGRESS, percentage));
         }
     }

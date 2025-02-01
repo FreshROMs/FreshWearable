@@ -22,8 +22,6 @@ import android.view.MotionEvent;
 
 import androidx.viewpager.widget.ViewPager;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-
 public class NonSwipeableViewPager extends ViewPager {
     private boolean allowSwipe = true;
 

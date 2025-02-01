@@ -18,13 +18,11 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.fo
 
 import android.content.Context;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.actions.SetProgressAction;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.adapter.fossil.FossilWatchAdapter;
-import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.adapter.fossil_hr.FossilHRWatchAdapter;
-import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.fossil.file.FilePutRawRequest;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 public class FirmwareFilePutRequest extends FilePutRawRequest {
@@ -35,12 +33,12 @@ public class FirmwareFilePutRequest extends FilePutRawRequest {
     @Override
     public void onPacketWritten(TransactionBuilder transactionBuilder, int packetNr, int packetCount) {
         int progressPercent = (int) ((((float) packetNr) / packetCount) * 100);
-        transactionBuilder.add(new SetProgressAction(GBApplication.getContext().getString(R.string.updatefirmwareoperation_update_in_progress), true, progressPercent, GBApplication.getContext()));
+        transactionBuilder.add(new SetProgressAction(Application.getContext().getString(R.string.updatefirmwareoperation_update_in_progress), true, progressPercent, Application.getContext()));
     }
 
     @Override
     public void onFilePut(boolean success) {
-        Context context = GBApplication.getContext();
+        Context context = Application.getContext();
         if (success) {
             GB.updateInstallNotification(context.getString(R.string.updatefirmwareoperation_update_complete), false, 100, context);
         } else {

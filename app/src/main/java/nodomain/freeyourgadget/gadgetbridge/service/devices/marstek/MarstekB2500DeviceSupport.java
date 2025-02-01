@@ -38,7 +38,7 @@ import java.util.Calendar;
 import java.util.SimpleTimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.marstek.SolarEquipmentStatusActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.AbstractBTLEDeviceSupport;
@@ -154,7 +154,7 @@ public class MarstekB2500DeviceSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onSendConfiguration(final String config) {
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs devicePrefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         switch (config) {
             case PREF_BATTERY_DISCHARGE_INTERVALS_SET:
                 if (devicePrefs.getBoolean(PREF_BATTERY_DISCHARGE_MANUAL, true)) {
@@ -180,7 +180,7 @@ public class MarstekB2500DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void decodeInfos(byte[] value) {
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs devicePrefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         SharedPreferences.Editor devicePrefsEdit = devicePrefs.getPreferences().edit();
         ByteBuffer buf = ByteBuffer.wrap(value);
         buf.order(ByteOrder.LITTLE_ENDIAN);
@@ -262,7 +262,7 @@ public class MarstekB2500DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void decodeDischargeIntervalsToPreferences(byte[] value) {
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs devicePrefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         SharedPreferences.Editor devicePrefsEdit = devicePrefs.getPreferences().edit();
         ByteBuffer buf = ByteBuffer.wrap(value);
         buf.order(ByteOrder.LITTLE_ENDIAN);
@@ -290,7 +290,7 @@ public class MarstekB2500DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private byte[] encodeMinimumChargeFromPreferences() {
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs devicePrefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         int minimum_charge = devicePrefs.getInt(PREF_BATTERY_MINIMUM_CHARGE, 10);
         int maximum_use = 100 - minimum_charge;
 
@@ -335,7 +335,7 @@ public class MarstekB2500DeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private byte[] encodeDischargeIntervalsFromPreferences() {
-        Prefs devicePrefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
+        Prefs devicePrefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()));
         if (devicePrefs.getBoolean(PREF_BATTERY_DISCHARGE_MANUAL, true)) {
             int nr_invervals = (firmware_major >= 218) ? 5 : 3;
             int length = 5 + nr_invervals * 7;

@@ -35,7 +35,7 @@ import java.util.Calendar;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCallControl;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventFindPhone;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventMusicControl;
@@ -193,7 +193,7 @@ public class CasioGB6900DeviceSupport extends CasioSupport {
             return;
         }
 
-        SharedPreferences sharedPreferences = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences sharedPreferences = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         boolean enable = sharedPreferences.getBoolean(PREF_DISCONNECTNOTIF_NOSHED, false);
 

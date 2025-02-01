@@ -30,7 +30,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventVersionInfo;
@@ -77,7 +77,7 @@ public class MiSmartScaleDeviceSupport extends AbstractBTLEDeviceSupport {
         super(LOG);
 
         // Get unique user ID for weight history querying
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             userId = DBHelper.getUser(db.getDaoSession()).getId();
         } catch (Exception e) {
             LOG.error("Error acquiring database", e);
@@ -114,7 +114,7 @@ public class MiSmartScaleDeviceSupport extends AbstractBTLEDeviceSupport {
 
         deviceInfoProfile.requestDeviceInfo(builder);
 
-        if (GBApplication.getPrefs().getBoolean("datetime_synconconnect", true))
+        if (Application.getPrefs().getBoolean("datetime_synconconnect", true))
             setTime(builder);
 
         builder.notify(getCharacteristic(GattCharacteristic.UUID_CHARACTERISTIC_WEIGHT_MEASUREMENT), true);
@@ -184,7 +184,7 @@ public class MiSmartScaleDeviceSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onSendConfiguration(String config) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
 
         try {
             TransactionBuilder builder = performInitialized("config");
@@ -236,10 +236,10 @@ public class MiSmartScaleDeviceSupport extends AbstractBTLEDeviceSupport {
     }
 
     private void saveMeasurements(List<WeightMeasurement> measurements) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         boolean allowSmallObjects = prefs.getBoolean(PREF_MISCALE_SMALL_OBJECTS, false);
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             MiScaleSampleProvider provider = new MiScaleSampleProvider(getDevice(), db.getDaoSession());
             List<MiScaleWeightSample> samples = new ArrayList<>();
             Long userId = DBHelper.getUser(db.getDaoSession()).getId();

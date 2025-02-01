@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge;
+package xyz.tenseventyseven.fresh;
 
 
 import static nodomain.freeyourgadget.gadgetbridge.util.GB.NOTIFICATION_CHANNEL_HIGH_PRIORITY_ID;
@@ -32,22 +32,19 @@ import androidx.core.app.NotificationCompat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Random;
-
 import ch.qos.logback.classic.LoggerContext;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
-import xyz.tenseventyseven.fresh.R;
 
 /**
  * Catches otherwise uncaught exceptions, logs them and terminates the app.
  */
-public class GBExceptionHandler implements Thread.UncaughtExceptionHandler {
-    private static final Logger LOG = LoggerFactory.getLogger(GBExceptionHandler.class);
+public class AppExceptionHandler implements Thread.UncaughtExceptionHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(AppExceptionHandler.class);
     private final Thread.UncaughtExceptionHandler mDelegate;
     private final boolean mNotifyOnCrash;
 
-    public GBExceptionHandler(Thread.UncaughtExceptionHandler delegate, final boolean notifyOnCrash) {
+    public AppExceptionHandler(Thread.UncaughtExceptionHandler delegate, final boolean notifyOnCrash) {
         mDelegate = delegate;
         mNotifyOnCrash = notifyOnCrash;
     }
@@ -71,7 +68,7 @@ public class GBExceptionHandler implements Thread.UncaughtExceptionHandler {
     }
 
     private void showNotification(final Throwable e) {
-        final Context context = GBApplication.getContext();
+        final Context context = Application.getContext();
 
         final Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);

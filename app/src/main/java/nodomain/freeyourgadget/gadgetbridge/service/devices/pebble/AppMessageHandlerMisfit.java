@@ -28,7 +28,7 @@ import java.util.Date;
 import java.util.SimpleTimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
@@ -93,7 +93,7 @@ class AppMessageHandlerMisfit extends AppMessageHandler {
 
                     int totalSteps = 0;
                     PebbleMisfitSample[] misfitSamples = new PebbleMisfitSample[samples];
-                    try (DBHandler db = GBApplication.acquireDB()) {
+                    try (DBHandler db = Application.acquireDB()) {
                         PebbleMisfitSampleProvider sampleProvider = new PebbleMisfitSampleProvider(device, db.getDaoSession());
                         Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                         Long deviceId = DBHelper.getDevice(getDevice(), db.getDaoSession()).getId();

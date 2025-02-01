@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventMusicControl;
 import nodomain.freeyourgadget.gadgetbridge.externalevents.NotificationListener;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
@@ -87,7 +87,7 @@ public class GBMusicControlReceiver extends BroadcastReceiver {
                 return;
         }
 
-        final GBPrefs prefs = GBApplication.getPrefs();
+        final GBPrefs prefs = Application.getPrefs();
 
         if (prefs.getBoolean("pref_deprecated_media_control", false)) {
             // Deprecated path - mb_intents works for some players and not others, and vice-versa
@@ -190,12 +190,12 @@ public class GBMusicControlReceiver extends BroadcastReceiver {
         final int volumeMax = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         final int volumePercentage = (byte) Math.round(100 * (volumeLevel / (float) volumeMax));
 
-        GBApplication.deviceService().onSetPhoneVolume(volumePercentage);
+        Application.deviceService().onSetPhoneVolume(volumePercentage);
     }
 
     @Deprecated
     private static String getAudioPlayer(final Context context) {
-        final Prefs prefs = GBApplication.getPrefs();
+        final Prefs prefs = Application.getPrefs();
         final String audioPlayer = prefs.getString("audio_player", "default");
         final MediaSessionManager mediaSessionManager = (MediaSessionManager) context.getSystemService(Context.MEDIA_SESSION_SERVICE);
         try {

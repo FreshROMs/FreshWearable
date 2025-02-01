@@ -69,7 +69,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -78,7 +78,6 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceApp;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.BitmapUtil;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implements View.OnClickListener, View.OnLongClickListener, View.OnDragListener {
@@ -285,7 +284,7 @@ public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implem
                 AndroidUtils.openWebsite("https://github.com/dakhnod/Fossil-HR-Menu-Companion/releases/latest");
             }
         } else if(buttonId == R.id.button_watchface_reset_menu_structure) {
-            SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(mGBDevice.getAddress());
+            SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(mGBDevice.getAddress());
             prefs.edit().remove("MENU_STRUCTURE_JSON").apply();
             GB.toast(getString(R.string.info_menu_structure_removed), Toast.LENGTH_SHORT, GB.INFO);
             reloadMenuStructureIndicator();
@@ -293,7 +292,7 @@ public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implem
     }
 
     private void reloadMenuStructureIndicator(){
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(mGBDevice.getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(mGBDevice.getAddress());
         String menuStructureJson = prefs.getString("MENU_STRUCTURE_JSON", "");
 
         boolean active = !menuStructureJson.isEmpty();
@@ -615,7 +614,7 @@ public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implem
         wfFactory.setBackground(selectedBackgroundImage);
         wfFactory.addWidgets(widgets);
 
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(mGBDevice.getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(mGBDevice.getAddress());
         String menuStructureJson = prefs.getString("MENU_STRUCTURE_JSON", "");
         if(!menuStructureJson.isEmpty()){
             try {
@@ -637,11 +636,11 @@ public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implem
             final Uri tempAppFileUri = Uri.fromFile(tempFile);
             if (preview) {
                 findViewById(R.id.watchface_upload_progress_bar).setVisibility(View.VISIBLE);
-                GBApplication.deviceService(mGBDevice).onInstallApp(tempAppFileUri);
+                Application.deviceService(mGBDevice).onInstallApp(tempAppFileUri);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        GBApplication.deviceService(mGBDevice).onAppDelete(UUID.nameUUIDFromBytes("previewWatchface".getBytes(StandardCharsets.UTF_8)));
+                        Application.deviceService(mGBDevice).onAppDelete(UUID.nameUUIDFromBytes("previewWatchface".getBytes(StandardCharsets.UTF_8)));
                     }
                 }, 15000);
             } else {
@@ -658,14 +657,14 @@ public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implem
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     findViewById(R.id.watchface_upload_progress_bar).setVisibility(View.VISIBLE);
-                                    GBApplication.deviceService(mGBDevice).onInstallApp(tempAppFileUri);
+                                    Application.deviceService(mGBDevice).onInstallApp(tempAppFileUri);
                                     FossilHRInstallHandler.saveAppInCache(fossilFile, selectedBackgroundImage, wfFactory.getPreviewImage(mContext), mCoordinator, HybridHRWatchfaceDesignerActivity.this);
                                 }
                             })
                             .show();
                 } else {
                     findViewById(R.id.watchface_upload_progress_bar).setVisibility(View.VISIBLE);
-                    GBApplication.deviceService(mGBDevice).onInstallApp(tempAppFileUri);
+                    Application.deviceService(mGBDevice).onInstallApp(tempAppFileUri);
                     FossilHRInstallHandler.saveAppInCache(fossilFile, selectedBackgroundImage, wfFactory.getPreviewImage(mContext), mCoordinator, HybridHRWatchfaceDesignerActivity.this);
                 }
             }

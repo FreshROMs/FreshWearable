@@ -30,7 +30,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractSettingsActivityV2;
@@ -64,7 +64,7 @@ public class AutomationsPreferencesActivity extends AbstractSettingsActivityV2 {
                         LOG.info("Got target backup file: {}", uri);
                         if (uri != null) {
                             requireContext().getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                            GBApplication.getPrefs().getPreferences()
+                            Application.getPrefs().getPreferences()
                                     .edit()
                                     .putString(GBPrefs.AUTO_EXPORT_LOCATION, uri.toString())
                                     .apply();
@@ -73,8 +73,8 @@ public class AutomationsPreferencesActivity extends AbstractSettingsActivityV2 {
                             if (preference != null) {
                                 preference.setSummary(summary);
                             }
-                            final boolean autoExportEnabled = GBApplication.getPrefs().getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
-                            final int autoExportPeriod = GBApplication.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
+                            final boolean autoExportEnabled = Application.getPrefs().getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
+                            final int autoExportPeriod = Application.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
                             PeriodicExporter.scheduleAlarm(requireContext().getApplicationContext(), autoExportPeriod, autoExportEnabled);
                         }
                     }
@@ -97,11 +97,11 @@ public class AutomationsPreferencesActivity extends AbstractSettingsActivityV2 {
                             Integer.valueOf((String) autoExportInterval)
                     );
                     preference.setSummary(summary);
-                    final boolean autoExportEnabled = GBApplication.getPrefs().getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
+                    final boolean autoExportEnabled = Application.getPrefs().getBoolean(GBPrefs.AUTO_EXPORT_ENABLED, false);
                     PeriodicExporter.scheduleAlarm(requireContext().getApplicationContext(), Integer.valueOf((String) autoExportInterval), autoExportEnabled);
                     return true;
                 });
-                final int autoExportInterval = GBApplication.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
+                final int autoExportInterval = Application.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
                 String summary = String.format(
                         requireContext().getApplicationContext().getString(R.string.pref_summary_auto_export_interval),
                         autoExportInterval
@@ -112,7 +112,7 @@ public class AutomationsPreferencesActivity extends AbstractSettingsActivityV2 {
             final Preference autoExportEnabledPref = findPreference(GBPrefs.AUTO_EXPORT_ENABLED);
             if (autoExportEnabledPref != null) {
                 autoExportEnabledPref.setOnPreferenceChangeListener((preference, autoExportEnabled) -> {
-                    int autoExportInterval = GBApplication.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
+                    int autoExportInterval = Application.getPrefs().getInt(GBPrefs.AUTO_EXPORT_INTERVAL, 0);
                     PeriodicExporter.scheduleAlarm(requireContext().getApplicationContext(), autoExportInterval, (boolean) autoExportEnabled);
                     return true;
                 });
@@ -129,7 +129,7 @@ public class AutomationsPreferencesActivity extends AbstractSettingsActivityV2 {
                     return true;
                 });
 
-                final int autoFetchInterval = GBApplication.getPrefs().getInt("auto_fetch_interval_limit", 0);
+                final int autoFetchInterval = Application.getPrefs().getInt("auto_fetch_interval_limit", 0);
                 final String summary = String.format(
                         requireContext().getApplicationContext().getString(R.string.pref_auto_fetch_limit_fetches_summary),
                         autoFetchInterval
@@ -142,7 +142,7 @@ public class AutomationsPreferencesActivity extends AbstractSettingsActivityV2 {
          * Either returns the file path of the selected document, or the display name, or an empty string
          **/
         public String getAutoExportLocationSummary(final String prefKey) {
-            final String autoExportLocation = GBApplication.getPrefs().getString(prefKey, null);
+            final String autoExportLocation = Application.getPrefs().getString(prefKey, null);
             if (autoExportLocation == null) {
                 return "";
             }

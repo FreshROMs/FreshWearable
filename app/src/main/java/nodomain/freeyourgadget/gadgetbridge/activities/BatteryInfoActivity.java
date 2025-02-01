@@ -37,13 +37,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Calendar;
 import java.util.Date;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 
 public class BatteryInfoActivity extends AbstractGBActivity {
     private static final Logger LOG = LoggerFactory.getLogger(BatteryInfoActivity.class);
@@ -61,7 +60,7 @@ public class BatteryInfoActivity extends AbstractGBActivity {
         super.onCreate(savedInstanceState);
 
         final Context appContext = this.getApplicationContext();
-        if (appContext instanceof GBApplication) {
+        if (appContext instanceof Application) {
             setContentView(R.layout.activity_battery_info);
         }
 
@@ -163,7 +162,7 @@ public class BatteryInfoActivity extends AbstractGBActivity {
                 currentDate.setTimeInMillis(timeTo * 1000L);
                 Context context = getApplicationContext();
 
-                if (context instanceof GBApplication) {
+                if (context instanceof Application) {
                     new DatePickerDialog(BatteryInfoActivity.this, new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {

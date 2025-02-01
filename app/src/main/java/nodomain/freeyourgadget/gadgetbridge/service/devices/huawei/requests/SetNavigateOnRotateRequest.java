@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.DeviceConfig;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandConst;
@@ -43,7 +43,7 @@ public class SetNavigateOnRotateRequest extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        boolean navigate = GBApplication
+        boolean navigate = Application
             .getDeviceSpecificSharedPrefs(supportProvider.getDevice().getAddress())
             .getBoolean(MiBandConst.PREF_MI2_ROTATE_WRIST_TO_SWITCH_INFO, false);
         try {

@@ -32,7 +32,7 @@ import android.provider.ContactsContract;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.loyaltycards.LoyaltyCard;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCameraRemote;
@@ -159,10 +159,10 @@ public class GBDeviceService implements DeviceService {
 
     @Override
     public void onNotification(NotificationSpec notificationSpec) {
-        String messagePrivacyMode = GBApplication.getPrefs().getString("pref_message_privacy_mode",
-                GBApplication.getContext().getString(R.string.p_message_privacy_mode_off));
-        boolean hideMessageDetails = messagePrivacyMode.equals(GBApplication.getContext().getString(R.string.p_message_privacy_mode_complete));
-        boolean hideMessageBodyOnly = messagePrivacyMode.equals(GBApplication.getContext().getString(R.string.p_message_privacy_mode_bodyonly));
+        String messagePrivacyMode = Application.getPrefs().getString("pref_message_privacy_mode",
+                Application.getContext().getString(R.string.p_message_privacy_mode_off));
+        boolean hideMessageDetails = messagePrivacyMode.equals(Application.getContext().getString(R.string.p_message_privacy_mode_complete));
+        boolean hideMessageBodyOnly = messagePrivacyMode.equals(Application.getContext().getString(R.string.p_message_privacy_mode_bodyonly));
 
         Intent intent = createIntent().setAction(ACTION_NOTIFICATION)
                 .putExtra(EXTRA_NOTIFICATION_FLAGS, notificationSpec.flags)
@@ -209,8 +209,8 @@ public class GBDeviceService implements DeviceService {
 
     @Override
     public void onSetCallState(CallSpec callSpec) {
-        Context context = GBApplication.getContext();
-        String currentPrivacyMode = GBApplication.getPrefs().getString("pref_call_privacy_mode", GBApplication.getContext().getString(R.string.p_call_privacy_mode_off));
+        Context context = Application.getContext();
+        String currentPrivacyMode = Application.getPrefs().getString("pref_call_privacy_mode", Application.getContext().getString(R.string.p_call_privacy_mode_off));
         if (currentPrivacyMode.equals(context.getString(R.string.p_call_privacy_mode_name))) {
             callSpec.name = callSpec.number;
         } else if (currentPrivacyMode.equals(context.getString(R.string.p_call_privacy_mode_complete))) {

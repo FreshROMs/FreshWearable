@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -53,7 +53,7 @@ public class OpenFwAppInstallerActivity extends AbstractGBActivity {
         TextView label = findViewById(R.id.open_fw_installer_no_device);
         label.setText(String.format(getString(R.string.open_fw_installer_select_file), device.getAliasOrName()));
 
-        final List<GBDevice> devices = ((GBApplication) getApplicationContext()).getDeviceManager().getSelectedDevices();
+        final List<GBDevice> devices = ((Application) getApplicationContext()).getDeviceManager().getSelectedDevices();
         switch (devices.size()) {
             case 0:
                 label.setText(R.string.open_fw_installer_connect_minimum_one_device);

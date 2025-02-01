@@ -57,7 +57,7 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -366,7 +366,7 @@ public class LiveActivityFragment extends AbstractActivityChartFragment<ChartsDa
         renderCharts();
 
         // have to enable it again and again to keep it measuring
-        GBApplication.deviceService(getChartsHost().getDevice()).onEnableRealtimeHeartRateMeasurement(true);
+        Application.deviceService(getChartsHost().getDevice()).onEnableRealtimeHeartRateMeasurement(true);
     }
 
     @Override
@@ -382,12 +382,12 @@ public class LiveActivityFragment extends AbstractActivityChartFragment<ChartsDa
         }
 
         try {
-            GBApplication.deviceService(getChartsHost().getDevice()).onEnableRealtimeSteps(enable);
-            GBApplication.deviceService(getChartsHost().getDevice()).onEnableRealtimeHeartRateMeasurement(enable);
+            Application.deviceService(getChartsHost().getDevice()).onEnableRealtimeSteps(enable);
+            Application.deviceService(getChartsHost().getDevice()).onEnableRealtimeHeartRateMeasurement(enable);
         } catch (IllegalStateException e) {
             LOG.error("IllegalStateException catched, setting realtime tracking globally to {}", enable);
-            GBApplication.deviceService().onEnableRealtimeSteps(enable);
-            GBApplication.deviceService().onEnableRealtimeHeartRateMeasurement(enable);
+            Application.deviceService().onEnableRealtimeSteps(enable);
+            Application.deviceService().onEnableRealtimeHeartRateMeasurement(enable);
         }
 
         if (enable) {
@@ -462,7 +462,7 @@ public class LiveActivityFragment extends AbstractActivityChartFragment<ChartsDa
     }
 
     private BarDataSet setupTotalStepsChart(CustomBarChart chart, BarEntry entry, String label) {
-        mTotalStepsChart.getAxisLeft().addLimitLine(new LimitLine(GBApplication.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal), "ss")); // TODO: use daily goal - already reached steps
+        mTotalStepsChart.getAxisLeft().addLimitLine(new LimitLine(Application.getPrefs().getInt(ActivityUser.PREF_USER_STEPS_GOAL, ActivityUser.defaultUserStepsGoal), "ss")); // TODO: use daily goal - already reached steps
         mTotalStepsChart.getAxisLeft().setAxisMinimum(0);
         mTotalStepsChart.setAutoScaleMinMaxEnabled(true);
         return setupCommonChart(chart, entry, label); // at the moment, these look the same

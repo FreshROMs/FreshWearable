@@ -16,7 +16,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities.charts;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -53,7 +52,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBFragmentActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -175,7 +174,7 @@ public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity 
             viewPager.setCurrentItem(tabFragmentIdToOpen);  // open the tab as specified in the intent
         }
 
-        viewPager.setAllowSwipe(singleFragmentName == null && GBApplication.getPrefs().getBoolean("charts_allow_swipe", true));
+        viewPager.setAllowSwipe(singleFragmentName == null && Application.getPrefs().getBoolean("charts_allow_swipe", true));
 
         if (singleFragmentName != null) {
             final TabLayout tabLayout = findViewById(R.id.charts_pagerTabStrip);
@@ -352,7 +351,7 @@ public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity 
 
     private void fetchRecordedData() {
         if (getDevice().isInitialized()) {
-            GBApplication.deviceService(getDevice()).onFetchRecordedData(getRecordedDataType());
+            Application.deviceService(getDevice()).onFetchRecordedData(getRecordedDataType());
         } else {
             swipeLayout.setRefreshing(false);
             GB.toast(this, getString(R.string.device_not_connected), Toast.LENGTH_SHORT, GB.ERROR);

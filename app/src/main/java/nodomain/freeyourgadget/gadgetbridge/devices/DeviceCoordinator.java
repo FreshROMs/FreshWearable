@@ -36,7 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.AppException;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.HeartRateCapability;
@@ -161,9 +161,9 @@ public interface DeviceCoordinator {
     /**
      * Deletes all information, including all related database content about the
      * given device.
-     * @throws GBException
+     * @throws AppException
      */
-    void deleteDevice(GBDevice device) throws GBException;
+    void deleteDevice(GBDevice device) throws AppException;
 
     /**
      * Returns the Activity class to be started in order to perform a pairing of a

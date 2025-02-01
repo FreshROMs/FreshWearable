@@ -30,10 +30,9 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventDisplayMessage;
-import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.MiBandService;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder;
@@ -53,7 +52,7 @@ public class UpdateFirmwareOperation extends AbstractMiBand1Operation {
     private final Uri uri;
     private boolean firmwareInfoSent = false;
     private UpdateCoordinator updateCoordinator;
-    final Prefs prefs = GBApplication.getPrefs();
+    final Prefs prefs = Application.getPrefs();
 
     public UpdateFirmwareOperation(Uri uri, MiBandSupport support) {
         super(support);
@@ -310,7 +309,7 @@ public class UpdateFirmwareOperation extends AbstractMiBand1Operation {
             int firmwareProgress = 0;
 
             TransactionBuilder builder = performInitialized("send firmware packet");
-            if (GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getBoolean("low_latency_fw_update", true)) {
+            if (Application.getDeviceSpecificSharedPrefs(getDevice().getAddress()).getBoolean("low_latency_fw_update", true)) {
                 getSupport().setLowLatency(builder);
             }
             for (int i = 0; i < packets; i++) {

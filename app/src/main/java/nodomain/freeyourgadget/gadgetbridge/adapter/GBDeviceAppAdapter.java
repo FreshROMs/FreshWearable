@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AbstractAppManagerFragment;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceApp;
@@ -85,7 +85,7 @@ public class GBDeviceAppAdapter extends RecyclerView.Adapter<GBDeviceAppAdapter.
         if ((deviceApp.getCreator().equals("")) || (deviceApp.getCreator().equals("(unknown)"))) {
             appVersionAuthor = deviceApp.getVersion();
         } else {
-            appVersionAuthor = GBApplication.getContext().getString(R.string.appversion_by_creator, deviceApp.getVersion(), deviceApp.getCreator());
+            appVersionAuthor = Application.getContext().getString(R.string.appversion_by_creator, deviceApp.getVersion(), deviceApp.getCreator());
         }
         holder.mDeviceAppVersionAuthorLabel.setText(appVersionAuthor);
         if (deviceApp.isUpToDate()) {

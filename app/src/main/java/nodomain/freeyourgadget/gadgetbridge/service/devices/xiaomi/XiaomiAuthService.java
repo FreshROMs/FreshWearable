@@ -44,15 +44,13 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Locale;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.proto.xiaomi.XiaomiProto;
@@ -135,7 +133,7 @@ public class XiaomiAuthService extends AbstractXiaomiService {
                     final GBDevice device = getSupport().getDevice();
 
                     if (device != null) {
-                        GBApplication.deviceService(device).disconnect();
+                        Application.deviceService(device).disconnect();
                     }
 
                     return;
@@ -162,7 +160,7 @@ public class XiaomiAuthService extends AbstractXiaomiService {
 
                     final GBDevice device = getSupport().getDevice();
                     if (device != null) {
-                        GBApplication.deviceService(device).disconnect();
+                        Application.deviceService(device).disconnect();
                     }
                 }
                 break;
@@ -295,7 +293,7 @@ public class XiaomiAuthService extends AbstractXiaomiService {
     protected static byte[] getSecretKey(final GBDevice device) {
         final byte[] authKeyBytes = new byte[16];
 
-        final SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+        final SharedPreferences sharedPrefs = Application.getDeviceSpecificSharedPrefs(device.getAddress());
 
         final String authKey = sharedPrefs.getString("authkey", "").trim();
         if (StringUtils.isNotBlank(authKey)) {
@@ -313,7 +311,7 @@ public class XiaomiAuthService extends AbstractXiaomiService {
     }
 
     protected static String getUserId(final GBDevice device) {
-        final SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(device.getAddress());
+        final SharedPreferences sharedPrefs = Application.getDeviceSpecificSharedPrefs(device.getAddress());
 
         final String authKey = sharedPrefs.getString("authkey", null);
         if (StringUtils.isNotBlank(authKey)) {

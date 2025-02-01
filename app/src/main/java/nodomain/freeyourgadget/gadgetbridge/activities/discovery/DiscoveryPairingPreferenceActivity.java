@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import androidx.preference.PreferenceFragmentCompat;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractSettingsActivityV2;
@@ -46,7 +46,7 @@ public class DiscoveryPairingPreferenceActivity extends AbstractSettingsActivity
             setPreferencesFromResource(R.xml.discovery_pairing_preferences, rootKey);
 
             findPreference("prefs_general_key_auto_reconnect_scan").setOnPreferenceChangeListener((preference, newValue) -> {
-                GB.toast(GBApplication.getContext().getString(R.string.prompt_restart_gadgetbridge), Toast.LENGTH_LONG, GB.INFO);
+                GB.toast(Application.getContext().getString(R.string.prompt_restart_gadgetbridge), Toast.LENGTH_LONG, GB.INFO);
                 return true;
             });
         }

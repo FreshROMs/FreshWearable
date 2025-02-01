@@ -38,7 +38,7 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import de.greenrobot.dao.query.Query;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
@@ -283,7 +283,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
 
     @Override
     public void onSendConfiguration(String config) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         switch (config) {
             case DeviceSettingsPreferenceConst.PREF_TIMEFORMAT: {
                 sendAmPmSetting(null);
@@ -358,7 +358,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @param builder the transaction builder to append to
      */
     private void sendUnitsSetting(TransactionBuilder builder) {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         String units = prefs.getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM,
                 getContext().getString(R.string.p_unit_metric));
 
@@ -377,7 +377,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @param builder the transaction builder to append to
      */
     private void sendAmPmSetting(TransactionBuilder builder) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         String ampmSetting = prefs.getString(DeviceSettingsPreferenceConst.PREF_TIMEFORMAT,
                 getContext().getString(R.string.p_timeformat_auto));
 
@@ -403,7 +403,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @param builder the transaction builder to append to
      */
     private void sendAmPmSettingIfNecessary(TransactionBuilder builder) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         String ampmSetting = prefs.getString(DeviceSettingsPreferenceConst.PREF_TIMEFORMAT,
                 getContext().getString(R.string.p_timeformat_auto));
 
@@ -418,7 +418,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @return the features command
      */
     private FeaturesCommand getCurrentEnabledFeatures() {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         boolean raiseToWakeEnabled = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_LIFTWRIST_NOSHED, true);
         boolean antilostEnabled = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_ANTILOST_ENABLED, true);
         boolean sedentaryEnabled = prefs.getBoolean(DeviceSettingsPreferenceConst.PREF_INACTIVITY_ENABLE, false);
@@ -564,7 +564,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @param units units of measurement setting
      */
     public void receiveGeneralSettings(int amPm, int units) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         boolean ampmEnabled = amPm == SettingsCommand.AM_PM_12_HOUR;
         String currAmpmSetting = prefs.getString(DeviceSettingsPreferenceConst.PREF_TIMEFORMAT,
                 getContext().getString(R.string.p_timeformat_auto));
@@ -587,7 +587,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @param cmd the features command
      */
     public void receiveEnabledFeaturesSetting(FeaturesCommand cmd) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         prefs.edit()
                 .putBoolean(DeviceSettingsPreferenceConst.PREF_LIFTWRIST_NOSHED,
                         cmd.getFeature(FeaturesCommand.FEATURE_RAISE_TO_WAKE))
@@ -606,7 +606,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @param period the interval
      */
     public void receiveSedentaryReminderIntervalSetting(int period) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         prefs.edit()
                 .putString(DeviceSettingsPreferenceConst.PREF_INACTIVITY_THRESHOLD, String.valueOf(period))
                 .apply();
@@ -618,7 +618,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @param period the interval
      */
     public void receiveHydrationReminderIntervalSetting(int period) {
-        SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+        SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
         prefs.edit()
                 .putString(DeviceSettingsPreferenceConst.PREF_HYDRATION_PERIOD, String.valueOf(period))
                 .apply();
@@ -858,7 +858,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @param command the activity data
      */
     public void handleActivityData(GetActivityDataCommand command) {
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             DaoSession session = handler.getDaoSession();
             int timestamp = dateToTimestamp(command.getYear(), command.getMonth(), command.getDay(),
                     command.getHour(), command.getMinute(), (byte) 0);
@@ -894,7 +894,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
         int ppgData0 = ppgData[0] & 0xff;
         int ppgData1 = ppgData.length > 1 ? ppgData[1] & 0xff : 0;
 
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             DaoSession session = handler.getDaoSession();
 
             if (ppgType == LefunConstants.PPG_TYPE_HEART_RATE) {
@@ -959,7 +959,7 @@ public class LefunDeviceSupport extends AbstractBTLEDeviceSupport {
      * @param command the sleep data
      */
     public void handleSleepData(GetSleepDataCommand command) {
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             DaoSession session = handler.getDaoSession();
             int timestamp = dateToTimestamp(command.getYear(), command.getMonth(), command.getDay(),
                     command.getHour(), command.getMinute(), (byte) 0);

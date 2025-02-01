@@ -36,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
@@ -58,7 +58,7 @@ public class CatimaManager {
             return;
         }
 
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
+        final Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(gbDevice.getAddress()));
 
         final boolean syncGroupsOnly = prefs.getBoolean(LOYALTY_CARDS_SYNC_GROUPS_ONLY, false);
         final Set<String> syncGroups = prefs.getStringSet(LOYALTY_CARDS_SYNC_GROUPS, Collections.emptySet());
@@ -105,7 +105,7 @@ public class CatimaManager {
 
         GB.toast(context, context.getString(R.string.loyalty_cards_syncing, cardsToSync.size()), Toast.LENGTH_LONG, GB.INFO);
 
-        GBApplication.deviceService(gbDevice).onSetLoyaltyCards(cardsToSync);
+        Application.deviceService(gbDevice).onSetLoyaltyCards(cardsToSync);
     }
 
     public List<CharSequence> findInstalledCatimaPackages() {

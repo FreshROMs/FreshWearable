@@ -35,8 +35,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.GBException;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.AppException;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
@@ -81,7 +81,7 @@ public class QHybridCoordinator extends AbstractBLEDeviceCoordinator {
 
     @Override
     public boolean supportsActivityDataFetching() {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = Application.app().getDeviceManager().getSelectedDevices();
         for(GBDevice device : devices){
             if(isFossilHybrid(device) && device.getState() == GBDevice.State.INITIALIZED){
                 return true;
@@ -126,7 +126,7 @@ public class QHybridCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     private boolean supportsAlarmConfiguration() {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = Application.app().getDeviceManager().getSelectedDevices();
         LOG.debug("devices count: " + devices.size());
         for(GBDevice device : devices){
             if(isFossilHybrid(device) && device.getState() == GBDevice.State.INITIALIZED){
@@ -225,7 +225,7 @@ public class QHybridCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     @Override
-    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws GBException {
+    protected void deleteDevice(@NonNull GBDevice gbDevice, @NonNull Device device, @NonNull DaoSession session) throws AppException {
 
     }
 
@@ -297,7 +297,7 @@ public class QHybridCoordinator extends AbstractBLEDeviceCoordinator {
 
     @Deprecated // we should use the isHybridHR(GBDevice) instead of iterating every single device
     private boolean isHybridHR() {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = Application.app().getDeviceManager().getSelectedDevices();
         for(GBDevice device : devices){
             if(isHybridHR(device)){
                 return true;
@@ -312,7 +312,7 @@ public class QHybridCoordinator extends AbstractBLEDeviceCoordinator {
     }
 
     private Version getFirmwareVersion() {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getSelectedDevices();
+        List<GBDevice> devices = Application.app().getDeviceManager().getSelectedDevices();
         for (GBDevice device : devices) {
             if (isFossilHybrid(device)) {
                 return new Version(device.getFirmwareVersion2());

@@ -55,7 +55,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.ActivitySummariesAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -377,7 +377,7 @@ public class ActivitySummariesActivity extends AbstractListActivity<BaseActivity
                 date.set(year, monthOfYear, dayOfMonth);
 
                 long timestamp = date.getTimeInMillis() - 1000;
-                SharedPreferences.Editor editor = GBApplication.getDeviceSpecificSharedPrefs(mGBDevice.getAddress()).edit();
+                SharedPreferences.Editor editor = Application.getDeviceSpecificSharedPrefs(mGBDevice.getAddress()).edit();
                 editor.remove("lastSportsActivityTimeMillis"); //FIXME: key reconstruction is BAD
                 editor.putLong("lastSportsActivityTimeMillis", timestamp);
                 editor.apply();
@@ -406,7 +406,7 @@ public class ActivitySummariesActivity extends AbstractListActivity<BaseActivity
     private void fetchTrackData() {
         if (mGBDevice.isInitialized() && !mGBDevice.isBusy()) {
             swipeLayout.setRefreshing(true);
-            GBApplication.deviceService(mGBDevice).onFetchRecordedData(RecordedDataTypes.TYPE_GPS_TRACKS);
+            Application.deviceService(mGBDevice).onFetchRecordedData(RecordedDataTypes.TYPE_GPS_TRACKS);
         } else {
             swipeLayout.setRefreshing(false);
             if (!mGBDevice.isInitialized()) {
@@ -468,7 +468,7 @@ public class ActivitySummariesActivity extends AbstractListActivity<BaseActivity
     }
 
     private long getDeviceId(GBDevice device) {
-        try (DBHandler handler = GBApplication.acquireDB()) {
+        try (DBHandler handler = Application.acquireDB()) {
             Device dbDevice = DBHelper.findDevice(device, handler.getDaoSession());
             return dbDevice.getId();
         } catch (Exception e) {

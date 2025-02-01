@@ -24,7 +24,7 @@ import androidx.preference.Preference;
 import java.util.Collections;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -63,7 +63,7 @@ public class MiBandSettingsCustomizer implements DeviceSpecificSettingsCustomize
     private void tryVibration(NotificationType type) {
         NotificationSpec spec = new NotificationSpec();
         spec.type = type;
-        GBApplication.deviceService(device).onNotification(spec);
+        Application.deviceService(device).onNotification(spec);
     }
 
     @Override

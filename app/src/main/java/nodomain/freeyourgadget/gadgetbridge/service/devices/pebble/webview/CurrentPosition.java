@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import androidx.core.app.ActivityCompat;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
 public class CurrentPosition {
@@ -54,7 +54,7 @@ public class CurrentPosition {
     }
 
     public CurrentPosition() {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
         this.latitude = prefs.getFloat("location_latitude", 0);
         this.longitude = prefs.getFloat("location_longitude", 0);
 
@@ -66,9 +66,9 @@ public class CurrentPosition {
 
         this.timestamp = System.currentTimeMillis() - 86400000; //let accessor know this value is really old
 
-        if (ActivityCompat.checkSelfPermission(GBApplication.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
+        if (ActivityCompat.checkSelfPermission(Application.getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
                 prefs.getBoolean("use_updated_location_if_available", false)) {
-            LocationManager locationManager = (LocationManager) GBApplication.getContext().getSystemService(Context.LOCATION_SERVICE);
+            LocationManager locationManager = (LocationManager) Application.getContext().getSystemService(Context.LOCATION_SERVICE);
             Criteria criteria = new Criteria();
             String provider = null;
             if (locationManager != null) {

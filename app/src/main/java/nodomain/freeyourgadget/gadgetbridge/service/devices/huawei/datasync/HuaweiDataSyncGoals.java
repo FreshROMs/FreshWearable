@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiTLV;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
@@ -77,28 +77,28 @@ public class HuaweiDataSyncGoals implements HuaweiDataSyncCommon.DataCallback {
         switch(config.configId) {
             case STEPS_GOAL: {
                 int goal = tlv.getInteger(0x02);
-                SharedPreferences prefs = GBApplication.getPrefs().getPreferences();
+                SharedPreferences prefs = Application.getPrefs().getPreferences();
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString(ActivityUser.PREF_USER_STEPS_GOAL, String.valueOf(goal));
                 editor.apply();
             } break;
             case CALORIES_GOAL: {
                 int goal = tlv.getInteger(0x02);
-                SharedPreferences prefs = GBApplication.getPrefs().getPreferences();
+                SharedPreferences prefs = Application.getPrefs().getPreferences();
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString(ActivityUser.PREF_USER_CALORIES_BURNT, String.valueOf(goal / 1000));
                 editor.apply();
             } break;
             case EXERCISES_GOAL: {
                 int goal = tlv.getInteger(0x02);
-                SharedPreferences prefs = GBApplication.getPrefs().getPreferences();
+                SharedPreferences prefs = Application.getPrefs().getPreferences();
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString(ActivityUser.PREF_USER_GOAL_FAT_BURN_TIME_MINUTES, String.valueOf(goal));
                 editor.apply();
             } break;
             case STAND_GOAL: {
                 int goal = tlv.getInteger(0x02);
-                SharedPreferences prefs = GBApplication.getPrefs().getPreferences();
+                SharedPreferences prefs = Application.getPrefs().getPreferences();
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putString(ActivityUser.PREF_USER_GOAL_STANDING_TIME_HOURS, String.valueOf(goal));
                 editor.apply();

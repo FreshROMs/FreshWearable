@@ -30,7 +30,7 @@ import java.util.GregorianCalendar;
 
 import androidx.annotation.NonNull;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.entities.BaseActivitySummary;
@@ -135,7 +135,7 @@ public class FetchSportsDetailsOperation extends AbstractFetchOperation {
                 exportGpxSuccess = false;
             }
 
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 if (exportGpxSuccess) {
                     summary.setGpxTrack(targetFile.getAbsolutePath());
                 }

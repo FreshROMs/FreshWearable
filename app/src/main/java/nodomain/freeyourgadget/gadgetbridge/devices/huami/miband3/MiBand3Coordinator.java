@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
@@ -76,7 +76,7 @@ public class MiBand3Coordinator extends HuamiCoordinator {
     }
 
     public static String getNightMode(final String deviceAddress) {
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(deviceAddress));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(deviceAddress));
 
         return prefs.getString(MiBandConst.PREF_NIGHT_MODE, MiBandConst.PREF_NIGHT_MODE_OFF);
     }

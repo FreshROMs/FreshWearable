@@ -87,7 +87,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
@@ -554,8 +554,8 @@ public class FossilHRWatchAdapter extends FossilWatchAdapter {
     }
 
     private void setUnitsConfig() {
-        Prefs prefs = GBApplication.getPrefs();
-        String unit = prefs.getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, GBApplication.getContext().getString(R.string.p_unit_metric));
+        Prefs prefs = Application.getPrefs();
+        String unit = prefs.getString(SettingsActivity.PREF_MEASUREMENT_SYSTEM, Application.getContext().getString(R.string.p_unit_metric));
         int value = 8; // dont know what this bit means but it was set for me before tampering
         if (!unit.equals("metric")) {
             value |= (4 | 1); // temperature and distance
@@ -689,15 +689,15 @@ public class FossilHRWatchAdapter extends FossilWatchAdapter {
         if (firmwareVersion != null && firmwareVersion.greaterOrEqualThan(new Version("2.20"))) {
             return; // this does not work on newer firmware versions
         }
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDeviceSupport().getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDeviceSupport().getDevice().getAddress()));
         boolean forceWhiteBackground = prefs.getBoolean("force_white_color_scheme", false);
         String fontColor = forceWhiteBackground ? "black" : "default";
 
         Widget[] oldWidgets = widgets.toArray(new Widget[0]);
 
         widgets.clear();
-        String widgetJson = GBApplication.getPrefs().getPreferences().getString("FOSSIL_HR_WIDGETS", "{}");
-        String customWidgetJson = GBApplication.getPrefs().getString("QHYBRID_CUSTOM_WIDGETS", "[]");
+        String widgetJson = Application.getPrefs().getPreferences().getString("FOSSIL_HR_WIDGETS", "{}");
+        String customWidgetJson = Application.getPrefs().getString("QHYBRID_CUSTOM_WIDGETS", "[]");
 
         try {
             JSONObject widgetConfig = new JSONObject(widgetJson);
@@ -811,7 +811,7 @@ public class FossilHRWatchAdapter extends FossilWatchAdapter {
         if (firmwareVersion != null && firmwareVersion.greaterOrEqualThan(new Version("2.20"))) {
             return; // this does not work on newer firmware versions
         }
-        Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(getDeviceSupport().getDevice().getAddress()));
+        Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(getDeviceSupport().getDevice().getAddress()));
         boolean forceWhiteBackground = prefs.getBoolean("force_white_color_scheme", false);
         boolean drawCircles = prefs.getBoolean("widget_draw_circles", false);
 
@@ -1235,7 +1235,7 @@ public class FossilHRWatchAdapter extends FossilWatchAdapter {
                 queueWrite((FileEncryptedInterface) new FileEncryptedGetRequest(fileHandle, FossilHRWatchAdapter.this) {
                     @Override
                     public void handleFileData(byte[] fileData) {
-                        try (DBHandler dbHandler = GBApplication.acquireDB()) {
+                        try (DBHandler dbHandler = Application.acquireDB()) {
                             User user = DBHelper.getUser(dbHandler.getDaoSession());
                             Long userId = user.getId();
                             Device device = DBHelper.getDevice(getDeviceSupport().getDevice(), dbHandler.getDaoSession());
@@ -1622,7 +1622,7 @@ public class FossilHRWatchAdapter extends FossilWatchAdapter {
     public byte[] getSecretKey() throws IllegalAccessException {
         byte[] authKeyBytes = new byte[16];
 
-        SharedPreferences sharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(getDeviceSupport().getDevice().getAddress());
+        SharedPreferences sharedPrefs = Application.getDeviceSpecificSharedPrefs(getDeviceSupport().getDevice().getAddress());
 
         String authKey = sharedPrefs.getString("authkey", null);
         if (authKey != null && !authKey.isEmpty()) {
@@ -1707,7 +1707,7 @@ public class FossilHRWatchAdapter extends FossilWatchAdapter {
             for (ApplicationInformation info : installedApplications) {
                 if (info.getAppName().equals("commuteApp")) {
                     JSONArray jsonArray = new JSONArray(
-                            GBApplication.getPrefs().getString(CommuteActionsActivity.CONFIG_KEY_Q_ACTIONS, "[]")
+                            Application.getPrefs().getString(CommuteActionsActivity.CONFIG_KEY_Q_ACTIONS, "[]")
                     );
                     String[] menuItems = new String[jsonArray.length()];
                     for (int i = 0; i < jsonArray.length(); i++)

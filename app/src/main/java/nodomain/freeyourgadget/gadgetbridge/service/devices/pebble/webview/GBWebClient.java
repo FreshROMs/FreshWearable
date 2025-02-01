@@ -43,8 +43,7 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.model.Weather;
 import nodomain.freeyourgadget.gadgetbridge.util.WebViewSingleton;
 
@@ -116,7 +115,7 @@ public class GBWebClient extends WebViewClient {
         if (parsedUri.getScheme().startsWith("http")) {
             Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            GBApplication.getContext().startActivity(i);
+            Application.getContext().startActivity(i);
         } else if (parsedUri.getScheme().startsWith("pebblejs")) {
             url = url.replaceFirst("^pebblejs://close#", "file:///android_asset/app_config/configure.html?config=true&json=");
             view.loadUrl(url);

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.DeviceConfig;
@@ -43,7 +43,7 @@ public class SetActivateOnLiftRequest extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        boolean activate = GBApplication
+        boolean activate = Application
             .getDeviceSpecificSharedPrefs(supportProvider.getDevice().getAddress())
             .getBoolean(DeviceSettingsPreferenceConst.PREF_LIFTWRIST_NOSHED, false);
         try {

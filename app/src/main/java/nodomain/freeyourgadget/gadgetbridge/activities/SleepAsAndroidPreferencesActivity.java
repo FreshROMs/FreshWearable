@@ -1,7 +1,6 @@
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -51,10 +50,10 @@ public class SleepAsAndroidPreferencesActivity extends AbstractSettingsActivityV
                 sleepAsAndroidDevices.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(@NonNull Preference preference, Object newValue) {
-                        GBDevice device = GBApplication.app().getDeviceManager().getDeviceByAddress(newValue.toString());
+                        GBDevice device = Application.app().getDeviceManager().getDeviceByAddress(newValue.toString());
                         if (device != null) {
 
-                            GBApplication.getPrefs().getPreferences().edit().putString("sleepasandroid_device", device.getAddress()).apply();
+                            Application.getPrefs().getPreferences().edit().putString("sleepasandroid_device", device.getAddress()).apply();
 
                             Set<SleepAsAndroidFeature> supportedFeatures = device.getDeviceCoordinator().getSleepAsAndroidFeatures();
                             findPreference("sleepasandroid_alarm_slot").setEnabled(supportedFeatures.contains(SleepAsAndroidFeature.ALARMS));
@@ -82,9 +81,9 @@ public class SleepAsAndroidPreferencesActivity extends AbstractSettingsActivityV
 
             }
 
-            String defaultDeviceAddr = GBApplication.getPrefs().getString("sleepasandroid_device", "");
+            String defaultDeviceAddr = Application.getPrefs().getString("sleepasandroid_device", "");
             if (!defaultDeviceAddr.isEmpty()) {
-                GBDevice device = GBApplication.app().getDeviceManager().getDeviceByAddress(defaultDeviceAddr);
+                GBDevice device = Application.app().getDeviceManager().getDeviceByAddress(defaultDeviceAddr);
                 if (device != null) {
 
                     Set<SleepAsAndroidFeature> supportedFeatures = device.getDeviceCoordinator().getSleepAsAndroidFeatures();
@@ -102,14 +101,14 @@ public class SleepAsAndroidPreferencesActivity extends AbstractSettingsActivityV
 
     private static void loadAlarmSlots(ListPreference sleepAsAndroidSlots) {
         if (sleepAsAndroidSlots != null) {
-            String defaultDeviceAddr = GBApplication.getPrefs().getString("sleepasandroid_device", "");
+            String defaultDeviceAddr = Application.getPrefs().getString("sleepasandroid_device", "");
             if (!defaultDeviceAddr.isEmpty()) {
-                GBDevice device = GBApplication.app().getDeviceManager().getDeviceByAddress(defaultDeviceAddr);
+                GBDevice device = Application.app().getDeviceManager().getDeviceByAddress(defaultDeviceAddr);
                 if (device != null) {
                     int maxAlarmSlots = device.getDeviceCoordinator().getAlarmSlotCount(device);
                     if (maxAlarmSlots > 0) {
                         List<String> alarmSlots = new ArrayList<>();
-                        int reservedAlarmSlots = GBApplication.getPrefs().getInt(DeviceSettingsPreferenceConst.PREF_RESERVER_ALARMS_CALENDAR, 0);
+                        int reservedAlarmSlots = Application.getPrefs().getInt(DeviceSettingsPreferenceConst.PREF_RESERVER_ALARMS_CALENDAR, 0);
                         for (int i = reservedAlarmSlots + 1;i < maxAlarmSlots; i++) {
                             alarmSlots.add(String.valueOf(i));
                         }
@@ -122,7 +121,7 @@ public class SleepAsAndroidPreferencesActivity extends AbstractSettingsActivityV
     }
 
     private static void loadDevicesList(ListPreference sleepAsAndroidDevices) {
-        List<GBDevice> devices = GBApplication.app().getDeviceManager().getDevices();
+        List<GBDevice> devices = Application.app().getDeviceManager().getDevices();
         List<String> deviceMACs = new ArrayList<>();
         List<String> deviceNames = new ArrayList<>();
         for (GBDevice dev : devices) {

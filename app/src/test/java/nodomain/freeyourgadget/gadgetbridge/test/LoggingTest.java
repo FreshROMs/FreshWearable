@@ -6,8 +6,8 @@ import org.junit.Test;
 import java.io.File;
 
 import androidx.annotation.NonNull;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.Logging;
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.Logging;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 
 import static org.junit.Assert.assertEquals;
@@ -24,7 +24,7 @@ public class LoggingTest extends TestBase {
     public LoggingTest() {
     }
 
-    private Logging logging = GBApplication.getLogging();
+    private Logging logging = Application.getLogging();
 
     @Override
     @After

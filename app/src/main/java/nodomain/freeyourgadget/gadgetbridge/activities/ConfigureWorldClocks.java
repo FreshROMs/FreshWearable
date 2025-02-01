@@ -41,7 +41,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.GBWorldClockListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -104,7 +104,7 @@ public class ConfigureWorldClocks extends AbstractGBActivity {
                 }
 
                 final WorldClock worldClock;
-                try (DBHandler db = GBApplication.acquireDB()) {
+                try (DBHandler db = Application.acquireDB()) {
                     final DaoSession daoSession = db.getDaoSession();
                     final Device device = DBHelper.getDevice(gbDevice, daoSession);
                     final User user = DBHelper.getUser(daoSession);
@@ -214,7 +214,7 @@ public class ConfigureWorldClocks extends AbstractGBActivity {
 
     private void sendWorldClocksToDevice() {
         if (gbDevice.isInitialized()) {
-            GBApplication.deviceService(gbDevice).onSetWorldClocks(mGBWorldClockListAdapter.getWorldClockList());
+            Application.deviceService(gbDevice).onSetWorldClocks(mGBWorldClockListAdapter.getWorldClockList());
         }
     }
 }

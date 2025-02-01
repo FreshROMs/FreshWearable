@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
@@ -89,7 +89,7 @@ public class GetBatteryLevelRequest extends Request {
             }
         }
 
-        if (GBApplication.getDevicePrefs(getDevice()).getBatteryPollingEnabled()) {
+        if (Application.getDevicePrefs(getDevice()).getBatteryPollingEnabled()) {
             if (!this.supportProvider.startBatteryRunnerDelayed()) {
                 GB.toast(getContext(), R.string.battery_polling_failed_start, Toast.LENGTH_SHORT, GB.ERROR);
                 LOG.error("Failed to start the battery polling");

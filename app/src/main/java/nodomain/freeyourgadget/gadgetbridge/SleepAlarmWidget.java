@@ -17,14 +17,12 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge;
 
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -42,6 +40,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
 import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 
 /**
@@ -134,7 +133,7 @@ public class SleepAlarmWidget extends AppWidgetProvider {
             Alarm alarm = AlarmUtils.createSingleShot(0, true, false, calendar);
             ArrayList<Alarm> alarms = new ArrayList<>(1);
             alarms.add(alarm);
-            GBApplication.deviceService(deviceForWidget).onSetAlarms(alarms);
+            Application.deviceService(deviceForWidget).onSetAlarms(alarms);
 
 //          setAlarmViaAlarmManager(context, calendar.getTimeInMillis());
         }

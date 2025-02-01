@@ -22,7 +22,7 @@ import android.widget.SeekBar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 
 
@@ -42,7 +42,7 @@ public class VibrationActivity extends AbstractGBActivity {
                 if (progress > 0) { // 1-16
                     progress = progress * 16 - 1; // max 255
                 }
-                GBApplication.deviceService().onSetConstantVibration(progress);
+                Application.deviceService().onSetConstantVibration(progress);
             }
 
             @Override

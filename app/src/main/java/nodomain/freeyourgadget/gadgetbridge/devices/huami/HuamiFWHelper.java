@@ -24,7 +24,7 @@ import android.net.Uri;
 import java.io.IOException;
 
 import androidx.annotation.NonNull;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.AbstractMiBandFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huami.AbstractHuamiFirmwareInfo;
@@ -45,7 +45,7 @@ public abstract class HuamiFWHelper extends AbstractMiBandFWHelper {
     @NonNull
     @Override
     public String getFirmwareKind() {
-        return GBApplication.getContext().getString(getFirmwareInfo().getFirmwareType().getNameResId());
+        return Application.getContext().getString(getFirmwareInfo().getFirmwareType().getNameResId());
     }
 
     @Override

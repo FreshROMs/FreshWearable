@@ -26,12 +26,11 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.UUID;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.casio.CasioConstants;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.AbstractBTLEOperation;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.TransactionBuilder;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.casio.Casio2C2DSupport;
-import nodomain.freeyourgadget.gadgetbridge.service.devices.casio.gbx100.CasioGBX100DeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.miband.operations.OperationStatus;
 import nodomain.freeyourgadget.gadgetbridge.util.BcdUtil;
 
@@ -121,7 +120,7 @@ public class GetConfigurationOperation extends AbstractBTLEOperation<CasioGBX100
                 int day = BcdUtil.fromBcd8(compData[9]);
 
                 // Store only the device-specific settings on first-connect
-                SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+                SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
                 SharedPreferences.Editor editor = prefs.edit();
 
                 editor.putString(PREF_WEARLOCATION, right ? "right" : "left");
@@ -137,7 +136,7 @@ public class GetConfigurationOperation extends AbstractBTLEOperation<CasioGBX100
                 boolean operating_sounds = ((data[1] & 0x02) == 0x00);
 
                 // Store only the device-specific settings on first-connect
-                SharedPreferences prefs = GBApplication.getDeviceSpecificSharedPrefs(getDevice().getAddress());
+                SharedPreferences prefs = Application.getDeviceSpecificSharedPrefs(getDevice().getAddress());
                 SharedPreferences.Editor editor = prefs.edit();
 
                 editor.putBoolean(PREF_AUTOLIGHT, autolight);

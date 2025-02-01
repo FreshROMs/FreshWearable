@@ -27,7 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEvent;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventBatteryInfo;
@@ -160,7 +160,7 @@ public class OppoHeadphonesProtocol extends GBDeviceProtocol {
                     // We need to persist something, otherwise Gb misbehaves
                     final GBDeviceEventVersionInfo eventVersionInfo = new GBDeviceEventVersionInfo();
                     eventVersionInfo.fwVersion = fwString;
-                    eventVersionInfo.hwVersion = GBApplication.getContext().getString(R.string.n_a);
+                    eventVersionInfo.hwVersion = Application.getContext().getString(R.string.n_a);
                     events.add(eventVersionInfo);
 
                     break;
@@ -204,7 +204,7 @@ public class OppoHeadphonesProtocol extends GBDeviceProtocol {
 
                 final GBDeviceEventVersionInfo eventVersionInfo = new GBDeviceEventVersionInfo();
                 eventVersionInfo.fwVersion = fwVersion;
-                eventVersionInfo.hwVersion = GBApplication.getContext().getString(R.string.n_a);
+                eventVersionInfo.hwVersion = Application.getContext().getString(R.string.n_a);
                 events.add(eventVersionInfo);
 
                 LOG.debug("Got fw version: {}", fwVersion);

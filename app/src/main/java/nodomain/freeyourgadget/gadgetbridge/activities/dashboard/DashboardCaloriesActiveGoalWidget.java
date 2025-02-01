@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.CaloriesDailyFragment;
@@ -49,7 +49,7 @@ public class DashboardCaloriesActiveGoalWidget extends AbstractGaugeWidget {
     @Override
     protected void draw(final DashboardFragment.DashboardData dashboardData) {
         setText(String.valueOf(dashboardData.getActiveCaloriesTotal()));
-        final int colorCalories = ContextCompat.getColor(GBApplication.getContext(), R.color.calories_color);
+        final int colorCalories = ContextCompat.getColor(Application.getContext(), R.color.calories_color);
         drawSimpleGauge(
                 colorCalories,
                 dashboardData.getActiveCaloriesGoalFactor()

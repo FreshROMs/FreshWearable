@@ -17,7 +17,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.externalevents;
 
-import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -43,7 +42,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.model.NavigationInfoSpec;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
@@ -51,7 +50,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 public class OsmandEventReceiver {
     private static final Logger LOG = LoggerFactory.getLogger(OsmandEventReceiver.class);
 
-    private final Application app;
+    private final android.app.Application app;
     private IOsmAndAidlInterface mIOsmAndAidlInterface;
 
     private NavigationInfoSpec navigationInfoSpec = new NavigationInfoSpec();
@@ -79,7 +78,7 @@ public class OsmandEventReceiver {
             navigationInfoSpec.distanceToTurn = directionInfo.getDistanceTo()+"m";
 
             if (shouldSendNavigation()) {
-                GBApplication.deviceService().onSetNavigationInfo(navigationInfoSpec);
+                Application.deviceService().onSetNavigationInfo(navigationInfoSpec);
             }
 
             LOG.debug("Distance: {}, turnType: {}", directionInfo.getDistanceTo(), directionInfo.getTurnType());
@@ -123,7 +122,7 @@ public class OsmandEventReceiver {
         }
     };
 
-    public OsmandEventReceiver(Application application) {
+    public OsmandEventReceiver(android.app.Application application) {
         this.app = application;
         if (!bindService()) {
             LOG.warn("Could not bind to OsmAnd");
@@ -137,7 +136,7 @@ public class OsmandEventReceiver {
                 LOG.warn("OsmAnd is not installed");
                 return false;
             }
-            Prefs prefs = GBApplication.getPrefs();
+            Prefs prefs = Application.getPrefs();
             String packageName = prefs.getString("pref_key_osmand_packagename", "autodetect");
             if (packageName.equals("autodetect")) packageName = installedOsmandPackages.get(0).toString();
             Intent intent = new Intent("net.osmand.aidl.OsmandAidlServiceV2");
@@ -177,7 +176,7 @@ public class OsmandEventReceiver {
     }
 
     private boolean shouldSendNavigation() {
-        Prefs prefs = GBApplication.getPrefs();
+        Prefs prefs = Application.getPrefs();
 
         boolean navigationForward = prefs.getBoolean("navigation_forward", true);
         boolean navigationOsmAnd = prefs.getBoolean("navigation_app_osmand", true);

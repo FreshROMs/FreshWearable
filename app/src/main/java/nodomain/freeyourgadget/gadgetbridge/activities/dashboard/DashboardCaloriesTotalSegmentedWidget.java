@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.core.content.ContextCompat;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.CaloriesDailyFragment;
@@ -57,8 +57,8 @@ public class DashboardCaloriesTotalSegmentedWidget extends AbstractGaugeWidget {
         final float[] segments;
         if (totalCalories != 0) {
             colors = new int[] {
-                    ContextCompat.getColor(GBApplication.getContext(), R.color.calories_resting_color),
-                    ContextCompat.getColor(GBApplication.getContext(), R.color.calories_color)
+                    ContextCompat.getColor(Application.getContext(), R.color.calories_resting_color),
+                    ContextCompat.getColor(Application.getContext(), R.color.calories_color)
             };
             segments = new float[] {
                     restingCalories > 0 ? (float) restingCalories / totalCalories : 0,

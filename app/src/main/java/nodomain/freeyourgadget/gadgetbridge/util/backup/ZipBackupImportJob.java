@@ -38,7 +38,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
@@ -134,7 +134,7 @@ public class ZipBackupImportJob extends AbstractZipBackupJob {
             // Restore database
             LOG.debug("Importing database");
             updateProgress(75, R.string.backup_restore_importing_database);
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 final DBHelper helper = new DBHelper(getContext());
                 final SQLiteOpenHelper sqLiteOpenHelper = dbHandler.getHelper();
                 try (InputStream databaseInputStream = zipFile.getInputStream(zipFile.getEntry(DATABASE_FILENAME))) {
@@ -149,7 +149,7 @@ public class ZipBackupImportJob extends AbstractZipBackupJob {
             LOG.debug("Importing global preferences");
             updateProgress(85, R.string.backup_restore_importing_preferences);
             try (InputStream globalPrefsInputStream = zipFile.getInputStream(zipFile.getEntry(PREFS_GLOBAL_FILENAME))) {
-                final SharedPreferences globalPreferences = GBApplication.getPrefs().getPreferences();
+                final SharedPreferences globalPreferences = Application.getPrefs().getPreferences();
 
                 final JsonBackupPreferences jsonBackupPreferences = JsonBackupPreferences.fromJson(globalPrefsInputStream);
                 if (!jsonBackupPreferences.importInto(globalPreferences)) {
@@ -165,11 +165,11 @@ public class ZipBackupImportJob extends AbstractZipBackupJob {
             if (isAborted()) return;
 
             // At this point we already restored the db, so we can list the devices from there
-            try (DBHandler dbHandler = GBApplication.acquireDB()) {
+            try (DBHandler dbHandler = Application.acquireDB()) {
                 final List<Device> activeDevices = DBHelper.getActiveDevices(dbHandler.getDaoSession());
                 for (Device dbDevice : activeDevices) {
                     LOG.debug("Importing device preferences for {}", dbDevice.getIdentifier());
-                    final SharedPreferences devicePrefs = GBApplication.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                    final SharedPreferences devicePrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
                     if (devicePrefs != null && !isAborted()) {
                         final ZipEntry devicePrefsZipEntry = zipFile.getEntry(String.format(Locale.ROOT, PREFS_DEVICE_FILENAME, dbDevice.getIdentifier()));
                         if (devicePrefsZipEntry == null) {

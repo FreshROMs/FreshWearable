@@ -42,7 +42,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.devices.TimeSampleProvider;
@@ -153,7 +153,7 @@ public abstract class AbstractWeekChartFragment extends AbstractActivityChartFra
             average_line.setTextColor(Color.RED);
         }
         if (average > 0) {
-            if (GBApplication.getPrefs().getBoolean("charts_show_average", true)) {
+            if (Application.getPrefs().getBoolean("charts_show_average", true)) {
                 barChart.getAxisLeft().addLimitLine(average_line);
             }
         }
@@ -294,7 +294,7 @@ public abstract class AbstractWeekChartFragment extends AbstractActivityChartFra
     }
 
     private int getRangeDays(){
-        if (GBApplication.getPrefs().getBoolean("charts_range", true)) {
+        if (Application.getPrefs().getBoolean("charts_range", true)) {
             return 30;}
         else{
             return 7;

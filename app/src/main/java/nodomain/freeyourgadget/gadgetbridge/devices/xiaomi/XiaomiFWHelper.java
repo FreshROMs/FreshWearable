@@ -32,7 +32,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.BLETypeConversions;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiBitmapUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.ArrayUtils;
@@ -167,7 +167,7 @@ public class XiaomiFWHelper {
 
     private int findBestI18n(final long availableLocales) {
         // try to find a locale matching the user's preferences amongst locales available
-        final Locale userLocale = GBApplication.getLanguage();
+        final Locale userLocale = Application.getLanguage();
         int found = -1, fallbackLocale = -1;
         for (int i = 0; i < FACE_LOCALE_BITMAP_LIST.length; i++) {
             if ((availableLocales & (1L << i)) != 0) {

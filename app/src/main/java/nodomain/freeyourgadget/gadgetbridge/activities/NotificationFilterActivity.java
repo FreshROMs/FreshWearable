@@ -34,7 +34,7 @@ import java.util.List;
 
 import de.greenrobot.dao.query.Query;
 import xyz.tenseventyseven.fresh.BuildConfig;
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppBlacklistAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -76,7 +76,7 @@ public class NotificationFilterActivity extends AbstractGBActivity {
 
         packageName = packageName.toLowerCase();
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
 
             NotificationFilterDao notificationFilterDao = db.getDaoSession().getNotificationFilterDao();
             NotificationFilterEntryDao notificationFilterEntryDao = db.getDaoSession().getNotificationFilterEntryDao();
@@ -175,7 +175,7 @@ public class NotificationFilterActivity extends AbstractGBActivity {
             return;
         }
 
-        try (DBHandler db = GBApplication.acquireDB()) {
+        try (DBHandler db = Application.acquireDB()) {
             NotificationFilterDao notificationFilterDao = db.getDaoSession().getNotificationFilterDao();
             NotificationFilterEntryDao notificationFilterEntryDao = db.getDaoSession().getNotificationFilterEntryDao();
 

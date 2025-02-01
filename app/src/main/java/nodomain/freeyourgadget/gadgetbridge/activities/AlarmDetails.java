@@ -29,14 +29,13 @@ import android.widget.TimePicker;
 
 import java.text.NumberFormat;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.AlarmUtils;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 
 public class AlarmDetails extends AbstractGBActivity {
 
@@ -127,7 +126,7 @@ public class AlarmDetails extends AbstractGBActivity {
             }
         });
 
-        timePicker.setIs24HourView(DateFormat.is24HourFormat(GBApplication.getContext()));
+        timePicker.setIs24HourView(DateFormat.is24HourFormat(Application.getContext()));
         timePicker.setCurrentHour(alarm.getHour());
         timePicker.setCurrentMinute(alarm.getMinute());
 
@@ -142,7 +141,7 @@ public class AlarmDetails extends AbstractGBActivity {
             // Force the text to be visible for the "interval" part
             // Enabled or not can still be seen in the checkmark
             // TODO: I'd like feedback on this
-            if (GBApplication.isDarkThemeEnabled())
+            if (Application.isDarkThemeEnabled())
                 cbSmartWakeup.setTextColor(getResources().getColor(android.R.color.secondary_text_dark));
             else
                 cbSmartWakeup.setTextColor(getResources().getColor(android.R.color.secondary_text_light));

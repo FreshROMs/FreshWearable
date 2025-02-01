@@ -16,7 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.util;
 
-import static nodomain.freeyourgadget.gadgetbridge.GBApplication.getContext;
+import static xyz.tenseventyseven.fresh.Application.getContext;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 
 public class SilentMode {
@@ -78,7 +78,7 @@ public class SilentMode {
     }
 
     public static RingerMode[] getPhoneSilentMode(final String deviceAddress) {
-        final Prefs prefs = new Prefs(GBApplication.getDeviceSpecificSharedPrefs(deviceAddress));
+        final Prefs prefs = new Prefs(Application.getDeviceSpecificSharedPrefs(deviceAddress));
         final String phoneSilentModePref = prefs.getString(DeviceSettingsPreferenceConst.PREF_PHONE_SILENT_MODE, "normal_silent").toUpperCase(Locale.ROOT);
         final String[] prefSplit = phoneSilentModePref.split("_");
         return new RingerMode[]{

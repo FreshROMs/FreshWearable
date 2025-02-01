@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiConstants;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.FitnessData;
@@ -22,7 +22,7 @@ public class SetSkinTemperatureMeasurement extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        boolean temperatureSwitch = GBApplication
+        boolean temperatureSwitch = Application
                 .getDeviceSpecificSharedPrefs(this.getDevice().getAddress())
                 .getBoolean(HuaweiConstants.PREF_HUAWEI_CONTINUOUS_SKIN_TEMPERATURE_MEASUREMENT, false);
         try {

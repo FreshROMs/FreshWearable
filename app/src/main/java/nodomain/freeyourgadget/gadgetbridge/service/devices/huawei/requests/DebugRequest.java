@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests;
 
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiConstants;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiPacket;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiTLV;
@@ -36,7 +36,7 @@ public class DebugRequest extends Request {
 
     @Override
     protected List<byte[]> createRequest() throws RequestCreationException {
-        String debugString = GBApplication
+        String debugString = Application
             .getDeviceSpecificSharedPrefs(supportProvider.getDevice().getAddress())
             .getString(HuaweiConstants.PREF_HUAWEI_DEBUG_REQUEST, "1,1,false,(1,/),(2,/),(3,/),(4,/)");
         HuaweiPacket packet = parseDebugString(debugString);

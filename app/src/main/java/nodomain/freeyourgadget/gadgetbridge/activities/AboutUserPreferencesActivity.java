@@ -39,7 +39,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceManager;
 
@@ -104,7 +104,7 @@ public class AboutUserPreferencesActivity extends AbstractSettingsActivityV2 {
 
             pref.setOnPreferenceChangeListener((preference, newVal) -> {
                 if (sendToDevice) {
-                    GBApplication.deviceService().onSendConfiguration(prefKey);
+                    Application.deviceService().onSendConfiguration(prefKey);
                 }
                 if (refreshDeviceList) {
                     final Intent refreshIntent = new Intent(DeviceManager.ACTION_REFRESH_DEVICELIST);

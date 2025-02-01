@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import nodomain.freeyourgadget.gadgetbridge.GBApplication;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -152,7 +152,7 @@ public class ColmiR0xPacketHandler {
                 return;
         }
         if (hrResponse > 0) {
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = Application.acquireDB()) {
                 // Build sample object and save in database
                 ColmiHeartRateSampleProvider sampleProvider = new ColmiHeartRateSampleProvider(device, db.getDaoSession());
                 Long userId = DBHelper.getUser(db.getDaoSession()).getId();
@@ -191,7 +191,7 @@ public class ColmiR0xPacketHandler {
 
         if (hrResponse > 0) {
             // Build sample object, send intent and save in database
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = Application.acquireDB()) {
                 Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                 Long deviceId = DBHelper.getDevice(device, db.getDaoSession()).getId();
                 
@@ -253,7 +253,7 @@ public class ColmiR0xPacketHandler {
             Calendar calendar = Calendar.getInstance();
             int sampleTimestamp = (int) (calendar.getTimeInMillis() / 1000);
 
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = Application.acquireDB()) {
                 Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                 Long deviceId = DBHelper.getDevice(device, db.getDaoSession()).getId();
 
@@ -311,7 +311,7 @@ public class ColmiR0xPacketHandler {
             int distance = BLETypeConversions.toUint16(value[11], value[12]);
             LOG.info("Received activity sample: {} - {} calories, {} steps, {} distance", sampleCal.getTime(), calories, steps, distance);
             // Build sample object and save in database
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = Application.acquireDB()) {
                 ColmiActivitySampleProvider sampleProvider = new ColmiActivitySampleProvider(device, db.getDaoSession());
                 Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                 Long deviceId = DBHelper.getDevice(device, db.getDaoSession()).getId();
@@ -373,7 +373,7 @@ public class ColmiR0xPacketHandler {
                 }
             }
             if (!stressSamples.isEmpty()) {
-                try (DBHandler db = GBApplication.acquireDB()) {
+                try (DBHandler db = Application.acquireDB()) {
                     ColmiStressSampleProvider sampleProvider = new ColmiStressSampleProvider(device, db.getDaoSession());
                     Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                     Long deviceId = DBHelper.getDevice(device, db.getDaoSession()).getId();
@@ -426,7 +426,7 @@ public class ColmiR0xPacketHandler {
             }
         }
         if (!spo2Samples.isEmpty()) {
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = Application.acquireDB()) {
                 ColmiSpo2SampleProvider sampleProvider = new ColmiSpo2SampleProvider(device, db.getDaoSession());
                 Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                 Long deviceId = DBHelper.getDevice(device, db.getDaoSession()).getId();
@@ -512,7 +512,7 @@ public class ColmiR0xPacketHandler {
                     index += 2;
                 }
                 // Persist sleep session
-                try (DBHandler handler = GBApplication.acquireDB()) {
+                try (DBHandler handler = Application.acquireDB()) {
                     final DaoSession session = handler.getDaoSession();
 
                     final Device device = DBHelper.getDevice(gbDevice, session);
@@ -529,7 +529,7 @@ public class ColmiR0xPacketHandler {
                     GB.toast(context, "Error saving sleep session sample", Toast.LENGTH_LONG, GB.ERROR, e);
                 }
                 // Persist sleep stages
-                try (DBHandler handler = GBApplication.acquireDB()) {
+                try (DBHandler handler = Application.acquireDB()) {
                     final DaoSession session = handler.getDaoSession();
 
                     final Device device = DBHelper.getDevice(gbDevice, session);
@@ -585,7 +585,7 @@ public class ColmiR0xPacketHandler {
                     sampleCal.set(Calendar.MINUTE, minuteOfDay % 60);
                     LOG.info("Value {} is {} ms, time of day is {}", i, value[i] & 0xff, sampleCal.getTime());
                     // Build sample object and save in database
-                    try (DBHandler db = GBApplication.acquireDB()) {
+                    try (DBHandler db = Application.acquireDB()) {
                         ColmiHrvValueSampleProvider sampleProvider = new ColmiHrvValueSampleProvider(device, db.getDaoSession());
                         Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                         Long deviceId = DBHelper.getDevice(device, db.getDaoSession()).getId();
@@ -653,7 +653,7 @@ public class ColmiR0xPacketHandler {
             }
         }
         if (!temperatureSamples.isEmpty()) {
-            try (DBHandler db = GBApplication.acquireDB()) {
+            try (DBHandler db = Application.acquireDB()) {
                 ColmiTemperatureSampleProvider sampleProvider = new ColmiTemperatureSampleProvider(device, db.getDaoSession());
                 Long userId = DBHelper.getUser(db.getDaoSession()).getId();
                 Long deviceId = DBHelper.getDevice(device, db.getDaoSession()).getId();
