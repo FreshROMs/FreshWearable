@@ -95,10 +95,10 @@
         android:name=".Application"
         android:allowBackup="false"
         android:fullBackupContent="false"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher_fresh_wearable"
+        android:label="@string/wear_app_name"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_fresh_wearable"
         android:supportsRtl="true"
         android:theme="@style/GadgetbridgeTheme"
         tools:replace="android:label">
