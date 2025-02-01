@@ -17,6 +17,7 @@
 package nodomain.freeyourgadget.gadgetbridge.activities.widgets;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +27,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.slf4j.Logger;
@@ -111,7 +111,7 @@ public class WidgetScreenDetailsActivity extends AbstractGBActivity {
 
         final View cardLayout = findViewById(R.id.card_layout);
         cardLayout.setOnClickListener(view -> {
-            new MaterialAlertDialogBuilder(WidgetScreenDetailsActivity.this).setAdapter(layoutAdapter, (dialogInterface, i) -> {
+            new AlertDialog.Builder(WidgetScreenDetailsActivity.this).setAdapter(layoutAdapter, (dialogInterface, i) -> {
                 if (widgetScreen.getLayout() != supportedLayouts.get(i)) {
                     final ArrayList<WidgetPart> defaultParts = new ArrayList<>();
                     for (final WidgetType widgetType : supportedLayouts.get(i).getWidgetTypes()) {
@@ -248,7 +248,7 @@ public class WidgetScreenDetailsActivity extends AbstractGBActivity {
         final ArrayAdapter<String> partAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, layoutStrings);
 
         card.setOnClickListener(view -> {
-            new MaterialAlertDialogBuilder(WidgetScreenDetailsActivity.this).setAdapter(partAdapter, (dialogInterface, i) -> {
+            new AlertDialog.Builder(WidgetScreenDetailsActivity.this).setAdapter(partAdapter, (dialogInterface, i) -> {
                 final WidgetPart selectedPart = supportedParts.get(i);
 
                 final List<WidgetPartSubtype> supportedSubtypes = selectedPart.getSupportedSubtypes();
@@ -268,7 +268,7 @@ public class WidgetScreenDetailsActivity extends AbstractGBActivity {
                 }
                 final ArrayAdapter<String> subtypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, subtypeStrings);
 
-                new MaterialAlertDialogBuilder(WidgetScreenDetailsActivity.this).setAdapter(subtypesAdapter, (dialogInterface1, j) -> {
+                new AlertDialog.Builder(WidgetScreenDetailsActivity.this).setAdapter(subtypesAdapter, (dialogInterface1, j) -> {
                     final WidgetPartSubtype selectedSubtype = supportedSubtypes.get(j);
                     selectedPart.setSubtype(selectedSubtype);
                     widgetScreen.getParts().set(partIdx, selectedPart);

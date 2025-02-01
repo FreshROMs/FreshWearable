@@ -582,7 +582,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
         holder.findDevice.setOnClickListener(new View.OnClickListener() {
                                                  @Override
                                                  public void onClick(View v) {
-                                                     new MaterialAlertDialogBuilder(context)
+                                                     new android.app.AlertDialog.Builder(context)
                                                              .setCancelable(true)
                                                              .setTitle(context.getString(R.string.controlcenter_find_device))
                                                              .setMessage(context.getString(R.string.find_lost_device_message, device.getName()))
@@ -660,7 +660,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
 
             @Override
             public void onClick(View view) {
-                final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 final LayoutInflater inflater = LayoutInflater.from(context);
                 final View frequency_picker_view = inflater.inflate(R.layout.dialog_frequency_picker, null);
                 builder.setTitle(R.string.preferences_fm_frequency);
@@ -747,7 +747,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
                             public void onClick(DialogInterface dialog, int which) {
                                 float frequency = (float) (frequency_decimal_picker.getValue() + (0.1 * frequency_fraction_picker.getValue()));
                                 if (frequency < FREQ_MIN || frequency > FREQ_MAX) {
-                                    new MaterialAlertDialogBuilder(context)
+                                    new AlertDialog.Builder(context)
                                             .setTitle(R.string.pref_invalid_frequency_title)
                                             .setMessage(R.string.pref_invalid_frequency_message)
                                             .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -829,7 +829,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
             holder.powerOff.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new MaterialAlertDialogBuilder(context)
+                    new AlertDialog.Builder(context)
                             .setTitle(R.string.controlcenter_power_off_confirm_title)
                             .setMessage(R.string.controlcenter_power_off_confirm_description)
                             .setIcon(R.drawable.ic_power_settings_new)
@@ -958,7 +958,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
     }
 
     private void showRemoveDeviceDialog(final GBDevice device) {
-        new MaterialAlertDialogBuilder(context)
+        new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(context.getString(R.string.controlcenter_delete_device_name, device.getName()))
                 .setMessage(R.string.controlcenter_delete_device_dialogmessage)
@@ -1080,7 +1080,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
         linearLayout.addView(deviceListSpinner);
         linearLayout.addView(newFolderLayout);
 
-        new MaterialAlertDialogBuilder(context)
+        new AlertDialog.Builder(context)
                 .setCancelable(true)
                 .setTitle(R.string.controlcenter_set_folder_title)
                 .setView(linearLayout)
@@ -1149,7 +1149,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
         container.addView(input);
         // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
 
-        new MaterialAlertDialogBuilder(context)
+        new AlertDialog.Builder(context)
                 .setView(container)
                 .setCancelable(true)
                 .setTitle(context.getString(R.string.controlcenter_set_alias))

@@ -20,6 +20,7 @@
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,7 +47,6 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.google.android.material.color.DynamicColors;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -365,7 +365,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                         }
                         // Warn user if dynamic colors are not available
                         if (val.equals(requireContext().getString(R.string.pref_theme_value_dynamic)) && !DynamicColors.isDynamicColorAvailable()) {
-                            new MaterialAlertDialogBuilder(requireContext())
+                            new AlertDialog.Builder(requireContext())
                                     .setTitle(R.string.warning)
                                     .setMessage(R.string.pref_theme_dynamic_colors_not_available_warning)
                                     .setIcon(R.drawable.ic_warning)
@@ -421,7 +421,7 @@ public class SettingsActivity extends AbstractSettingsActivityV2 {
                     outerLayout.addView(selectionListSpinner);
                     outerLayout.addView(innerLayout);
 
-                    new MaterialAlertDialogBuilder(requireContext())
+                    new AlertDialog.Builder(requireContext())
                             .setCancelable(true)
                             .setTitle(R.string.pref_title_opentracks_packagename)
                             .setView(outerLayout)

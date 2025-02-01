@@ -20,6 +20,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities;
 import static nodomain.freeyourgadget.gadgetbridge.model.ActivitySummaryEntries.*;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -54,7 +55,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -485,7 +485,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
         input.setLayoutParams(params);
         container.addView(input);
 
-        new MaterialAlertDialogBuilder(ActivitySummaryDetail.this)
+        new AlertDialog.Builder(ActivitySummaryDetail.this)
                 .setView(container)
                 .setCancelable(true)
                 .setTitle(ActivitySummaryDetail.this.getString(R.string.activity_summary_edit_name_title))
@@ -507,7 +507,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
         export_path = get_path();
         filesGpxList = get_gpx_file_list();
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(ActivitySummaryDetail.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySummaryDetail.this);
         builder.setTitle(R.string.activity_summary_detail_select_gpx_track);
         ArrayAdapter<String> directory_listing = new ArrayAdapter<>(ActivitySummaryDetail.this, android.R.layout.simple_list_item_1, filesGpxList);
         builder.setSingleChoiceItems(directory_listing, 0, (dialog, which) -> {
@@ -519,7 +519,7 @@ public class ActivitySummaryDetail extends AbstractGBActivity {
                 message = String.format("%s?", getString(R.string.activity_summary_detail_clear_gpx_track));
             }
 
-            new MaterialAlertDialogBuilder(ActivitySummaryDetail.this)
+            new AlertDialog.Builder(ActivitySummaryDetail.this)
                     .setCancelable(true)
                     .setIcon(R.drawable.ic_warning)
                     .setTitle(R.string.activity_summary_detail_editing_gpx_track)

@@ -16,6 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
+import android.app.AlertDialog;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -111,7 +112,7 @@ public class BackupRestoreProgressActivity extends AbstractGBActivity {
                             message.append("\n\n").append(warnings);
                         }
 
-                        new MaterialAlertDialogBuilder(BackupRestoreProgressActivity.this)
+                        new AlertDialog.Builder(BackupRestoreProgressActivity.this)
                                 .setCancelable(false)
                                 .setIcon(R.drawable.ic_sync)
                                 .setTitle(R.string.backup_restore_restart_title)
@@ -199,7 +200,7 @@ public class BackupRestoreProgressActivity extends AbstractGBActivity {
             return;
         }
 
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this)
                 .setCancelable(true)
                 .setIcon(R.drawable.ic_warning)
                 .setTitle(R.string.backup_restore_abort_title)

@@ -16,6 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.devices.qhybrid;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,9 +33,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.List;
 
@@ -114,7 +112,7 @@ public class WidgetSettingsActivity extends AbstractGBActivity {
     }
 
     private void showElementDialog(@Nullable final CustomWidgetElement element){
-        MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(WidgetSettingsActivity.this)
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(WidgetSettingsActivity.this)
                 .setView(R.layout.qhybrid_element_popup_view);
 
         if(element == null) {

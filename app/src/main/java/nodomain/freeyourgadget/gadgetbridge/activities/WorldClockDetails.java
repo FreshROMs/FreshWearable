@@ -16,6 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -91,7 +92,7 @@ public class WorldClockDetails extends AbstractGBActivity {
         cardTimezone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new MaterialAlertDialogBuilder(WorldClockDetails.this).setAdapter(timezoneAdapter, new DialogInterface.OnClickListener() {
+                new AlertDialog.Builder(WorldClockDetails.this).setAdapter(timezoneAdapter, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         worldClock.setTimeZoneId(timezoneIDs[i]);

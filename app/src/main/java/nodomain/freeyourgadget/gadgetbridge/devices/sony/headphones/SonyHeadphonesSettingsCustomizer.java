@@ -36,6 +36,7 @@ import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.Dev
 import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst.PREF_SONY_SPEAK_TO_CHAT_FOCUS_ON_VOICE;
 import static nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst.PREF_SONY_SURROUND_MODE;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -157,7 +158,7 @@ public class SonyHeadphonesSettingsCustomizer implements DeviceSpecificSettingsC
 
                 final Context context = preference.getContext();
 
-                new MaterialAlertDialogBuilder(context)
+                new AlertDialog.Builder(context)
                         .setTitle(R.string.sony_anc_optimize_confirmation_title)
                         .setMessage(R.string.sony_anc_optimize_confirmation_description)
                         .setIcon(R.drawable.ic_hearing)

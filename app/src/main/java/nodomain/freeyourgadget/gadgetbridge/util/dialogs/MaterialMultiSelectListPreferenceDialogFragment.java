@@ -18,6 +18,7 @@
 
 package nodomain.freeyourgadget.gadgetbridge.util.dialogs;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -100,7 +101,7 @@ public class MaterialMultiSelectListPreferenceDialogFragment extends MaterialPre
     }
 
     @Override
-    protected void onPrepareDialogBuilder(MaterialAlertDialogBuilder builder) {
+    protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
         super.onPrepareDialogBuilder(builder);
 
         final int entryCount = mEntryValues.length;

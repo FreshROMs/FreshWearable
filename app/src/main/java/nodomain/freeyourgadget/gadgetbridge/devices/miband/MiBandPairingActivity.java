@@ -20,6 +20,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.miband;
 
 import static nodomain.freeyourgadget.gadgetbridge.util.BondingUtil.STATE_DEVICE_CANDIDATE;
 
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -145,7 +146,7 @@ public class MiBandPairingActivity extends AbstractGBActivity implements Bonding
         message.setText(getString(R.string.pairing, deviceCandidate));
 
         final BondingInterface thiz = this;
-        new MaterialAlertDialogBuilder(getContext())
+        new AlertDialog.Builder(getContext())
                 .setCancelable(true)
                 .setTitle(getContext().getString(R.string.discovery_pair_title, deviceCandidate.getName()))
                 .setMessage(getContext().getString(R.string.discovery_pair_question))

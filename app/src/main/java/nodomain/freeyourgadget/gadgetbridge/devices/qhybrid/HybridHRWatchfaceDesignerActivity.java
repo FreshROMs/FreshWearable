@@ -18,6 +18,7 @@
 package nodomain.freeyourgadget.gadgetbridge.devices.qhybrid;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -50,8 +51,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -110,7 +109,7 @@ public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implem
                     }
                 } else {
                     readyToCloseActivity = false;
-                    new MaterialAlertDialogBuilder(HybridHRWatchfaceDesignerActivity.this)
+                    new AlertDialog.Builder(HybridHRWatchfaceDesignerActivity.this)
                             .setMessage(R.string.watchface_upload_failed)
                             .setPositiveButton(R.string.ok, null)
                             .show();
@@ -227,7 +226,7 @@ public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implem
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT);
             input.setLayoutParams(lp);
-            new MaterialAlertDialogBuilder(this)
+            new AlertDialog.Builder(this)
                     .setView(input)
                     .setNegativeButton(R.string.fossil_hr_new_action_cancel, null)
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -650,7 +649,7 @@ public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implem
                 File cacheDir = mCoordinator.getAppCacheDir();
                 File destFile = new File(cacheDir, app.getUUID().toString() + mCoordinator.getAppFileExtension());
                 if (destFile.exists()) {
-                    new MaterialAlertDialogBuilder(this)
+                    new AlertDialog.Builder(this)
                             .setMessage(R.string.watchface_cache_confirm_overwrite)
                             .setNegativeButton(R.string.no, null)
                             .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {

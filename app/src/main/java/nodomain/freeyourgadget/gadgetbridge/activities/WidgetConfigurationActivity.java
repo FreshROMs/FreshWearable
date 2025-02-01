@@ -80,7 +80,7 @@ public class WidgetConfigurationActivity extends Activity implements GBActivity 
             finish();
         }
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(WidgetConfigurationActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(WidgetConfigurationActivity.this);
         builder.setTitle(R.string.widget_settings_select_device_title);
 
         allDevices = getAllDevices(getApplicationContext());

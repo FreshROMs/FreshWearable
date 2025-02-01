@@ -16,14 +16,11 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.util;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.SparseArray;
 import android.webkit.WebView;
-
-import androidx.appcompat.app.AlertDialog;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +70,7 @@ public class GBChangeLog extends ChangeLog {
         wv.setBackgroundColor(0); // transparent
         wv.loadDataWithBaseURL(null, getLog(full), "text/html", "UTF-8", null);
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(
                         mContext.getResources().getString(
                                 full ? R.string.changelog_full_title : R.string.changelog_title))

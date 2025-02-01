@@ -18,6 +18,7 @@
 
 package nodomain.freeyourgadget.gadgetbridge.util.dialogs;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -138,7 +139,7 @@ public abstract class MaterialPreferenceDialogFragment extends DialogFragment im
         final Context context = getActivity();
         mWhichButtonClicked = DialogInterface.BUTTON_NEGATIVE;
 
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context)
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context)
                 .setTitle(mDialogTitle)
                 .setIcon(mDialogIcon)
                 .setPositiveButton(mPositiveButtonText, this)
@@ -185,7 +186,7 @@ public abstract class MaterialPreferenceDialogFragment extends DialogFragment im
      *
      * <p>Do not {@link MaterialAlertDialogBuilder#create()} or {@link MaterialAlertDialogBuilder#show()}.
      */
-    protected void onPrepareDialogBuilder(MaterialAlertDialogBuilder builder) {}
+    protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {}
 
     /**
      * Returns whether the preference needs to display a soft input method when the dialog is

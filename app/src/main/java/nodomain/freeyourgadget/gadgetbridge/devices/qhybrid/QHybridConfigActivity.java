@@ -60,8 +60,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -144,7 +142,7 @@ public class QHybridConfigActivity extends AbstractGBActivity {
 
                 layout2.setGravity(Gravity.CENTER);
 
-                new MaterialAlertDialogBuilder(QHybridConfigActivity.this)
+                new AlertDialog.Builder(QHybridConfigActivity.this)
                         .setTitle(getString(R.string.qhybrid_offset_time_by))
                         .setView(layout2)
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -189,7 +187,7 @@ public class QHybridConfigActivity extends AbstractGBActivity {
 
                 layout2.setGravity(Gravity.CENTER);
 
-                new MaterialAlertDialogBuilder(QHybridConfigActivity.this)
+                new AlertDialog.Builder(QHybridConfigActivity.this)
                         .setTitle(getString(R.string.qhybrid_offset_timezone))
                         .setView(layout2)
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -392,7 +390,7 @@ public class QHybridConfigActivity extends AbstractGBActivity {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean checked) {
                             if (!device.getDeviceInfo(QHybridSupport.ITEM_STEP_GOAL).getDetails().equals("1000000")) {
-                                new MaterialAlertDialogBuilder(QHybridConfigActivity.this)
+                                new AlertDialog.Builder(QHybridConfigActivity.this)
                                         .setMessage(getString(R.string.qhybrid_prompt_million_steps))
                                         .setPositiveButton("ok", null)
                                         .show();
@@ -454,7 +452,7 @@ public class QHybridConfigActivity extends AbstractGBActivity {
                         buttonTextView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                AlertDialog dialog = new MaterialAlertDialogBuilder(QHybridConfigActivity.this)
+                                AlertDialog dialog = new AlertDialog.Builder(QHybridConfigActivity.this)
                                         .setItems(names, new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {

@@ -16,6 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities.widgets;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -69,7 +70,7 @@ public class WidgetScreenListAdapter extends RecyclerView.Adapter<WidgetScreenLi
         holder.container.setOnLongClickListener(v -> {
             // TODO move up
             // TODO move down
-            new MaterialAlertDialogBuilder(v.getContext())
+            new AlertDialog.Builder(v.getContext())
                     .setTitle(R.string.widget_screen_delete_confirm_title)
                     .setMessage(mContext.getString(
                             R.string.widget_screen_delete_confirm_description,

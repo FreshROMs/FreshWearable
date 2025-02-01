@@ -19,6 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.util;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
@@ -37,8 +38,6 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -268,7 +267,7 @@ public class PermissionsUtils {
     }
 
     private static void showNotifyListenerPermissionsDialog(Activity activity) {
-        new MaterialAlertDialogBuilder(activity)
+        new AlertDialog.Builder(activity)
                 .setMessage(activity.getString(R.string.permission_notification_listener,
                         activity.getString(R.string.app_name),
                         activity.getString(R.string.ok)))
@@ -299,7 +298,7 @@ public class PermissionsUtils {
     }
 
     private static void showNotifyPolicyPermissionsDialog(Activity activity) {
-        new MaterialAlertDialogBuilder(activity)
+        new AlertDialog.Builder(activity)
                 .setMessage(activity.getString(R.string.permission_notification_policy_access,
                         activity.getString(R.string.app_name),
                         activity.getString(R.string.ok)))
@@ -318,7 +317,7 @@ public class PermissionsUtils {
     }
 
     private static void showDisplayOverOthersPermissionsDialog(Activity activity) {
-        new MaterialAlertDialogBuilder(activity)
+        new AlertDialog.Builder(activity)
                 .setMessage(activity.getString(R.string.permission_display_over_other_apps,
                         activity.getString(R.string.app_name),
                         activity.getString(R.string.ok)))
@@ -341,7 +340,7 @@ public class PermissionsUtils {
 
     @RequiresApi(api = Build.VERSION_CODES.R)
     private static void showBackgroundLocationPermissionsDialog(Activity activity) {
-        new MaterialAlertDialogBuilder(activity)
+        new AlertDialog.Builder(activity)
                 .setMessage(activity.getString(R.string.permission_location,
                         activity.getString(R.string.app_name),
                         activity.getPackageManager().getBackgroundPermissionOptionLabel()))

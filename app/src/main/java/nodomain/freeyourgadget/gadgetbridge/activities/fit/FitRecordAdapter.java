@@ -16,6 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities.fit;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -105,7 +106,7 @@ public class FitRecordAdapter extends RecyclerView.Adapter<FitRecordAdapter.FitR
                         return fieldName + " = " + fieldValueString;
                     }).collect(Collectors.joining("\n"));
 
-            new MaterialAlertDialogBuilder(mContext)
+            new AlertDialog.Builder(mContext)
                     .setCancelable(true)
                     .setTitle(record.getGlobalFITMessage().name())
                     .setMessage(recordInfo)

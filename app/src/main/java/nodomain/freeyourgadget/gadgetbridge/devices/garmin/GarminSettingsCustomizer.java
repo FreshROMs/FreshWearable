@@ -2,6 +2,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.garmin;
 
 import static nodomain.freeyourgadget.gadgetbridge.util.GB.toast;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -183,7 +184,7 @@ public class GarminSettingsCustomizer implements DeviceSpecificSettingsCustomize
             }
         }
 
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(handler.getContext());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(handler.getContext());
         builder.setTitle(R.string.garmin_agps_local_file);
 
         final AtomicInteger selectedIdx = new AtomicInteger(0);

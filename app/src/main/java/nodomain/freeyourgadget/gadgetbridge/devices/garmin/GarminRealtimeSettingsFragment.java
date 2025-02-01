@@ -16,6 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.devices.garmin;
 
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -599,7 +600,7 @@ public class GarminRealtimeSettingsFragment extends AbstractPreferenceFragment {
                             sortPref.setIconSpaceReserved(false);
                             sortPref.setKey("rt_pref_" + screenId + "_" + entry.getId() + "__" + sortEntry.getId());
                             sortPref.setOnPreferenceClickListener(preference -> {
-                                new MaterialAlertDialogBuilder(activity)
+                                new AlertDialog.Builder(activity)
                                         .setTitle(sortPref.getTitle())
                                         .setAdapter(sortOptionsAdapter, (dialogInterface, j) -> {
                                             final String option = sortableOptions.get(j);

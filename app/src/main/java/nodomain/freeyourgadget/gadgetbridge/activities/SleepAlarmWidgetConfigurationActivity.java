@@ -28,8 +28,6 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -87,7 +85,7 @@ public class SleepAlarmWidgetConfigurationActivity extends Activity implements G
             finish();
         }
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(SleepAlarmWidgetConfigurationActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(SleepAlarmWidgetConfigurationActivity.this);
         builder.setTitle(R.string.widget_settings_select_device_title);
 
         allDevices = getAllDevices(getApplicationContext());

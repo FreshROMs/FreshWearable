@@ -16,6 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities.fit;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -129,7 +130,7 @@ public class FitViewerActivity extends AbstractGBActivity implements MenuProvide
                     .map(GlobalFITMessage::name)
                     .toArray(CharSequence[]::new);
 
-            new MaterialAlertDialogBuilder(this)
+            new AlertDialog.Builder(this)
                     .setCancelable(true)
                     .setTitle(R.string.filter_mode)
                     .setMultiChoiceItems(mEntries, checked, (dialog, which, isChecked) -> checked[which] = isChecked)

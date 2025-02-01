@@ -21,6 +21,7 @@ import static androidx.core.app.ActivityCompat.startIntentSenderForResult;
 import static nodomain.freeyourgadget.gadgetbridge.util.GB.toast;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.companion.AssociationRequest;
@@ -37,8 +38,6 @@ import android.os.Looper;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -184,7 +183,7 @@ public class BondingUtil {
             // Do nothing
             return;
         } else if (bondingStyle == DeviceCoordinator.BONDING_STYLE_ASK) {
-            new MaterialAlertDialogBuilder(bondingInterface.getContext())
+            new AlertDialog.Builder(bondingInterface.getContext())
                     .setCancelable(true)
                     .setTitle(bondingInterface.getContext().getString(R.string.discovery_pair_title, deviceCandidate.getName()))
                     .setMessage(bondingInterface.getContext().getString(R.string.discovery_pair_question))
@@ -393,7 +392,7 @@ public class BondingUtil {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private static void askCompanionPairing(BondingInterface bondingInterface, BluetoothDevice device, String macAddress) {
-        new MaterialAlertDialogBuilder(bondingInterface.getContext())
+        new AlertDialog.Builder(bondingInterface.getContext())
                 .setTitle(R.string.companion_pairing_request_title)
                 .setMessage(R.string.companion_pairing_request_description)
                 .setPositiveButton(R.string.yes, (dialog, whichButton) -> {

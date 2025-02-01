@@ -22,7 +22,9 @@ package nodomain.freeyourgadget.gadgetbridge.activities;
 import static android.content.Intent.EXTRA_SUBJECT;
 import static nodomain.freeyourgadget.gadgetbridge.util.GB.NOTIFICATION_CHANNEL_ID;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetHost;
@@ -66,7 +68,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NavUtils;
 import androidx.core.app.NotificationCompat;
@@ -74,8 +75,6 @@ import androidx.core.app.RemoteInput;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -293,7 +292,7 @@ public class DebugActivity extends AbstractGBActivity {
         factoryResetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MaterialAlertDialogBuilder(DebugActivity.this)
+                new AlertDialog.Builder(DebugActivity.this)
                         .setCancelable(true)
                         .setTitle(R.string.debugactivity_really_factoryreset_title)
                         .setMessage(R.string.debugactivity_really_factoryreset)
@@ -417,7 +416,7 @@ public class DebugActivity extends AbstractGBActivity {
                     weatherLocations[i] = weatherSpecs.get(i).location;
                 }
 
-                new MaterialAlertDialogBuilder(DebugActivity.this)
+                new AlertDialog.Builder(DebugActivity.this)
                         .setCancelable(true)
                         .setTitle("Choose Location")
                         .setItems(weatherLocations, (dialog, which) -> displayWeatherInfo(weatherSpecs.get(which)))
@@ -544,7 +543,7 @@ public class DebugActivity extends AbstractGBActivity {
         removeDevicePreferencesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MaterialAlertDialogBuilder(DebugActivity.this)
+                new AlertDialog.Builder(DebugActivity.this)
                         .setCancelable(true)
                         .setTitle(R.string.debugactivity_confirm_remove_device_preferences_title)
                         .setMessage(R.string.debugactivity_confirm_remove_device_preferences)
@@ -621,7 +620,7 @@ public class DebugActivity extends AbstractGBActivity {
                 linearLayout.addView(deviceListSpinner);
                 linearLayout.addView(macLayout);
 
-                new MaterialAlertDialogBuilder(DebugActivity.this)
+                new AlertDialog.Builder(DebugActivity.this)
                         .setCancelable(true)
                         .setTitle(R.string.add_test_device)
                         .setView(linearLayout)
@@ -696,7 +695,7 @@ public class DebugActivity extends AbstractGBActivity {
                     companionDevicesList += "\n\n" + StringUtils.join("\n", associations.toArray(new String[0]));
                 }
 
-                new MaterialAlertDialogBuilder(DebugActivity.this)
+                new AlertDialog.Builder(DebugActivity.this)
                         .setCancelable(false)
                         .setTitle("Companion Devices")
                         .setMessage(companionDevicesList)
@@ -726,7 +725,7 @@ public class DebugActivity extends AbstractGBActivity {
 
             @Override
             public void onClick(View v) {
-                final MaterialAlertDialogBuilder fitnesStatusBuilder = new MaterialAlertDialogBuilder(DebugActivity.this);
+                final AlertDialog.Builder fitnesStatusBuilder = new AlertDialog.Builder(DebugActivity.this);
                 fitnesStatusBuilder
                         .setCancelable(false)
                         .setTitle("openTracksObserver Status")
@@ -791,6 +790,7 @@ public class DebugActivity extends AbstractGBActivity {
         });
     }
 
+    @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.O)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -931,7 +931,7 @@ public class DebugActivity extends AbstractGBActivity {
     }
 
     private void showLogSharingNotEnabledAlert() {
-        new MaterialAlertDialogBuilder(this)
+        new AlertDialog.Builder(this)
                 .setTitle(R.string.note)
                 .setPositiveButton(R.string.ok, null)
                 .setMessage(R.string.share_log_not_enabled_message)
@@ -939,7 +939,7 @@ public class DebugActivity extends AbstractGBActivity {
     }
 
     private void showLogSharingWarning() {
-        new MaterialAlertDialogBuilder(this)
+        new AlertDialog.Builder(this)
                 .setCancelable(true)
                 .setTitle(R.string.warning)
                 .setMessage(R.string.share_log_warning)
@@ -1111,7 +1111,7 @@ public class DebugActivity extends AbstractGBActivity {
     private void displayWeatherInfo(final WeatherSpec weatherSpec) {
         final String weatherInfo = getWeatherInfo(weatherSpec);
 
-        new MaterialAlertDialogBuilder(DebugActivity.this)
+        new AlertDialog.Builder(DebugActivity.this)
                 .setCancelable(true)
                 .setTitle("Cached Weather Data")
                 .setMessage(weatherInfo)

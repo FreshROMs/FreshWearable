@@ -18,6 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities.widgets;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -29,7 +30,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.slf4j.Logger;
@@ -102,7 +102,7 @@ public class WidgetScreensListActivity extends AbstractGBActivity {
 
             if (mGBWidgetScreenListAdapter.getItemCount() >= deviceSlots) {
                 // No more free slots
-                new MaterialAlertDialogBuilder(v.getContext())
+                new AlertDialog.Builder(v.getContext())
                         .setTitle(R.string.reminder_no_free_slots_title)
                         .setMessage(getBaseContext().getString(R.string.widget_screen_no_free_slots_description, String.format(Locale.getDefault(), "%d", deviceSlots)))
                         .setIcon(R.drawable.ic_warning)
@@ -159,7 +159,7 @@ public class WidgetScreensListActivity extends AbstractGBActivity {
     public void deleteWidgetScreen(final WidgetScreen widgetScreen) {
         if (mGBWidgetScreenListAdapter.getItemCount() - 1 < widgetManager.getMinScreens()) {
             // Under minimum slots
-            new MaterialAlertDialogBuilder(this)
+            new AlertDialog.Builder(this)
                     .setTitle(R.string.widget_screen_delete_confirm_title)
                     .setMessage(this.getString(R.string.widget_screen_min_screens, String.format(Locale.getDefault(), "%d", widgetManager.getMinScreens())))
                     .setIcon(R.drawable.ic_warning)

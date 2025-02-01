@@ -17,6 +17,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -104,7 +105,7 @@ public class ConfigureReminders extends AbstractGBActivity {
 
                 if (mGBReminderListAdapter.getItemCount() >= deviceSlots) {
                     // No more free slots
-                    new MaterialAlertDialogBuilder(v.getContext())
+                    new AlertDialog.Builder(v.getContext())
                             .setTitle(R.string.reminder_no_free_slots_title)
                             .setMessage(getBaseContext().getString(R.string.reminder_no_free_slots_description, String.format(Locale.getDefault(), "%d", deviceSlots)))
                             .setIcon(R.drawable.ic_warning)

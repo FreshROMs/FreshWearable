@@ -17,6 +17,7 @@
 package nodomain.freeyourgadget.gadgetbridge.adapter;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -83,7 +84,7 @@ public class GBWorldClockListAdapter extends RecyclerView.Adapter<GBWorldClockLi
         holder.container.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                new MaterialAlertDialogBuilder(v.getContext())
+                new AlertDialog.Builder(v.getContext())
                         .setTitle(v.getContext().getString(R.string.world_clock_delete_confirm_title, worldClock.getLabel()))
                         .setMessage(R.string.world_clock_delete_confirm_description)
                         .setIcon(R.drawable.ic_warning)

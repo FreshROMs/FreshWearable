@@ -17,6 +17,7 @@
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -95,7 +96,7 @@ public class ConfigureContacts extends AbstractGBActivity {
 
             if (mGBContactListAdapter.getItemCount() >= deviceSlots) {
                 // No more free slots
-                new MaterialAlertDialogBuilder(v.getContext())
+                new AlertDialog.Builder(v.getContext())
                         .setTitle(R.string.reminder_no_free_slots_title)
                         .setMessage(getBaseContext().getString(R.string.contact_no_free_slots_description, String.format(Locale.getDefault(), "%d", deviceSlots)))
                         .setIcon(R.drawable.ic_warning)

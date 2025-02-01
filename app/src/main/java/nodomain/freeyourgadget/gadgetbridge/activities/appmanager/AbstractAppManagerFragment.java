@@ -21,6 +21,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities.appmanager;
 import static nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport.QHYBRID_ACTION_DOWNLOADED_FILE;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -665,7 +666,7 @@ public abstract class AbstractAppManagerFragment extends Fragment {
     }
 
     private void deleteAppConfirm(final GBDeviceApp selectedApp, final boolean deleteFromCache) {
-        new MaterialAlertDialogBuilder(getContext())
+        new AlertDialog.Builder(getContext())
                 .setTitle(R.string.Delete)
                 .setMessage(requireContext().getString(R.string.contact_delete_confirm_description, selectedApp.getName()))
                 .setIcon(R.drawable.ic_warning)

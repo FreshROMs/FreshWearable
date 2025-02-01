@@ -17,6 +17,7 @@
 package nodomain.freeyourgadget.gadgetbridge.adapter;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,7 +71,7 @@ public class GBContactListAdapter extends RecyclerView.Adapter<GBContactListAdap
         holder.container.setOnClickListener(v -> ((ConfigureContacts) mContext).configureContact(contact));
 
         holder.container.setOnLongClickListener(v -> {
-            new MaterialAlertDialogBuilder(v.getContext())
+            new AlertDialog.Builder(v.getContext())
                     .setTitle(R.string.contact_delete_confirm_title)
                     .setMessage(mContext.getString(R.string.contact_delete_confirm_description, contact.getName()))
                     .setIcon(R.drawable.ic_warning)

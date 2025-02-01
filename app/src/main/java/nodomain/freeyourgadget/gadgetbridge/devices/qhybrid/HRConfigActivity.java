@@ -19,6 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.qhybrid;
 
 import static nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport.QHYBRID_COMMAND_UPDATE_WIDGETS;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,8 +37,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -112,7 +111,7 @@ public class HRConfigActivity extends AbstractGBActivity {
         findViewById(R.id.qhybrid_set_background).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new MaterialAlertDialogBuilder(HRConfigActivity.this)
+                new AlertDialog.Builder(HRConfigActivity.this)
                         .setTitle("whoop whoop")
                         .setMessage("background has to be pushed every time a custom widget changes, causing traffic and battery drain. Consider that when using custom widgets.")
                         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -155,7 +154,7 @@ public class HRConfigActivity extends AbstractGBActivity {
                     }
 
                     final String[] nameStrings = names.toArray(new String[0]);
-                    new MaterialAlertDialogBuilder(HRConfigActivity.this)
+                    new AlertDialog.Builder(HRConfigActivity.this)
                             .setItems(
                                     nameStrings,
                                     new DialogInterface.OnClickListener() {

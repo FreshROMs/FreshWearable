@@ -20,6 +20,7 @@ import static nodomain.freeyourgadget.gadgetbridge.util.GB.toast;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -69,8 +70,6 @@ import androidx.annotation.StringRes;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuProvider;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -518,7 +517,7 @@ public class DiscoveryActivityV2 extends AbstractGBActivity implements AdapterVi
     }
 
     private void showWarnDialog(@StringRes final int message) {
-        new MaterialAlertDialogBuilder(getContext())
+        new AlertDialog.Builder(getContext())
                 .setMessage(message)
                 .setPositiveButton(R.string.ok, (dialog, whichButton) -> {})
                 .show();
@@ -636,7 +635,7 @@ public class DiscoveryActivityV2 extends AbstractGBActivity implements AdapterVi
         }
 
         if (coordinator.suggestUnbindBeforePair() && deviceCandidate.isBonded()) {
-            new MaterialAlertDialogBuilder(getContext())
+            new AlertDialog.Builder(getContext())
                     .setTitle(R.string.unbind_before_pair_title)
                     .setMessage(R.string.unbind_before_pair_message)
                     .setIcon(R.drawable.ic_warning_gray)
@@ -765,7 +764,7 @@ public class DiscoveryActivityV2 extends AbstractGBActivity implements AdapterVi
         macLayout.setPadding(20, 0, 20, 0);
         linearLayout.addView(macLayout);
 
-        new MaterialAlertDialogBuilder(DiscoveryActivityV2.this)
+        new AlertDialog.Builder(DiscoveryActivityV2.this)
                 .setCancelable(true)
                 .setTitle(R.string.add_test_device)
                 .setView(linearLayout)

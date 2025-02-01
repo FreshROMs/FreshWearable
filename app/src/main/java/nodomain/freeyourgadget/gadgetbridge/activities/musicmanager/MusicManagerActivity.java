@@ -1,6 +1,7 @@
 package nodomain.freeyourgadget.gadgetbridge.activities.musicmanager;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +33,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.slf4j.Logger;
@@ -418,7 +418,7 @@ public class MusicManagerActivity extends AbstractGBActivity {
         ArrayList<Integer> list = new ArrayList<>();
         list.add(music.getId());
 
-        new MaterialAlertDialogBuilder(this)
+        new AlertDialog.Builder(this)
                 .setTitle(R.string.Delete)
                 .setMessage(this.getString(R.string.music_delete_confirm_description, music.getTitle()))
                 .setIcon(R.drawable.ic_warning)
@@ -430,7 +430,7 @@ public class MusicManagerActivity extends AbstractGBActivity {
     }
 
     private void deleteMusicMultipleConfirm(final ArrayList<Integer> list) {
-        new MaterialAlertDialogBuilder(this)
+        new AlertDialog.Builder(this)
                 .setTitle(R.string.Delete)
                 .setMessage(this.getString(R.string.music_delete_multiple_confirm_description, list.size()))
                 .setIcon(R.drawable.ic_warning)
@@ -477,7 +477,7 @@ public class MusicManagerActivity extends AbstractGBActivity {
         input.setLayoutParams(params);
         container.addView(input);
 
-        new MaterialAlertDialogBuilder(this)
+        new AlertDialog.Builder(this)
                 .setTitle(R.string.music_new_playlist)
                 .setView(container)
                 .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
@@ -504,7 +504,7 @@ public class MusicManagerActivity extends AbstractGBActivity {
         input.setLayoutParams(params);
         container.addView(input);
 
-        new MaterialAlertDialogBuilder(this)
+        new AlertDialog.Builder(this)
                 .setTitle(R.string.music_rename_playlist)
                 .setView(container)
                 .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
@@ -520,7 +520,7 @@ public class MusicManagerActivity extends AbstractGBActivity {
     private void deleteMusicPlaylist(GBDeviceMusicPlaylist playlist) {
         if(playlist.getId() == 0)
             return;
-        new MaterialAlertDialogBuilder(this)
+        new AlertDialog.Builder(this)
                 .setTitle(R.string.Delete)
                 .setMessage(this.getString(R.string.music_delete_confirm_description, playlist.getName()))
                 .setIcon(R.drawable.ic_warning)
@@ -552,7 +552,7 @@ public class MusicManagerActivity extends AbstractGBActivity {
         dPlaylists.setLayoutParams(params);
         container.addView(dPlaylists);
 
-        new MaterialAlertDialogBuilder(this)
+        new AlertDialog.Builder(this)
                 .setTitle(R.string.music_add_to_playlist)
                 .setView(container)
                 .setPositiveButton(android.R.string.ok, (dialog, whichButton) -> {
