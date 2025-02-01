@@ -24,11 +24,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
 
+import androidx.picker.widget.SeslTimePicker;
+
 public class TimePreference extends DialogPreference {
     private int hour = 0;
     private int minute = 0;
 
-    private TimePicker picker = null;
+    private SeslTimePicker picker = null;
 
     public TimePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,7 +38,7 @@ public class TimePreference extends DialogPreference {
 
     @Override
     protected View onCreateDialogView() {
-        picker = new TimePicker(getContext());
+        picker = new SeslTimePicker(getContext());
         picker.setIs24HourView(DateFormat.is24HourFormat(getContext()));
         picker.setPadding(0, 50, 0, 50);
 
@@ -47,8 +49,8 @@ public class TimePreference extends DialogPreference {
     protected void onBindDialogView(View v) {
         super.onBindDialogView(v);
 
-        picker.setCurrentHour(hour);
-        picker.setCurrentMinute(minute);
+        picker.setHour(hour);
+        picker.setMinute(minute);
     }
 
     @Override
@@ -56,8 +58,8 @@ public class TimePreference extends DialogPreference {
         super.onDialogClosed(positiveResult);
 
         if (positiveResult) {
-            hour = picker.getCurrentHour();
-            minute = picker.getCurrentMinute();
+            hour = picker.getHour();
+            minute = picker.getMinute();
 
             String time = getTime24h();
 

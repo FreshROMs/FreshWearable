@@ -38,6 +38,8 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.picker.app.SeslDatePickerDialog;
+import androidx.picker.widget.SeslDatePicker;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -371,9 +373,9 @@ public class ActivitySummariesActivity extends AbstractListActivity<BaseActivity
 
     public void resetFetchTimestampToChosenDate() {
         final Calendar currentDate = Calendar.getInstance();
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        new SeslDatePickerDialog(this, new SeslDatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            public void onDateSet(SeslDatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar date = Calendar.getInstance();
                 date.set(year, monthOfYear, dayOfMonth);
 

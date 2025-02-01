@@ -36,6 +36,9 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.picker.app.SeslDatePickerDialog;
+import androidx.picker.widget.SeslDatePicker;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -313,9 +316,9 @@ public class ActivitySummariesFilter extends AbstractGBActivity {
             currentDate.setTimeInMillis(currentDatemillis);
         }
 
-        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+        new SeslDatePickerDialog(this, new SeslDatePickerDialog.OnDateSetListener() {
             @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            public void onDateSet(SeslDatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar date = Calendar.getInstance();
 
                 if (filter.equals(DATE_FILTER_FROM)) {

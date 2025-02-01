@@ -36,6 +36,10 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.picker.app.SeslDatePickerDialog;
+import androidx.picker.app.SeslTimePickerDialog;
+import androidx.picker.widget.SeslDatePicker;
+import androidx.picker.widget.SeslTimePicker;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -55,7 +59,7 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class ReminderDetails extends AbstractGBActivity implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class ReminderDetails extends AbstractGBActivity implements SeslTimePickerDialog.OnTimeSetListener, SeslDatePickerDialog.OnDateSetListener {
     private Reminder reminder;
     private GBDevice device;
 
@@ -113,7 +117,7 @@ public class ReminderDetails extends AbstractGBActivity implements TimePickerDia
             public void onClick(View view) {
                 final Calendar date = new GregorianCalendar();
                 date.setTime(reminder.getDate());
-                new DatePickerDialog(
+                new SeslDatePickerDialog(
                         ReminderDetails.this,
                         ReminderDetails.this,
                         date.get(Calendar.YEAR),
@@ -128,7 +132,7 @@ public class ReminderDetails extends AbstractGBActivity implements TimePickerDia
             cardTime.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new TimePickerDialog(
+                    new SeslTimePickerDialog(
                             ReminderDetails.this,
                             ReminderDetails.this,
                             reminder.getDate().getHours(),
@@ -200,14 +204,14 @@ public class ReminderDetails extends AbstractGBActivity implements TimePickerDia
     }
 
     @Override
-    public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+    public void onTimeSet(SeslTimePicker timePicker, int hour, int minute) {
         reminder.getDate().setHours(hour);
         reminder.getDate().setMinutes(minute);
         updateUiFromReminder();
     }
 
     @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+    public void onDateSet(SeslDatePicker datePicker, int year, int month, int dayOfMonth) {
         final DeviceCoordinator coordinator = device.getDeviceCoordinator();
 
         if (coordinator.getRemindersHaveTime()) {

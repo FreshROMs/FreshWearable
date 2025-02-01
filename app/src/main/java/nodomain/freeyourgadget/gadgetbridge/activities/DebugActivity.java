@@ -75,6 +75,8 @@ import androidx.core.app.RemoteInput;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.picker.app.SeslDatePickerDialog;
+import androidx.picker.widget.SeslDatePicker;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -335,9 +337,9 @@ public class DebugActivity extends AbstractGBActivity {
                         GB.toast("Device not selected/connected", Toast.LENGTH_LONG, GB.INFO);
                         return;
                     }
-                    new DatePickerDialog(DebugActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    new SeslDatePickerDialog(DebugActivity.this, new SeslDatePickerDialog.OnDateSetListener() {
                         @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        public void onDateSet(SeslDatePicker view, int year, int monthOfYear, int dayOfMonth) {
                             Calendar date = Calendar.getInstance();
                             date.set(year, monthOfYear, dayOfMonth);
 

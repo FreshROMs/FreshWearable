@@ -31,6 +31,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
+import androidx.picker.app.SeslDatePickerDialog;
+import androidx.picker.widget.SeslDatePicker;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -180,9 +182,9 @@ public class ActivityListingDashboard extends MaterialDialogFragment {
                 final Calendar currentDate = Calendar.getInstance();
                 currentDate.setTimeInMillis(timeTo * 1000L);
 
-                new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
+                new SeslDatePickerDialog(getContext(), new SeslDatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    public void onDateSet(SeslDatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                         Calendar date = Calendar.getInstance();
                         date.set(year, monthOfYear, dayOfMonth);

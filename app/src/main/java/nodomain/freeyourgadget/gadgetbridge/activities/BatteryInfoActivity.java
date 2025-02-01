@@ -30,6 +30,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.picker.app.SeslDatePickerDialog;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -163,19 +164,15 @@ public class BatteryInfoActivity extends AbstractGBActivity {
                 Context context = getApplicationContext();
 
                 if (context instanceof Application) {
-                    new DatePickerDialog(BatteryInfoActivity.this, new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    new SeslDatePickerDialog(BatteryInfoActivity.this, (view, year, monthOfYear, dayOfMonth) -> {
+                        Calendar date = Calendar.getInstance();
+                        date.set(year, monthOfYear, dayOfMonth);
+                        timeTo = (int) (date.getTimeInMillis() / 1000);
+                        battery_status_date_to_text.setText(DateTimeUtils.formatDate(new Date(timeTo * 1000L)));
+                        battery_status_time_span_seekbar.setProgress(0);
+                        battery_status_time_span_seekbar.setProgress(1);
 
-                            Calendar date = Calendar.getInstance();
-                            date.set(year, monthOfYear, dayOfMonth);
-                            timeTo = (int) (date.getTimeInMillis() / 1000);
-                            battery_status_date_to_text.setText(DateTimeUtils.formatDate(new Date(timeTo * 1000L)));
-                            battery_status_time_span_seekbar.setProgress(0);
-                            battery_status_time_span_seekbar.setProgress(1);
-
-                            batteryInfoChartFragment.setDateAndGetData(gbDevice, batteryIndex, timeFrom, timeTo);
-                        }
+                        batteryInfoChartFragment.setDateAndGetData(gbDevice, batteryIndex, timeFrom, timeTo);
                     }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DATE)).show();
                 }
             }

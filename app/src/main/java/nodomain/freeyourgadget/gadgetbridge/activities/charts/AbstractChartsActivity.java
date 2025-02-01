@@ -36,6 +36,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.picker.app.SeslDatePickerDialog;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
@@ -323,7 +324,7 @@ public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity 
         } else if (itemId == R.id.charts_set_date) {
             final Calendar currentDate = Calendar.getInstance();
             currentDate.setTime(getEndDate());
-            new DatePickerDialog(this, (view, year, monthOfYear, dayOfMonth) -> {
+            new SeslDatePickerDialog(this, (view, year, monthOfYear, dayOfMonth) -> {
                 currentDate.set(year, monthOfYear, dayOfMonth);
                 setEndDate(currentDate.getTime());
                 setStartDate(DateTimeUtils.shiftByDays(getEndDate(), -1));
