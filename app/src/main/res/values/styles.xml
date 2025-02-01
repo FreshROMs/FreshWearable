@@ -81,7 +81,7 @@
     </style>
     <style name="AppSwitchPreference" parent="@style/Preference.SwitchPreferenceCompat.Material">
         <item name="widgetLayout">@layout/preference_material_switch</item>
-    </style>`
+    </style>
     <style name="GridTile">
         <item name="android:background">?android:attr/windowBackground</item>
         <item name="android:padding">15dp</item>
