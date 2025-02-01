@@ -21,17 +21,18 @@ import android.view.View;
 import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
+import androidx.picker.widget.SeslDatePicker;
 import androidx.preference.DialogPreference;
 import androidx.preference.Preference;
 
 import nodomain.freeyourgadget.gadgetbridge.util.dialogs.MaterialPreferenceDialogFragment;
 
 public class XDatePreferenceFragment extends MaterialPreferenceDialogFragment implements DialogPreference.TargetFragment {
-    private DatePicker picker = null;
+    private SeslDatePicker picker = null;
 
     @Override
     protected View onCreateDialogView(final Context context) {
-        picker = new DatePicker(context);
+        picker = new SeslDatePicker(context);
         picker.setPadding(0, 50, 0, 50);
 
         return picker;
