@@ -48,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
 import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.HeartRateUtils;
@@ -61,13 +62,15 @@ import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.model.SleepScoreSample;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
+import xyz.tenseventyseven.fresh.health.components.HorizontalProgressView;
+import xyz.tenseventyseven.fresh.health.data.NightSleepData;
+import xyz.tenseventyseven.fresh.health.data.models.NightSleepDataModel;
 
 
 public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySleepChartFragment.MyChartsData> {
     protected static final Logger LOG = LoggerFactory.getLogger(ActivitySleepChartFragment.class);
 
     private LineChart mActivityChart;
-    private ImageView sleepStagesGauge;
     private TextView mSleepchartInfo;
     private TextView remSleepTimeText;
     private LinearLayout remSleepTimeTextWrapper;
@@ -96,6 +99,13 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
     private boolean SHOW_CHARTS_AVERAGE = prefs.getBoolean("charts_show_average", true);
     private int sleepLinesLimit = prefs.getInt("chart_sleep_lines_limit", 6);
 
+    private HorizontalProgressView progress;
+    private TextView progressText;
+
+    private NightSleepData nightSleepData = null;
+    private int[] sleepColors;
+    private float[] sleepSegments;
+
     @Override
     protected boolean isSingleDay() {
         return true;
@@ -103,6 +113,34 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
 
     @Override
     protected MyChartsData refreshInBackground(ChartsHost chartsHost, DBHandler db, GBDevice device) {
+        nightSleepData = NightSleepData.compute(device, getTSEnd());
+        if (nightSleepData != null) {
+            int targetHours = WearableApplication.getPrefs().getInt(ActivityUser.PREF_USER_SLEEP_DURATION, ActivityUser.defaultUserSleepDurationGoal);
+            int targetMinutes = targetHours * 60;
+
+            float factor = nightSleepData.totalMinutes / (float) targetMinutes;
+            sleepColors = new int[nightSleepData.getData().size()];
+            sleepSegments = new float[nightSleepData.getData().size()];
+
+            // Compute start time as 0% and end time as 100%
+            final int startTime = nightSleepData.startTime;
+            final int endTime = nightSleepData.endTime;
+            final int totalMinutes = endTime - startTime;
+
+            int i = 0;
+            for (NightSleepDataModel sleepData : nightSleepData.getData()) {
+                final int start = sleepData.start;
+                final int end = sleepData.end;
+                final int duration = end - start;
+                final float durationPercentage = duration / (float) totalMinutes;
+
+                sleepSegments[i] = durationPercentage * factor;
+                sleepColors[i] = sleepData.getColor();
+
+                i++;
+            }
+        }
+
         List<? extends ActivitySample> samples;
         if (CHARTS_SLEEP_RANGE_24H) {
             samples = getSamples(db, device);
@@ -209,16 +247,6 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
         if (supportsSleepScore()) {
             lowerText = WearableApplication.getContext().getString(R.string.sleep_score_value, pieData.getSleepScore());
         }
-        sleepStagesGauge.setImageBitmap(GaugeDrawer.drawCircleGaugeSegmented(
-                width,
-                width / 15,
-                colors,
-                segments,
-                true,
-                String.valueOf(timeStringFormat(pieData.getTotalSleep())),
-                lowerText,
-                getContext()
-        ));
     }
 
     private String timeStringFormat(long seconds) {
@@ -281,6 +309,22 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
             hrAverage_line.enableDashedLine(15f, 10f, 0f);
             mActivityChart.getAxisRight().removeAllLimitLines();
             mActivityChart.getAxisRight().addLimitLine(hrAverage_line);
+        }
+
+        progressText.setText(timeStringFormat(pieData.getTotalSleep()));
+
+        // Restructure segments to fit the gauge's new format
+        progress.setDotMode(false);
+        progress.clearBackgroundSegments();
+        progress.clearProgressSegments();
+
+        float last = 0;
+        for (int i = 0; i < sleepSegments.length; i++) {
+            final float high = last + sleepSegments[i];
+            final int color = sleepColors[i];
+
+            progress.addProgressSegment(last, high, color);
+            last = high;
         }
     }
 
@@ -379,7 +423,7 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_sleepchart, container, false);
+        View rootView = inflater.inflate(R.layout.health_fragment_sleepchart, container, false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             rootView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
@@ -388,7 +432,6 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
         }
 
         mActivityChart = rootView.findViewById(R.id.sleepchart);
-        sleepStagesGauge = rootView.findViewById(R.id.sleep_stages_gauge);
         mSleepchartInfo = rootView.findViewById(R.id.sleepchart_info);
         remSleepTimeText = rootView.findViewById(R.id.sleep_chart_legend_rem_time);
         remSleepTimeTextWrapper = rootView.findViewById(R.id.sleep_chart_legend_rem_time_wrapper);
@@ -402,6 +445,8 @@ public class DaySleepChartFragment extends AbstractActivityChartFragment<DaySlee
         movementIntensityTextWrapper = rootView.findViewById(R.id.sleep_chart_legend_movement_intensity_wrapper);
         dummyTile = rootView.findViewById(R.id.sleep_chart_legend_dummy_tile);
         sleepDateText = rootView.findViewById(R.id.sleep_date);
+        progress = rootView.findViewById(R.id.health_sleep_progress);
+        progressText = rootView.findViewById(R.id.health_sleep_total);
 
         mSleepchartInfo.setMaxLines(sleepLinesLimit);
 

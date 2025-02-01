@@ -18,13 +18,18 @@ package xyz.tenseventyseven.fresh.health.activities.dashboard.widgets;
 
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
+
 import java.util.Locale;
 
 import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.utils.AbstractDashboardWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.utils.AbstractGaugeWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.HomeFragment;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.health.data.NightSleepData;
+import xyz.tenseventyseven.fresh.health.data.models.NightSleepDataModel;
 
 /**
  * A simple {@link AbstractDashboardWidget} subclass.
@@ -58,7 +63,7 @@ public class DashboardSleepWidget extends AbstractGaugeWidget {
 
     @Override
     protected void populateData(final HomeFragment.DashboardData dashboardData) {
-        dashboardData.getSleepMinutesTotal();
+        dashboardData.getSleepData();
         dashboardData.getSleepMinutesGoalFactor();
     }
 
@@ -71,11 +76,31 @@ public class DashboardSleepWidget extends AbstractGaugeWidget {
                 (int) Math.floor(totalSleepMinutes / 60f),
                 (int) (totalSleepMinutes % 60f)
         );
-
         setText(valueText);
-        drawSimpleGauge(
-                color_light_sleep,
-                dashboardData.getSleepMinutesGoalFactor()
-        );
+
+        NightSleepData data = dashboardData.getSleepData();
+        float factor = dashboardData.getSleepMinutesGoalFactor();
+        final int[] colors = new int[data.getData().size()];
+        final float[] segments = new float[data.getData().size()];
+
+        // Compute start time as 0% and end time as 100%
+        final int startTime = data.startTime;
+        final int endTime = data.endTime;
+        final int totalMinutes = endTime - startTime;
+
+        int i = 0;
+        for (NightSleepDataModel sleepData : data.getData()) {
+            final int start = sleepData.start;
+            final int end = sleepData.end;
+            final int duration = end - start;
+            final float durationPercentage = duration / (float) totalMinutes;
+
+            segments[i] = durationPercentage * factor;
+            colors[i] = sleepData.getColor();
+
+            i++;
+        }
+
+        drawSegmentedGauge(colors, segments, -1, false, false);
     }
 }

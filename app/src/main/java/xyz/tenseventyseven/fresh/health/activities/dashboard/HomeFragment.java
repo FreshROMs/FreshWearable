@@ -67,6 +67,7 @@ import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardTo
 import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardVO2MaxAnyWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardVO2MaxCyclingWidget;
 import xyz.tenseventyseven.fresh.health.activities.dashboard.widgets.DashboardVO2MaxRunningWidget;
+import xyz.tenseventyseven.fresh.health.data.NightSleepData;
 
 public class HomeFragment extends MainFragmentCommon {
     private static final Logger LOG = LoggerFactory.getLogger(HomeFragment.class);
@@ -134,11 +135,7 @@ public class HomeFragment extends MainFragmentCommon {
             gridLayout.setColumnCount(2);
         }
 
-        if (savedInstanceState != null && savedInstanceState.containsKey("dashboard_data") && dashboardData.isEmpty()) {
-            dashboardData = (DashboardData) savedInstanceState.getSerializable("dashboard_data");
-        } else if (dashboardData.isEmpty()) {
-            reloadPreferences();
-        }
+        reloadPreferences();
 
         setupPullToRefresh();
         setupIntentListeners();
@@ -184,7 +181,7 @@ public class HomeFragment extends MainFragmentCommon {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putSerializable("dashboard_data", dashboardData);
+        //outState.putSerializable("dashboard_data", dashboardData);
     }
 
     @Override
@@ -372,6 +369,7 @@ public class HomeFragment extends MainFragmentCommon {
         private float distanceGoalFactor;
         private long activeMinutesTotal;
         private float activeMinutesGoalFactor;
+        private NightSleepData nightSleepData;
         private final Map<String, Serializable> genericData = new ConcurrentHashMap<>();
 
         public void clear() {
@@ -388,6 +386,7 @@ public class HomeFragment extends MainFragmentCommon {
             distanceGoalFactor = 0;
             activeMinutesTotal = 0;
             activeMinutesGoalFactor = 0;
+            nightSleepData = null;
             generalizedActivities.clear();
             genericData.clear();
         }
@@ -405,9 +404,16 @@ public class HomeFragment extends MainFragmentCommon {
                     distanceTotalMeters == 0 &&
                     distanceGoalFactor == 0 &&
                     activeMinutesTotal == 0 &&
+                    nightSleepData == null &&
                     activeMinutesGoalFactor == 0 &&
                     genericData.isEmpty() &&
                     generalizedActivities.isEmpty());
+        }
+
+        public synchronized NightSleepData getSleepData() {
+            if (nightSleepData == null)
+                nightSleepData = DashboardUtils.getSleepData(this);
+            return nightSleepData;
         }
 
         public synchronized int getStepsTotal() {

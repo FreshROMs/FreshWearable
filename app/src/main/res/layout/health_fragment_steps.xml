@@ -168,7 +168,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="12.0dip"
             android:layout_marginHorizontal="8.0dip"
-            android:padding="24.0dip"
+            android:paddingHorizontal="12.0dip"
+            android:paddingVertical="24.0dip"
             android:background="@color/oui_background_color"
             android:orientation="vertical">
             <TextView
@@ -176,14 +177,16 @@
                 android:layout_height="wrap_content"
                 android:text="Steps by time of day"
                 android:textFontWeight="600"
+                android:paddingHorizontal="12.0dip"
                 android:textColor="@color/oui_primary_text_color"
                 android:textSize="16.0sp" />
 
             <LinearLayout
                 android:layout_marginTop="12.0dip"
+                android:layout_marginBottom="4.0dip"
                 android:layout_width="match_parent"
                 android:layout_height="250sp">
-                <com.github.mikephil.charting.charts.LineChart
+                <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/steps_daily_chart"
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"

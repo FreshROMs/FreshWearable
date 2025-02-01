@@ -19,6 +19,7 @@ package xyz.tenseventyseven.fresh.health.activities.dashboard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -37,6 +38,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.ActivitySession;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
 import nodomain.freeyourgadget.gadgetbridge.model.DailyTotals;
 import xyz.tenseventyseven.fresh.WearableApplication;
+import xyz.tenseventyseven.fresh.health.data.NightSleepData;
 
 public class DashboardUtils {
     private static final Logger LOG = LoggerFactory.getLogger(DashboardUtils.class);
@@ -123,6 +125,35 @@ public class DashboardUtils {
             LOG.warn("Could not calculate total amount of sleep: ", e);
         }
         return totalSleepMinutes;
+    }
+
+    public static NightSleepData getSleepData(HomeFragment.DashboardData dashboardData) {
+        List<GBDevice> devices = WearableApplication.app().getDeviceManager().getDevices();
+        List<NightSleepData> nightSleepData = new ArrayList<>();
+
+        try (DBHandler dbHandler = WearableApplication.acquireDB()) {
+            for (GBDevice dev : devices) {
+                if ((dashboardData.showAllDevices || dashboardData.showDeviceList.contains(dev.getAddress())) && dev.getDeviceCoordinator().supportsSleepMeasurement()) {
+                    nightSleepData.add(NightSleepData.compute(dev, dashboardData.timeTo));
+                }
+            }
+
+            // Attempt to consolidate sleep data
+            if (nightSleepData.size() > 1) {
+                NightSleepData consolidated = new NightSleepData();
+                for (NightSleepData data : nightSleepData) {
+                    consolidated.totalMinutes += data.totalMinutes;
+                    consolidated.getData().addAll(data.getData());
+                }
+                return consolidated;
+            } else if (nightSleepData.size() == 1) {
+                return nightSleepData.get(0);
+            }
+        } catch (Exception e) {
+            LOG.warn("Could not calculate sleep data: ", e);
+        }
+
+        return null;
     }
 
     public static float getSleepMinutesGoalFactor(HomeFragment.DashboardData dashboardData) {

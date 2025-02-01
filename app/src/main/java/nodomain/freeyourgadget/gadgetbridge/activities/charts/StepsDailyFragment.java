@@ -1,9 +1,7 @@
 package nodomain.freeyourgadget.gadgetbridge.activities.charts;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.TypedValue;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +10,16 @@ import android.widget.TextView;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.Chart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,13 +31,11 @@ import java.util.List;
 
 import xyz.tenseventyseven.fresh.WearableApplication;
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.health.activities.dashboard.GaugeDrawer;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySample;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityUser;
-import xyz.tenseventyseven.fresh.health.components.CircularProgressView;
 import xyz.tenseventyseven.fresh.health.components.HorizontalProgressView;
 
 public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsData> {
@@ -53,7 +49,7 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
     private TextView steps;
     private TextView distance;
     ImageView stepsStreaksButton;
-    private LineChart stepsChart;
+    private BarChart mChart;
 
     protected int STEPS_GOAL;
 
@@ -66,16 +62,15 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.health_fragment_steps, container, false);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            rootView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
-                getChartsHost().enableSwipeRefresh(scrollY == 0);
-            });
-        }
+        // Enable swipe refresh only when at the top of the scroll view
+        rootView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            getChartsHost().enableSwipeRefresh(scrollY == 0);
+        });
 
         mDateView = rootView.findViewById(R.id.steps_date_view);
         steps = rootView.findViewById(R.id.steps_count);
         distance = rootView.findViewById(R.id.steps_distance);
-        stepsChart = rootView.findViewById(R.id.steps_daily_chart);
+        mChart = rootView.findViewById(R.id.steps_daily_chart);
 
         stepsProgress = rootView.findViewById(R.id.health_steps_progress);
         stepsTotal = rootView.findViewById(R.id.health_steps_total);
@@ -87,13 +82,10 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         refresh();
 
         stepsStreaksButton = rootView.findViewById(R.id.steps_streaks_button);
-        stepsStreaksButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                StepStreaksDashboard stepStreaksDashboard = StepStreaksDashboard.newInstance(STEPS_GOAL, getChartsHost().getDevice());
-                stepStreaksDashboard.show(fm, "steps_streaks_dashboard");
-            }
+        stepsStreaksButton.setOnClickListener(v -> {
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            StepStreaksDashboard stepStreaksDashboard = StepStreaksDashboard.newInstance(STEPS_GOAL, getChartsHost().getDevice());
+            stepStreaksDashboard.show(fm, "steps_streaks_dashboard");
         });
 
         return rootView;
@@ -116,8 +108,24 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         } else {
             stepsDay = stepsDayList.get(0);
         }
+
         List<? extends ActivitySample> samplesOfDay = getSamplesOfDay(db, day, 0, device);
-        return new StepsDailyFragment.StepsData(stepsDay, samplesOfDay);
+        int[] steps = new int[48]; // 48 30-minute intervals in a day
+        long start = getStartDate().getTime();
+
+        // .getTime() returns milliseconds since epoch as a long
+        // Convert this to what the DB uses (seconds since epoch)
+        start /= 1000;
+
+        for (final ActivitySample sample : samplesOfDay) {
+            // Find which 30-minute interval this data belongs to
+            int index = (int) ((sample.getTimestamp() - start) / 1800);
+
+            // Add the steps to the interval
+            steps[index] += sample.getSteps();
+        }
+
+        return new StepsDailyFragment.StepsData(stepsDay, steps);
     }
 
     @Override
@@ -137,77 +145,41 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         distance.setText(valueFormatter.formatValue(stepsData.todayStepsDay.distance, "km"));
 
         // Chart
-        stepsChart.getLegend().setEnabled(false);
+        mChart.getLegend().setEnabled(false);
 
-        final List<Entry> lineEntries = new ArrayList<>();
-        final TimestampTranslation tsTranslation = new TimestampTranslation();
-        int sum = 0;
-        for (final ActivitySample sample : stepsData.samples) {
-            if (sample.getSteps() > 0) {
-                sum += sample.getSteps();
-            }
-            lineEntries.add(new Entry(tsTranslation.shorten(sample.getTimestamp()), sum));
+        final List<BarEntry> barEntries = new ArrayList<>();
+        for (int i = 0; i < stepsData.samples.length; i++) {
+            barEntries.add(new BarEntry(i, stepsData.samples[i]));
         }
 
-        stepsChart.getXAxis().setValueFormatter(new SampleXLabelFormatter(tsTranslation, "HH:mm"));
+        final BarDataSet barDataSet = new BarDataSet(barEntries, getString(R.string.steps));
+        barDataSet.setColor(getResources().getColor(R.color.health_steps_color));
+        barDataSet.setDrawValues(false);
 
-        if (sum < STEPS_GOAL) {
-            stepsChart.getAxisLeft().setAxisMaximum(STEPS_GOAL);
-        } else {
-            stepsChart.getAxisLeft().resetAxisMaximum();
-        }
+        mChart.getAxisLeft().removeAllLimitLines();
+        mChart.getAxisLeft().setAxisMaximum(Math.max(barDataSet.getYMax(), STEPS_GOAL));
 
-        final LineDataSet lineDataSet = new LineDataSet(lineEntries, getString(R.string.steps));
-        lineDataSet.setColor(getResources().getColor(R.color.health_steps_color));
-        lineDataSet.setDrawCircles(false);
-        lineDataSet.setLineWidth(2f);
-        lineDataSet.setFillAlpha(255);
-        lineDataSet.setDrawCircles(false);
-        lineDataSet.setCircleColor(getResources().getColor(R.color.health_steps_color));
-        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        lineDataSet.setDrawValues(false);
-        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        lineDataSet.setDrawFilled(true);
-        lineDataSet.setFillAlpha(60);
-        lineDataSet.setFillColor(getResources().getColor(R.color.health_steps_color ));
+        final List<IBarDataSet> barDataSets = new ArrayList<>();
+        barDataSets.add(barDataSet);
 
-        final LimitLine goalLine = new LimitLine(STEPS_GOAL);
-        goalLine.setLineColor(getResources().getColor(R.color.health_steps_color));
-        goalLine.setLineWidth(1.5f);
-        goalLine.enableDashedLine(15f, 10f, 0f);
-        stepsChart.getAxisLeft().removeAllLimitLines();
-        stepsChart.getAxisLeft().addLimitLine(goalLine);
-        stepsChart.getAxisLeft().setAxisMaximum(Math.max(lineDataSet.getYMax(), STEPS_GOAL) + 2000);
-
-        final List<ILineDataSet> lineDataSets = new ArrayList<>();
-        lineDataSets.add(lineDataSet);
-        final LineData lineData = new LineData(lineDataSets);
-        stepsChart.setData(lineData);
-    }
-
-    private int getProgressColor(int resId, float factor) {
-        // Return regular color if below goal
-        int color = requireContext().getColor(resId);
-        if (factor < 1) return color;
-
-        // Get color beyond goal - make color brighter (15%)
-        return Color.argb(255, Math.min(255, (int) (Color.red(color) * 1.2)),
-                Math.min(255, (int) (Color.green(color) * 1.25)),
-                Math.min(255, (int) (Color.blue(color) * 1.25)));
+        final BarData barData = new BarData(barDataSets);
+        mChart.setRenderer(new RoundedBarChartRenderer(mChart, mChart.getAnimator(), mChart.getViewPortHandler()));
+        mChart.setData(barData);
     }
 
     @Override
     protected void renderCharts() {
-        stepsChart.invalidate();
+        mChart.invalidate();
     }
 
     protected void setupLegend(Chart<?> chart) {}
 
     private void setupStepsChart() {
-        stepsChart.getDescription().setEnabled(false);
-        stepsChart.setDoubleTapToZoomEnabled(false);
+        mChart.getDescription().setEnabled(false);
+        mChart.setDoubleTapToZoomEnabled(false);
+        mChart.setPinchZoom(false);
 
-        final XAxis xAxisBottom = stepsChart.getXAxis();
+        final XAxis xAxisBottom = mChart.getXAxis();
         xAxisBottom.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxisBottom.setDrawLabels(true);
         xAxisBottom.setDrawGridLines(false);
@@ -215,30 +187,55 @@ public class StepsDailyFragment extends StepsFragment<StepsDailyFragment.StepsDa
         xAxisBottom.setDrawLimitLinesBehindData(true);
         xAxisBottom.setTextColor(CHART_TEXT_COLOR);
         xAxisBottom.setAxisMinimum(0f);
-        xAxisBottom.setAxisMaximum(86400f);
-        //xAxisBottom.setLabelCount(7, true);
+        xAxisBottom.setAxisMaximum(48f);
+        xAxisBottom.setLabelCount(48, true); // 30-minute intervals
+        xAxisBottom.setValueFormatter(new TimeValueFormatter());
 
-        final YAxis yAxisLeft = stepsChart.getAxisLeft();
-        yAxisLeft.setDrawGridLines(true);
-        yAxisLeft.setAxisMinimum(0);
-        yAxisLeft.setDrawTopYLabelEntry(true);
-        yAxisLeft.setEnabled(true);
-        yAxisLeft.setTextColor(CHART_TEXT_COLOR);
+        final YAxis yAxisLeft = mChart.getAxisLeft();
+        yAxisLeft.setDrawGridLines(false);
+        yAxisLeft.setDrawLabels(false);
+        yAxisLeft.setDrawGridLines(false);
+        yAxisLeft.setDrawAxisLine(false);
+        yAxisLeft.setAxisMinimum(0f);
 
-        final YAxis yAxisRight = stepsChart.getAxisRight();
+        final YAxis yAxisRight = mChart.getAxisRight();
         yAxisRight.setEnabled(true);
         yAxisRight.setDrawLabels(false);
         yAxisRight.setDrawGridLines(false);
-        yAxisRight.setDrawAxisLine(true);
+        yAxisRight.setDrawAxisLine(false);
     }
 
     protected static class StepsData extends ChartsData {
         StepsDay todayStepsDay;
-        List<? extends ActivitySample> samples;
+        int[] samples;
 
-        public StepsData(final StepsDay todayStepsDay, final List<? extends ActivitySample> samplesOfDay) {
+        public StepsData(final StepsDay todayStepsDay, final int[] samplesOfDay) {
             this.todayStepsDay = todayStepsDay;
             this.samples = samplesOfDay;
+        }
+    }
+
+    private class TimeValueFormatter extends ValueFormatter {
+        @Override
+        public String getFormattedValue(float value) {
+            // Get system preference for 12/24 hour time
+            final boolean is24Hour = DateFormat.is24HourFormat(WearableApplication.getContext());
+
+            int intValue = (int) value;
+            switch (intValue) {
+                case 0: // 12AM bin
+                    return is24Hour ? "0" : "12AM";
+                case 12: // 6AM bin
+                    return "6AM";
+                case 24: // 12PM bin
+                    return "12PM";
+                case 36: // 6PM bin
+                    return is24Hour ? "18" : "6AM";
+                case 48: // 12AM bin
+                    return "(h)";
+                default:
+                    return "";
+            }
         }
     }
 }
