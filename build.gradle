@@ -17,6 +17,13 @@ buildscript {
     }
 }
 
+String githubUsername = System.getenv("GITHUB_USERNAME");
+String githubAccessToken = System.getenv("GITHUB_PASSWORD");
+
+if (githubUsername == null || githubAccessToken == null) {
+    throw new GradleException("GITHUB_USERNAME and GITHUB_PASSWORD environment variables must be set")
+}
+
 allprojects {
     repositories {
         mavenCentral()
@@ -24,5 +31,26 @@ allprojects {
             url 'https://jitpack.io'
         }
         google()
+        maven {
+            url = uri("https://maven.pkg.github.com/tribalfs/sesl-androidx")
+            credentials {
+                username = githubUsername
+                password = githubAccessToken
+            }
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/tribalfs/sesl-material-components-android")
+            credentials {
+                username = githubUsername
+                password = githubAccessToken
+            }
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/tribalfs/oneui-design")
+            credentials {
+                username = githubUsername
+                password = githubAccessToken
+            }
+        }
     }
 }
