@@ -42,7 +42,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.fit.FitViewerActivity;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;

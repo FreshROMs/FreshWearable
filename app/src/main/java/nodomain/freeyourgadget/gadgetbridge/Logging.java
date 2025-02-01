@@ -34,7 +34,7 @@ import ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy;
 import ch.qos.logback.core.util.FileSize;
 import ch.qos.logback.core.util.StatusPrinter;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
+import xyz.tenseventyseven.fresh.BuildConfig;
 
 public abstract class Logging {
     // Only used for tests

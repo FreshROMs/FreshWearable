@@ -36,7 +36,7 @@ import com.google.android.material.materialswitch.MaterialSwitch;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.file.FileHandle;

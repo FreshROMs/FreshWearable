@@ -35,7 +35,7 @@ import cyanogenmod.weather.CMWeatherManager;
 import cyanogenmod.weather.WeatherInfo;
 import cyanogenmod.weather.WeatherLocation;
 import cyanogenmod.weather.util.WeatherUtils;
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
+import xyz.tenseventyseven.fresh.BuildConfig;
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.Weather;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;

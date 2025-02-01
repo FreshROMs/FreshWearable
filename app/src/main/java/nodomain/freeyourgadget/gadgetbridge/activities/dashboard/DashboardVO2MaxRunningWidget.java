@@ -2,7 +2,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities.dashboard;
 
 import android.os.Bundle;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.Vo2MaxSample;

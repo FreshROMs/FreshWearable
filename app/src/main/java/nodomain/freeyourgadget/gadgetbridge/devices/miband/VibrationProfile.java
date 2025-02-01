@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.miband;
 import android.content.Context;
 
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.profiles.alertnotification.AlertLevel;
 
 public class VibrationProfile {

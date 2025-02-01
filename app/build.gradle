@@ -68,10 +68,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    namespace 'nodomain.freeyourgadget.gadgetbridge'
+    namespace 'xyz.tenseventyseven.fresh'
 
     defaultConfig {
-        applicationId "nodomain.freeyourgadget.gadgetbridge"
+        applicationId "xyz.tenseventyseven.fresh.wearable"
 
         //noinspection OldTargetApi
         targetSdkVersion 34

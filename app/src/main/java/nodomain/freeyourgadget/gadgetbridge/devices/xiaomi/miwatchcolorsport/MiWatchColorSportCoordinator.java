@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.miwatchcolorsport;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.XiaomiCoordinator;
 
 public class MiWatchColorSportCoordinator extends XiaomiCoordinator {

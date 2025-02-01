@@ -33,9 +33,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.dao.query.Query;
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
+import xyz.tenseventyseven.fresh.BuildConfig;
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppBlacklistAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilter;

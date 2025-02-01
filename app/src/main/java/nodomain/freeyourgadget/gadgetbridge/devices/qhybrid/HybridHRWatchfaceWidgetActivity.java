@@ -32,7 +32,7 @@ import androidx.preference.SwitchPreferenceCompat;
 import java.util.LinkedHashMap;
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractPreferenceFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractSettingsActivityV2;
 

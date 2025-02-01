@@ -37,6 +37,7 @@ import java.util.Random;
 import ch.qos.logback.classic.LoggerContext;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
+import xyz.tenseventyseven.fresh.R;
 
 /**
  * Catches otherwise uncaught exceptions, logs them and terminates the app.

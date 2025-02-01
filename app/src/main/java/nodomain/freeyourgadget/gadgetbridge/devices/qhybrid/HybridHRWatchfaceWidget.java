@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.BitmapUtil;
 
 import static nodomain.freeyourgadget.gadgetbridge.util.BitmapUtil.invertBitmapColors;

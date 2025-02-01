@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class ColmiR03Coordinator extends AbstractColmiR0xCoordinator {
     private static final Logger LOG = LoggerFactory.getLogger(ColmiR03Coordinator.class);

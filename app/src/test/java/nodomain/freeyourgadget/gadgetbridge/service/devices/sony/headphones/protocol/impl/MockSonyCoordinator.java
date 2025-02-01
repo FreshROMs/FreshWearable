@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.sony.headphones.pro
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.sony.headphones.SonyHeadphonesCapabilities;
 import nodomain.freeyourgadget.gadgetbridge.devices.sony.headphones.SonyHeadphonesCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

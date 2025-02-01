@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.huawei.huaweiband2pro;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiConstants;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.HuaweiLECoordinator;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.TimeSampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.devices.colmi.samples.ColmiStressSampleProvider;
 import nodomain.freeyourgadget.gadgetbridge.devices.colmi.samples.ColmiTemperatureSampleProvider;

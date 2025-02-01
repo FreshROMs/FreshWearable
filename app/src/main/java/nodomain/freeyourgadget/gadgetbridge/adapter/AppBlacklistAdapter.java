@@ -47,7 +47,7 @@ import java.util.Set;
 
 import androidx.recyclerview.widget.RecyclerView;
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.NotificationFilterActivity;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 

@@ -25,9 +25,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
+import xyz.tenseventyseven.fresh.BuildConfig;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 public class AboutActivity extends AbstractGBActivity {

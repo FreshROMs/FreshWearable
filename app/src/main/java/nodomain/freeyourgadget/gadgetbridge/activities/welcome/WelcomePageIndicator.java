@@ -28,7 +28,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.viewpager2.widget.ViewPager2;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class WelcomePageIndicator extends View {
     private ViewPager2 viewPager;

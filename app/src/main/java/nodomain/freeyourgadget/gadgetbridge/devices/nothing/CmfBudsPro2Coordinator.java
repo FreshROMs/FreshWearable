@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.nothing;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class CmfBudsPro2Coordinator extends AbstractEarCoordinator {
     @Override

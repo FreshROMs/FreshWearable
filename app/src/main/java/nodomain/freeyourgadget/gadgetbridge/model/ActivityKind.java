@@ -22,7 +22,7 @@ import android.content.Context;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.StringRes;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public enum ActivityKind {
     NOT_MEASURED(-1, R.string.activity_type_not_measured, R.drawable.ic_activity_not_measured),

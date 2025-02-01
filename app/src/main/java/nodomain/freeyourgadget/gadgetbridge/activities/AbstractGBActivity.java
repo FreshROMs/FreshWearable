@@ -30,7 +30,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.util.Locale;
 
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 
 

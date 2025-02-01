@@ -2,7 +2,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.lily;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.GarminCoordinator;
 
 public class GarminLily2ActiveCoordinator extends GarminCoordinator {

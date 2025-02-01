@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.CaloriesDailyFragment;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

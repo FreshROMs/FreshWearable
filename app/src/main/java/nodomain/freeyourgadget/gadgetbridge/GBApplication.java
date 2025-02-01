@@ -92,6 +92,8 @@ import nodomain.freeyourgadget.gadgetbridge.util.LimitedQueue;
 import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.DevicePrefs;
+import xyz.tenseventyseven.fresh.BuildConfig;
+import xyz.tenseventyseven.fresh.R;
 
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceType.AMAZFITBIP;
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceType.AMAZFITCOR;

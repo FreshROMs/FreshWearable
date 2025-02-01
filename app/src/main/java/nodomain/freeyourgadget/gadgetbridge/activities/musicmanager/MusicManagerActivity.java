@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.MusicListAdapter;

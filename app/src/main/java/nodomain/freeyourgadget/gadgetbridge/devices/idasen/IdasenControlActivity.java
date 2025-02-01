@@ -19,7 +19,7 @@ import java.util.Objects;
 
 
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.idasen.IdasenDeviceSupport;
 

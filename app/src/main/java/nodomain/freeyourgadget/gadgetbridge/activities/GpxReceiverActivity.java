@@ -31,7 +31,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 
 public class GpxReceiverActivity extends AbstractGBActivity {

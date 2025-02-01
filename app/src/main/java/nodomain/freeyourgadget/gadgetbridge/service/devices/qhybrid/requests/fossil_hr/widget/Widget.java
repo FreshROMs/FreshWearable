@@ -23,7 +23,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class Widget implements Serializable {
     private WidgetType widgetType;

@@ -41,7 +41,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AbstractActivityListingAdapter;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivityListItem;
 import nodomain.freeyourgadget.gadgetbridge.model.ActivitySession;

@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import de.cketti.library.changelog.ChangeLog;
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class GBChangeLog extends ChangeLog {
     private static final Logger LOG = LoggerFactory.getLogger(GBChangeLog.class);

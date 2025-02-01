@@ -26,7 +26,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 
 public class WelcomeActivity extends AbstractGBActivity {

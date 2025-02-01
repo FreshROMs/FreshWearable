@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities.devicesettings;
 
 import androidx.annotation.XmlRes;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public enum DeviceSpecificSettingsScreen {
     ACTIVITY_INFO("pref_screen_activity_info", R.xml.devicesettings_root_activity_info),

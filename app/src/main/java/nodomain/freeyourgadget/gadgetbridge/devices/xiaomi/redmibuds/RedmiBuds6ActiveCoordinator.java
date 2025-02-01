@@ -2,7 +2,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class RedmiBuds6ActiveCoordinator extends AbstractRedmiBudsCoordinator {
 

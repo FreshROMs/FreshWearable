@@ -22,7 +22,7 @@ import android.net.Uri;
 
 import java.io.IOException;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.AbstractMiBandFWHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.miband.AbstractMiBandFWInstallHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
 public class WelcomeFragmentIntro extends Fragment {

@@ -36,7 +36,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.ActivityChartsActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

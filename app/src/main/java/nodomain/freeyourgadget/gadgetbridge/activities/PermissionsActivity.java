@@ -21,7 +21,7 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeFragmentPermissions;
 
 public class PermissionsActivity extends AbstractGBActivity {

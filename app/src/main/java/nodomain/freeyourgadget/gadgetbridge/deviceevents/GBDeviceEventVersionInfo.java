@@ -17,7 +17,7 @@
 package nodomain.freeyourgadget.gadgetbridge.deviceevents;
 
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class GBDeviceEventVersionInfo extends GBDeviceEvent {
     public String fwVersion = "N/A";

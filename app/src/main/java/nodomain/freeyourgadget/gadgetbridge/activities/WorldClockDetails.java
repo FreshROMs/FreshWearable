@@ -36,7 +36,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.TimeZone;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.WorldClock;

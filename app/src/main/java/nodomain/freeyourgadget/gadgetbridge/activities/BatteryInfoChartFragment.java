@@ -50,7 +50,7 @@ import java.util.List;
 
 import de.greenrobot.dao.query.QueryBuilder;
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.DefaultChartsData;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.TimestampTranslation;
 import nodomain.freeyourgadget.gadgetbridge.database.DBAccess;

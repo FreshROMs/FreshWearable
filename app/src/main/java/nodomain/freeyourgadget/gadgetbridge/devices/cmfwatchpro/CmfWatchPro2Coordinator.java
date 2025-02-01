@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.cmfwatchpro;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class CmfWatchPro2Coordinator extends CmfWatchProCoordinator {
     @Override

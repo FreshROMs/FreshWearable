@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.huami;
 
 import androidx.annotation.StringRes;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public enum HuamiFirmwareType {
     FIRMWARE((byte) 0, R.string.kind_firmware),

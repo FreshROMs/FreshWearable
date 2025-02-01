@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.service.devices.cmfwatchpro;
 import android.content.Context;
 import android.net.Uri;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.InstallActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.InstallHandler;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

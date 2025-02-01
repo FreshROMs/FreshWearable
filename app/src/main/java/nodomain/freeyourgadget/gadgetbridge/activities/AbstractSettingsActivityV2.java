@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public abstract class AbstractSettingsActivityV2 extends AbstractGBActivity implements
         PreferenceFragmentCompat.OnPreferenceStartScreenCallback {

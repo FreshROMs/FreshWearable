@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.ota.HuaweiOTAFileList;
 import nodomain.freeyourgadget.gadgetbridge.devices.huawei.packets.OTA;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;

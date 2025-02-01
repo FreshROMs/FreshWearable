@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.activities.dashboard;
 import android.os.Bundle;
 
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.charts.StressChartFragment;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.data.DashboardStressData;

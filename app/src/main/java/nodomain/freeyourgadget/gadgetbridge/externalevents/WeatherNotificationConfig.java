@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.externalevents;
 
 import android.os.Bundle;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
 
 public class WeatherNotificationConfig extends AbstractGBActivity {

@@ -47,7 +47,7 @@ import lineageos.weather.LineageWeatherManager;
 import lineageos.weather.WeatherInfo;
 import lineageos.weather.WeatherLocation;
 import lineageos.weather.util.WeatherUtils;
-import nodomain.freeyourgadget.gadgetbridge.BuildConfig;
+import xyz.tenseventyseven.fresh.BuildConfig;
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
 import nodomain.freeyourgadget.gadgetbridge.model.Weather;
 import nodomain.freeyourgadget.gadgetbridge.model.WeatherSpec;

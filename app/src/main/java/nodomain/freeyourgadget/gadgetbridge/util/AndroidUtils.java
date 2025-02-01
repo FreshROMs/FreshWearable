@@ -55,7 +55,7 @@ import java.net.URISyntaxException;
 import java.util.Locale;
 
 import nodomain.freeyourgadget.gadgetbridge.GBApplication;
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class AndroidUtils {
     private static final Logger LOG = LoggerFactory.getLogger(AndroidUtils.class);

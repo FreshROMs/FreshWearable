@@ -30,7 +30,7 @@ import androidx.annotation.StringRes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 
 public abstract class AbstractGaugeWidget extends AbstractDashboardWidget {

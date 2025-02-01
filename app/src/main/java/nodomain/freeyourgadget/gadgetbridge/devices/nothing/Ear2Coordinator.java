@@ -18,7 +18,7 @@ package nodomain.freeyourgadget.gadgetbridge.devices.nothing;
 
 import java.util.regex.Pattern;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class Ear2Coordinator extends AbstractEarCoordinator {
     @Override

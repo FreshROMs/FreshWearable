@@ -19,7 +19,7 @@ package nodomain.freeyourgadget.gadgetbridge.model;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import nodomain.freeyourgadget.gadgetbridge.R;
+import xyz.tenseventyseven.fresh.R;
 
 public class ActivitySummaryEntries {
     public static final String STATUS = "status";
