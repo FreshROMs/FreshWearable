@@ -42,7 +42,7 @@
                 android:text="(Smart)"
                 android:visibility="invisible" />
 
-            <com.google.android.material.materialswitch.MaterialSwitch
+            <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/alarm_item_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

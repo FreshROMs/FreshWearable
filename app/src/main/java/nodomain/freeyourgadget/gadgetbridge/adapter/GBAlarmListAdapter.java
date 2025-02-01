@@ -27,6 +27,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.cardview.widget.CardView;
@@ -133,7 +134,7 @@ public class GBAlarmListAdapter extends RecyclerView.Adapter<GBAlarmListAdapter.
         CardView container;
 
         TextView alarmTime;
-        MaterialSwitch isEnabled;
+        SwitchCompat isEnabled;
         TextView isSmartWakeup;
 
         CheckedTextView alarmDayMonday;
