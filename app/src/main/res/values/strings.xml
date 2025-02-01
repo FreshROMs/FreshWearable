@@ -1911,6 +1911,7 @@
     <string name="devicetype_redmiwatch3active">Redmi Watch 3 Active</string>
     <string name="devicetype_redmiwatch3">Redmi Watch 3</string>
     <string name="devicetype_redmi_buds_4_active">Redmi Buds 4 Active</string>
+    <string name="devicetype_redmi_buds_5">Redmi Buds 5</string>
     <string name="devicetype_redmi_buds_5_pro">Redmi Buds 5 Pro</string>
     <string name="devicetype_redmi_buds_6_active">Redmi Buds 6 Active</string>
     <string name="devicetype_redmi_smart_band_2">Redmi Smart Band 2</string>
