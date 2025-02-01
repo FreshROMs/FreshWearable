@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ListPreference
+        android:entries="@array/redmi_buds_equalizer_v1_presets_names"
+        android:entryValues="@array/redmi_buds_equalizer_v1_presets_values"
+        android:icon="@drawable/ic_graphic_eq"
+        android:defaultValue="0"
+        android:key="pref_redmi_buds_equalizer_preset"
+        android:summary="%s"
+        android:title="@string/prefs_equalizer_preset" />
+</androidx.preference.PreferenceScreen>

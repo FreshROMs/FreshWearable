@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="pref_redmi_buds_wearing_detection"
+        android:layout="@layout/preference_checkbox"
+        android:icon="@drawable/ic_pause"
+        android:summary="@string/nothing_prefs_inear_summary"
+        android:title="@string/nothing_prefs_inear_title"/>
+</androidx.preference.PreferenceScreen>

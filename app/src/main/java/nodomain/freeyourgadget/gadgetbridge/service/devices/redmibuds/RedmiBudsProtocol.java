@@ -75,59 +75,59 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
     @Override
     public byte[] encodeSendConfiguration(String config) {
         switch (config) {
-            case PREF_REDMI_BUDS_5_PRO_AMBIENT_SOUND_CONTROL:
+            case PREF_REDMI_BUDS_AMBIENT_SOUND_CONTROL:
                 return encodeSetAmbientSoundControl();
-            case PREF_REDMI_BUDS_5_PRO_NOISE_CANCELLING_STRENGTH:
+            case PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH:
                 return encodeSetEffectStrength(config, StrengthTarget.ANC);
-            case PREF_REDMI_BUDS_5_PRO_TRANSPARENCY_STRENGTH:
+            case PREF_REDMI_BUDS_TRANSPARENCY_STRENGTH:
                 return encodeSetEffectStrength(config, StrengthTarget.TRANSPARENCY);
-            case PREF_REDMI_BUDS_5_PRO_ADAPTIVE_NOISE_CANCELLING:
+            case PREF_REDMI_BUDS_ADAPTIVE_NOISE_CANCELLING:
                 return encodeSetBooleanConfig(config, Config.ADAPTIVE_ANC);
-//            case PREF_REDMI_BUDS_5_PRO_PERSONALIZED_NOISE_CANCELLING:
+//            case PREF_REDMI_BUDS_PERSONALIZED_NOISE_CANCELLING:
 //                return encodeSetBooleanConfig(config, Config.CUSTOMIZED_ANC);
 
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_SINGLE_TAP_LEFT:
+            case PREF_REDMI_BUDS_CONTROL_SINGLE_TAP_LEFT:
                 return encodeSetGesture(config, InteractionType.SINGLE, Position.LEFT);
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_SINGLE_TAP_RIGHT:
+            case PREF_REDMI_BUDS_CONTROL_SINGLE_TAP_RIGHT:
                 return encodeSetGesture(config, InteractionType.SINGLE, Position.RIGHT);
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_DOUBLE_TAP_LEFT:
+            case PREF_REDMI_BUDS_CONTROL_DOUBLE_TAP_LEFT:
                 return encodeSetGesture(config, InteractionType.DOUBLE, Position.LEFT);
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_DOUBLE_TAP_RIGHT:
+            case PREF_REDMI_BUDS_CONTROL_DOUBLE_TAP_RIGHT:
                 return encodeSetGesture(config, InteractionType.DOUBLE, Position.RIGHT);
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_TRIPLE_TAP_LEFT:
+            case PREF_REDMI_BUDS_CONTROL_TRIPLE_TAP_LEFT:
                 return encodeSetGesture(config, InteractionType.TRIPLE, Position.LEFT);
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_TRIPLE_TAP_RIGHT:
+            case PREF_REDMI_BUDS_CONTROL_TRIPLE_TAP_RIGHT:
                 return encodeSetGesture(config, InteractionType.TRIPLE, Position.RIGHT);
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_LONG_TAP_MODE_LEFT:
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT:
                 return encodeSetGesture(config, InteractionType.LONG, Position.LEFT);
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_LONG_TAP_MODE_RIGHT:
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT:
                 return encodeSetGesture(config, InteractionType.LONG, Position.RIGHT);
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_LONG_TAP_SETTINGS_LEFT:
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_LEFT:
                 return encodeSetLongGestureMode(config, Position.LEFT);
-            case PREF_REDMI_BUDS_5_PRO_CONTROL_LONG_TAP_SETTINGS_RIGHT:
+            case PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_RIGHT:
                 return encodeSetLongGestureMode(config, Position.RIGHT);
 
-            case PREF_REDMI_BUDS_5_PRO_WEARING_DETECTION:
+            case PREF_REDMI_BUDS_WEARING_DETECTION:
                 return encodeSetEarDetection();
-            case PREF_REDMI_BUDS_5_PRO_AUTO_REPLY_PHONECALL:
+            case PREF_REDMI_BUDS_AUTO_REPLY_PHONECALL:
                 return encodeSetBooleanConfig(config, Config.AUTO_ANSWER);
-            case PREF_REDMI_BUDS_5_PRO_DOUBLE_CONNECTION:
+            case PREF_REDMI_BUDS_DOUBLE_CONNECTION:
                 return encodeSetBooleanConfig(config, Config.DOUBLE_CONNECTION);
-            case PREF_REDMI_BUDS_5_PRO_ADAPTIVE_SOUND:
+            case PREF_REDMI_BUDS_ADAPTIVE_SOUND:
                 return encodeSetBooleanConfig(config, Config.ADAPTIVE_SOUND);
 
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_PRESET:
+            case PREF_REDMI_BUDS_EQUALIZER_PRESET:
                 return encodeSetIntegerConfig(config, Config.EQ_PRESET);
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_62:
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_125:
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_250:
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_500:
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_1k:
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_2k:
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_4k:
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_8k:
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_12k:
-            case PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_16k:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_62:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_125:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_250:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_500:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_1k:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_2k:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_4k:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_8k:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_12k:
+            case PREF_REDMI_BUDS_EQUALIZER_BAND_16k:
                 return encodeSetCustomEqualizer();
 
             default:
@@ -140,10 +140,10 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
     public byte[] encodeSetCustomEqualizer() {
         Prefs prefs = getDevicePrefs();
 
-        List<String> bands = List.of(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_62, PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_125,
-                PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_250, PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_500, PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_1k,
-                PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_2k, PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_4k, PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_8k,
-                PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_12k, PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_16k);
+        List<String> bands = List.of(PREF_REDMI_BUDS_EQUALIZER_BAND_62, PREF_REDMI_BUDS_EQUALIZER_BAND_125,
+                PREF_REDMI_BUDS_EQUALIZER_BAND_250, PREF_REDMI_BUDS_EQUALIZER_BAND_500, PREF_REDMI_BUDS_EQUALIZER_BAND_1k,
+                PREF_REDMI_BUDS_EQUALIZER_BAND_2k, PREF_REDMI_BUDS_EQUALIZER_BAND_4k, PREF_REDMI_BUDS_EQUALIZER_BAND_8k,
+                PREF_REDMI_BUDS_EQUALIZER_BAND_12k, PREF_REDMI_BUDS_EQUALIZER_BAND_16k);
 
         byte[] eqCurve = new byte[10];
         for (int i = 0; i < 10; i++) {
@@ -161,7 +161,7 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
 
     public byte[] encodeSetEarDetection() {
         Prefs prefs = getDevicePrefs();
-        byte value = (byte) (prefs.getBoolean(PREF_REDMI_BUDS_5_PRO_WEARING_DETECTION, false) ? 0x00 : 0x01);
+        byte value = (byte) (prefs.getBoolean(PREF_REDMI_BUDS_WEARING_DETECTION, false) ? 0x00 : 0x01);
         return new Message(MessageType.PHONE_REQUEST, Opcode.ANC, sequenceNumber++, new byte[]{0x02, 0x06, value}).encode();
     }
 
@@ -226,72 +226,73 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
 
     public byte[] encodeSetAmbientSoundControl() {
         Prefs prefs = getDevicePrefs();
-        byte mode = (byte) Integer.parseInt(prefs.getString(PREF_REDMI_BUDS_5_PRO_AMBIENT_SOUND_CONTROL, "0"));
+        byte mode = (byte) Integer.parseInt(prefs.getString(PREF_REDMI_BUDS_AMBIENT_SOUND_CONTROL, "0"));
         return new Message(MessageType.PHONE_REQUEST, Opcode.ANC, sequenceNumber++, new byte[]{0x02, 0x04, mode}).encode();
     }
 
     public void decodeGetConfig(byte[] configPayload) {
-        if(configPayload.length < 3)
+        if (configPayload.length < 3) {
             return;
+        }
 
         SharedPreferences preferences = getDevicePrefs().getPreferences();
         Editor editor = preferences.edit();
         Config config = Config.fromCode(configPayload[2]);
         switch (config) {
             case GESTURES:
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_SINGLE_TAP_LEFT, Integer.toString(configPayload[4]));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_SINGLE_TAP_RIGHT, Integer.toString(configPayload[5]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_SINGLE_TAP_LEFT, Integer.toString(configPayload[4]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_SINGLE_TAP_RIGHT, Integer.toString(configPayload[5]));
 
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_DOUBLE_TAP_LEFT, Integer.toString(configPayload[7]));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_DOUBLE_TAP_RIGHT, Integer.toString(configPayload[8]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_DOUBLE_TAP_LEFT, Integer.toString(configPayload[7]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_DOUBLE_TAP_RIGHT, Integer.toString(configPayload[8]));
 
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_TRIPLE_TAP_LEFT, Integer.toString(configPayload[10]));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_TRIPLE_TAP_RIGHT, Integer.toString(configPayload[11]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_TRIPLE_TAP_LEFT, Integer.toString(configPayload[10]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_TRIPLE_TAP_RIGHT, Integer.toString(configPayload[11]));
 
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_LONG_TAP_MODE_LEFT, Integer.toString(configPayload[13]));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_LONG_TAP_MODE_RIGHT, Integer.toString(configPayload[14]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT, Integer.toString(configPayload[13]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT, Integer.toString(configPayload[14]));
                 break;
             case AUTO_ANSWER:
-                editor.putBoolean(PREF_REDMI_BUDS_5_PRO_AUTO_REPLY_PHONECALL, configPayload[3] == 0x01);
+                editor.putBoolean(PREF_REDMI_BUDS_AUTO_REPLY_PHONECALL, configPayload[3] == 0x01);
                 break;
             case DOUBLE_CONNECTION:
-                editor.putBoolean(PREF_REDMI_BUDS_5_PRO_DOUBLE_CONNECTION, configPayload[3] == 0x01);
+                editor.putBoolean(PREF_REDMI_BUDS_DOUBLE_CONNECTION, configPayload[3] == 0x01);
                 break;
             case EQ_PRESET:
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_PRESET, Integer.toString(configPayload[3]));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_PRESET, Integer.toString(configPayload[3]));
                 break;
             case LONG_GESTURES:
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_LONG_TAP_SETTINGS_LEFT, Integer.toString(configPayload[3]));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_CONTROL_LONG_TAP_SETTINGS_RIGHT, Integer.toString(configPayload[4]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_LEFT, Integer.toString(configPayload[3]));
+                editor.putString(PREF_REDMI_BUDS_CONTROL_LONG_TAP_SETTINGS_RIGHT, Integer.toString(configPayload[4]));
                 break;
             case EFFECT_STRENGTH:
                 byte mode = configPayload[4];
                 if (configPayload[3] == StrengthTarget.ANC.value) {
-                    editor.putString(PREF_REDMI_BUDS_5_PRO_NOISE_CANCELLING_STRENGTH, Integer.toString(mode));
+                    editor.putString(PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH, Integer.toString(mode));
                 } else if (configPayload[3] == StrengthTarget.TRANSPARENCY.value) {
-                    editor.putString(PREF_REDMI_BUDS_5_PRO_TRANSPARENCY_STRENGTH, Integer.toString(mode));
+                    editor.putString(PREF_REDMI_BUDS_TRANSPARENCY_STRENGTH, Integer.toString(mode));
                 }
                 break;
             case ADAPTIVE_ANC:
-                editor.putBoolean(PREF_REDMI_BUDS_5_PRO_ADAPTIVE_NOISE_CANCELLING, configPayload[3] == 0x01);
+                editor.putBoolean(PREF_REDMI_BUDS_ADAPTIVE_NOISE_CANCELLING, configPayload[3] == 0x01);
                 break;
             case ADAPTIVE_SOUND:
-                editor.putBoolean(PREF_REDMI_BUDS_5_PRO_ADAPTIVE_SOUND, configPayload[3] == 0x01);
+                editor.putBoolean(PREF_REDMI_BUDS_ADAPTIVE_SOUND, configPayload[3] == 0x01);
                 break;
             case EQ_CURVE:
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_62, Integer.toString(configPayload[12] & 0xFF));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_125, Integer.toString(configPayload[15] & 0xFF));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_250, Integer.toString(configPayload[18] & 0xFF));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_500, Integer.toString(configPayload[21] & 0xFF));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_1k, Integer.toString(configPayload[24] & 0xFF));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_2k, Integer.toString(configPayload[27] & 0xFF));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_4k, Integer.toString(configPayload[30] & 0xFF));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_8k, Integer.toString(configPayload[33] & 0xFF));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_12k, Integer.toString(configPayload[36] & 0xFF));
-                editor.putString(PREF_REDMI_BUDS_5_PRO_EQUALIZER_BAND_16k, Integer.toString(configPayload[39] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_62, Integer.toString(configPayload[12] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_125, Integer.toString(configPayload[15] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_250, Integer.toString(configPayload[18] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_500, Integer.toString(configPayload[21] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_1k, Integer.toString(configPayload[24] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_2k, Integer.toString(configPayload[27] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_4k, Integer.toString(configPayload[30] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_8k, Integer.toString(configPayload[33] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_12k, Integer.toString(configPayload[36] & 0xFF));
+                editor.putString(PREF_REDMI_BUDS_EQUALIZER_BAND_16k, Integer.toString(configPayload[39] & 0xFF));
                 break;
 //            case CUSTOMIZED_ANC:
-//                editor.putBoolean(PREF_REDMI_BUDS_5_PRO_PERSONALIZED_NOISE_CANCELLING, configPayload[3] == 0x01);
+//                editor.putBoolean(PREF_REDMI_BUDS_PERSONALIZED_NOISE_CANCELLING, configPayload[3] == 0x01);
 //                break;
             default:
                 LOG.debug("Unhandled device update: {}", hexdump(configPayload));
@@ -364,10 +365,10 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
             switch (index) {
                 case 0x09:
                     byte mode = deviceRunInfoPayload[i + 2];
-                    editor.putString(PREF_REDMI_BUDS_5_PRO_AMBIENT_SOUND_CONTROL, Integer.toString(mode));
+                    editor.putString(PREF_REDMI_BUDS_AMBIENT_SOUND_CONTROL, Integer.toString(mode));
                     break;
                 case 0x0A:
-                    editor.putBoolean(PREF_REDMI_BUDS_5_PRO_WEARING_DETECTION, deviceRunInfoPayload[i + 2] == 0x00);
+                    editor.putBoolean(PREF_REDMI_BUDS_WEARING_DETECTION, deviceRunInfoPayload[i + 2] == 0x00);
             }
             editor.apply();
             i += len + 1;
@@ -393,7 +394,7 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
                     Editor editor = preferences.edit();
 
                     byte mode = updatePayload[i + 2];
-                    editor.putString(PREF_REDMI_BUDS_5_PRO_AMBIENT_SOUND_CONTROL, Integer.toString(mode));
+                    editor.putString(PREF_REDMI_BUDS_AMBIENT_SOUND_CONTROL, Integer.toString(mode));
                     editor.apply();
                     break;
                 default:
@@ -428,13 +429,13 @@ public class RedmiBudsProtocol extends GBDeviceProtocol {
                     Editor editor = preferences.edit();
 
                     byte soundCtrlMode = notifyPayload[i + 3];
-                    editor.putString(PREF_REDMI_BUDS_5_PRO_AMBIENT_SOUND_CONTROL, Integer.toString(soundCtrlMode));
+                    editor.putString(PREF_REDMI_BUDS_AMBIENT_SOUND_CONTROL, Integer.toString(soundCtrlMode));
 
                     byte mode = notifyPayload[i + 4];
                     if (notifyPayload[i + 3] == 0x01) {
-                        editor.putString(PREF_REDMI_BUDS_5_PRO_NOISE_CANCELLING_STRENGTH, Integer.toString(mode));
+                        editor.putString(PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH, Integer.toString(mode));
                     } else {
-                        editor.putString(PREF_REDMI_BUDS_5_PRO_TRANSPARENCY_STRENGTH, Integer.toString(mode));
+                        editor.putString(PREF_REDMI_BUDS_TRANSPARENCY_STRENGTH, Integer.toString(mode));
                     }
 
                     editor.apply();
