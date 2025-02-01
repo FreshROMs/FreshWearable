@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activities.DevicesFragment">
+    tools:context="nodomain.freeyourgadget.gadgetbridge.activities.DevicesFragment">
 
     <ImageView
         android:id="@+id/no_items_bg"

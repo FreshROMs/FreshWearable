@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".devices.qhybrid.HybridHRWatchfaceDesignerActivity">
+    tools:context="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HybridHRWatchfaceDesignerActivity">
 
     <ProgressBar
         style="@android:style/Widget.DeviceDefault.ProgressBar.Horizontal"

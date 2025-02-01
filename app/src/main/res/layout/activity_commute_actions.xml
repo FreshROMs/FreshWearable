@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".devices.qhybrid.CommuteActionsActivity">
+    tools:context="nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.CommuteActionsActivity">
 
     <TextView
         android:id="@+id/fossil_hr_commute_actions_explanation"

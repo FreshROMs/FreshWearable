@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    tools:context=".activities.dashboard.AbstractDashboardWidget">
+    tools:context="nodomain.freeyourgadget.gadgetbridge.activities.dashboard.AbstractDashboardWidget">
 
     <RelativeLayout
         android:id="@+id/card_layout"

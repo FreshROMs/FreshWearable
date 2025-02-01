@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activities.appmanager.AppManagerActivity">
+    tools:context="nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity">
 
     <LinearLayout
         android:id="@+id/appmanager_main_layout"
@@ -15,7 +15,7 @@
             android:id="@+id/appmanager_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".activities.appmanager.AppManagerActivity">
+            tools:context="nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/charts_pagerTabStrip"

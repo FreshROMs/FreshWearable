@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    tools:context=".activities.dashboard.DashboardGoalsWidget">
+    tools:context="nodomain.freeyourgadget.gadgetbridge.activities.dashboard.DashboardGoalsWidget">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
