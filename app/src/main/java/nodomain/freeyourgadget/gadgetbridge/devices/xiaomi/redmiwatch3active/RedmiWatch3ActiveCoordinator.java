@@ -34,6 +34,11 @@ public class RedmiWatch3ActiveCoordinator extends XiaomiCoordinator {
     }
 
     @Override
+    public boolean supportsPai() {
+        return false;
+    }
+
+    @Override
     protected Pattern getSupportedDeviceName() {
         return Pattern.compile("^Redmi Watch 3 Active [A-Z0-9]{4}$");
     }
