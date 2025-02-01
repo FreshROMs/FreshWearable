@@ -26,7 +26,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
+import androidx.cardview.widget.CardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class GBContactListAdapter extends RecyclerView.Adapter<GBContactListAdap
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        final MaterialCardView container;
+        final CardView container;
 
         final TextView contactName;
         final TextView contactNumber;

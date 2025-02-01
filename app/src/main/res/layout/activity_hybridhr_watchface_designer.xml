@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:text="@string/button_reset_menu_structure" />
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fossil_menu_structure_hint_container"
@@ -157,7 +157,7 @@
             android:id="@+id/text_watchface_menu_structure"
             android:lines="1"
             android:ellipsize="end" />
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>

@@ -29,7 +29,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
+import androidx.cardview.widget.CardView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
 import java.util.ArrayList;
@@ -130,7 +130,7 @@ public class GBAlarmListAdapter extends RecyclerView.Adapter<GBAlarmListAdapter.
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        MaterialCardView container;
+        CardView container;
 
         TextView alarmTime;
         MaterialSwitch isEnabled;

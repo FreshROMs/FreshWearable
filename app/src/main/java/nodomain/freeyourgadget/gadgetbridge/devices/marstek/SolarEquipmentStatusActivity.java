@@ -32,7 +32,7 @@ import androidx.gridlayout.widget.GridLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.card.MaterialCardView;
+import androidx.cardview.widget.CardView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -217,7 +217,7 @@ public class SolarEquipmentStatusActivity extends AbstractGBActivity {
         int pixels_8dp = (int) (8 * scale + 0.5f);
         layoutParams.setMargins(pixels_8dp, pixels_8dp, pixels_8dp, pixels_8dp);
 
-        MaterialCardView card = new MaterialCardView(this);
+        CardView card = new CardView(this);
         int pixels_4dp = (int) (4 * scale + 0.5f);
         card.setRadius(pixels_4dp);
         card.setCardElevation(pixels_4dp);

@@ -76,7 +76,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.google.android.flexbox.FlexboxLayout;
-import com.google.android.material.card.MaterialCardView;
+import androidx.cardview.widget.CardView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.jaredrummler.android.colorpicker.ColorPickerDialog;
@@ -1193,7 +1193,7 @@ public class GBDeviceAdapterv2 extends ListAdapter<GBDevice, GBDeviceAdapterv2.V
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         View root;
-        MaterialCardView container;
+        CardView container;
 
         ImageView deviceImageView;
         TextView deviceNameLabel;

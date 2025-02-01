@@ -42,7 +42,7 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.gridlayout.widget.GridLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.android.material.card.MaterialCardView;
+import androidx.cardview.widget.CardView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -355,7 +355,7 @@ public class DashboardFragment extends Fragment implements MenuProvider {
         layoutParams.setMargins(pixels_8dp, pixels_8dp, pixels_8dp, pixels_8dp);
 
         if (cardsEnabled) {
-            MaterialCardView card = new MaterialCardView(requireActivity());
+            CardView card = new CardView(requireActivity());
             int pixels_4dp = (int) (4 * scale + 0.5f);
             card.setRadius(pixels_4dp);
             card.setCardElevation(pixels_4dp);
