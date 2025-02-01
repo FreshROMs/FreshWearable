@@ -28,9 +28,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppBlacklistAdapter;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
 
-public class AppBlacklistActivity extends AbstractGBActivity {
+public class AppBlacklistActivity extends AbstractActivity {
     private AppBlacklistAdapter appBlacklistAdapter;
 
     @Override

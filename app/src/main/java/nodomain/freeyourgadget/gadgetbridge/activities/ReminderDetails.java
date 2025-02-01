@@ -18,8 +18,6 @@
 package nodomain.freeyourgadget.gadgetbridge.activities;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -29,10 +27,8 @@ import android.text.format.DateFormat;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -41,7 +37,6 @@ import androidx.picker.app.SeslTimePickerDialog;
 import androidx.picker.widget.SeslDatePicker;
 import androidx.picker.widget.SeslTimePicker;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
@@ -58,8 +53,9 @@ import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class ReminderDetails extends AbstractGBActivity implements SeslTimePickerDialog.OnTimeSetListener, SeslDatePickerDialog.OnDateSetListener {
+public class ReminderDetails extends AbstractActivity implements SeslTimePickerDialog.OnTimeSetListener, SeslDatePickerDialog.OnDateSetListener {
     private Reminder reminder;
     private GBDevice device;
 

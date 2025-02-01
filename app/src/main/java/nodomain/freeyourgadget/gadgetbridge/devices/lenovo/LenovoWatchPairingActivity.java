@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2;
 import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -44,7 +44,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.BondingInterface;
 import nodomain.freeyourgadget.gadgetbridge.util.BondingUtil;
 
-public class LenovoWatchPairingActivity extends AbstractGBActivity implements BondingInterface {
+public class LenovoWatchPairingActivity extends AbstractActivity implements BondingInterface {
     private static final Logger LOG = LoggerFactory.getLogger(LenovoWatchPairingActivity.class);
 
     private TextView message;

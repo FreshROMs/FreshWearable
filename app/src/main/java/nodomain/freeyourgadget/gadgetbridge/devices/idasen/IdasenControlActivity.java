@@ -14,16 +14,15 @@ import android.widget.TextView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.idasen.IdasenDeviceSupport;
 
-public class IdasenControlActivity extends AbstractGBActivity {
+public class IdasenControlActivity extends AbstractActivity {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     public TextView mDeskHeight, mDeskSpeed;
 

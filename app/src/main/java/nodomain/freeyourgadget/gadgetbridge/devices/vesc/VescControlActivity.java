@@ -34,11 +34,11 @@ import org.slf4j.LoggerFactory;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.vesc.VescDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
-public class VescControlActivity extends AbstractGBActivity {
+public class VescControlActivity extends AbstractActivity {
     private static final String TAG = "VescControlActivity";
     private boolean volumeKeyPressed = false;
     private boolean volumeKeysControl = false;

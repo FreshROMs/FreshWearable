@@ -45,9 +45,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
 import nodomain.freeyourgadget.gadgetbridge.util.AlarmUtils;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
 
-public class ConfigureAlarms extends AbstractGBActivity {
+public class ConfigureAlarms extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureAlarms.class);
 
     private static final int REQ_CONFIGURE_ALARM = 1;

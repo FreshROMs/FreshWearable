@@ -32,7 +32,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.slf4j.Logger;
@@ -56,9 +55,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
 
-public class ConfigureReminders extends AbstractGBActivity {
+public class ConfigureReminders extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureReminders.class);
 
     private static final int REQ_CONFIGURE_REMINDER = 1;

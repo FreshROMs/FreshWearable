@@ -36,7 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetLayout;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetManager;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetPart;
@@ -46,7 +46,7 @@ import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetType;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class WidgetScreenDetailsActivity extends AbstractGBActivity {
+public class WidgetScreenDetailsActivity extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(WidgetScreenDetailsActivity.class);
 
     private WidgetScreen widgetScreen;

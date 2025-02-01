@@ -31,12 +31,12 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.um25.Data.MeasurementData;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.um25.Support.UM25Support;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class DataActivity extends AbstractGBActivity {
+public class DataActivity extends AbstractActivity {
     private HashMap<Integer, TextView> valueViews = new HashMap<>(ValueDisplay.values().length);
 
     private TextView chargeDurationTextView;

@@ -27,9 +27,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class WelcomeActivity extends AbstractGBActivity {
+public class WelcomeActivity extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(WelcomeActivity.class);
 
     private ViewPager2 viewPager;
@@ -37,7 +37,7 @@ public class WelcomeActivity extends AbstractGBActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AbstractGBActivity.init(this, AbstractGBActivity.NO_ACTIONBAR);
+        AbstractActivity.init(this, AbstractActivity.NO_ACTIONBAR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         if (getSupportActionBar() != null) {

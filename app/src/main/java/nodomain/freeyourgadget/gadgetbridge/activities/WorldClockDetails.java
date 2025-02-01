@@ -32,7 +32,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.TimeZone;
@@ -44,8 +43,9 @@ import nodomain.freeyourgadget.gadgetbridge.entities.WorldClock;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class WorldClockDetails extends AbstractGBActivity {
+public class WorldClockDetails extends AbstractActivity {
     private WorldClock worldClock;
     private GBDevice device;
 

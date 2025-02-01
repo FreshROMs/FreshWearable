@@ -16,7 +16,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.activities.charts;
 
-import android.app.DatePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -55,12 +54,12 @@ import java.util.Objects;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBFragmentActivity;
+import nodomain.freeyourgadget.gadgetbridge.activities.AbstractFragmentActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public abstract class AbstractChartsActivity extends AbstractGBFragmentActivity implements ChartsHost {
+public abstract class AbstractChartsActivity extends AbstractFragmentActivity implements ChartsHost {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractChartsActivity.class);
 
     public static final String STATE_START_DATE = "stateStartDate";

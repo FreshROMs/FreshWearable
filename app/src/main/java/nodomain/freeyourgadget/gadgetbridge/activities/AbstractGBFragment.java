@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment;
  * the fragment is made visible and invisible in the activity. also allows
  * the fragment to define the title to be shown in the activity.
  *
- * @see AbstractGBFragmentActivity
+ * @see AbstractFragmentActivity
  */
 public abstract class AbstractGBFragment extends Fragment {
     private boolean mVisibleInActivity;

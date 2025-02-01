@@ -36,11 +36,11 @@ import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Contact;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class ContactDetails extends AbstractGBActivity {
+public class ContactDetails extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(ContactDetails.class);
 
     private Contact contact;

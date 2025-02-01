@@ -47,8 +47,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AppActivity;
 
-public class SleepAlarmWidgetConfigurationActivity extends Activity implements GBActivity {
+public class SleepAlarmWidgetConfigurationActivity extends Activity implements AppActivity {
 
     // modified copy of WidgetConfigurationActivity
     // if we knew which widget is calling this config activity, we could only use a single configuration
@@ -61,7 +63,7 @@ public class SleepAlarmWidgetConfigurationActivity extends Activity implements G
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        AbstractGBActivity.init(this, AbstractGBActivity.NO_ACTIONBAR);
+        AbstractActivity.init(this, AbstractActivity.NO_ACTIONBAR);
 
         super.onCreate(savedInstanceState);
 

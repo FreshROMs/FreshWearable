@@ -33,8 +33,9 @@ import java.util.ArrayList;
 
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class GpxReceiverActivity extends AbstractGBActivity {
+public class GpxReceiverActivity extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(ActivitySummaryDetail.class);
     boolean toOverwrite = false;
     ArrayList<FileToProcess> fileList = new ArrayList<>();

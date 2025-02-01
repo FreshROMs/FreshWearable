@@ -26,8 +26,9 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
 import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public abstract class AbstractSettingsActivityV2 extends AbstractGBActivity implements
+public abstract class AbstractSettingsActivityV2 extends AbstractActivity implements
         PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
     protected abstract String fragmentTag();

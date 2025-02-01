@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge.activities;
+package xyz.tenseventyseven.fresh.common;
 
 
 import android.content.BroadcastReceiver;
@@ -35,7 +35,7 @@ import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 
 
-public abstract class AbstractGBActivity extends AppCompatActivity implements GBActivity {
+public abstract class AbstractActivity extends AppCompatActivity implements AppActivity {
     private boolean isLanguageInvalid = false;
 
     public static final int NONE = 0;
@@ -70,11 +70,11 @@ public abstract class AbstractGBActivity extends AppCompatActivity implements GB
         AndroidUtils.setLanguage(this, language);
     }
 
-    public static void init(GBActivity activity) {
+    public static void init(AppActivity activity) {
         init(activity, NONE);
     }
 
-    public static void init(GBActivity activity, int flags) {
+    public static void init(AppActivity activity, int flags) {
         int style;
         if ((flags & NO_ACTIONBAR) != 0) {
             style = R.style.GadgetbridgeTheme_NoActionBar;

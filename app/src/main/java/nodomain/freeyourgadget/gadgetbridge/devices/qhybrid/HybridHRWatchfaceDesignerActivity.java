@@ -70,7 +70,7 @@ import java.util.UUID;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceApp;
@@ -79,7 +79,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.BitmapUtil;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class HybridHRWatchfaceDesignerActivity extends AbstractGBActivity implements View.OnClickListener, View.OnLongClickListener, View.OnDragListener {
+public class HybridHRWatchfaceDesignerActivity extends AbstractActivity implements View.OnClickListener, View.OnLongClickListener, View.OnDragListener {
     private final Logger LOG = LoggerFactory.getLogger(HybridHRWatchfaceDesignerActivity.class);
     private GBDevice mGBDevice;
     private DeviceCoordinator mCoordinator;

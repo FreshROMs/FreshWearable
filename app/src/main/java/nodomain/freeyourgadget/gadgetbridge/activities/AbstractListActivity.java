@@ -25,8 +25,9 @@ import java.util.List;
 
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AbstractActivityListingAdapter;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public abstract class AbstractListActivity<T> extends AbstractGBActivity {
+public abstract class AbstractListActivity<T> extends AbstractActivity {
     private AbstractActivityListingAdapter<T> itemAdapter;
     private RecyclerView itemListView;
 

@@ -32,8 +32,9 @@ import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.appmanager.AppManagerActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class OpenFwAppInstallerActivity extends AbstractGBActivity {
+public class OpenFwAppInstallerActivity extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(AppManagerActivity.class);
     private int READ_REQUEST_CODE = 42;
     private GBDevice device;

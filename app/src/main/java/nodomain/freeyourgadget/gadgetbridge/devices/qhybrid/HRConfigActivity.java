@@ -48,7 +48,7 @@ import java.util.List;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
@@ -60,7 +60,7 @@ import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.fos
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.Version;
 
-public class HRConfigActivity extends AbstractGBActivity {
+public class HRConfigActivity extends AbstractActivity {
     private SharedPreferences sharedPreferences;
     private WidgetListAdapter widgetListAdapter;
     private ArrayList<CustomWidget> customWidgets = new ArrayList<>();

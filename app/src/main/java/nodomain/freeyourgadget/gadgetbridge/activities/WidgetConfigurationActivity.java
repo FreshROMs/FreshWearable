@@ -27,8 +27,6 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,8 +46,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AppActivity;
 
-public class WidgetConfigurationActivity extends Activity implements GBActivity {
+public class WidgetConfigurationActivity extends Activity implements AppActivity {
     private static final Logger LOG = LoggerFactory.getLogger(WidgetConfigurationActivity.class);
     int mAppWidgetId;
 
@@ -57,7 +57,7 @@ public class WidgetConfigurationActivity extends Activity implements GBActivity 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        AbstractGBActivity.init(this, AbstractGBActivity.NO_ACTIONBAR);
+        AbstractActivity.init(this, AbstractActivity.NO_ACTIONBAR);
 
         super.onCreate(savedInstanceState);
 

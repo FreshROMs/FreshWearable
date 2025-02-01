@@ -26,10 +26,10 @@ import android.widget.NumberPicker;
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
-public class LenovoWatchCalibrationActivity extends AbstractGBActivity {
+public class LenovoWatchCalibrationActivity extends AbstractActivity {
 
     private static final String STATE_DEVICE = "stateDevice";
     private GBDevice device;

@@ -14,11 +14,11 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge.activities;
+package xyz.tenseventyseven.fresh.common;
 
 import java.util.Locale;
 
-public interface GBActivity {
+public interface AppActivity {
     void setLanguage(Locale language, boolean invalidateLanguage);
     void setTheme(int themeId);
 

@@ -55,10 +55,11 @@ import nodomain.freeyourgadget.gadgetbridge.service.devices.pebble.webview.JSInt
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.WebViewSingleton;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.ACTION_CONNECT;
 
-public class ExternalPebbleJSActivity extends AbstractGBActivity {
+public class ExternalPebbleJSActivity extends AbstractActivity {
 
     private static final Logger LOG = LoggerFactory.getLogger(ExternalPebbleJSActivity.class);
 

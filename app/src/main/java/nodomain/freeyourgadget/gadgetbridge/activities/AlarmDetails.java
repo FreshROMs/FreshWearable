@@ -36,8 +36,9 @@ import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.AlarmUtils;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class AlarmDetails extends AbstractGBActivity {
+public class AlarmDetails extends AbstractActivity {
 
     private Alarm alarm;
     private TimePicker timePicker;

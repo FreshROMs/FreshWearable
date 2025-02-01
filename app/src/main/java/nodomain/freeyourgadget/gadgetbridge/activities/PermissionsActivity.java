@@ -23,8 +23,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeFragmentPermissions;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class PermissionsActivity extends AbstractGBActivity {
+public class PermissionsActivity extends AbstractActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

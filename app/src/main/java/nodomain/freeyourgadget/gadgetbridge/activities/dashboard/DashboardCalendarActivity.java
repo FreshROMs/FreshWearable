@@ -53,13 +53,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.DashboardFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.DashboardUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
-public class DashboardCalendarActivity extends AbstractGBActivity {
+public class DashboardCalendarActivity extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(DashboardCalendarActivity.class);
     public static String EXTRA_TIMESTAMP = "dashboard_calendar_chosen_day";
     private final ConcurrentHashMap<Calendar, TextView> dayCells = new ConcurrentHashMap<>();

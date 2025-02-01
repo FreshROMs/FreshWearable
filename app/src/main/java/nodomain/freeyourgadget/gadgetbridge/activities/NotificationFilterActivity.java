@@ -43,8 +43,9 @@ import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilterDao;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilterEntry;
 import nodomain.freeyourgadget.gadgetbridge.entities.NotificationFilterEntryDao;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class NotificationFilterActivity extends AbstractGBActivity {
+public class NotificationFilterActivity extends AbstractActivity {
 
     public static final int NOTIFICATION_FILTER_MODE_NONE = 0;
     public static final int NOTIFICATION_FILTER_MODE_WHITELIST = 1;

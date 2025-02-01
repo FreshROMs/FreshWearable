@@ -43,14 +43,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.AbstractFragmentPagerAdapter;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBFragmentActivity;
+import nodomain.freeyourgadget.gadgetbridge.activities.AbstractFragmentActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 
 
-public class AppManagerActivity extends AbstractGBFragmentActivity {
+public class AppManagerActivity extends AbstractFragmentActivity {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppManagerActivity.class);
     private int READ_REQUEST_CODE = 42;

@@ -29,8 +29,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,8 +38,9 @@ import nodomain.freeyourgadget.gadgetbridge.util.backup.AbstractZipBackupJob;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupCallback;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupExportJob;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupImportJob;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class BackupRestoreProgressActivity extends AbstractGBActivity {
+public class BackupRestoreProgressActivity extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(BackupRestoreProgressActivity.class);
 
     public static final String EXTRA_URI = "uri";

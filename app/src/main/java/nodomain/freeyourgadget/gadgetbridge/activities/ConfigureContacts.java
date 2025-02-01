@@ -30,7 +30,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.slf4j.Logger;
@@ -51,9 +50,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
 
-public class ConfigureContacts extends AbstractGBActivity {
+public class ConfigureContacts extends AbstractActivity {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureContacts.class);
 
     private GBContactListAdapter mGBContactListAdapter;

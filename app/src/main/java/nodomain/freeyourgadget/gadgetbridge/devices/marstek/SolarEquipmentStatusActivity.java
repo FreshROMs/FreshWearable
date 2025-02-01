@@ -40,12 +40,12 @@ import java.util.Objects;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.activities.AbstractGBActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.dashboard.GaugeDrawer;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class SolarEquipmentStatusActivity extends AbstractGBActivity {
+public class SolarEquipmentStatusActivity extends AbstractActivity {
     public static String ACTION_SEND_SOLAR_EQUIPMENT_STATUS = "send_solar_equipment_status";
     public static String EXTRA_BATTERY_PCT = "battery_pct";
     public static String EXTRA_BATTERY_WH = "battery_wh";

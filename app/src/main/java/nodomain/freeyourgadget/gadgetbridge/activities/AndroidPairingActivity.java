@@ -19,8 +19,9 @@ package nodomain.freeyourgadget.gadgetbridge.activities;
 import android.os.Bundle;
 
 import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.common.AbstractActivity;
 
-public class AndroidPairingActivity extends AbstractGBActivity {
+public class AndroidPairingActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
