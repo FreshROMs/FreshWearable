@@ -32,6 +32,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import nodomain.freeyourgadget.gadgetbridge.util.CheckSums;
 import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.service.btle.BLETypeConversions;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiBitmapUtils;
@@ -86,6 +87,8 @@ public class XiaomiFWHelper {
     private String id;
     private String name;
     private String version;
+
+    private int watchfaceVersion;
 
     public XiaomiFWHelper(final Uri uri, final Context context) {
         this.uri = uri;
@@ -265,6 +268,79 @@ public class XiaomiFWHelper {
             return null;
         }
 
+        switch (watchfaceVersion) {
+            case 2:
+                return getWatchfacePreviewV2();
+            case 3:
+                return getWatchfacePreviewV3();
+            default:
+                return null;
+        }
+    }
+
+    private Bitmap getWatchfacePreviewV3() {
+        ByteBuffer bb = ByteBuffer.wrap(fw).order(ByteOrder.LITTLE_ENDIAN);
+
+        // Offset to the preview data
+        int previewOffset = 0x59;
+
+        // Read block start and length
+        int blockStart = bb.getInt(previewOffset);
+        int blockLen = bb.getInt(previewOffset + 4);
+
+        if (blockStart <= 0 || blockLen <= 0 || blockStart + blockLen > fw.length) {
+            LOG.debug("Invalid preview block");
+            return null;
+        }
+
+        LOG.debug("Preview block start: {}, length: {}", blockStart, blockLen);
+
+        // Extract preview data
+        bb.position(blockStart);
+        byte[] previewData = new byte[blockLen];
+        bb.get(previewData);
+
+        int width = bb.getShort(blockStart + 5) & 0xFFFF;
+        int height = bb.getShort(blockStart + 7) & 0xFFFF;
+        int bitmapType = bb.get(blockStart + 10) & 0xFF;
+        int compressionType = bb.get(blockStart + 12) & 0xFF;
+//        uint dataOfs = data.GetDWord(blockStart + 1 + 0x0A);
+//        uint dataLen = data.GetDWord(blockStart + 1 + 0x0E);
+        long dataOffset = BLETypeConversions.toUint32(fw, blockStart + 1 + 0x0A);
+        long dataLen = BLETypeConversions.toUint32(fw, blockStart + 1 + 0x0E);
+
+        LOG.debug("Data offset: {}, length: {}", dataOffset, dataLen);
+
+        LOG.debug("Preview image size: {}x{}, compression: {}, bitmapType: {}", width, height, compressionType, bitmapType);
+
+//        switch (compressionType) {
+//            case 4:
+//                previewData = XiaomiBitmapUtils.decompressLvglRleV2(previewData);
+//                break;
+//            case 8:
+//                previewData = XiaomiBitmapUtils.decompressLvglRleV1(previewData);
+//                break;
+//            default:
+//                LOG.error("unknown compression type {}", compressionType);
+//                return null;
+//        }
+        previewData = XiaomiBitmapUtils.decompressLvglRleV1(previewData);
+        if (previewData == null) {
+            LOG.error("decompression returned null");
+            return null;
+        }
+//
+//        return XiaomiBitmapUtils.decodeWatchfaceImage(
+//                previewData,
+//                bitmapType,
+//                compressionType == 8,
+//                width,
+//                height
+//        );
+        return null;
+    }
+
+    public Bitmap getWatchfacePreviewV2() {
         final ByteBuffer bb = ByteBuffer.wrap(fw).order(ByteOrder.LITTLE_ENDIAN);
         final int previewOffset = bb.getInt(0x20);
         if (previewOffset == 0) {
@@ -318,11 +394,31 @@ public class XiaomiFWHelper {
     }
 
     private boolean parseAsWatchface() {
-        if (fw[0] != (byte) 0x5A || fw[1] != (byte) 0xA5) {
-            LOG.warn("File header not a watchface");
+        if (fw == null || fw.length < 4) {
+            LOG.warn("File too small to be a watchface");
             return false;
         }
 
+        // Extract the magic value (first 4 bytes)
+        int magic = ((fw[0] & 0xFF) << 24) |
+                ((fw[1] & 0xFF) << 16) |
+                ((fw[2] & 0xFF) << 8) |
+                (fw[3] & 0xFF);
+
+        switch (magic) {
+            case 0x5aa53412:
+                LOG.debug("File magic detected as watchface v2");
+                return parseAsWatchfaceV2();
+            case 0x00000607:
+                LOG.debug("File magic detected as watchface v3");
+                return parseAsWatchfaceV3();
+            default:
+                LOG.warn("Unknown magic value: {}", Integer.toHexString(magic));
+                return false;
+        }
+    }
+
+    private boolean parseAsWatchfaceV2() {
         id = StringUtils.untilNullTerminator(fw, 0x28);
 
         if (id == null) {
@@ -353,11 +449,28 @@ public class XiaomiFWHelper {
             name = StringUtils.untilNullTerminator(fw, 0x68);
 
             if (name == null) {
-                LOG.warn("name not found in {}", uri);
+                LOG.warn("(v2) name not found in {}", uri);
                 return false;
             }
         }
 
+        watchfaceVersion = 2;
+        return true;
+    }
+
+    private boolean parseAsWatchfaceV3() {
+        // Find the name of the watchface
+        name = StringUtils.untilNullTerminator(fw, 0x15);
+        if (name == null) {
+            LOG.warn("(v3) name not found in {}", uri);
+            return false;
+        }
+
+        // Make a CRC32 of the file to be used as the ID
+        id = Math.abs(CheckSums.getCRC32(fw)) + "";
+        LOG.debug("Watchface: {} ID: {}", name, id);
+
+        watchfaceVersion = 3;
         return true;
     }
 
