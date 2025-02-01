@@ -1,4 +1,5 @@
-/*  Copyright (C) 2015-2024 Andreas Shimokawa, Carsten Pfeiffer, Lem Dulfo
+/*  Copyright (C) 2017-2024 Andreas Shimokawa, Arjan Schrijver, Carsten
+    Pfeiffer, Daniele Gobbetti, Petr Vaněk
 
     This file is part of Gadgetbridge.
 
@@ -14,18 +15,30 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package nodomain.freeyourgadget.gadgetbridge.activities;
+package xyz.tenseventyseven.fresh.common;
 
 import android.os.Bundle;
 
-import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
-public class AndroidPairingActivity extends AbstractActionBarActivity {
+import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.R;
+
+public abstract class AbstractNoActionBarActivity extends AbstractActivity {
+    public static void init(AppActivity activity) {
+        int style = R.style.GadgetbridgeTheme_NoActionBar;
+        activity.setTheme(style);
+        AppCompatDelegate.setDefaultNightMode(Application.isDarkThemeEnabled() ?
+                AppCompatDelegate.MODE_NIGHT_YES :
+                AppCompatDelegate.MODE_NIGHT_NO
+        );
+        activity.setLanguage(Application.getLanguage(), false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        init(this);
+        super.setupListeners();
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_android_pairing);
     }
 }

@@ -37,11 +37,11 @@ import java.io.File;
 import java.io.IOException;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.util.FileUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class FileManagerActivity extends AbstractActivity implements MenuProvider {
+public class FileManagerActivity extends AbstractActionBarActivity implements MenuProvider {
     private static final Logger LOG = LoggerFactory.getLogger(FileManagerActivity.class);
 
     public static final String EXTRA_PATH = "path";

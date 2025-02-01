@@ -48,10 +48,10 @@ import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.calendar.CalendarManager;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
 
-public class CalBlacklistActivity extends AbstractActivity {
+public class CalBlacklistActivity extends AbstractActionBarActivity {
 
     private final String[] EVENT_PROJECTION = new String[]{
             CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,

@@ -27,11 +27,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppSpecificNotificationSettingsAppListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
-public class AppSpecificNotificationSettingsActivity extends AbstractActivity {
+public class AppSpecificNotificationSettingsActivity extends AbstractActionBarActivity {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppSpecificNotificationSettingsActivity.class);
 

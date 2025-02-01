@@ -40,10 +40,10 @@ import java.util.List;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 
-public class CommuteActionsActivity extends AbstractActivity implements CommuteActionsListAdapter.ItemClickListener, DialogInterface.OnClickListener, View.OnClickListener {
+public class CommuteActionsActivity extends AbstractActionBarActivity implements CommuteActionsListAdapter.ItemClickListener, DialogInterface.OnClickListener, View.OnClickListener {
     protected final List<String> actionsList = new ArrayList<>();
     private static final Logger LOG = LoggerFactory.getLogger(CommuteActionsActivity.class);
     private SharedPreferences sharedPreferences;

@@ -27,12 +27,12 @@ import xyz.tenseventyseven.fresh.BuildConfig;
 import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.NotificationType;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
 /**
  * Receive any shared plaintext and forward it directly to the devices as a notification.
  */
-public class TextReceiverActivity extends AbstractActivity {
+public class TextReceiverActivity extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(TextReceiverActivity.class);
 
     @Override

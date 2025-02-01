@@ -42,9 +42,9 @@ import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.util.DateTimeUtils;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
-public class BatteryInfoActivity extends AbstractActivity {
+public class BatteryInfoActivity extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(BatteryInfoActivity.class);
     GBDevice gbDevice;
     private int timeFrom;

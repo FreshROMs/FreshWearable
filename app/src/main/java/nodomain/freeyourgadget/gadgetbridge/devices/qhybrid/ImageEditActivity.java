@@ -37,12 +37,12 @@ import android.widget.Toast;
 import java.io.IOException;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.fossil_hr.image.AssetImage;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.requests.fossil_hr.image.AssetImageFactory;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class ImageEditActivity extends AbstractActivity implements View.OnTouchListener {
+public class ImageEditActivity extends AbstractActionBarActivity implements View.OnTouchListener {
     static final public int RESULT_CODE_EDIT_SUCCESS = 0;
 
     ImageView overlay;

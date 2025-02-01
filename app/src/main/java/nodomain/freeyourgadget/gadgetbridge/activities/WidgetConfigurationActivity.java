@@ -46,7 +46,7 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractNoActionBarActivity;
 import xyz.tenseventyseven.fresh.common.AppActivity;
 
 public class WidgetConfigurationActivity extends Activity implements AppActivity {
@@ -57,7 +57,7 @@ public class WidgetConfigurationActivity extends Activity implements AppActivity
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        AbstractActivity.init(this, AbstractActivity.NO_ACTIONBAR);
+        AbstractNoActionBarActivity.init(this);
 
         super.onCreate(savedInstanceState);
 

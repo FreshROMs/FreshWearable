@@ -24,10 +24,10 @@ import org.slf4j.LoggerFactory;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
 
-public class VibrationActivity extends AbstractActivity {
+public class VibrationActivity extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(VibrationActivity.class);
     private SeekBar seekBar;
 

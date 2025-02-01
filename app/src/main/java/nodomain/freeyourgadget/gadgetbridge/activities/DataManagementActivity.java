@@ -61,10 +61,10 @@ import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.ImportExportSharedPreferences;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
 
-public class DataManagementActivity extends AbstractActivity {
+public class DataManagementActivity extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(DataManagementActivity.class);
     private static SharedPreferences sharedPrefs;
 

@@ -27,9 +27,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
+import xyz.tenseventyseven.fresh.common.AbstractNoActionBarActivity;
 
-public class WelcomeActivity extends AbstractActivity {
+public class WelcomeActivity extends AbstractNoActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(WelcomeActivity.class);
 
     private ViewPager2 viewPager;
@@ -37,7 +38,6 @@ public class WelcomeActivity extends AbstractActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AbstractActivity.init(this, AbstractActivity.NO_ACTIONBAR);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         if (getSupportActionBar() != null) {

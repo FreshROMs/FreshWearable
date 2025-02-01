@@ -129,9 +129,9 @@ import nodomain.freeyourgadget.gadgetbridge.util.PendingIntentUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.WidgetPreferenceStorage;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
-public class DebugActivity extends AbstractActivity {
+public class DebugActivity extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(DebugActivity.class);
 
     private static Bundle dataLossSave;

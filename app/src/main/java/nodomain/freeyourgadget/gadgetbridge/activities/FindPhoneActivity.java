@@ -43,10 +43,10 @@ import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
 
-public class FindPhoneActivity extends AbstractActivity {
+public class FindPhoneActivity extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(FindPhoneActivity.class);
 
     public static final String ACTION_FOUND = "nodomain.freeyourgadget.gadgetbridge.findphone.action.reply";

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.AppSpecificNotificationSettingsAppListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.database.AppSpecificNotificationSettingsRepository;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
@@ -33,7 +33,7 @@ import nodomain.freeyourgadget.gadgetbridge.entities.AppSpecificNotificationSett
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.AbstractNotificationPattern;
 
-public class AppSpecificNotificationSettingsDetailActivity extends AbstractActivity {
+public class AppSpecificNotificationSettingsDetailActivity extends AbstractActionBarActivity {
     private AppSpecificNotificationSettingsRepository repository = null;
     private String bundleId = null;
 

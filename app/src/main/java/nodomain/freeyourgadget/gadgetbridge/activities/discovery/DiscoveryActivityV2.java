@@ -83,7 +83,7 @@ import java.util.Set;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.DebugActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.DeviceCandidateAdapter;
@@ -101,7 +101,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 
 
-public class DiscoveryActivityV2 extends AbstractActivity implements AdapterView.OnItemClickListener,
+public class DiscoveryActivityV2 extends AbstractActionBarActivity implements AdapterView.OnItemClickListener,
         AdapterView.OnItemLongClickListener,
         BondingInterface,
         GBScanEventProcessor.Callback,

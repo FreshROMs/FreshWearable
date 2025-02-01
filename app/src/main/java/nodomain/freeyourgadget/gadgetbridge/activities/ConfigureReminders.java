@@ -55,10 +55,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceService;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
 
-public class ConfigureReminders extends AbstractActivity {
+public class ConfigureReminders extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureReminders.class);
 
     private static final int REQ_CONFIGURE_REMINDER = 1;

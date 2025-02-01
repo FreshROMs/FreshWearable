@@ -53,10 +53,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.entities.WorldClock;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
 
-public class ConfigureWorldClocks extends AbstractActivity {
+public class ConfigureWorldClocks extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureWorldClocks.class);
 
     private static final int REQ_CONFIGURE_WORLD_CLOCK = 1;

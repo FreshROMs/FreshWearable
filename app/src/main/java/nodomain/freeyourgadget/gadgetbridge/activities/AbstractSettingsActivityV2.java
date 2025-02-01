@@ -26,9 +26,9 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
-public abstract class AbstractSettingsActivityV2 extends AbstractActivity implements
+public abstract class AbstractSettingsActivityV2 extends AbstractActionBarActivity implements
         PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
 
     protected abstract String fragmentTag();

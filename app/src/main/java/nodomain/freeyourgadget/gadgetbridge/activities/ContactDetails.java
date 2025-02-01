@@ -38,9 +38,9 @@ import nodomain.freeyourgadget.gadgetbridge.entities.Contact;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
-public class ContactDetails extends AbstractActivity {
+public class ContactDetails extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(ContactDetails.class);
 
     private Contact contact;

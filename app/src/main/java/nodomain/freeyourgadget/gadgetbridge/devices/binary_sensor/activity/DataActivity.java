@@ -26,10 +26,10 @@ import android.widget.TextView;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.binary_sensor.BinarySensorSupport;
 
-public class DataActivity extends AbstractActivity {
+public class DataActivity extends AbstractActionBarActivity {
     TextView stateView, countView;
 
     BroadcastReceiver stateReceiver = new BroadcastReceiver() {

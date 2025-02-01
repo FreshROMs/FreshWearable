@@ -25,10 +25,10 @@ import android.widget.NumberPicker;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
-public class Watch9CalibrationActivity extends AbstractActivity {
+public class Watch9CalibrationActivity extends AbstractActionBarActivity {
 
     private static final String STATE_DEVICE = "stateDevice";
     GBDevice device;

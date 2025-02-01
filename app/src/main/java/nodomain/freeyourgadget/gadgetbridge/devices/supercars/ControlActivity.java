@@ -34,11 +34,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.supercars.SuperCarsSupport;
 
-public class ControlActivity extends AbstractActivity implements JoystickView.JoystickListener {
+public class ControlActivity extends AbstractActionBarActivity implements JoystickView.JoystickListener {
     private static final Logger LOG = LoggerFactory.getLogger(ControlActivity.class);
     LocalBroadcastManager localBroadcastManager;
     CountDownTimer periodicDataSenderRunner;

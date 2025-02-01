@@ -20,9 +20,9 @@ package nodomain.freeyourgadget.gadgetbridge.externalevents;
 import android.os.Bundle;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
-public class WeatherNotificationConfig extends AbstractActivity {
+public class WeatherNotificationConfig extends AbstractActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

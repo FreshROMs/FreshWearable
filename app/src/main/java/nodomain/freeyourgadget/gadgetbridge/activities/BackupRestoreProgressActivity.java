@@ -38,9 +38,9 @@ import nodomain.freeyourgadget.gadgetbridge.util.backup.AbstractZipBackupJob;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupCallback;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupExportJob;
 import nodomain.freeyourgadget.gadgetbridge.util.backup.ZipBackupImportJob;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
-public class BackupRestoreProgressActivity extends AbstractActivity {
+public class BackupRestoreProgressActivity extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(BackupRestoreProgressActivity.class);
 
     public static final String EXTRA_URI = "uri";

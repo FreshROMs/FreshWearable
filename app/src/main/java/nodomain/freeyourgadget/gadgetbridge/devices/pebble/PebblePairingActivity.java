@@ -40,7 +40,7 @@ import java.util.List;
 import de.greenrobot.dao.query.Query;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2;
 import nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -57,7 +57,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.DeviceHelper;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 
-public class PebblePairingActivity extends AbstractActivity implements BondingInterface {
+public class PebblePairingActivity extends AbstractActionBarActivity implements BondingInterface {
     private static final Logger LOG = LoggerFactory.getLogger(PebblePairingActivity.class);
     private final BroadcastReceiver pairingReceiver = BondingUtil.getPairingReceiver(this);
     private final BroadcastReceiver bondingReceiver = BondingUtil.getBondingReceiver(this);

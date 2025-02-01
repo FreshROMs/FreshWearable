@@ -17,7 +17,6 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package xyz.tenseventyseven.fresh.common;
 
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,10 +29,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Locale;
 
+import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
-
 
 public abstract class AbstractActivity extends AppCompatActivity implements AppActivity {
     private boolean isLanguageInvalid = false;
@@ -70,36 +68,17 @@ public abstract class AbstractActivity extends AppCompatActivity implements AppA
         AndroidUtils.setLanguage(this, language);
     }
 
-    public static void init(AppActivity activity) {
-        init(activity, NONE);
-    }
-
-    public static void init(AppActivity activity, int flags) {
-        int style;
-        if ((flags & NO_ACTIONBAR) != 0) {
-            style = R.style.GadgetbridgeTheme_NoActionBar;
-        } else {
-            style = R.style.GadgetbridgeTheme;
-        }
-
-        activity.setTheme(style);
-        AppCompatDelegate.setDefaultNightMode(Application.isDarkThemeEnabled() ?
-                AppCompatDelegate.MODE_NIGHT_YES :
-                AppCompatDelegate.MODE_NIGHT_NO
-        );
-        activity.setLanguage(Application.getLanguage(), false);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    protected void setupListeners() {
         IntentFilter filterLocal = new IntentFilter();
         filterLocal.addAction(Application.ACTION_QUIT);
         filterLocal.addAction(Application.ACTION_LANGUAGE_CHANGE);
         filterLocal.addAction(Application.ACTION_THEME_CHANGE);
         LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, filterLocal);
-
-        init(this);
-        super.onCreate(savedInstanceState);
     }
 
     @Override

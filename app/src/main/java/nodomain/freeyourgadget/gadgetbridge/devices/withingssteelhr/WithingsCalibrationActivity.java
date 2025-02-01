@@ -30,12 +30,12 @@ import java.util.List;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.DeviceType;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.withingssteelhr.WithingsSteelHRDeviceSupport;
 
-public class WithingsCalibrationActivity extends AbstractActivity {
+public class WithingsCalibrationActivity extends AbstractActionBarActivity {
 
     enum Hands {
         HOURS((short)1),

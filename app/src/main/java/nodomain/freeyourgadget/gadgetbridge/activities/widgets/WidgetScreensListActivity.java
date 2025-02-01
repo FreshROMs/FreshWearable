@@ -40,7 +40,7 @@ import java.util.List;
 import java.util.Locale;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetLayout;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetManager;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetPart;
@@ -48,7 +48,7 @@ import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetScreen;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetType;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
-public class WidgetScreensListActivity extends AbstractActivity {
+public class WidgetScreensListActivity extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(WidgetScreensListActivity.class);
 
     private WidgetScreenListAdapter mGBWidgetScreenListAdapter;

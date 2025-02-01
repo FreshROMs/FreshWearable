@@ -43,9 +43,9 @@ import nodomain.freeyourgadget.gadgetbridge.entities.WorldClock;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.StringUtils;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
-public class WorldClockDetails extends AbstractActivity {
+public class WorldClockDetails extends AbstractActionBarActivity {
     private WorldClock worldClock;
     private GBDevice device;
 

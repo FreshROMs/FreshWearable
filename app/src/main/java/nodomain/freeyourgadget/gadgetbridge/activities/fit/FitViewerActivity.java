@@ -40,13 +40,13 @@ import java.util.Objects;
 import java.util.Set;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.fit.FitFile;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.fit.GlobalFITMessage;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.garmin.fit.RecordData;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
-public class FitViewerActivity extends AbstractActivity implements MenuProvider {
+public class FitViewerActivity extends AbstractActionBarActivity implements MenuProvider {
     private static final Logger LOG = LoggerFactory.getLogger(FitViewerActivity.class);
 
     public static final String EXTRA_PATH = "path";

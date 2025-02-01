@@ -50,10 +50,10 @@ import nodomain.freeyourgadget.gadgetbridge.entities.DaoSession;
 import nodomain.freeyourgadget.gadgetbridge.entities.Device;
 import nodomain.freeyourgadget.gadgetbridge.entities.User;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
 
-public class ConfigureContacts extends AbstractActivity {
+public class ConfigureContacts extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigureContacts.class);
 
     private GBContactListAdapter mGBContactListAdapter;

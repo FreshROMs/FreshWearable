@@ -43,13 +43,13 @@ import java.util.IdentityHashMap;
 import java.util.List;
 
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.qhybrid.QHybridSupport;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 
 import static android.view.View.GONE;
 
-public class QHybridAppChoserActivity extends AbstractActivity {
+public class QHybridAppChoserActivity extends AbstractActionBarActivity {
     boolean hasControl = false;
 
     private PackageConfigHelper helper;

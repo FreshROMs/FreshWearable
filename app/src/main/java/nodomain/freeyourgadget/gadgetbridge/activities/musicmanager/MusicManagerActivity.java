@@ -45,7 +45,7 @@ import java.util.stream.Collectors;
 
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import nodomain.freeyourgadget.gadgetbridge.activities.FwAppInstallerActivity;
 import nodomain.freeyourgadget.gadgetbridge.adapter.MusicListAdapter;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -54,7 +54,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceMusicPlaylist;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GridAutoFitLayoutManager;
 
-public class MusicManagerActivity extends AbstractActivity {
+public class MusicManagerActivity extends AbstractActionBarActivity {
     private static final Logger LOG = LoggerFactory.getLogger(MusicManagerActivity.class);
 
     public static final String ACTION_MUSIC_DATA

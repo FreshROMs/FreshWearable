@@ -24,7 +24,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
 /**
  * A base activity that supports paging through fragments by swiping.
@@ -39,7 +39,7 @@ import xyz.tenseventyseven.fresh.common.AbstractActivity;
  *
  * @see AbstractGBFragment
  */
-public abstract class AbstractFragmentActivity extends AbstractActivity {
+public abstract class AbstractFragmentActivity extends AbstractActionBarActivity {
     /**
      * The {@link PagerAdapter} that will provide
      * fragments for each of the sections. We use a

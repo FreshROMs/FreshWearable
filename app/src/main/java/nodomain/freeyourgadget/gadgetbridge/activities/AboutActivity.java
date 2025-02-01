@@ -29,9 +29,9 @@ import xyz.tenseventyseven.fresh.BuildConfig;
 
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
-public class AboutActivity extends AbstractActivity {
+public class AboutActivity extends AbstractActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

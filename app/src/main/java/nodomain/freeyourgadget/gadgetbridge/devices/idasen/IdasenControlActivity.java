@@ -17,12 +17,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Objects;
 
 
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.activities.workouts.WorkoutValueFormatter;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.idasen.IdasenDeviceSupport;
 
-public class IdasenControlActivity extends AbstractActivity {
+public class IdasenControlActivity extends AbstractActionBarActivity {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     public TextView mDeskHeight, mDeskSpeed;
 

@@ -53,9 +53,9 @@ import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.entities.Reminder;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.util.GB;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractActionBarActivity;
 
-public class ReminderDetails extends AbstractActivity implements SeslTimePickerDialog.OnTimeSetListener, SeslDatePickerDialog.OnDateSetListener {
+public class ReminderDetails extends AbstractActionBarActivity implements SeslTimePickerDialog.OnTimeSetListener, SeslDatePickerDialog.OnDateSetListener {
     private Reminder reminder;
     private GBDevice device;
 

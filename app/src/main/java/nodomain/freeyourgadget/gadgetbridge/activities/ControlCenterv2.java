@@ -75,7 +75,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.GB;
 import nodomain.freeyourgadget.gadgetbridge.util.GBChangeLog;
 import nodomain.freeyourgadget.gadgetbridge.util.PermissionsUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
-import xyz.tenseventyseven.fresh.common.AbstractActivity;
+import xyz.tenseventyseven.fresh.common.AbstractNoActionBarActivity;
 import xyz.tenseventyseven.fresh.common.AppActivity;
 
 //TODO: extend AbstractGBActivity, but it requires actionbar that is not available
@@ -144,7 +144,7 @@ public class ControlCenterv2 extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AbstractActivity.init(this, AbstractActivity.NO_ACTIONBAR);
+        AbstractNoActionBarActivity.init(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
