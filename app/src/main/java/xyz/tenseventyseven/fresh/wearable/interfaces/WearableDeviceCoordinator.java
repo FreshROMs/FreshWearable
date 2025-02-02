@@ -28,4 +28,17 @@ public interface WearableDeviceCoordinator {
         DeviceKind type = getDeviceKind();
         return type == DeviceKind.FITNESS_TRACKER || type == DeviceKind.HEART_RATE_MONITOR || type == DeviceKind.BLOOD_PRESSURE_MONITOR || type == DeviceKind.SCALE || type == DeviceKind.THERMOMETER || type == DeviceKind.SPO2_MONITOR || type == DeviceKind.GLUCOSE_MONITOR || type == DeviceKind.ECG_MONITOR || type == DeviceKind.WATCH;
     }
+
+    @DrawableRes
+    int getDefaultIconResource();
+
+    @DrawableRes
+    default int getDeviceImageResource() {
+        return getDefaultIconResource();
+    }
+
+    @DrawableRes
+    default int getDeviceImageResource(GBDevice device) {
+        return getDeviceImageResource();
+    }
 }
