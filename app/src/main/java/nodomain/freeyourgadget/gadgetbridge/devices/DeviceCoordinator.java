@@ -66,6 +66,7 @@ import nodomain.freeyourgadget.gadgetbridge.model.Vo2MaxSample;
 import nodomain.freeyourgadget.gadgetbridge.model.WeightSample;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.ServiceDeviceSupport;
+import xyz.tenseventyseven.fresh.wearable.interfaces.WearableDeviceCoordinator;
 
 /**
  * This interface is implemented at least once for every supported gadget device.
@@ -76,7 +77,7 @@ import nodomain.freeyourgadget.gadgetbridge.service.ServiceDeviceSupport;
  * device. If a coordinator answers true, it will be used to assist in handling
  * the given device.
  */
-public interface DeviceCoordinator {
+public interface DeviceCoordinator extends WearableDeviceCoordinator {
     String EXTRA_DEVICE_CANDIDATE = "nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceCandidate.EXTRA_DEVICE_CANDIDATE";
     /**
      * Do not attempt to bond after discovery.

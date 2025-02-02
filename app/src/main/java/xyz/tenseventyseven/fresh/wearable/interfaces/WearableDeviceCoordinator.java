@@ -1,0 +1,31 @@
+package xyz.tenseventyseven.fresh.wearable.interfaces;
+
+import androidx.annotation.DrawableRes;
+
+import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+
+public interface WearableDeviceCoordinator {
+    enum DeviceKind {
+        WATCH,
+        FITNESS_TRACKER,
+        HEADPHONES,
+        EARBUDS,
+        HEART_RATE_MONITOR,
+        BLOOD_PRESSURE_MONITOR,
+        SCALE,
+        THERMOMETER,
+        SPO2_MONITOR,
+        GLUCOSE_MONITOR,
+        ECG_MONITOR,
+        OTHER
+    }
+
+    default DeviceKind getDeviceKind() {
+        return DeviceKind.OTHER;
+    }
+
+    default boolean isHealthTrackingDevice() {
+        DeviceKind type = getDeviceKind();
+        return type == DeviceKind.FITNESS_TRACKER || type == DeviceKind.HEART_RATE_MONITOR || type == DeviceKind.BLOOD_PRESSURE_MONITOR || type == DeviceKind.SCALE || type == DeviceKind.THERMOMETER || type == DeviceKind.SPO2_MONITOR || type == DeviceKind.GLUCOSE_MONITOR || type == DeviceKind.ECG_MONITOR || type == DeviceKind.WATCH;
+    }
+}
