@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WearDashboardShortcutItem">
+        <attr name="wShortcutIcon" format="reference" />
+        <attr name="wShortcutName" format="string" />
+        <attr name="wShortcutActivity" format="string" />
+    </declare-styleable>
+</resources>

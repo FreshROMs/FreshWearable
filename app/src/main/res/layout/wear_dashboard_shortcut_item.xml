@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.oneuiproject.oneui.widget.RoundedLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/oui_background_color">
+    <LinearLayout
+        android:id="@+id/shortcut_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="18.0dip"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/shortcut_icon"
+            android:layout_width="28.0dip"
+            android:layout_height="28.0dip"
+            android:importantForAccessibility="no"
+            tools:src="@drawable/home_tab_apps" />
+
+        <TextView
+            android:id="@+id/shortcut_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14.0dip"
+            android:textSize="16sp"
+            android:textFontWeight="500"
+            android:textColor="@color/oui_primary_text_color"
+            tools:text="Apps"
+            tools:targetApi="p" />
+    </LinearLayout>
+
+</dev.oneuiproject.oneui.widget.RoundedLinearLayout>
