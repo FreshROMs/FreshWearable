@@ -2115,4 +2115,15 @@ public class Application extends android.app.Application {
     public void setAutoExportScheduledTimestamp(long autoExportScheduledTimestamp) {
         this.autoExportScheduledTimestamp = autoExportScheduledTimestamp;
     }
+
+    static final String WEAR_LAST_DEVICE_ADDRESS = "wear_last_device_address";
+    public String getLastDeviceAddress() {
+        SharedPreferences prefs = getPrefs().getPreferences();
+        return prefs.getString(WEAR_LAST_DEVICE_ADDRESS, null);
+    }
+
+    public void setLastDeviceAddress(String address) {
+        SharedPreferences prefs = getPrefs().getPreferences();
+        prefs.edit().putString(WEAR_LAST_DEVICE_ADDRESS, address).apply();
+    }
 }
