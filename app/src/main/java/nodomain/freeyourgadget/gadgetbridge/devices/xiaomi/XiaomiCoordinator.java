@@ -605,4 +605,19 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     public boolean supportsAlarms() {
         return true;
     }
+
+    @Override
+    public DeviceKind getDeviceKind() {
+        return DeviceKind.WATCH;
+    }
+
+    @Override
+    public int getDeviceImageResource() {
+        return super.getDeviceImageResource();
+    }
+
+    @Override
+    public int getDeviceImageResource(GBDevice device) {
+        return super.getDeviceImageResource(device);
+    }
 }

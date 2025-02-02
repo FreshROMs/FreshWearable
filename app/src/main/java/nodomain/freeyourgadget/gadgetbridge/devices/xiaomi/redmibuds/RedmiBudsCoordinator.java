@@ -183,4 +183,19 @@ public abstract class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
     public int getDisabledIconResource() {
         return R.drawable.ic_device_nothingear_disabled;
     }
+
+    @Override
+    public DeviceKind getDeviceKind() {
+        return DeviceKind.EARBUDS;
+    }
+
+    @Override
+    public int getDeviceImageResource() {
+        return R.drawable.headset_redmi_buds_5_black;
+    }
+
+    @Override
+    public int getDeviceImageResource(GBDevice device) {
+        return super.getDeviceImageResource(device);
+    }
 }
