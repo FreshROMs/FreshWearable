@@ -2,4 +2,11 @@
 <resources>
     <string name="wear_app_name">Fresh Wearable</string>
     <string name="wear_app_launcher_name">Wearable</string>
+
+    <string name="wear_device_battery_status_single">%d%%</string>
+    <string name="wear_device_buds_battery_status_single_bud">%d%% Case %d%%</string>
+    <string name="wear_device_buds_battery_status_combined">L • R %d%% Case %d%%</string>
+    <string name="wear_device_buds_battery_status_combined_no_case">L • R %d%%</string>
+    <string name="wear_device_buds_battery_status_separate">L %d%% R %d%% Case %d%%</string>
+    <string name="wear_device_buds_battery_status_separate_no_case">L %d%% R %d%%</string>
 </resources>

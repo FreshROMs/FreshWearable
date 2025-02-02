@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.gridlayout.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12.0dip"
+    app:columnCount="2"
+    app:useDefaultMargins="true">
+
+    <xyz.tenseventyseven.fresh.wearable.components.DashboardShortcut
+        android:id="@+id/shortcut_watchfaces"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:wShortcutIcon="@drawable/home_tab_watchface"
+        app:wShortcutName="Watch faces"
+        app:wShortcutActivity="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
+        app:layout_columnWeight="1" />
+
+    <xyz.tenseventyseven.fresh.wearable.components.DashboardShortcut
+        android:id="@+id/shortcut_apps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:wShortcutIcon="@drawable/home_tab_apps"
+        app:wShortcutName="Apps"
+        app:wShortcutActivity="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
+        app:layout_columnWeight="1" />
+
+    <xyz.tenseventyseven.fresh.wearable.components.DashboardShortcut
+        android:id="@+id/shortcut_tiles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:wShortcutIcon="@drawable/home_tab_tile"
+        app:wShortcutName="Tiles"
+        app:wShortcutActivity="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
+        app:layout_columnWeight="1" />
+
+    <xyz.tenseventyseven.fresh.wearable.components.DashboardShortcut
+        android:id="@+id/shortcut_quickpanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:wShortcutIcon="@drawable/home_tab_quick_settings"
+        app:wShortcutName="Quick panel"
+        app:wShortcutActivity="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
+        app:layout_columnWeight="1" />
+
+</androidx.gridlayout.widget.GridLayout>

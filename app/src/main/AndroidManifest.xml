@@ -102,9 +102,36 @@
         android:supportsRtl="true"
         android:theme="@style/GadgetbridgeTheme"
         tools:replace="android:label">
+
         <activity
             android:name=".wearable.activities.DashboardActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:label="@string/wear_app_launcher_name"
+            android:icon="@mipmap/ic_launcher_fresh_wearable"
+            android:roundIcon="@mipmap/ic_launcher_fresh_wearable"
+            android:launchMode="singleInstancePerTask"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
+            android:exported="true"
+            android:label="@string/health_app_launcher_name"
+            android:icon="@mipmap/ic_launcher_fresh_health"
+            android:roundIcon="@mipmap/ic_launcher_fresh_health"
+            android:launchMode="singleInstancePerTask"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name="nodomain.freeyourgadget.gadgetbridge.externalevents.sleepasandroid.SleepAsAndroidReceiver"
@@ -125,20 +152,6 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
-            android:exported="true"
-            android:label="@string/title_activity_controlcenter"
-            android:launchMode="singleTop"
-            android:theme="@style/SplashTheme">
-            <intent-filter>
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.welcome.WelcomeActivity"
             android:label="@string/first_start_welcome_title"
