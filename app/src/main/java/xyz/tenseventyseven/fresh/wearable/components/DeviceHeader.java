@@ -32,6 +32,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.databinding.WearDeviceHeaderBinding;
+import xyz.tenseventyseven.fresh.wearable.components.header.DeviceHeaderBatteryCommon;
 
 public class DeviceHeader extends LinearLayout {
     private WearDeviceHeaderBinding binding;

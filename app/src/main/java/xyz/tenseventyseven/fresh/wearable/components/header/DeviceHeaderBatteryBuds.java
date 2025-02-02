@@ -14,7 +14,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
-package xyz.tenseventyseven.fresh.wearable.components;
+package xyz.tenseventyseven.fresh.wearable.components.header;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -27,7 +27,6 @@ import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
-import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.databinding.WearDeviceHeaderBatteryBudsBinding;
 import xyz.tenseventyseven.fresh.wearable.utils.BatteryUtils;
 

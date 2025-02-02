@@ -50,7 +50,7 @@
     <!-- Battery level -->
 
     <!-- For earbuds, show battery level of each bud and case -->
-    <xyz.tenseventyseven.fresh.wearable.components.DeviceHeaderBatteryBuds
+    <xyz.tenseventyseven.fresh.wearable.components.header.DeviceHeaderBatteryBuds
         android:id="@+id/header_device_battery_buds"
         android:layout_width="match_parent"
         android:layout_height="48.0dip"
@@ -58,7 +58,7 @@
         android:visibility="gone" />
 
     <!-- For smartwatches/fitness bands, show battery level of the device -->
-    <xyz.tenseventyseven.fresh.wearable.components.DeviceHeaderBatteryWatch
+    <xyz.tenseventyseven.fresh.wearable.components.header.DeviceHeaderBatteryWatch
         android:id="@+id/header_device_battery_watch"
         android:layout_width="match_parent"
         android:layout_height="48.0dip"
