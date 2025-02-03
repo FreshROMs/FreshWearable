@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -21,7 +23,9 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.common.AbstractNoActionBarActivity;
 import xyz.tenseventyseven.fresh.databinding.WearActivityDashboardBinding;
+import xyz.tenseventyseven.fresh.wearable.adapters.DeviceSettingsAdapter;
 import xyz.tenseventyseven.fresh.wearable.components.DeviceHeader;
+import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public class DashboardActivity extends AbstractNoActionBarActivity {
 
@@ -69,6 +73,11 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
         // Request device info from service
         Application.deviceService().requestDeviceInfo();
         setupLastDevice();
+
+        List<DeviceSetting> deviceSettings = device.getDeviceCoordinator().getDeviceSettings();
+        if (deviceSettings != null) {
+            setupDeviceSettings(deviceSettings);
+        }
     }
 
     private void setupToolbar() {
@@ -123,5 +132,13 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
             Application.app().setLastDeviceAddress(this.device.getAddress());
             updateDevice(this.device);
         }
+    }
+
+    private void setupDeviceSettings(List<DeviceSetting> deviceSettings) {
+        if (device == null) return;
+
+        DeviceSettingsAdapter adapter = new DeviceSettingsAdapter(this, device, deviceSettings);
+        ListView listView = binding.deviceSettings;
+        listView.setAdapter(adapter);
     }
 }
