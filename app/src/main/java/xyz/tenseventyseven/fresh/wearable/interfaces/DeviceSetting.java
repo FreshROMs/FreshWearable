@@ -27,7 +27,7 @@ public class DeviceSetting implements Parcelable {
     public int summary;
     public int icon;
     public String defaultValue;
-    public String screen;
+    public String activity;
     private Map<String, Object> extras = new HashMap<>();
 
     // Main constructor
@@ -41,21 +41,26 @@ public class DeviceSetting implements Parcelable {
     }
 
     protected DeviceSetting(Parcel in) {
+        type = DeviceSettingType.values()[in.readInt()];
         key = in.readString();
         title = in.readInt();
         summary = in.readInt();
         icon = in.readInt();
         defaultValue = in.readString();
-        screen = in.readString();
+        activity = in.readString();
         screenSummary = in.readInt();
         settings = in.createTypedArrayList(DeviceSetting.CREATOR);
 
-        int size = in.readInt();
-        for (int i = 0; i < size; i++) {
-            String key = in.readString();
-            Object value = in.readValue(getClass().getClassLoader());
-            extras.put(key, value);
-        }
+//        int size = in.readInt();
+//        if (size == 0) {
+//            return;
+//        }
+//
+//        for (int i = 0; i < size; i++) {
+//            String key = in.readString();
+//            Object value = in.readValue(getClass().getClassLoader());
+//            extras.put(key, value);
+//        }
     }
 
     public static final Creator<DeviceSetting> CREATOR = new Creator<DeviceSetting>() {
@@ -77,7 +82,7 @@ public class DeviceSetting implements Parcelable {
 
     public static DeviceSetting screen(String key, int title, int summary, int icon, String screen) {
         DeviceSetting setting = new DeviceSetting(DeviceSettingType.SCREEN, key, title, summary, icon, null);
-        setting.screen = screen;
+        setting.activity = screen;
         return setting;
     }
 
@@ -114,7 +119,7 @@ public class DeviceSetting implements Parcelable {
     }
 
     public boolean screenHasIntent() {
-        return (type == DeviceSettingType.SCREEN || type == DeviceSettingType.SWITCH_SCREEN) && screen != null;
+        return (type == DeviceSettingType.SCREEN || type == DeviceSettingType.SWITCH_SCREEN) && activity != null;
     }
 
     /* For use when type == SCREEN or SWITCH_SCREEN and 'screen' is null */
@@ -138,10 +143,10 @@ public class DeviceSetting implements Parcelable {
         dest.writeInt(summary);
         dest.writeInt(icon);
         dest.writeString(defaultValue);
-        dest.writeString(screen);
+        dest.writeString(activity);
         dest.writeInt(screenSummary);
         dest.writeTypedList(settings);
-        dest.writeInt(extras.size());
-        dest.writeMap(extras);
+//        dest.writeInt(extras.size());
+//        dest.writeMap(extras);
     }
 }

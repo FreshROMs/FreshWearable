@@ -44,10 +44,11 @@ public class DeviceSettingsAdapter extends ArrayAdapter<DeviceSetting> {
         AbstractPreference preference;
         switch (Objects.requireNonNull(setting).type) {
             case CHECKBOX:
-                preference = new CheckBoxPreference(context, this.device, setting.key, setting.title, setting.summary, setting.icon, Boolean.parseBoolean(setting.defaultValue));
+                preference = new CheckBoxPreference(context, this.device, setting);
                 break;
             case SWITCH:
-                preference = new SwitchPreference(context, this.device, setting.key, setting.title, setting.summary, setting.icon, Boolean.parseBoolean(setting.defaultValue));
+            case SWITCH_SCREEN:
+                preference = new SwitchPreference(context, this.device, setting);
                 break;
             case DIVIDER:
                 preference = new DividerPreference(context);
