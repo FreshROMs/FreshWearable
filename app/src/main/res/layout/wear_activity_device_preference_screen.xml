@@ -5,22 +5,32 @@
     android:id="@+id/toolbar_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:expandable="false"
+    app:expandable="true"
     app:expanded="false"
     app:showNavButtonAsBack="true"
     tools:context=".wearable.activities.devicesettings.PreferenceScreenActivity">
-
-    <TextView
-        android:id="@+id/preference_screen_summary"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16.0dip"
-        android:paddingVertical="8.0dip"
-        android:visibility="gone" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/preference_screen_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="24.0dip"
+                android:paddingVertical="4.0dip"
+                android:textSize="14sp"
+                android:textColor="@color/oui_primary_text_color"
+                android:lineSpacingMultiplier="1.25"
+                android:visibility="gone" />
 
-    <xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList
-        android:id="@+id/preference_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+            <xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList
+                android:id="@+id/preference_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </dev.oneuiproject.oneui.layout.ToolbarLayout>
