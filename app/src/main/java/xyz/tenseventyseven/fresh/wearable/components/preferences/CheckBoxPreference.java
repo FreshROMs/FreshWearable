@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import androidx.annotation.Nullable;
 
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public class CheckBoxPreference extends SwitchPreference {
     public CheckBoxPreference(Context context) {
@@ -24,14 +25,8 @@ public class CheckBoxPreference extends SwitchPreference {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public CheckBoxPreference(Context context, GBDevice device, String key, int title, int summary, int icon) {
-        super(context, device, key, title, summary, icon);
-    }
-
-    public CheckBoxPreference(Context context, GBDevice device, String key, int title, int summary, int icon, boolean defaultValue) {
-        super(context, device, key, title, summary, icon);
-        this.defaultValue = defaultValue;
-        init(context);
+    public CheckBoxPreference(Context context, GBDevice device, DeviceSetting setting) {
+        super(context, device, setting);
     }
 
     @Override

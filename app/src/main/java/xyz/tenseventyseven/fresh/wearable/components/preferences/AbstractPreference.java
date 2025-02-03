@@ -1,9 +1,13 @@
 package xyz.tenseventyseven.fresh.wearable.components.preferences;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 
@@ -13,17 +17,26 @@ import java.util.Map;
 import dev.oneuiproject.oneui.widget.RoundedLinearLayout;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
+import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public abstract class AbstractPreference extends RoundedLinearLayout {
     GBDevice device;
-    String key;
-    int title;
-    int summary;
-    int icon;
-    protected SharedPreferences sharedPreferences;
-    String activity;
+
+    DeviceSetting setting;
+
+    SharedPreferences sharedPreferences;
 
     Map<String, Object> extras = new HashMap<>();
+
+
+    private final SharedPreferences.OnSharedPreferenceChangeListener prefChangeListener =
+            (sharedPreferences, key) -> {
+                if (key != null && key.equals(getKey())) {
+                    Log.d("AbstractPreference", "onSharedPreferenceChanged: " + key);
+                    onPreferenceChangedNotify();
+                }
+            };
 
     public AbstractPreference(Context context) {
         super(context);
@@ -41,14 +54,25 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public AbstractPreference(Context context, GBDevice device, String key, int title, int summary, int icon) {
+    public AbstractPreference(Context context, GBDevice device, DeviceSetting setting) {
         super(context);
         this.device = device;
-        this.key = key;
-        this.title = title;
-        this.summary = summary;
-        this.icon = icon;
+        this.setting = setting;
         this.sharedPreferences = Application.getDevicePrefs(device).getPreferences();
+    }
+
+    @Override
+    public void onViewAdded(View child) {
+        Log.d("AbstractPreference", "onViewAdded");
+        super.onViewAdded(child);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(prefChangeListener);
+    }
+
+    @Override
+    public void onViewRemoved(View child) {
+        Log.d("AbstractPreference", "onViewRemoved");
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(prefChangeListener);
+        super.onViewRemoved(child);
     }
 
     public void init(Context context) {
@@ -56,7 +80,7 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
     }
 
     public String getKey() {
-        return key;
+        return setting.key;
     }
 
     /*
@@ -75,7 +99,11 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
     }
 
     public void onPreferenceChanged() {
-        notifyPreferenceChanged(this.key);
+        notifyPreferenceChanged(this.setting.key);
+    }
+
+    public void onPreferenceChangedNotify() {
+
     }
 
     public void onPreferenceClicked() {
@@ -116,18 +144,61 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
     }
 
     public void setActivity(String activity) {
-        this.activity = activity;
+        this.setting.activity = activity;
     }
 
     public void putExtra(String key, Object value) {
-        this.extras.put(key, value);
+        this.setting.putExtra(key, value);
     }
 
     public void clearExtras() {
-        this.extras.clear();
+        this.setting.clearExtras();
     }
 
     public void removeExtra(String key) {
-        this.extras.remove(key);
+        this.setting.removeExtra(key);
+    }
+
+    void launchActivity(boolean isSwitchbar) {
+        Intent intent = new Intent();
+        if (this.setting.activity == null) {
+            intent = new Intent(getContext(), PreferenceScreenActivity.class);
+            intent.putExtra(GBDevice.EXTRA_DEVICE, this.device);
+            intent.putExtra(DeviceSetting.EXTRA_IS_SWITCH_BAR, isSwitchbar);
+            intent.putExtra(DeviceSetting.EXTRA_SETTING, this.setting);
+        } else {
+            intent.setClassName(getContext(), this.setting.activity);
+        }
+
+        for (Map.Entry<String, Object> entry : this.extras.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+
+            if (value instanceof String) {
+                intent.putExtra(key, (String) value);
+            } else if (value instanceof Integer) {
+                intent.putExtra(key, (int) value);
+            } else if (value instanceof Boolean) {
+                intent.putExtra(key, (boolean) value);
+            } else if (value instanceof Float) {
+                intent.putExtra(key, (float) value);
+            } else if (value instanceof Double) {
+                intent.putExtra(key, (double) value);
+            } else if (value instanceof Long) {
+                intent.putExtra(key, (long) value);
+            } else if (value instanceof Short) {
+                intent.putExtra(key, (short) value);
+            } else if (value instanceof Byte) {
+                intent.putExtra(key, (byte) value);
+            } else if (value instanceof Character) {
+                intent.putExtra(key, (char) value);
+            } else if (value instanceof Parcelable) {
+                intent.putExtra(key, (Parcelable) value);
+            } else {
+                intent.putExtra(key, value.toString());
+            }
+        }
+
+        getContext().startActivity(intent);
     }
 }

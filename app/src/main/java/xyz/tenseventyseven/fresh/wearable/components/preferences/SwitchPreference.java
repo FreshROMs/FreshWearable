@@ -3,13 +3,13 @@ package xyz.tenseventyseven.fresh.wearable.components.preferences;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.util.SeslRoundedCorner;
 
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.databinding.WearDevicePreferenceBinding;
+import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public class SwitchPreference extends AbstractPreference {
     protected WearDevicePreferenceBinding binding;
@@ -32,13 +32,9 @@ public class SwitchPreference extends AbstractPreference {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public SwitchPreference(Context context, GBDevice device, String key, int title, int summary, int icon) {
-        super(context, device, key, title, summary, icon);
-    }
-
-    public SwitchPreference(Context context, GBDevice device, String key, int title, int summary, int icon, boolean defaultValue) {
-        super(context, device, key, title, summary, icon);
-        this.defaultValue = defaultValue;
+    public SwitchPreference(Context context, GBDevice device, DeviceSetting setting) {
+        super(context, device, setting);
+        this.defaultValue = Boolean.parseBoolean(setting.defaultValue);
         init(context);
     }
 
@@ -48,20 +44,20 @@ public class SwitchPreference extends AbstractPreference {
         value = sharedPreferences.getBoolean(getKey(), this.defaultValue);
         binding = WearDevicePreferenceBinding.inflate(getLayoutInflater(), this, true);
 
-        if (this.icon != 0) {
-            binding.preferenceIcon.setImageResource(icon);
+        if (this.setting.icon != 0) {
+            binding.preferenceIcon.setImageResource(this.setting.icon);
         } else {
             binding.preferenceIconLayout.setVisibility(GONE);
         }
 
-        if (this.title != 0) {
-            binding.preferenceTitle.setText(title);
+        if (this.setting.title != 0) {
+            binding.preferenceTitle.setText(this.setting.title);
         } else {
             binding.preferenceTitle.setVisibility(GONE);
         }
 
-        if (this.summary != 0) {
-            binding.preferenceSummary.setText(summary);
+        if (this.setting.summary != 0) {
+            binding.preferenceSummary.setText(this.setting.summary);
         } else {
             binding.preferenceSummary.setVisibility(GONE);
         }
@@ -90,6 +86,11 @@ public class SwitchPreference extends AbstractPreference {
     }
 
     @Override
+    public void onPreferenceChangedNotify() {
+        value = sharedPreferences.getBoolean(getKey(), this.defaultValue);
+        binding.preferenceSwitch.setChecked(value);
+        binding.preferenceCheckbox.setChecked(value);
+    }
     public void onPreferenceClicked() {
         value = !value;
         binding.preferenceSwitch.setChecked(value);

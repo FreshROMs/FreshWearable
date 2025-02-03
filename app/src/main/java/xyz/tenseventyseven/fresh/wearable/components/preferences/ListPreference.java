@@ -1,6 +1,5 @@
 package xyz.tenseventyseven.fresh.wearable.components.preferences;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
@@ -18,7 +17,6 @@ import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public class ListPreference extends AbstractPreference {
     protected WearDevicePreferenceBinding binding;
-    private DeviceSetting setting;
 
     public ListPreference(Context context) {
         super(context);
@@ -36,14 +34,8 @@ public class ListPreference extends AbstractPreference {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public ListPreference(Context context, GBDevice device, String key, int title, int summary, int icon) {
-        super(context, device, key, title, summary, icon);
-    }
-
     public ListPreference(Context context, GBDevice device, DeviceSetting setting) {
-        super(context, device, setting.key, setting.title, setting.summary, setting.icon);
-        this.activity = setting.screen;
-        this.setting = setting;
+        super(context, device, setting);
         init(context);
     }
 
@@ -52,20 +44,20 @@ public class ListPreference extends AbstractPreference {
         super.init(context);
         binding = WearDevicePreferenceBinding.inflate(getLayoutInflater(), this, true);
 
-        if (this.icon != 0) {
-            binding.preferenceIcon.setImageResource(icon);
+        if (this.setting.icon != 0) {
+            binding.preferenceIcon.setImageResource(setting.icon);
         } else {
             binding.preferenceIconLayout.setVisibility(GONE);
         }
 
-        if (this.title != 0) {
-            binding.preferenceTitle.setText(title);
+        if (this.setting.title != 0) {
+            binding.preferenceTitle.setText(setting.title);
         } else {
             binding.preferenceTitle.setVisibility(GONE);
         }
 
-        if (this.summary != 0) {
-            binding.preferenceSummary.setText(summary);
+        if (this.setting.summary != 0) {
+            binding.preferenceSummary.setText(setting.summary);
         } else {
             binding.preferenceSummary.setVisibility(GONE);
         }
@@ -85,48 +77,7 @@ public class ListPreference extends AbstractPreference {
 
     @Override
     public void onPreferenceClicked() {
-        if (this.activity != null) {
-            Intent intent = new Intent();
-            if (this.activity == null) {
-                intent.setClassName(getContext(), PreferenceScreenActivity.class.getName());
-                intent.putExtra(GBDevice.EXTRA_DEVICE, this.device);
-                intent.putExtra(DeviceSetting.EXTRA_IS_SWITCH_BAR, false);
-                intent.putExtra(DeviceSetting.EXTRA_SETTING, this.setting);
-            } else {
-                intent.setClassName(getContext(), this.activity);
-            }
-
-            for (Map.Entry<String, Object> entry : this.extras.entrySet()) {
-                String key = entry.getKey();
-                Object value = entry.getValue();
-
-                if (value instanceof String) {
-                    intent.putExtra(key, (String) value);
-                } else if (value instanceof Integer) {
-                    intent.putExtra(key, (int) value);
-                } else if (value instanceof Boolean) {
-                    intent.putExtra(key, (boolean) value);
-                } else if (value instanceof Float) {
-                    intent.putExtra(key, (float) value);
-                } else if (value instanceof Double) {
-                    intent.putExtra(key, (double) value);
-                } else if (value instanceof Long) {
-                    intent.putExtra(key, (long) value);
-                } else if (value instanceof Short) {
-                    intent.putExtra(key, (short) value);
-                } else if (value instanceof Byte) {
-                    intent.putExtra(key, (byte) value);
-                } else if (value instanceof Character) {
-                    intent.putExtra(key, (char) value);
-                } else if (value instanceof Parcelable) {
-                    intent.putExtra(key, (Parcelable) value);
-                } else {
-                    intent.putExtra(key, value.toString());
-                }
-            }
-
-            getContext().startActivity(intent);
-        }
+        super.launchActivity(false);
     }
 
     @Override

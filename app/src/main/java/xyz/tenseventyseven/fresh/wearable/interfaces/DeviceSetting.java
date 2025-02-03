@@ -126,8 +126,16 @@ public class DeviceSetting implements Parcelable {
     public int screenSummary;
     public List<DeviceSetting> settings;
 
-    public void addExtra(String key, Object value) {
+    public void putExtra(String key, Object value) {
         extras.put(key, value);
+    }
+
+    public void clearExtras() {
+        extras.clear();
+    }
+
+    public void removeExtra(String key) {
+        extras.remove(key);
     }
 
     @Override

@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.databinding.WearDevicePreferenceBinding;
 import xyz.tenseventyseven.fresh.databinding.WearDevicePreferenceDividerBinding;
+import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public class DividerPreference extends AbstractPreference {
     protected WearDevicePreferenceDividerBinding binding;
@@ -31,8 +32,8 @@ public class DividerPreference extends AbstractPreference {
         init(context);
     }
 
-    public DividerPreference(Context context, GBDevice device, String key, int title, int summary, int icon) {
-        super(context, device, key, title, summary, icon);
+    public DividerPreference(Context context, GBDevice device, DeviceSetting setting) {
+        super(context, device, setting);
         init(context);
     }
 
