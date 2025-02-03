@@ -27,7 +27,7 @@ import xyz.tenseventyseven.fresh.R;
 public class RedmiBuds5Coordinator extends RedmiBudsCoordinator {
     @Override
     public int getDeviceNameResource() {
-        return R.string.devicetype_redmi_buds_5_pro;
+        return R.string.devicetype_redmi_buds_5;
     }
 
     @Override

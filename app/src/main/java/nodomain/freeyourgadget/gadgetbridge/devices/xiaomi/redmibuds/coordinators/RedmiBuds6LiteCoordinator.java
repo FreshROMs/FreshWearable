@@ -12,7 +12,7 @@ public class RedmiBuds6LiteCoordinator extends RedmiBudsCoordinator {
 
     @Override
     public int getDeviceNameResource() {
-        return R.string.devicetype_redmi_buds_6_active;
+        return R.string.devicetype_redmi_buds_6_lite;
     }
 
     @Override
