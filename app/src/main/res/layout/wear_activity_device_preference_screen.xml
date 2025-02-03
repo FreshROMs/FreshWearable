@@ -15,8 +15,8 @@
         android:paddingVertical="8.0dip"
         android:visibility="gone" />
 
-    <ListView
-        android:id="@+id/device_sub_settings"
+    <xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList
+        android:id="@+id/preference_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

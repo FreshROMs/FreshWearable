@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -26,7 +25,6 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.common.AbstractNoActionBarActivity;
 import xyz.tenseventyseven.fresh.databinding.WearActivityDashboardBinding;
-import xyz.tenseventyseven.fresh.wearable.adapters.DeviceSettingsAdapter;
 import xyz.tenseventyseven.fresh.wearable.components.DeviceHeader;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
@@ -155,9 +153,7 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
     private void setupDeviceSettings(List<DeviceSetting> deviceSettings) {
         if (device == null) return;
 
-        DeviceSettingsAdapter adapter = new DeviceSettingsAdapter(this, device, deviceSettings);
-        ListView listView = binding.deviceSettings;
-        listView.setAdapter(adapter);
+        binding.preferenceList.setSettings(this, device, deviceSettings);
     }
 
     private class AppBarListener implements AppBarLayout.OnOffsetChangedListener {

@@ -54,18 +54,18 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
                 <include layout="@layout/wear_activity_dashboard_shortcuts" />
-                <ListView
-                    android:id="@+id/device_settings"
+                <xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList
+                    android:id="@+id/preference_list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="8.0dip" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>

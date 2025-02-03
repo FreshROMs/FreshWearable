@@ -15,6 +15,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.common.AbstractNoActionBarActivity;
 import xyz.tenseventyseven.fresh.databinding.WearActivityDevicePreferenceScreenBinding;
 import xyz.tenseventyseven.fresh.wearable.adapters.DeviceSettingsAdapter;
+import xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public class PreferenceScreenActivity extends AbstractNoActionBarActivity {
@@ -62,15 +63,18 @@ public class PreferenceScreenActivity extends AbstractNoActionBarActivity {
         if (device == null) return;
 
         TextView summary = binding.preferenceScreenSummary;
-        ListView listView = binding.deviceSubSettings;
+        PreferenceList preferenceList = binding.preferenceList;
 
         if (setting.screenSummary != 0) {
+            summary.setVisibility(View.VISIBLE);
             summary.setText(setting.screenSummary);
-        } else {
-            summary.setVisibility(View.GONE);
         }
 
-        DeviceSettingsAdapter adapter = new DeviceSettingsAdapter(this, device, setting.settings);
-        listView.setAdapter(adapter);
+        if (setting.settings == null || setting.settings.isEmpty()) {
+            preferenceList.setVisibility(View.GONE);
+            return;
+        }
+
+        preferenceList.setSettings(this, device, setting.settings);
     }
 }
