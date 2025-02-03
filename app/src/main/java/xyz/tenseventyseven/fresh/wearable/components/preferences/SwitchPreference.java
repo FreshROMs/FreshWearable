@@ -74,6 +74,10 @@ public class SwitchPreference extends AbstractPreference {
             value = isChecked;
             onPreferenceChanged();
         });
+
+        if (setting.type == DeviceSetting.DeviceSettingType.SWITCH_SCREEN) {
+            binding.switchDivider.setVisibility(VISIBLE);
+        }
     }
 
     @SuppressLint("ApplySharedPref") // This is why we put this in a separate thread
@@ -91,7 +95,14 @@ public class SwitchPreference extends AbstractPreference {
         binding.preferenceSwitch.setChecked(value);
         binding.preferenceCheckbox.setChecked(value);
     }
+
+    @Override
     public void onPreferenceClicked() {
+        if (setting.type == DeviceSetting.DeviceSettingType.SWITCH_SCREEN) {
+            super.launchActivity(true);
+            return;
+        }
+
         value = !value;
         binding.preferenceSwitch.setChecked(value);
         super.onPreferenceClicked();

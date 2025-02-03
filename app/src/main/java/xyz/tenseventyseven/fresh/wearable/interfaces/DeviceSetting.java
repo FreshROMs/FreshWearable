@@ -114,6 +114,63 @@ public class DeviceSetting implements Parcelable {
         return new DeviceSetting(DeviceSettingType.SWITCH, key, title, 0, 0, defaultValue);
     }
 
+    // Switcher with screen with title, summary, and icon
+    public static DeviceSetting switcherScreen(String key, int title, int summary, int icon, String screen, String defaultValue) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+        setting.activity = screen;
+        return setting;
+    }
+
+    // Switcher with screen without icon
+    public static DeviceSetting switcherScreen(String key, int title, int summary, String screen, String defaultValue) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, 0, defaultValue);
+        setting.activity = screen;
+        return setting;
+    }
+
+    // Switcher without icon and summary
+    public static DeviceSetting switcherScreen(String key, int title, String screen, String defaultValue) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, 0, 0, defaultValue);
+        setting.activity = screen;
+        return setting;
+    }
+
+    // Switcher without screen with title, summary, and icon
+    public static DeviceSetting switcherScreen(String key, int title, int summary, int icon, boolean noScreenSummary, String defaultValue) {
+        return new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+    }
+
+    // Switcher without screen without icon
+    public static DeviceSetting switcherScreen(String key, int title, int summary, boolean noScreenSummary, String defaultValue) {
+        return new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, 0, defaultValue);
+    }
+
+    // Switcher without screen without icon and summary
+    public static DeviceSetting switcherScreen(String key, int title, String defaultValue) {
+        return new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, 0, 0, defaultValue);
+    }
+
+    // Switcher without screen with screen summary with title, summary, and icon
+    public static DeviceSetting switcherScreen(String key, int title, int summary, int icon, int screenSummary, String defaultValue) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, null);
+        setting.screenSummary = screenSummary;
+        return setting;
+    }
+
+    // Switcher without screen with screen summary without icon
+    public static DeviceSetting switcherScreen(String key, int title, int summary, int screenSummary, String defaultValue) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, 0, defaultValue);
+        setting.screenSummary = screenSummary;
+        return setting;
+    }
+
+    // Switcher without screen with screen summary without icon and summary
+    public static DeviceSetting switcherScreen(String key, int title, int screenSummary, String defaultValue) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, 0, 0, defaultValue);
+        setting.screenSummary = screenSummary;
+        return setting;
+    }
+
     public boolean isDivider() {
         return type == DeviceSettingType.DIVIDER;
     }
