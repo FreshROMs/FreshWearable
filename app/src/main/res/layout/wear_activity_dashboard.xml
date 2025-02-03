@@ -1,38 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<dev.oneuiproject.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<dev.oneuiproject.oneui.widget.AdaptiveCoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/toolbar_layout"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:title="Fresh Wearable"
-    app:expanded="true"
-    app:expandable="true"
-    tools:context=".wearable.activities.DashboardActivity">
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:layout_height="match_parent">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        style="?attr/appBarLayoutStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:seslUseCustomHeight="true"
+        app:seslHeightProportion="0.375">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            style="?attr/collapsingToolbarLayoutStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="exitUntilCollapsed|scroll">
+
+            <LinearLayout
+                android:id="@+id/device_header_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="16.0dip"
+                android:orientation="vertical">
+
+                <xyz.tenseventyseven.fresh.wearable.components.DeviceHeader
+                    android:id="@+id/device_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:background="@android:color/transparent"
+                app:layout_collapseMode="pin" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/dashboard_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
                 <include layout="@layout/wear_activity_dashboard_shortcuts" />
-
                 <ListView
                     android:id="@+id/device_settings"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8.0dip" />
             </LinearLayout>
+
         </androidx.core.widget.NestedScrollView>
-        <dev.oneuiproject.oneui.widget.ScrollAwareFloatingActionButton
-            android:id="@+id/device_selector_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:src="@drawable/ic_fab_device_list"
-            android:layout_margin="24dp" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-</dev.oneuiproject.oneui.layout.ToolbarLayout>
+    </LinearLayout>
+
+    <dev.oneuiproject.oneui.widget.ScrollAwareFloatingActionButton
+        android:id="@+id/activity_device_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:src="@drawable/ic_fab_device_list"
+        android:layout_margin="24dp" />
+</dev.oneuiproject.oneui.widget.AdaptiveCoordinatorLayout>
