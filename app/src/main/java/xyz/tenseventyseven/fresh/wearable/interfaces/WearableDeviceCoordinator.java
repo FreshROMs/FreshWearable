@@ -2,6 +2,8 @@ package xyz.tenseventyseven.fresh.wearable.interfaces;
 
 import androidx.annotation.DrawableRes;
 
+import java.util.List;
+
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public interface WearableDeviceCoordinator {
@@ -40,5 +42,9 @@ public interface WearableDeviceCoordinator {
     @DrawableRes
     default int getDeviceImageResource(GBDevice device) {
         return getDeviceImageResource();
+    }
+
+    default List<DeviceSetting> getDeviceSettings() {
+        return null;
     }
 }
