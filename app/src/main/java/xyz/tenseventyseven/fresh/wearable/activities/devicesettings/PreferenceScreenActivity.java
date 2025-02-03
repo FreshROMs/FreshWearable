@@ -1,8 +1,9 @@
 package xyz.tenseventyseven.fresh.wearable.activities.devicesettings;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,9 +13,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import dev.oneuiproject.oneui.layout.ToolbarLayout;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.common.AbstractNoActionBarActivity;
 import xyz.tenseventyseven.fresh.databinding.WearActivityDevicePreferenceScreenBinding;
-import xyz.tenseventyseven.fresh.wearable.adapters.DeviceSettingsAdapter;
 import xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
@@ -56,7 +57,23 @@ public class PreferenceScreenActivity extends AbstractNoActionBarActivity {
             return insets;
         });
 
-        toolbarLayout.getSwitchBar().setVisibility(isSwitchBar ? View.VISIBLE : View.GONE);
+        toolbarLayout.setTitle(getString(setting.title));
+        if (isSwitchBar) {
+            toolbarLayout.getSwitchBar().setVisibility(View.VISIBLE);
+            toolbarLayout.getSwitchBar().setChecked(Application.getDevicePrefs(device).getPreferences().getBoolean(setting.key, Boolean.parseBoolean(setting.defaultValue)));
+            toolbarLayout.getSwitchBar().addOnSwitchChangeListener(this::onSwitchBarChange);
+        }
+    }
+
+    @SuppressLint("ApplySharedPref") // This runs in a thread so it doesn't block the UI
+    private void onSwitchBarChange(View v, boolean isChecked) {
+        if (!isSwitchBar) return;
+
+        SharedPreferences prefs = Application.getDevicePrefs(device).getPreferences();
+        new Thread(() -> {
+            prefs.edit().putBoolean(setting.key, isChecked).commit();
+            Application.deviceService(device).onSendConfiguration(setting.key);
+        }).start();
     }
 
     private void setupSettings() {

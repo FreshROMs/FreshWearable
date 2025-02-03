@@ -5,6 +5,9 @@
     android:id="@+id/toolbar_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:expandable="false"
+    app:expanded="false"
+    app:showNavButtonAsBack="true"
     tools:context=".wearable.activities.devicesettings.PreferenceScreenActivity">
 
     <TextView
