@@ -24,14 +24,12 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import java.util.Locale;
 
 import nodomain.freeyourgadget.gadgetbridge.util.AndroidUtils;
 import xyz.tenseventyseven.fresh.Application;
-import xyz.tenseventyseven.fresh.R;
 
 public abstract class AbstractActivity extends AppCompatActivity implements AppActivity {
     private boolean isLanguageInvalid = false;

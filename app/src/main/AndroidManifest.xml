@@ -102,33 +102,38 @@
         android:supportsRtl="true"
         android:theme="@style/GadgetbridgeTheme"
         tools:replace="android:label">
-
+        <activity
+            android:name=".wearable.activities.devicesettings.PreferenceScreenActivity"
+            android:exported="false" />
         <activity
             android:name=".wearable.activities.DashboardActivity"
             android:exported="true"
-            android:label="@string/wear_app_launcher_name"
             android:icon="@mipmap/ic_launcher_fresh_wearable"
-            android:roundIcon="@mipmap/ic_launcher_fresh_wearable"
+            android:label="@string/wear_app_launcher_name"
             android:launchMode="singleInstancePerTask"
+            android:roundIcon="@mipmap/ic_launcher_fresh_wearable"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2"
             android:exported="true"
-            android:label="@string/health_app_launcher_name"
             android:icon="@mipmap/ic_launcher_fresh_health"
-            android:roundIcon="@mipmap/ic_launcher_fresh_health"
+            android:label="@string/health_app_launcher_name"
             android:launchMode="singleInstancePerTask"
+            android:roundIcon="@mipmap/ic_launcher_fresh_health"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -907,7 +912,7 @@
         </activity>
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.activities.WakeActivity"
-            android:label="WakeActivity"></activity>
+            android:label="WakeActivity" />
         <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.externalevents.opentracks.OpenTracksController"
             android:exported="true"
