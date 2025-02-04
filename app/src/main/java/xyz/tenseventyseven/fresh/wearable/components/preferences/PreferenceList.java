@@ -19,6 +19,7 @@ public class PreferenceList extends LinearLayout {
     private WearPreferenceListBinding binding;
     private GBDevice device;
     private List<DeviceSetting> settings;
+    private PreferenceAdapter adapter;
 
     public PreferenceList(Context context) {
         super(context);
@@ -42,11 +43,33 @@ public class PreferenceList extends LinearLayout {
         init(context);
     }
 
+    public void createListener() {
+        if (adapter == null) {
+            return;
+        }
+
+        adapter.createListener();
+    }
+
+    public void removeListener() {
+        if (adapter == null) {
+            return;
+        }
+
+        adapter.removeListener();
+    }
+
     private void init(Context context) {
         binding = WearPreferenceListBinding.inflate(LayoutInflater.from(context), this, true);
         RecyclerView recyclerView = binding.preferenceList;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(new PreferenceAdapter(context, device, settings));
+
+        if (adapter != null) {
+            adapter.removeListener();
+        }
+
+        adapter = new PreferenceAdapter(context, device, settings);
+        recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new PreferenceItemDecoration(context, settings));
     }
 }

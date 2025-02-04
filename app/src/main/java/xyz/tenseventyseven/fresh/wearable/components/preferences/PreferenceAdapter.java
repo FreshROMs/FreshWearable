@@ -1,6 +1,7 @@
 package xyz.tenseventyseven.fresh.wearable.components.preferences;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.util.SeslRoundedCorner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
+import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
@@ -21,11 +25,32 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
     private final Context context;
     private final GBDevice device;
     private final List<DeviceSetting> settings;
+    private final SharedPreferences sharedPrefs;
+    private final Map<String, AbstractPreference> preferences = new HashMap<>();
+    private final SharedPreferences.OnSharedPreferenceChangeListener prefChangeListener =
+            (sharedPreferences, key) -> {
+                if (key != null) {
+                    AbstractPreference preference = preferences.get(key);
+                    if (preference != null) {
+                        preference.onPreferenceChangedNotify();
+                    }
+                }
+            };
 
     public PreferenceAdapter(Context context, GBDevice device, List<DeviceSetting> settings) {
         this.context = context;
         this.device = device;
         this.settings = settings;
+        this.sharedPrefs = Application.getDevicePrefs(device).getPreferences();
+        createListener();
+    }
+
+    public void createListener() {
+        sharedPrefs.registerOnSharedPreferenceChangeListener(prefChangeListener);
+    }
+
+    public void removeListener() {
+        sharedPrefs.unregisterOnSharedPreferenceChangeListener(prefChangeListener);
     }
 
     @NonNull
@@ -60,6 +85,7 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
 
         int corners = getCorners(position);
         preference.seslSetRoundCorners(corners);
+        preferences.put(preference.getKey(), preference);
         holder.bind(preference);
     }
 

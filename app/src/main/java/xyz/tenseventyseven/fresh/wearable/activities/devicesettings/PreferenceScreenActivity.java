@@ -65,6 +65,12 @@ public class PreferenceScreenActivity extends AbstractNoActionBarActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding.preferenceList.removeListener();
+    }
+
     @SuppressLint("ApplySharedPref") // This runs in a thread so it doesn't block the UI
     private void onSwitchBarChange(View v, boolean isChecked) {
         if (!isSwitchBar) return;

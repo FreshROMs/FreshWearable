@@ -29,15 +29,6 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
 
     Map<String, Object> extras = new HashMap<>();
 
-
-    private final SharedPreferences.OnSharedPreferenceChangeListener prefChangeListener =
-            (sharedPreferences, key) -> {
-                if (key != null && key.equals(getKey())) {
-                    Log.d("AbstractPreference", "onSharedPreferenceChanged: " + key);
-                    onPreferenceChangedNotify();
-                }
-            };
-
     public AbstractPreference(Context context) {
         super(context);
     }
@@ -65,13 +56,11 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
     public void onViewAdded(View child) {
         Log.d("AbstractPreference", "onViewAdded");
         super.onViewAdded(child);
-        sharedPreferences.registerOnSharedPreferenceChangeListener(prefChangeListener);
     }
 
     @Override
     public void onViewRemoved(View child) {
         Log.d("AbstractPreference", "onViewRemoved");
-        sharedPreferences.unregisterOnSharedPreferenceChangeListener(prefChangeListener);
         super.onViewRemoved(child);
     }
 

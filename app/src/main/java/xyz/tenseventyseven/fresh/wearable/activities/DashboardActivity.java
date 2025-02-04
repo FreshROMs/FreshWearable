@@ -87,6 +87,13 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding.preferenceList.removeListener();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
+    }
+
+    @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         setupAppBar(newConfig);
