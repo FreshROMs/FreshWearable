@@ -179,6 +179,10 @@ public class DeviceSetting implements Parcelable {
         return (type == DeviceSettingType.SCREEN || type == DeviceSettingType.SWITCH_SCREEN) && activity != null;
     }
 
+    public boolean hasIcon() {
+        return icon != 0;
+    }
+
     /* For use when type == SCREEN or SWITCH_SCREEN and 'screen' is null */
     public int screenSummary;
     public List<DeviceSetting> settings;

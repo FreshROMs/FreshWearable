@@ -47,5 +47,6 @@ public class PreferenceList extends LinearLayout {
         RecyclerView recyclerView = binding.preferenceList;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(new PreferenceAdapter(context, device, settings));
+        recyclerView.addItemDecoration(new PreferenceItemDecoration(context, settings));
     }
 }

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="wear_preference_divider_inset_margin">16.0dip</dimen>
+</resources>
