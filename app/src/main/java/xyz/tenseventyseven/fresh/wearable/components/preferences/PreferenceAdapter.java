@@ -85,7 +85,11 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
 
         int corners = getCorners(position);
         preference.seslSetRoundCorners(corners);
-        preferences.put(preference.getKey(), preference);
+
+        if (preference.getKey() != null) {
+            preferences.put(preference.getKey(), preference);
+        }
+
         holder.bind(preference);
     }
 
