@@ -45,31 +45,22 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/dashboard_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <LinearLayout
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include layout="@layout/wear_activity_dashboard_shortcuts" />
+            <xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList
+                android:id="@+id/preference_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
-                <include layout="@layout/wear_activity_dashboard_shortcuts" />
-                <xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList
-                    android:id="@+id/preference_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
-    </LinearLayout>
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <dev.oneuiproject.oneui.widget.ScrollAwareFloatingActionButton
         android:id="@+id/activity_device_fab"
