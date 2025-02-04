@@ -83,6 +83,10 @@ public class SwitchPreference extends AbstractPreference {
     @SuppressLint("ApplySharedPref") // This is why we put this in a separate thread
     @Override
     public void onPreferenceChanged() {
+        if (value == sharedPreferences.getBoolean(getKey(), this.defaultValue)) {
+            return;
+        }
+
         new Thread(() -> {
             sharedPreferences.edit().putBoolean(getKey(), value).commit();
             super.onPreferenceChanged();
