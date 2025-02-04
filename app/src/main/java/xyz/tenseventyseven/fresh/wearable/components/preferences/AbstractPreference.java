@@ -69,6 +69,10 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
     }
 
     public String getKey() {
+        if (this.setting == null) {
+            return null;
+        }
+        
         return setting.key;
     }
 
