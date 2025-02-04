@@ -50,16 +50,13 @@ public class PreferenceItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     private boolean shouldDrawDivider(int position) {
-        if (position == 0 || position == settings.size() - 1) {
-            return true; // Let RecyclerView handle the first and last dividers
+        if (position == settings.size() - 1) {
+            return false; // Last item shouldn't have a divider
         }
 
         DeviceSetting current = settings.get(position);
         DeviceSetting next = settings.get(position + 1);
-        DeviceSetting prev = settings.get(position - 1);
-
         return current.type != DeviceSetting.DeviceSettingType.DIVIDER &&
-                next.type != DeviceSetting.DeviceSettingType.DIVIDER &&
-                prev.type != DeviceSetting.DeviceSettingType.DIVIDER;
+                next.type != DeviceSetting.DeviceSettingType.DIVIDER;
     }
 }
