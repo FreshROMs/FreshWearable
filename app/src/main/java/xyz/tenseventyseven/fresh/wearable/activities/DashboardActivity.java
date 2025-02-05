@@ -27,6 +27,7 @@ import xyz.tenseventyseven.fresh.common.AbstractNoActionBarActivity;
 import xyz.tenseventyseven.fresh.databinding.WearActivityDashboardBinding;
 import xyz.tenseventyseven.fresh.wearable.components.DeviceHeader;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
+import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
 
 public class DashboardActivity extends AbstractNoActionBarActivity {
 
@@ -80,9 +81,9 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
         Application.deviceService().requestDeviceInfo();
         setupLastDevice();
 
-        List<DeviceSetting> deviceSettings = device.getDeviceCoordinator().getDeviceSettings();
+        WearableSettingCoordinator deviceSettings = device.getDeviceCoordinator().getDeviceSettings();
         if (deviceSettings != null) {
-            setupDeviceSettings(deviceSettings);
+            setupDeviceSettings(deviceSettings.getSettings());
         }
     }
 

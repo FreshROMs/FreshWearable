@@ -44,7 +44,7 @@ public interface WearableDeviceCoordinator {
         return getDeviceImageResource();
     }
 
-    default List<DeviceSetting> getDeviceSettings() {
+    default WearableSettingCoordinator getDeviceSettings() {
         return null;
     }
 }

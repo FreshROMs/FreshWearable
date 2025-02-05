@@ -200,15 +200,4 @@ public abstract class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
     public int getDeviceImageResource(GBDevice device) {
         return super.getDeviceImageResource(device);
     }
-
-    @Override
-    public List<DeviceSetting> getDeviceSettings() {
-        List<DeviceSetting> settings = new ArrayList<>();
-
-        settings.addAll(List.of(
-                DeviceSetting.switcher(DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_WEARING_DETECTION, R.string.nothing_prefs_inear_title, R.string.nothing_prefs_inear_summary, "true")
-        ));
-
-        return settings;
-    }
 }
