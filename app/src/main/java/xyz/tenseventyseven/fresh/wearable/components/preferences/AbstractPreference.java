@@ -12,6 +12,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import dev.oneuiproject.oneui.widget.RoundedLinearLayout;
@@ -28,6 +29,10 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
     SharedPreferences sharedPreferences;
 
     Map<String, Object> extras = new HashMap<>();
+
+    String dependency = "";
+
+    List<String> dependents;
 
     public AbstractPreference(Context context) {
         super(context);
@@ -49,7 +54,30 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
         super(context);
         this.device = device;
         this.setting = setting;
+        if (setting != null) {
+            this.dependency = setting.dependency;
+        }
         this.sharedPreferences = Application.getDevicePrefs(device).getPreferences();
+    }
+
+    public String getDependency() {
+        return this.dependency;
+    }
+
+    public List<String> getDependents() {
+        return this.dependents;
+    }
+
+    public void addDependent(String dependent) {
+        this.dependents.add(dependent);
+    }
+
+    public void removeDependent(String dependent) {
+        this.dependents.remove(dependent);
+    }
+
+    public void clearDependents() {
+        this.dependents.clear();
     }
 
     @Override
@@ -62,6 +90,11 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
     public void onViewRemoved(View child) {
         Log.d("AbstractPreference", "onViewRemoved");
         super.onViewRemoved(child);
+    }
+
+    public String getValue() {
+        // Empty by default; subclasses must override this
+        return null;
     }
 
     public void init(Context context) {
@@ -97,6 +130,10 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
 
     public void onPreferenceChangedNotify() {
 
+    }
+
+    public void onPreferenceDependencyChangedNotify(AbstractPreference preference) {
+        // Empty by default; subclasses must override this
     }
 
     public void onPreferenceClicked() {
@@ -150,6 +187,11 @@ public abstract class AbstractPreference extends RoundedLinearLayout {
 
     public void removeExtra(String key) {
         this.setting.removeExtra(key);
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        super.setVisibility(visibility);
     }
 
     void launchActivity(boolean isSwitchbar) {

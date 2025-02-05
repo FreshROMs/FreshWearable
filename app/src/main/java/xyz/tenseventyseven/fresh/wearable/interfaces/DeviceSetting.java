@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,8 @@ public class DeviceSetting implements Parcelable {
     public int title;
     public int summary;
     public int icon;
+    public String dependency;
+    public String dependencyValue;
     public String defaultValue;
     public String activity;
     private Map<String, Object> extras = new HashMap<>();
@@ -185,7 +188,7 @@ public class DeviceSetting implements Parcelable {
 
     /* For use when type == SCREEN or SWITCH_SCREEN and 'screen' is null */
     public int screenSummary;
-    public List<DeviceSetting> settings;
+    public List<DeviceSetting> settings = new ArrayList<>();
 
     public void putExtra(String key, Object value) {
         extras.put(key, value);

@@ -43,14 +43,6 @@ public class PreferenceList extends LinearLayout {
         init(context);
     }
 
-    public void createListener() {
-        if (adapter == null) {
-            return;
-        }
-
-        adapter.createListener();
-    }
-
     public void removeListener() {
         if (adapter == null) {
             return;

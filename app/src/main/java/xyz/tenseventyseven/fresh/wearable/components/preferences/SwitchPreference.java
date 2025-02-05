@@ -101,6 +101,26 @@ public class SwitchPreference extends AbstractPreference {
     }
 
     @Override
+    public String getValue() {
+        return String.valueOf(value);
+    }
+
+    @Override
+    public void onPreferenceDependencyChangedNotify(AbstractPreference preference) {
+        // Find dependent preference, check its value, then check if it matches our dependentValue
+        // If it does, show this preference, else gone
+        if (setting.dependency == null) {
+            return;
+        }
+
+        if (preference.getValue() != null && preference.getValue().equals(setting.dependencyValue)) {
+            binding.preferenceLayout.setVisibility(VISIBLE);
+        } else {
+            binding.preferenceLayout.setVisibility(GONE);
+        }
+    }
+
+    @Override
     public void onPreferenceClicked() {
         if (setting.type == DeviceSetting.DeviceSettingType.SWITCH_SCREEN) {
             super.launchActivity(true);
@@ -146,5 +166,10 @@ public class SwitchPreference extends AbstractPreference {
     public void seslSetRoundCorners(int corners) {
         setRoundedCorners(corners);
         binding.preferenceLayout.setRoundedCorners(corners);
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        binding.preferenceLayout.setVisibility(visibility);
     }
 }

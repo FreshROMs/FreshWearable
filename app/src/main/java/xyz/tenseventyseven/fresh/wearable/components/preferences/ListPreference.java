@@ -76,6 +76,21 @@ public class ListPreference extends AbstractPreference {
     }
 
     @Override
+    public void onPreferenceDependencyChangedNotify(AbstractPreference preference) {
+        // Find dependent preference, check its value, then check if it matches our dependentValue
+        // If it does, show this preference, else gone
+        if (setting.dependency == null) {
+            return;
+        }
+
+        if (preference.getValue() != null && preference.getValue().equals(setting.dependencyValue)) {
+            binding.preferenceLayout.setVisibility(VISIBLE);
+        } else {
+            binding.preferenceLayout.setVisibility(GONE);
+        }
+    }
+
+    @Override
     public void onPreferenceClicked() {
         super.launchActivity(false);
     }
@@ -114,5 +129,10 @@ public class ListPreference extends AbstractPreference {
     public void seslSetRoundCorners(int corners) {
         setRoundedCorners(corners);
         binding.preferenceLayout.setRoundedCorners(corners);
+    }
+
+    @Override
+    public void setVisibility(int visibility) {
+        binding.preferenceLayout.setVisibility(visibility);
     }
 }

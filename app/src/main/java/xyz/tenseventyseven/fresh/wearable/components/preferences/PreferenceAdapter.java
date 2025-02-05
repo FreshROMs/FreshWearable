@@ -2,6 +2,7 @@ package xyz.tenseventyseven.fresh.wearable.components.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.Objects;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 import xyz.tenseventyseven.fresh.Application;
+import xyz.tenseventyseven.fresh.Logging;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
@@ -33,6 +35,14 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
                     AbstractPreference preference = preferences.get(key);
                     if (preference != null) {
                         preference.onPreferenceChangedNotify();
+
+                        // Notify dependent preferences
+                        for (String dependentKey : preference.dependents) {
+                            AbstractPreference dependentPreference = preferences.get(dependentKey);
+                            if (dependentPreference != null) {
+                                dependentPreference.onPreferenceDependencyChangedNotify(preference);
+                            }
+                        }
                     }
                 }
             };
@@ -88,6 +98,18 @@ public class PreferenceAdapter extends RecyclerView.Adapter<PreferenceAdapter.Pr
 
         if (preference.getKey() != null) {
             preferences.put(preference.getKey(), preference);
+        }
+
+        if (setting.dependency != null) {
+            AbstractPreference dependency = preferences.get(setting.dependency);
+            if (dependency != null) {
+                dependency.addDependent(preference.getKey());
+
+                // Initial visibility check for dependency
+                preference.setVisibility(dependency.getValue().equals(setting.dependencyValue) ? View.VISIBLE : View.GONE);
+            } else {
+                Log.d("WearPreferenceAdapter", "Dependency not found: " + setting.dependency + ". This can happen if the preference comes first before the dependency. For UX reasons, the dependency should come first.");
+            }
         }
 
         holder.bind(preference);
