@@ -153,6 +153,11 @@ public abstract class HuaweiLECoordinator extends AbstractBLEDeviceCoordinator i
     }
 
     @Override
+    public boolean supportsFlashing() {
+        return huaweiCoordinator.getSupportsFlashing();
+    }
+
+    @Override
     public int getAlarmSlotCount(GBDevice device) {
         return huaweiCoordinator.getAlarmSlotCount(device);
     }

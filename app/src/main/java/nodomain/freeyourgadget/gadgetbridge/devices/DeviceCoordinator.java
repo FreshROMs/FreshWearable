@@ -79,6 +79,8 @@ import xyz.tenseventyseven.fresh.wearable.interfaces.WearableDeviceCoordinator;
  */
 public interface DeviceCoordinator extends WearableDeviceCoordinator {
     String EXTRA_DEVICE_CANDIDATE = "nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceCandidate.EXTRA_DEVICE_CANDIDATE";
+    String EXTRA_DEVICE_ALL_CANDIDATES =
+        "nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceCandidate.EXTRA_DEVICE_ALL_CANDIDATES";
     /**
      * Do not attempt to bond after discovery.
      */
