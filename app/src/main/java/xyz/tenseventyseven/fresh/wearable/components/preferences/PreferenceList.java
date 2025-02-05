@@ -61,7 +61,7 @@ public class PreferenceList extends LinearLayout {
 
     private void init(Context context) {
         binding = WearPreferenceListBinding.inflate(LayoutInflater.from(context), this, true);
-        RecyclerView recyclerView = binding.preferenceList;
+        RecyclerView recyclerView = binding.preferenceListRecycler;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         if (adapter != null) {
