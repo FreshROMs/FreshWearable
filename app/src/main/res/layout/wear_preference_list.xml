@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xyz.tenseventyseven.fresh.wearable.components.preferences.PreferencesRecyclerView
+<dev.oneuiproject.oneui.widget.RoundedFrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/preference_list_recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="8.0dip"
-    android:overScrollMode="never"
-    android:orientation="vertical" />
+    android:layout_marginHorizontal="8.0dip">
+    <FrameLayout
+        android:id="@+id/preferences_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</dev.oneuiproject.oneui.widget.RoundedFrameLayout>

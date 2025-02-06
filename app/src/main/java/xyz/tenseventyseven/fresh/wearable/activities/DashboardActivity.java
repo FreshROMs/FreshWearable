@@ -90,7 +90,6 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        binding.preferenceList.removeListener();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mReceiver);
     }
 

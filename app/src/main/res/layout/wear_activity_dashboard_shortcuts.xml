@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingHorizontal="4.0dip"
-    android:layout_marginBottom="16.0dip"
+    android:layout_marginBottom="4.0dip"
     app:columnCount="2"
     app:useDefaultMargins="true">
 

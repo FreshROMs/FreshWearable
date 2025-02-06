@@ -20,18 +20,24 @@ public class DeviceSetting implements Parcelable {
         CHECKBOX,
         SWITCH,
         SWITCH_SCREEN,
+        DROPDOWN,
     }
 
-    public DeviceSettingType type;
-    public String key;
-    public int title;
-    public int summary;
-    public int icon;
-    public String dependency;
-    public String dependencyValue;
-    public String defaultValue;
-    public String activity;
+    public DeviceSettingType type = DeviceSettingType.DIVIDER;
+    public String key = "";
+    public int title = 0;
+    public int summary = 0;
+    public int icon = 0;
+    public String dependency = "";
+    public String dependencyValue = "";
+    public String defaultValue = "";
+    public String activity = "";
+    public boolean valueAsSummary = false;
     private Map<String, Object> extras = new HashMap<>();
+
+    // For SpinnerPreference, add labels and corresponding values
+    public int entries = 0;
+    public int entryValues = 0;
 
     // Main constructor
     public DeviceSetting(DeviceSettingType type, String key, int title, int summary, int icon, String defaultValue) {
@@ -43,7 +49,26 @@ public class DeviceSetting implements Parcelable {
         this.defaultValue = defaultValue;
     }
 
+    public DeviceSetting(DeviceSettingType type) {
+        this.type = type;
+    }
+
     protected DeviceSetting(Parcel in) {
+//        dest.writeInt(type.ordinal());
+//        dest.writeString(key);
+//        dest.writeInt(title);
+//        dest.writeInt(summary);
+//        dest.writeInt(icon);
+//        dest.writeString(defaultValue);
+//        dest.writeString(activity);
+//        dest.writeInt(screenSummary);
+//        dest.writeString(dependency);
+//        dest.writeString(dependencyValue);
+//        dest.writeInt(valueAsSummary ? 1 : 0);
+//        dest.writeInt(entries);
+//        dest.writeInt(entryValues);
+//        dest.writeTypedList(settings);
+
         type = DeviceSettingType.values()[in.readInt()];
         key = in.readString();
         title = in.readInt();
@@ -52,6 +77,11 @@ public class DeviceSetting implements Parcelable {
         defaultValue = in.readString();
         activity = in.readString();
         screenSummary = in.readInt();
+        dependency = in.readString();
+        dependencyValue = in.readString();
+        valueAsSummary = in.readInt() == 1;
+        entries = in.readInt();
+        entryValues = in.readInt();
         settings = in.createTypedArrayList(DeviceSetting.CREATOR);
 
 //        int size = in.readInt();
@@ -78,14 +108,25 @@ public class DeviceSetting implements Parcelable {
         }
     };
 
-    // Factory methods
+    /*
+     * Factory methods
+     */
     public static DeviceSetting divider() {
-        return new DeviceSetting(DeviceSettingType.DIVIDER, null, 0, 0, 0, null);
+        return new DeviceSetting(DeviceSettingType.DIVIDER);
     }
 
-    public static DeviceSetting screen(String key, int title, int summary, int icon, String screen) {
+    // Divider with title
+    public static DeviceSetting divider(int title) {
+        return new DeviceSetting(DeviceSettingType.DIVIDER, "", title, 0, 0, null);
+    }
+
+    public static DeviceSetting screen(String key, int title, int summary, int icon) {
+        return new DeviceSetting(DeviceSettingType.SCREEN, key, title, summary, icon, null);
+    }
+
+    public static DeviceSetting screen(String key, int title, int summary, int icon, String activity) {
         DeviceSetting setting = new DeviceSetting(DeviceSettingType.SCREEN, key, title, summary, icon, null);
-        setting.activity = screen;
+        setting.activity = activity;
         return setting;
     }
 
@@ -93,86 +134,49 @@ public class DeviceSetting implements Parcelable {
         return new DeviceSetting(DeviceSettingType.CHECKBOX, key, title, summary, icon, defaultValue);
     }
 
-    // Checkbox without icon
-    public static DeviceSetting checkbox(String key, int title, int summary, String defaultValue) {
-        return new DeviceSetting(DeviceSettingType.CHECKBOX, key, title, summary, 0, defaultValue);
-    }
-
-    // Checkbox without icon and summary
-    public static DeviceSetting checkbox(String key, int title, String defaultValue) {
-        return new DeviceSetting(DeviceSettingType.CHECKBOX, key, title, 0, 0, defaultValue);
-    }
-
-    public static DeviceSetting switcher(String key, int title, int summary, int icon, String defaultValue) {
+    public static DeviceSetting switchSetting(String key, int title, int summary, int icon, String defaultValue) {
         return new DeviceSetting(DeviceSettingType.SWITCH, key, title, summary, icon, defaultValue);
     }
 
-    // Switcher without icon
-    public static DeviceSetting switcher(String key, int title, int summary, String defaultValue) {
-        return new DeviceSetting(DeviceSettingType.SWITCH, key, title, summary, 0, defaultValue);
-    }
-
-    // Switcher without icon and summary
-    public static DeviceSetting switcher(String key, int title, String defaultValue) {
-        return new DeviceSetting(DeviceSettingType.SWITCH, key, title, 0, 0, defaultValue);
-    }
-
-    // Switcher with screen with title, summary, and icon
-    public static DeviceSetting switcherScreen(String key, int title, int summary, int icon, String screen, String defaultValue) {
-        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
-        setting.activity = screen;
+    public static DeviceSetting switchSetting(String key, int title, int summary, int icon, String defaultValue, boolean valueAsSummary) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH, key, title, summary, icon, defaultValue);
+        setting.valueAsSummary = valueAsSummary;
         return setting;
     }
 
-    // Switcher with screen without icon
-    public static DeviceSetting switcherScreen(String key, int title, int summary, String screen, String defaultValue) {
-        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, 0, defaultValue);
-        setting.activity = screen;
-        return setting;
-    }
-
-    // Switcher without icon and summary
-    public static DeviceSetting switcherScreen(String key, int title, String screen, String defaultValue) {
-        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, 0, 0, defaultValue);
-        setting.activity = screen;
-        return setting;
-    }
-
-    // Switcher without screen with title, summary, and icon
-    public static DeviceSetting switcherScreen(String key, int title, int summary, int icon, boolean noScreenSummary, String defaultValue) {
+    public static DeviceSetting switchScreen(String key, int title, int summary, int icon, String defaultValue) {
         return new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
     }
 
-    // Switcher without screen without icon
-    public static DeviceSetting switcherScreen(String key, int title, int summary, boolean noScreenSummary, String defaultValue) {
-        return new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, 0, defaultValue);
-    }
-
-    // Switcher without screen without icon and summary
-    public static DeviceSetting switcherScreen(String key, int title, String defaultValue) {
-        return new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, 0, 0, defaultValue);
-    }
-
-    // Switcher without screen with screen summary with title, summary, and icon
-    public static DeviceSetting switcherScreen(String key, int title, int summary, int icon, int screenSummary, String defaultValue) {
-        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, null);
-        setting.screenSummary = screenSummary;
+    public static DeviceSetting switchScreen(String key, int title, int summary, int icon, String defaultValue, boolean valueAsSummary) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+        setting.valueAsSummary = valueAsSummary;
         return setting;
     }
 
-    // Switcher without screen with screen summary without icon
-    public static DeviceSetting switcherScreen(String key, int title, int summary, int screenSummary, String defaultValue) {
-        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, 0, defaultValue);
-        setting.screenSummary = screenSummary;
+    public static DeviceSetting switchScreen(String key, int title, int summary, int icon, String defaultValue, String activity) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+        setting.activity = activity;
         return setting;
     }
 
-    // Switcher without screen with screen summary without icon and summary
-    public static DeviceSetting switcherScreen(String key, int title, int screenSummary, String defaultValue) {
-        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, 0, 0, defaultValue);
-        setting.screenSummary = screenSummary;
+    public static DeviceSetting switchScreen(String key, int title, int summary, int icon, String defaultValue, String activity, boolean valueAsSummary) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+        setting.activity = activity;
+        setting.valueAsSummary = valueAsSummary;
         return setting;
     }
+
+    public static DeviceSetting dropdown(String key, int title, int icon, String defaultValue, int entries, int entryValues) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.DROPDOWN, key, title, 0, icon, defaultValue);
+        setting.entries = entries;
+        setting.entryValues = entryValues;
+        return setting;
+    }
+
+    /*
+     * Helper methods
+     */
 
     public boolean isDivider() {
         return type == DeviceSettingType.DIVIDER;
@@ -187,8 +191,12 @@ public class DeviceSetting implements Parcelable {
     }
 
     /* For use when type == SCREEN or SWITCH_SCREEN and 'screen' is null */
-    public int screenSummary;
+    public int screenSummary = 0;
     public List<DeviceSetting> settings = new ArrayList<>();
+
+    public Map<String, Object> getExtras() {
+        return extras;
+    }
 
     public void putExtra(String key, Object value) {
         extras.put(key, value);
@@ -217,6 +225,11 @@ public class DeviceSetting implements Parcelable {
         dest.writeString(defaultValue);
         dest.writeString(activity);
         dest.writeInt(screenSummary);
+        dest.writeString(dependency);
+        dest.writeString(dependencyValue);
+        dest.writeInt(valueAsSummary ? 1 : 0);
+        dest.writeInt(entries);
+        dest.writeInt(entryValues);
         dest.writeTypedList(settings);
 //        dest.writeInt(extras.size());
 //        dest.writeMap(extras);
