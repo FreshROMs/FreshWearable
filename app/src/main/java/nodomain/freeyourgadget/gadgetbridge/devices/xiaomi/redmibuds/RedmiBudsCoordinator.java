@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import xyz.tenseventyseven.fresh.AppException;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
@@ -38,7 +37,6 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.service.DeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.redmibuds.RedmiBudsDeviceSupport;
-import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public abstract class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
     @Override
@@ -199,5 +197,10 @@ public abstract class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
     @Override
     public int getDeviceImageResource(GBDevice device) {
         return super.getDeviceImageResource(device);
+    }
+
+    @Override
+    public RedmiBudsSettingsCoordinator getDeviceSettings() {
+        return new RedmiBudsSettingsCoordinator(this);
     }
 }
