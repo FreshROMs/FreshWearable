@@ -106,32 +106,28 @@ public class NoiseControlPreference extends Preference {
         mOffLabel = (TextView) holder.findViewById(R.id.noise_controls_anc_off_text);
         mTransparencyLabel = (TextView) holder.findViewById(R.id.noise_controls_ambient_sound_text);
 
-        // Click listeners are outside the ImageView so we can disable the icon and label
-        View ancLayout = holder.findViewById(R.id.noise_controls_anc_on_icon_view);
-        View offLayout = holder.findViewById(R.id.noise_controls_anc_off_icon_view);
-        View transparencyLayout = holder.findViewById(R.id.noise_controls_ambient_sound_icon_view);
+        holder.itemView.setAlpha(isEnabled() ? 1.0f : 0.5f);
 
-        if (isEnabled()) { // Only enable the preference if it's enabled
-            holder.itemView.setAlpha(1.0f); // Ensure the view is fully opaque when enabled
-            if (ancLayout != null) {
-                ancLayout.setOnClickListener(v -> {
-                    setValue(mAncValue);
-                });
-            }
+        // Set click listeners regardless of enabled state
+        if (isEnabled()) {
+            holder.itemView.setAlpha(1.0f);
 
-            if (offLayout != null) {
-                offLayout.setOnClickListener(v -> {
-                    setValue(mOffValue);
-                });
-            }
-
-            if (transparencyLayout != null) {
-                transparencyLayout.setOnClickListener(v -> {
-                    setValue(mTransparencyValue);
-                });
-            }
+            mAncIcon.setOnClickListener(v -> setValue(mAncValue));
+            mAncLabel.setOnClickListener(v -> setValue(mAncValue));
+            mOffIcon.setOnClickListener(v -> setValue(mOffValue));
+            mOffLabel.setOnClickListener(v -> setValue(mOffValue));
+            mTransparencyIcon.setOnClickListener(v -> setValue(mTransparencyValue));
+            mTransparencyLabel.setOnClickListener(v -> setValue(mTransparencyValue));
         } else {
             holder.itemView.setAlpha(0.5f);
+
+            // Remove click listeners when disabled
+            mAncIcon.setOnClickListener(null);
+            mAncLabel.setOnClickListener(null);
+            mOffIcon.setOnClickListener(null);
+            mOffLabel.setOnClickListener(null);
+            mTransparencyIcon.setOnClickListener(null);
+            mTransparencyLabel.setOnClickListener(null);
         }
 
         update(); // Update the UI to reflect the current selection
@@ -151,7 +147,7 @@ public class NoiseControlPreference extends Preference {
         boolean isSelected = isEnabled() && value.equals(mValue);
 
         if (icon != null) {
-            icon.setEnabled(isSelected);
+            icon.setSelected(isSelected);
         }
 
         if (label != null) {
