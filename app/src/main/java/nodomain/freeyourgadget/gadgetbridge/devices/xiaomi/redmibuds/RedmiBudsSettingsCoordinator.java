@@ -77,13 +77,10 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
     private List<DeviceSetting> getANCSetting() {
         List<DeviceSetting> anc = new ArrayList<>();
         if (supportsAnc()) {
-            DeviceSetting mainSetting = DeviceSetting.dropdown(
+            DeviceSetting mainSetting = DeviceSetting.anc(
                     DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_AMBIENT_SOUND_CONTROL,
-                    R.string.sony_ambient_sound,
-                    0,
                     "0",
-                    R.array.redmi_buds_ambient_sound_control_names,
-                    R.array.redmi_buds_ambient_sound_control_values
+                    R.array.redmi_buds_wear_noise_control_values
             );
             anc.add(mainSetting);
         }

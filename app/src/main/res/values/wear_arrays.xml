@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="redmi_buds_wear_noise_control_values">
+        <item>1</item> <!-- ANC on -->
+        <item>0</item> <!-- ANC off -->
+        <item>2</item> <!-- Transparency mode -->
+    </string-array>
+</resources>
