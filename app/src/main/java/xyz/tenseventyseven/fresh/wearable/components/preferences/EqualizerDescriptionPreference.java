@@ -1,10 +1,8 @@
-package xyz.tenseventyseven.fresh.wearable.components;
+package xyz.tenseventyseven.fresh.wearable.components.preferences;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.ArrayRes;
@@ -22,12 +20,12 @@ public class EqualizerDescriptionPreference extends Preference {
 
     public EqualizerDescriptionPreference(@NonNull Context context) {
         super(context);
-        setLayoutResource(R.layout.component_equalizer_description);
+        setLayoutResource(R.layout.wear_preference_equalizer_description);
     }
 
     public EqualizerDescriptionPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setLayoutResource(R.layout.component_equalizer_description);
+        setLayoutResource(R.layout.wear_preference_equalizer_description);
 
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.EqualizerPreviewPreference);

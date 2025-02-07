@@ -1,14 +1,8 @@
-package xyz.tenseventyseven.fresh.wearable.components;
+package xyz.tenseventyseven.fresh.wearable.components.preferences;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 
 import androidx.annotation.ArrayRes;
@@ -26,12 +20,12 @@ public class EqualizerPreviewPreference extends Preference {
 
     public EqualizerPreviewPreference(@NonNull Context context) {
         super(context);
-        setLayoutResource(R.layout.component_equalizer_preview);
+        setLayoutResource(R.layout.wear_preference_equalizer_preview);
     }
 
     public EqualizerPreviewPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setLayoutResource(R.layout.component_equalizer_preview);
+        setLayoutResource(R.layout.wear_preference_equalizer_preview);
 
         CharSequence[] entriesChar = null;
         if (attrs != null) {

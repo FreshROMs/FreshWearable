@@ -1,4 +1,4 @@
-package xyz.tenseventyseven.fresh.wearable.components;
+package xyz.tenseventyseven.fresh.wearable.components.preferences;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
-import android.widget.LinearLayout;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
@@ -25,12 +24,12 @@ public class ButtonGroupPreference extends Preference {
 
     public ButtonGroupPreference(@NonNull Context context) {
         super(context);
-        setLayoutResource(R.layout.component_button_group_preference);
+        setLayoutResource(R.layout.wear_preference_button_group);
     }
 
     public ButtonGroupPreference(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setLayoutResource(R.layout.component_button_group_preference);
+        setLayoutResource(R.layout.wear_preference_button_group);
 
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ButtonGroupPreference);
@@ -69,7 +68,7 @@ public class ButtonGroupPreference extends Preference {
                 String entry = entries[i].toString();
                 String value = entryValues[i].toString();
 
-                Button button = (Button) inflater.inflate(R.layout.component_button_group_preference_item, buttonContainer, false);
+                Button button = (Button) inflater.inflate(R.layout.wear_preference_button_group_item, buttonContainer, false);
                 button.setText(entry);
                 button.setOnClickListener(v -> {
                     setValue(value);

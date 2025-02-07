@@ -36,10 +36,6 @@ import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.databinding.WearPreferenceListBinding;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
-import xyz.tenseventyseven.fresh.wearable.components.ButtonGroupPreference;
-import xyz.tenseventyseven.fresh.wearable.components.EqualizerDescriptionPreference;
-import xyz.tenseventyseven.fresh.wearable.components.EqualizerPreviewPreference;
-import xyz.tenseventyseven.fresh.wearable.components.NoiseControlPreference;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public class PreferenceList extends LinearLayout {
