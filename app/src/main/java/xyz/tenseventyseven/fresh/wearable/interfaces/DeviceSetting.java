@@ -54,46 +54,63 @@ public class DeviceSetting implements Parcelable {
     }
 
     protected DeviceSetting(Parcel in) {
-//        dest.writeInt(type.ordinal());
-//        dest.writeString(key);
-//        dest.writeInt(title);
-//        dest.writeInt(summary);
-//        dest.writeInt(icon);
-//        dest.writeString(defaultValue);
-//        dest.writeString(activity);
-//        dest.writeInt(screenSummary);
-//        dest.writeString(dependency);
-//        dest.writeString(dependencyValue);
-//        dest.writeInt(valueAsSummary ? 1 : 0);
-//        dest.writeInt(entries);
-//        dest.writeInt(entryValues);
-//        dest.writeTypedList(settings);
+        this.type = DeviceSettingType.values()[in.readInt()];
+        this.key = in.readString();
+        this.title = in.readInt();
+        this.summary = in.readInt();
+        this.icon = in.readInt();
+        this.dependency = in.readString();
+        this.dependencyValue = in.readString();
+        this.defaultValue = in.readString();
+        this.activity = in.readString();
+        this.valueAsSummary = in.readByte() != 0;
+        this.entries = in.readInt();
+        this.entryValues = in.readInt();
+        this.entryDrawables = in.readInt();
+        this.entryDescriptions = in.readInt();
+        this.screenSummary = in.readInt();
 
-        type = DeviceSettingType.values()[in.readInt()];
-        key = in.readString();
-        title = in.readInt();
-        summary = in.readInt();
-        icon = in.readInt();
-        defaultValue = in.readString();
-        activity = in.readString();
-        screenSummary = in.readInt();
-        dependency = in.readString();
-        dependencyValue = in.readString();
-        valueAsSummary = in.readInt() == 1;
-        entries = in.readInt();
-        entryValues = in.readInt();
-        settings = in.createTypedArrayList(DeviceSetting.CREATOR);
+        int settingsSize = in.readInt();
+        this.settings = new ArrayList<>(settingsSize);
+        for (int i = 0; i < settingsSize; i++) {
+            this.settings.add(new DeviceSetting(in));
+        }
 
-//        int size = in.readInt();
-//        if (size == 0) {
-//            return;
-//        }
-//
-//        for (int i = 0; i < size; i++) {
-//            String key = in.readString();
-//            Object value = in.readValue(getClass().getClassLoader());
-//            extras.put(key, value);
-//        }
+        int extrasSize = in.readInt();
+        this.extras = new HashMap<>(extrasSize);
+        for (int i = 0; i < extrasSize; i++) {
+            String key = in.readString();
+            Object value = null;
+            switch (in.readInt()) {
+                case 0:
+                    value = in.readString();
+                    break;
+                case 1:
+                case 6:
+                case 8:
+                    value = in.readInt();
+                    break;
+                case 2:
+                    value = in.readByte() != 0;
+                    break;
+                case 3:
+                    value = in.readFloat();
+                    break;
+                case 4:
+                    value = in.readDouble();
+                    break;
+                case 5:
+                    value = in.readLong();
+                    break;
+                case 7:
+                    value = in.readByte();
+                    break;
+                case 9:
+                    value = in.readParcelable(getClass().getClassLoader());
+                    break;
+            }
+            this.extras.put(key, value);
+        }
     }
 
     public static final Creator<DeviceSetting> CREATOR = new Creator<DeviceSetting>() {
@@ -217,21 +234,62 @@ public class DeviceSetting implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        dest.writeInt(type.ordinal());
-        dest.writeString(key);
-        dest.writeInt(title);
-        dest.writeInt(summary);
-        dest.writeInt(icon);
-        dest.writeString(defaultValue);
-        dest.writeString(activity);
-        dest.writeInt(screenSummary);
-        dest.writeString(dependency);
-        dest.writeString(dependencyValue);
-        dest.writeInt(valueAsSummary ? 1 : 0);
-        dest.writeInt(entries);
-        dest.writeInt(entryValues);
-        dest.writeTypedList(settings);
-//        dest.writeInt(extras.size());
-//        dest.writeMap(extras);
+        dest.writeInt(this.type.ordinal());
+        dest.writeString(this.key);
+        dest.writeInt(this.title);
+        dest.writeInt(this.summary);
+        dest.writeInt(this.icon);
+        dest.writeString(this.dependency);
+        dest.writeString(this.dependencyValue);
+        dest.writeString(this.defaultValue);
+        dest.writeString(this.activity);
+        dest.writeByte((byte) (this.valueAsSummary ? 1 : 0));
+        dest.writeInt(this.entries);
+        dest.writeInt(this.entryValues);
+        dest.writeInt(this.entryDrawables);
+        dest.writeInt(this.entryDescriptions);
+        dest.writeInt(this.screenSummary);
+
+        dest.writeInt(this.settings.size());
+        for (DeviceSetting setting : this.settings) {
+            setting.writeToParcel(dest, flags);
+        }
+
+        dest.writeInt(this.extras.size());
+        for (Map.Entry<String, Object> entry : this.extras.entrySet()) {
+            dest.writeString(entry.getKey());
+            Object value = entry.getValue();
+            if (value instanceof String) {
+                dest.writeInt(0);
+                dest.writeString((String) value);
+            } else if (value instanceof Integer) {
+                dest.writeInt(1);
+                dest.writeInt((Integer) value);
+            } else if (value instanceof Boolean) {
+                dest.writeInt(2);
+                dest.writeByte((byte) ((Boolean) value ? 1 : 0));
+            } else if (value instanceof Float) {
+                dest.writeInt(3);
+                dest.writeFloat((Float) value);
+            } else if (value instanceof Double) {
+                dest.writeInt(4);
+                dest.writeDouble((Double) value);
+            } else if (value instanceof Long) {
+                dest.writeInt(5);
+                dest.writeLong((Long) value);
+            } else if (value instanceof Short) {
+                dest.writeInt(6);
+                dest.writeInt((Short) value);
+            } else if (value instanceof Byte) {
+                dest.writeInt(7);
+                dest.writeInt((Byte) value);
+            } else if (value instanceof Character) {
+                dest.writeInt(8);
+                dest.writeInt((Character) value);
+            } else if (value instanceof Parcelable) {
+                dest.writeInt(9);
+                dest.writeParcelable((Parcelable) value, flags);
+            }
+        }
     }
 }
