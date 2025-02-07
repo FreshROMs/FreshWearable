@@ -121,6 +121,11 @@ public class PreferenceList extends LinearLayout {
                 device = getArguments().getParcelable("device");
                 settings = getArguments().getParcelableArrayList("settings");
                 preferences = Application.getDevicePrefs(device).getPreferences();
+
+                for (DeviceSetting setting : settings) {
+                    // Add setting to list of dependencies
+                    dependencies.put(setting.key, new ArrayList<>());
+                }
             } else {
                 Log.d("PreferenceListFragment", "No arguments found");
             }
@@ -221,9 +226,6 @@ public class PreferenceList extends LinearLayout {
             if (setting.key == null || setting.key.isEmpty()) {
                 return;
             }
-
-            // Add setting to list of dependencies
-            dependencies.put(setting.key, new ArrayList<>());
 
             // If this setting depends on another setting, add it to the list
             if (setting.dependency != null) {
