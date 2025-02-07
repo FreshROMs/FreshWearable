@@ -11,4 +11,32 @@
         <item>@string/wear_ambient_sound_mode_enhance_voice</item>
         <item>@string/wear_ambient_sound_mode_enhance_surroundings</item>
     </string-array>
+
+    <string-array name="redmi_buds_wear_equalizer_v1_presets_names">
+        <item>@string/balanced</item>
+        <item>@string/pref_title_equalizer_bass_boost</item>
+        <item>@string/pref_title_equalizer_clear</item>
+        <item>@string/pref_title_equalizer_trebble</item>
+    </string-array>
+
+    <string-array name="redmi_buds_wear_equalizer_v1_presets_values">
+        <item>0</item>
+        <item>5</item>
+        <item>1</item>
+        <item>6</item>
+    </string-array>
+
+    <string-array name="redmi_buds_wear_equalizer_v1_presets_drawables">
+        <item>@drawable/equalizer_graph_dynamic</item>
+        <item>@drawable/equalizer_graph_bass_boost</item>
+        <item>@drawable/equalizer_graph_clear</item>
+        <item>@drawable/equalizer_graph_treble_boost</item>
+    </string-array>
+
+    <string-array name="redmi_buds_wear_equalizer_v1_presets_descriptions">
+        <item>A natural sound with well-balanced frequencies.</item>
+        <item>Powerful lows add punch.</item>
+        <item>Clean and precise. Good for speech.</item>
+        <item>Vivid and spacious. Good for instrumental music.</item>
+    </string-array>
 </resources>

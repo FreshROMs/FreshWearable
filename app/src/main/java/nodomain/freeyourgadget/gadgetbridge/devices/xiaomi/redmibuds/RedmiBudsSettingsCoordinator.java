@@ -155,23 +155,46 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
         equalizerSetting.valueAsSummary = true;
         equalizerSetting.settings = new ArrayList<>();
 
+        DeviceSetting equalizerPreview = DeviceSetting.equalizerPreview(
+                DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_EQUALIZER_PRESET,
+                0, 0
+        );
+        equalizerPreview.dependency = DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_EQUALIZER_PRESET;
+
+        DeviceSetting equalizerMode = DeviceSetting.buttonGroup(
+                DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_EQUALIZER_PRESET,
+                "0",
+                0, 0
+        );
+
+        DeviceSetting equalizerDescription = DeviceSetting.equalizerDescription(
+                DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_EQUALIZER_PRESET,
+                0, 0
+        );
+        equalizerDescription.dependency = DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_EQUALIZER_PRESET;
+
         if (coordinator.supports(RedmiBudsCapabilities.EqualizerV1)) {
-            DeviceSetting equalizerMode = DeviceSetting.dropdown(
-                    DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_EQUALIZER_PRESET,
-                    R.string.prefs_equalizer_preset,
-                    0,
-                    "0",
-                    R.array.redmi_buds_equalizer_v1_presets_names,
-                    R.array.redmi_buds_equalizer_v1_presets_values
-            );
+            equalizerPreview.entries = R.array.redmi_buds_wear_equalizer_v1_presets_drawables;
+            equalizerPreview.entryValues = R.array.redmi_buds_wear_equalizer_v1_presets_values;
 
-            equalizerSetting.entries = R.array.redmi_buds_equalizer_v1_presets_names;
-            equalizerSetting.entryValues = R.array.redmi_buds_equalizer_v1_presets_values;
+            equalizerMode.defaultValue = "0";
+            equalizerMode.entries = R.array.redmi_buds_wear_equalizer_v1_presets_names;
+            equalizerMode.entryValues = R.array.redmi_buds_wear_equalizer_v1_presets_values;
 
-            equalizerSetting.settings.add(equalizerMode);
-            equalizer.add(equalizerSetting);
+            equalizerDescription.entries = R.array.redmi_buds_wear_equalizer_v1_presets_descriptions;
+            equalizerDescription.entryValues = R.array.redmi_buds_wear_equalizer_v1_presets_values;
+
+            equalizerSetting.entries = R.array.redmi_buds_wear_equalizer_v1_presets_names;
+            equalizerSetting.entryValues = R.array.redmi_buds_wear_equalizer_v1_presets_values;
         }
 
+        equalizerSetting.settings.add(equalizerPreview);
+        equalizerSetting.settings.add(DeviceSetting.divider());
+        equalizerSetting.settings.add(equalizerMode);
+        equalizerSetting.settings.add(DeviceSetting.divider());
+        equalizerSetting.settings.add(equalizerDescription);
+
+        equalizer.add(equalizerSetting);
         return equalizer;
     }
     private List<DeviceSetting> getGestureSettings() {
