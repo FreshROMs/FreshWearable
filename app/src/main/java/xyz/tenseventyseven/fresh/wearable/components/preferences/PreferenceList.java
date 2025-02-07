@@ -329,6 +329,23 @@ public class PreferenceList extends LinearLayout {
                     };
                     listPreference.setKey(setting.key);
                     listPreference.setValue(preferences.getString(setting.key, ""));
+                    if (setting.valueAsSummary) {
+                        listPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                            onPreferenceChanged(setting.key);
+                            return true;
+                        });
+
+                        if (setting.entries != 0) {
+                            listPreference.setEntries(setting.entries);
+                        }
+
+                        if (setting.entryValues != 0) {
+                            listPreference.setEntryValues(setting.entryValues);
+                        }
+
+                        listPreference.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
+                        listPreference.seslSetSummaryColor(context.getColor(R.color.wearable_accent_primary));
+                    }
                     return listPreference;
                 case ANC:
                     NoiseControlPreference noiseControlPreference = new NoiseControlPreference(context);
