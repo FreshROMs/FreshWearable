@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="wearable_accent_primary">@color/sesl_primary_color_light</color>
+    <color name="wearable_primary_text">@color/sesl_primary_text_light</color>
     <color name="wearable_secondary_text">@color/sesl_secondary_text_light</color>
+    <color name="wearable_btn_color_default">@color/sesl_btn_default_color_light</color>
 </resources>

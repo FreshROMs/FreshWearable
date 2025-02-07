@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:theme="@style/GadgetbridgeTheme.Button"
+    android:layout_width="wrap_content"
+    android:layout_height="42.0dip"
+    android:layout_gravity="fill"
+    android:layout_columnWeight="1"
+    android:textFontWeight="600"
+    android:text="@string/test" />

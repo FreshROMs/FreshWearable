@@ -12,4 +12,9 @@
         <attr name="transparencyValue" format="string" />
         <attr name="selectedValue" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="ButtonGroupPreference">
+        <attr name="entries" format="reference" /> <!-- Array of display names -->
+        <attr name="entryValues" format="reference" /> <!-- Array of corresponding values -->
+    </declare-styleable>
 </resources>

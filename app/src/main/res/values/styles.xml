@@ -67,6 +67,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="GadgetbridgeTheme.Button" parent="@style/OneUI.ButtonStyleColored">
+        <item name="buttonCornerRadius">100dp</item>
+    </style>
+
     <!-- splash screen -->
     <style name="SplashTheme" parent="GadgetbridgeTheme.NoActionBar">
         <item name="android:statusBarColor">@color/primarydark_dark</item>

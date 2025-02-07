@@ -24,6 +24,7 @@ public class DeviceSetting implements Parcelable {
         ANC,
         SEEKBAR,
         SEEKBAR_PRO,
+        BUTTON_GROUP,
     }
 
     public DeviceSettingType type = DeviceSettingType.DIVIDER;
@@ -226,6 +227,12 @@ public class DeviceSetting implements Parcelable {
         return setting;
     }
 
+    public static DeviceSetting buttonGroup(String key, String defaultValue, int entries, int entryValues) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.BUTTON_GROUP, key, 0, 0, 0, defaultValue);
+        setting.entries = entries;
+        setting.entryValues = entryValues;
+        return setting;
+    }
     /*
      * Helper methods
      */

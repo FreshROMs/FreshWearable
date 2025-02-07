@@ -36,6 +36,7 @@ import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.databinding.WearPreferenceListBinding;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
+import xyz.tenseventyseven.fresh.wearable.components.ButtonGroupPreference;
 import xyz.tenseventyseven.fresh.wearable.components.NoiseControlPreference;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
@@ -398,6 +399,16 @@ public class PreferenceList extends LinearLayout {
                         return true;
                     });
                     return seekBarPreferencePro;
+                case BUTTON_GROUP:
+                    ButtonGroupPreference buttonGroupPreference = new ButtonGroupPreference(context);
+                    buttonGroupPreference.setKey(setting.key);
+                    buttonGroupPreference.setEntriesAndValues(setting.entries, setting.entryValues);
+                    buttonGroupPreference.setValue(preferences.getString(setting.key, ""));
+                    buttonGroupPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                        onPreferenceChanged(setting.key);
+                        return true;
+                    });
+                    return buttonGroupPreference;
                 default:
                     Log.w("PreferenceListFragment", "Unknown setting type: " + setting.type);
             }
@@ -460,6 +471,9 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 return String.valueOf(seekBarPreferencePro.getValue());
+            } else if (pref instanceof ButtonGroupPreference) {
+                ButtonGroupPreference buttonGroupPreference = (ButtonGroupPreference) pref;
+                return buttonGroupPreference.getValue();
             }
 
             return "";
@@ -483,6 +497,8 @@ public class PreferenceList extends LinearLayout {
                 return preferences.getString(key, "");
             } else if (pref instanceof SeekBarPreferencePro) {
                 return String.valueOf(preferences.getInt(key, 0));
+            } else if (pref instanceof ButtonGroupPreference) {
+                return preferences.getString(key, "");
             }
 
             return "";
@@ -518,6 +534,10 @@ public class PreferenceList extends LinearLayout {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 int value = preferences.getInt(key, 0);
                 seekBarPreferencePro.setValue(value);
+            } else if (pref instanceof ButtonGroupPreference) {
+                ButtonGroupPreference buttonGroupPreference = (ButtonGroupPreference) pref;
+                String value = preferences.getString(key, "");
+                buttonGroupPreference.setValue(value);
             }
 
         }
