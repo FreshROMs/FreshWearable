@@ -80,8 +80,6 @@ public class DeviceSetting implements Parcelable {
         this.valueAsSummary = in.readByte() != 0;
         this.entries = in.readInt();
         this.entryValues = in.readInt();
-        this.entryDrawables = in.readInt();
-        this.entryDescriptions = in.readInt();
         this.min = in.readInt();
         this.max = in.readInt();
         this.leftLabel = in.readInt();
@@ -288,8 +286,6 @@ public class DeviceSetting implements Parcelable {
         dest.writeByte((byte) (this.valueAsSummary ? 1 : 0));
         dest.writeInt(this.entries);
         dest.writeInt(this.entryValues);
-        dest.writeInt(this.entryDrawables);
-        dest.writeInt(this.entryDescriptions);
         dest.writeInt(this.min);
         dest.writeInt(this.max);
         dest.writeInt(this.leftLabel);
@@ -333,14 +329,4 @@ public class DeviceSetting implements Parcelable {
                 dest.writeInt((Short) value);
             } else if (value instanceof Byte) {
                 dest.writeInt(7);
-                dest.writeInt((Byte) value);
-            } else if (value instanceof Character) {
-                dest.writeInt(8);
-                dest.writeInt((Character) value);
-            } else if (value instanceof Parcelable) {
-                dest.writeInt(9);
-                dest.writeParcelable((Parcelable) value, flags);
-            }
-        }
-    }
-}
+                dest.writ
