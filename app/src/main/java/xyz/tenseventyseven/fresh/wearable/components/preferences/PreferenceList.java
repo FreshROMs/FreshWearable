@@ -35,6 +35,7 @@ import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.databinding.WearPreferenceListBinding;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
+import xyz.tenseventyseven.fresh.wearable.components.NoiseControlPreference;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public class PreferenceList extends LinearLayout {
@@ -324,6 +325,22 @@ public class PreferenceList extends LinearLayout {
                     listPreference.setKey(setting.key);
                     listPreference.setValue(preferences.getString(setting.key, ""));
                     return listPreference;
+                case ANC:
+                    NoiseControlPreference noiseControlPreference = new NoiseControlPreference(context);
+                    noiseControlPreference.setKey(setting.key);
+                    noiseControlPreference.setValue(preferences.getString(setting.key, ""));
+                    noiseControlPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                        onPreferenceChanged(setting.key);
+                        return true;
+                    });
+                    
+                    if (setting.entryValues != 0) {
+                        noiseControlPreference.setEntryValues(setting.entryValues);
+                    } else {
+                        Log.e("PreferenceListFragment", "No entry values found for ANC preference");
+                    }
+
+                    return noiseControlPreference;
                 default:
                     Log.w("PreferenceListFragment", "Unknown setting type: " + setting.type);
             }
@@ -380,6 +397,9 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) pref;
                 return listPreference.getValue();
+            } else if (pref instanceof NoiseControlPreference) {
+                NoiseControlPreference noiseControlPreference = (NoiseControlPreference) pref;
+                return noiseControlPreference.getValue();
             }
 
             return "";
@@ -398,6 +418,8 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof DropDownPreference) {
                 return preferences.getString(key, "");
             } else if (pref instanceof ListPreference) {
+                return preferences.getString(key, "");
+            } else if (pref instanceof NoiseControlPreference) {
                 return preferences.getString(key, "");
             }
 
@@ -426,6 +448,10 @@ public class PreferenceList extends LinearLayout {
                 ListPreference listPreference = (ListPreference) pref;
                 String value = preferences.getString(key, "");
                 listPreference.setValue(value);
+            } else if (pref instanceof NoiseControlPreference) {
+                NoiseControlPreference noiseControlPreference = (NoiseControlPreference) pref;
+                String value = preferences.getString(key, "");
+                noiseControlPreference.setValue(value);
             }
 
         }

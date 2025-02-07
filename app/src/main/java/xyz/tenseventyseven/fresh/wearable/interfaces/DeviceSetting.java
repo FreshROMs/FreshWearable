@@ -21,6 +21,7 @@ public class DeviceSetting implements Parcelable {
         SWITCH,
         SWITCH_SCREEN,
         DROPDOWN,
+        ANC,
     }
 
     public DeviceSettingType type = DeviceSettingType.DIVIDER;
@@ -187,6 +188,12 @@ public class DeviceSetting implements Parcelable {
     public static DeviceSetting dropdown(String key, int title, int icon, String defaultValue, int entries, int entryValues) {
         DeviceSetting setting = new DeviceSetting(DeviceSettingType.DROPDOWN, key, title, 0, icon, defaultValue);
         setting.entries = entries;
+        setting.entryValues = entryValues;
+        return setting;
+    }
+
+    public static DeviceSetting anc(String key, String defaultValue, int entryValues) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.ANC, key, 0, 0, 0, defaultValue);
         setting.entryValues = entryValues;
         return setting;
     }

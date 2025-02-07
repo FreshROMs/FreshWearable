@@ -5,4 +5,11 @@
         <attr name="wShortcutName" format="string" />
         <attr name="wShortcutActivity" format="string" />
     </declare-styleable>
+
+    <declare-styleable name="NoiseControlPreference">
+        <attr name="ancValue" format="string" />
+        <attr name="offValue" format="string" />
+        <attr name="transparencyValue" format="string" />
+        <attr name="selectedValue" format="string" />
+    </declare-styleable>
 </resources>
