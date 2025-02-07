@@ -17,4 +17,9 @@
         <attr name="entries" format="reference" /> <!-- Array of display names -->
         <attr name="entryValues" format="reference" /> <!-- Array of corresponding values -->
     </declare-styleable>
+
+    <declare-styleable name="EqualizerPreviewPreference">
+        <attr name="drawableEntries" format="reference" /> <!-- Array of drawable names -->
+        <attr name="graphEntries" format="reference" /> <!-- Array of corresponding values -->
+    </declare-styleable>
 </resources>

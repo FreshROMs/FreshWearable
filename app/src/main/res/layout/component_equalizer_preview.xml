@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="32.0dip">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        android:src="@drawable/equalizer_graph" />
+
+    <ImageView
+        android:id="@+id/equalizer_preview_graph_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleX="1.1"
+        android:scaleY="1.1"
+        android:src="@drawable/equalizer_graph_clear" />
+</RelativeLayout>

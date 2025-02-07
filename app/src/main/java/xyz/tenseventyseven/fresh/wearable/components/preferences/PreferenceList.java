@@ -37,6 +37,8 @@ import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.databinding.WearPreferenceListBinding;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
 import xyz.tenseventyseven.fresh.wearable.components.ButtonGroupPreference;
+import xyz.tenseventyseven.fresh.wearable.components.EqualizerDescriptionPreference;
+import xyz.tenseventyseven.fresh.wearable.components.EqualizerPreviewPreference;
 import xyz.tenseventyseven.fresh.wearable.components.NoiseControlPreference;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
@@ -82,6 +84,7 @@ public class PreferenceList extends LinearLayout {
     public static class PreferenceDependency {
         String key;
         String value;
+        boolean valueDependency = false;
 
         public PreferenceDependency() {
         }
@@ -234,6 +237,19 @@ public class PreferenceList extends LinearLayout {
                     PreferenceDependency dependency = new PreferenceDependency(setting.key, setting.dependencyValue);
                     if (setting.seekbarIsString) {
                         dependency.key = setting.key + "_seekbar";
+                    }
+
+                    if (setting.type == DeviceSetting.DeviceSettingType.EQUALIZER_PREVIEW ||
+                            setting.type == DeviceSetting.DeviceSettingType.EQUALIZER_DESCRIPTION) {
+
+                        Log.d("PreferenceListFragment", "Adding dependency for equalizer setting: " + setting.key);
+                        if (setting.type == DeviceSetting.DeviceSettingType.EQUALIZER_PREVIEW) {
+                            dependency.key = setting.key + "_preview";
+                        } else {
+                            dependency.key = setting.key + "_description";
+                        }
+
+                        dependency.valueDependency = true;
                     }
 
                     list.add(dependency);
@@ -411,6 +427,18 @@ public class PreferenceList extends LinearLayout {
                         return true;
                     });
                     return buttonGroupPreference;
+                case EQUALIZER_PREVIEW:
+                    EqualizerPreviewPreference equalizerPreviewPreference = new EqualizerPreviewPreference(context);
+                    equalizerPreviewPreference.setKey(setting.key + "_preview");
+                    equalizerPreviewPreference.setEntriesAndValues(setting.entries, setting.entryValues);
+                    equalizerPreviewPreference.setValue(preferences.getString(setting.key, ""));
+                    return equalizerPreviewPreference;
+                case EQUALIZER_DESCRIPTION:
+                    EqualizerDescriptionPreference equalizerDescriptionPreference = new EqualizerDescriptionPreference(context);
+                    equalizerDescriptionPreference.setKey(setting.key + "_description");
+                    equalizerDescriptionPreference.setEntriesAndValues(setting.entries, setting.entryValues);
+                    equalizerDescriptionPreference.setValue(preferences.getString(setting.key, ""));
+                    return equalizerDescriptionPreference;
                 default:
                     Log.w("PreferenceListFragment", "Unknown setting type: " + setting.type);
             }
@@ -444,8 +472,46 @@ public class PreferenceList extends LinearLayout {
             Preference pref = findPreference(dependency.key);
             if (pref == null) return;
 
-            boolean enabled = getValueOfPreference(key).equals(dependency.value);
-            pref.setVisible(enabled);
+            if (dependency.valueDependency) {
+                Log.d("PreferenceListFragment", "Updating dependent preference: " + dependency.key);
+                setPreferenceValue(pref, getValueOfPreference(key));
+            } else {
+                pref.setVisible(getValueOfPreference(key).equals(dependency.value));
+            }
+        }
+
+        private void setPreferenceValue(Preference pref, String value) {
+            if (pref instanceof CheckBoxPreference) {
+                CheckBoxPreference checkBoxPreference = (CheckBoxPreference) pref;
+                checkBoxPreference.setChecked(Boolean.parseBoolean(value));
+            } else if (pref instanceof SwitchPreference) {
+                SwitchPreference switchPreference = (SwitchPreference) pref;
+                switchPreference.setChecked(Boolean.parseBoolean(value));
+            } else if (pref instanceof SeslSwitchPreferenceScreen) {
+                SeslSwitchPreferenceScreen switchPreferenceScreen = (SeslSwitchPreferenceScreen) pref;
+                switchPreferenceScreen.setChecked(Boolean.parseBoolean(value));
+            } else if (pref instanceof DropDownPreference) {
+                DropDownPreference dropDownPreference = (DropDownPreference) pref;
+                dropDownPreference.setValue(value);
+            } else if (pref instanceof ListPreference) {
+                ListPreference listPreference = (ListPreference) pref;
+                listPreference.setValue(value);
+            } else if (pref instanceof NoiseControlPreference) {
+                NoiseControlPreference noiseControlPreference = (NoiseControlPreference) pref;
+                noiseControlPreference.setValue(value);
+            } else if (pref instanceof SeekBarPreferencePro) {
+                SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
+                seekBarPreferencePro.setValue(Integer.parseInt(value));
+            } else if (pref instanceof ButtonGroupPreference) {
+                ButtonGroupPreference buttonGroupPreference = (ButtonGroupPreference) pref;
+                buttonGroupPreference.setValue(value);
+            } else if (pref instanceof EqualizerPreviewPreference) {
+                EqualizerPreviewPreference equalizerPreviewPreference = (EqualizerPreviewPreference) pref;
+                equalizerPreviewPreference.setValue(value);
+            } else if (pref instanceof EqualizerDescriptionPreference) {
+                EqualizerDescriptionPreference equalizerDescriptionPreference = (EqualizerDescriptionPreference) pref;
+                equalizerDescriptionPreference.setValue(value);
+            }
         }
 
         private String getValueOfPreference(String key) {
@@ -476,6 +542,12 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof ButtonGroupPreference) {
                 ButtonGroupPreference buttonGroupPreference = (ButtonGroupPreference) pref;
                 return buttonGroupPreference.getValue();
+            } else if (pref instanceof EqualizerPreviewPreference) {
+                EqualizerPreviewPreference equalizerPreviewPreference = (EqualizerPreviewPreference) pref;
+                return equalizerPreviewPreference.getValue();
+            } else if (pref instanceof EqualizerDescriptionPreference) {
+                EqualizerDescriptionPreference equalizerDescriptionPreference = (EqualizerDescriptionPreference) pref;
+                return equalizerDescriptionPreference.getValue();
             }
 
             return "";
@@ -500,6 +572,10 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof SeekBarPreferencePro) {
                 return String.valueOf(preferences.getInt(key, 0));
             } else if (pref instanceof ButtonGroupPreference) {
+                return preferences.getString(key, "");
+            } else if (pref instanceof EqualizerPreviewPreference) {
+                return preferences.getString(key, "");
+            } else if (pref instanceof EqualizerDescriptionPreference) {
                 return preferences.getString(key, "");
             }
 
@@ -540,6 +616,14 @@ public class PreferenceList extends LinearLayout {
                 ButtonGroupPreference buttonGroupPreference = (ButtonGroupPreference) pref;
                 String value = preferences.getString(key, "");
                 buttonGroupPreference.setValue(value);
+            } else if (pref instanceof EqualizerPreviewPreference) {
+                EqualizerPreviewPreference equalizerPreviewPreference = (EqualizerPreviewPreference) pref;
+                String value = preferences.getString(key, "");
+                equalizerPreviewPreference.setValue(value);
+            } else if (pref instanceof EqualizerDescriptionPreference) {
+                EqualizerDescriptionPreference equalizerDescriptionPreference = (EqualizerDescriptionPreference) pref;
+                String value = preferences.getString(key, "");
+                equalizerDescriptionPreference.setValue(value);
             }
 
         }

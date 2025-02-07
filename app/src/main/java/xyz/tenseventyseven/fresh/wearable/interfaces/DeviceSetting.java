@@ -25,6 +25,8 @@ public class DeviceSetting implements Parcelable {
         SEEKBAR,
         SEEKBAR_PRO,
         BUTTON_GROUP,
+        EQUALIZER_PREVIEW,
+        EQUALIZER_DESCRIPTION,
     }
 
     public DeviceSettingType type = DeviceSettingType.DIVIDER;
@@ -231,6 +233,21 @@ public class DeviceSetting implements Parcelable {
         setting.entryValues = entryValues;
         return setting;
     }
+
+    public static DeviceSetting equalizerPreview(String key, int entries, int entryValues) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.EQUALIZER_PREVIEW, key, 0, 0, 0, null);
+        setting.entries = entries;
+        setting.entryValues = entryValues;
+        return setting;
+    }
+
+    public static DeviceSetting equalizerDescription(String key, int entries, int entryValues) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.EQUALIZER_DESCRIPTION, key, 0, 0, 0, null);
+        setting.entries = entries;
+        setting.entryValues = entryValues;
+        return setting;
+    }
+
     /*
      * Helper methods
      */
@@ -329,4 +346,14 @@ public class DeviceSetting implements Parcelable {
                 dest.writeInt((Short) value);
             } else if (value instanceof Byte) {
                 dest.writeInt(7);
-                dest.writ
+                dest.writeInt((Byte) value);
+            } else if (value instanceof Character) {
+                dest.writeInt(8);
+                dest.writeInt((Character) value);
+            } else if (value instanceof Parcelable) {
+                dest.writeInt(9);
+                dest.writeParcelable((Parcelable) value, flags);
+            }
+        }
+    }
+}
