@@ -22,6 +22,8 @@ public class DeviceSetting implements Parcelable {
         SWITCH_SCREEN,
         DROPDOWN,
         ANC,
+        SEEKBAR,
+        SEEKBAR_PRO,
     }
 
     public DeviceSettingType type = DeviceSettingType.DIVIDER;
@@ -39,6 +41,16 @@ public class DeviceSetting implements Parcelable {
     // For SpinnerPreference, add labels and corresponding values
     public int entries = 0;
     public int entryValues = 0;
+    // For SeekbarPreference and SeekbarProPreference, add min and max values
+    public int min = 0;
+    public int max = 0;
+    public int leftLabel = 0;
+    public int rightLabel = 0;
+    public boolean centerSeekBar = false;
+    public boolean showValue = true;
+    public boolean showTicks = false;
+    public boolean seamlessSeekbar = false;
+    public boolean seekbarIsString = false; // This is meant for retrofitted preferences that used to use dropdowns or dialog selections
 
     // Main constructor
     public DeviceSetting(DeviceSettingType type, String key, int title, int summary, int icon, String defaultValue) {
@@ -69,6 +81,15 @@ public class DeviceSetting implements Parcelable {
         this.entryValues = in.readInt();
         this.entryDrawables = in.readInt();
         this.entryDescriptions = in.readInt();
+        this.min = in.readInt();
+        this.max = in.readInt();
+        this.leftLabel = in.readInt();
+        this.rightLabel = in.readInt();
+        this.centerSeekBar = in.readByte() != 0;
+        this.showValue = in.readByte() != 0;
+        this.showTicks = in.readByte() != 0;
+        this.seamlessSeekbar = in.readByte() != 0;
+        this.seekbarIsString = in.readByte() != 0;
         this.screenSummary = in.readInt();
 
         int settingsSize = in.readInt();
@@ -198,6 +219,13 @@ public class DeviceSetting implements Parcelable {
         return setting;
     }
 
+    public static DeviceSetting seekbarPro(String key, int title, String defaultValue, int min, int max) {
+        DeviceSetting setting = new DeviceSetting(DeviceSettingType.SEEKBAR_PRO, key, title, 0, 0, defaultValue);
+        setting.min = min;
+        setting.max = max;
+        return setting;
+    }
+
     /*
      * Helper methods
      */
@@ -255,6 +283,15 @@ public class DeviceSetting implements Parcelable {
         dest.writeInt(this.entryValues);
         dest.writeInt(this.entryDrawables);
         dest.writeInt(this.entryDescriptions);
+        dest.writeInt(this.min);
+        dest.writeInt(this.max);
+        dest.writeInt(this.leftLabel);
+        dest.writeInt(this.rightLabel);
+        dest.writeByte((byte) (this.centerSeekBar ? 1 : 0));
+        dest.writeByte((byte) (this.showValue ? 1 : 0));
+        dest.writeByte((byte) (this.showTicks ? 1 : 0));
+        dest.writeByte((byte) (this.seamlessSeekbar ? 1 : 0));
+        dest.writeByte((byte) (this.seekbarIsString ? 1 : 0));
         dest.writeInt(this.screenSummary);
 
         dest.writeInt(this.settings.size());

@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import dev.oneuiproject.oneui.preference.SeekBarPreferencePro;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
@@ -228,6 +229,10 @@ public class PreferenceList extends LinearLayout {
                 List<PreferenceDependency> list = dependencies.get(setting.dependency);
                 if (list != null) {
                     PreferenceDependency dependency = new PreferenceDependency(setting.key, setting.dependencyValue);
+                    if (setting.seekbarIsString) {
+                        dependency.key = setting.key + "_seekbar";
+                    }
+
                     list.add(dependency);
 
                     // Initial check
@@ -333,7 +338,7 @@ public class PreferenceList extends LinearLayout {
                         onPreferenceChanged(setting.key);
                         return true;
                     });
-                    
+
                     if (setting.entryValues != 0) {
                         noiseControlPreference.setEntryValues(setting.entryValues);
                     } else {
@@ -341,6 +346,41 @@ public class PreferenceList extends LinearLayout {
                     }
 
                     return noiseControlPreference;
+                case SEEKBAR_PRO:
+                    SeekBarPreferencePro seekBarPreferencePro = new SeekBarPreferencePro(context, null);
+                    seekBarPreferencePro.setKey(setting.seekbarIsString ? setting.key + "_seekbar" : setting.key);
+                    seekBarPreferencePro.setMin(setting.min);
+                    seekBarPreferencePro.setMax(setting.max);
+
+                    if (setting.seekbarIsString) {
+                        seekBarPreferencePro.setValue(Integer.parseInt(preferences.getString(setting.key, setting.defaultValue)));
+                    } else {
+                        seekBarPreferencePro.setValue(preferences.getInt(setting.key, Integer.parseInt(setting.defaultValue)));
+                    }
+
+                    if (setting.leftLabel != 0) {
+                        seekBarPreferencePro.setLeftLabel(context.getString(setting.leftLabel));
+                    }
+
+                    if (setting.rightLabel != 0) {
+                        seekBarPreferencePro.setRightLabel(context.getString(setting.rightLabel));
+                    }
+
+                    seekBarPreferencePro.setShowTickMarks(setting.showTicks);
+                    seekBarPreferencePro.setCenterBasedSeekBar(setting.centerSeekBar);
+                    seekBarPreferencePro.setShowSeekBarValue(setting.showValue);
+
+                    seekBarPreferencePro.setOnPreferenceChangeListener((preference, newValue) -> {
+                        if (setting.seekbarIsString) {
+                            // This preference saves values as an integer, but setting tells us
+                            // it should be saved as a string, so we need to convert it.
+                            preferences.edit().putString(setting.key, String.valueOf(newValue)).commit();
+                        }
+
+                        onPreferenceChanged(setting.key);
+                        return true;
+                    });
+                    return seekBarPreferencePro;
                 default:
                     Log.w("PreferenceListFragment", "Unknown setting type: " + setting.type);
             }
@@ -400,6 +440,9 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof NoiseControlPreference) {
                 NoiseControlPreference noiseControlPreference = (NoiseControlPreference) pref;
                 return noiseControlPreference.getValue();
+            } else if (pref instanceof SeekBarPreferencePro) {
+                SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
+                return String.valueOf(seekBarPreferencePro.getValue());
             }
 
             return "";
@@ -421,6 +464,8 @@ public class PreferenceList extends LinearLayout {
                 return preferences.getString(key, "");
             } else if (pref instanceof NoiseControlPreference) {
                 return preferences.getString(key, "");
+            } else if (pref instanceof SeekBarPreferencePro) {
+                return String.valueOf(preferences.getInt(key, 0));
             }
 
             return "";
@@ -452,6 +497,10 @@ public class PreferenceList extends LinearLayout {
                 NoiseControlPreference noiseControlPreference = (NoiseControlPreference) pref;
                 String value = preferences.getString(key, "");
                 noiseControlPreference.setValue(value);
+            } else if (pref instanceof SeekBarPreferencePro) {
+                SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
+                int value = preferences.getInt(key, 0);
+                seekBarPreferencePro.setValue(value);
             }
 
         }
