@@ -9,4 +9,11 @@
     <string name="wear_device_buds_battery_status_combined_no_case">L • R %d%%</string>
     <string name="wear_device_buds_battery_status_separate">L %d%% R %d%% Case %d%%</string>
     <string name="wear_device_buds_battery_status_separate_no_case">L %d%% R %d%%</string>
+
+    <string name="wear_active_noise_cancelling_level">Active noise cancelling level</string>
+    <string name="wear_ambient_sound_mode">Ambient sound mode</string>
+
+    <string name="wear_ambient_sound_mode_natural">Natural</string>
+    <string name="wear_ambient_sound_mode_enhance_voice">Amplify voices</string>
+    <string name="wear_ambient_sound_mode_enhance_surroundings">Amplify environmental sounds</string>
 </resources>

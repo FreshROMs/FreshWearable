@@ -89,7 +89,7 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
                 coordinator.supports(RedmiBudsCapabilities.ActiveNoiseCancellationV3)) {
             DeviceSetting ancLevel = DeviceSetting.seekbarPro(
                     DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_NOISE_CANCELLING_STRENGTH,
-                    R.string.prefs_active_noise_cancelling_level,
+                    R.string.wear_active_noise_cancelling_level,
                     "1",
                     0,
                     2
@@ -105,10 +105,10 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
 
             DeviceSetting transparencyLevel = DeviceSetting.dropdown(
                     DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_TRANSPARENCY_STRENGTH,
-                    R.string.redmi_buds_transparency_strength,
+                    R.string.wear_ambient_sound_mode,
                     0,
                     "0",
-                    R.array.redmi_buds_transparency_strength_names,
+                    R.array.redmi_buds_wear_ambient_sound_names,
                     R.array.redmi_buds_transparency_strength_values
             );
             transparencyLevel.dependency = DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_AMBIENT_SOUND_CONTROL;

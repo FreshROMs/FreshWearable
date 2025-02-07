@@ -5,4 +5,10 @@
         <item>0</item> <!-- ANC off -->
         <item>2</item> <!-- Transparency mode -->
     </string-array>
+
+    <string-array name="redmi_buds_wear_ambient_sound_names">
+        <item>@string/wear_ambient_sound_mode_natural</item>
+        <item>@string/wear_ambient_sound_mode_enhance_voice</item>
+        <item>@string/wear_ambient_sound_mode_enhance_surroundings</item>
+    </string-array>
 </resources>
