@@ -147,11 +147,12 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
         }
 
         DeviceSetting equalizerSetting = DeviceSetting.screen(
-                "redmi_buds_equalizer_screen",
+                DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_EQUALIZER_PRESET,
                 R.string.sony_equalizer,
                 0,
                 dev.oneuiproject.oneui.R.drawable.ic_oui_equalizer_2
         );
+        equalizerSetting.valueAsSummary = true;
         equalizerSetting.settings = new ArrayList<>();
 
         if (coordinator.supports(RedmiBudsCapabilities.EqualizerV1)) {
@@ -163,6 +164,9 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
                     R.array.redmi_buds_equalizer_v1_presets_names,
                     R.array.redmi_buds_equalizer_v1_presets_values
             );
+
+            equalizerSetting.entries = R.array.redmi_buds_equalizer_v1_presets_names;
+            equalizerSetting.entryValues = R.array.redmi_buds_equalizer_v1_presets_values;
 
             equalizerSetting.settings.add(equalizerMode);
             equalizer.add(equalizerSetting);
