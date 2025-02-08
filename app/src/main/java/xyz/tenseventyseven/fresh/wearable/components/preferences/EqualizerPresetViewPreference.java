@@ -3,7 +3,6 @@ package xyz.tenseventyseven.fresh.wearable.components.preferences;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 

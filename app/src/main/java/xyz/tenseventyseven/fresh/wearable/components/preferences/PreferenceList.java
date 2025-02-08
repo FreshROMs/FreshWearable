@@ -23,6 +23,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.SeslSwitchPreferenceScreen;
 import androidx.preference.SwitchPreference;
+import androidx.preference.TwoStatePreference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,10 +40,12 @@ import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceSc
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 
 public class PreferenceList extends LinearLayout {
-    private WearPreferenceListBinding binding;
+    private static final String SEEKBAR_PREFIX = "_seekbar";
+    private static final String EQUALIZER_PREVIEW_PREFIX = "_preview";
+    private static final String EQUALIZER_DESCRIPTION_PREFIX = "_description";
+
     private GBDevice device;
     private List<DeviceSetting> settings;
-    private FragmentManager fragmentManager;
 
     public PreferenceList(Context context) {
         super(context);
@@ -67,10 +70,10 @@ public class PreferenceList extends LinearLayout {
     }
 
     private void init(Context context) {
-        binding = WearPreferenceListBinding.inflate(LayoutInflater.from(context), this, true);
+        WearPreferenceListBinding binding = WearPreferenceListBinding.inflate(LayoutInflater.from(context), this, true);
 
         // Get fragment manager for preference list
-        this.fragmentManager = FragmentManager.findFragmentManager(this);
+        FragmentManager fragmentManager = FragmentManager.findFragmentManager(this);
         Fragment fragment = PreferenceListFragment.newInstance(device, settings);
         fragmentManager.beginTransaction()
                 .replace(binding.preferencesContainer.getId(), fragment)
@@ -95,8 +98,7 @@ public class PreferenceList extends LinearLayout {
         implements SharedPreferences.OnSharedPreferenceChangeListener {
         private GBDevice device;
         private List<DeviceSetting> settings;
-        private Map<String, List<PreferenceDependency>> dependencies = new HashMap<>();
-        private Map<String, String> defaultValues = new HashMap<>();
+        private final Map<String, List<PreferenceDependency>> dependencies = new HashMap<>();
         private SharedPreferences preferences;
 
         // No-argument constructor
@@ -122,36 +124,35 @@ public class PreferenceList extends LinearLayout {
                 preferences = Application.getDevicePrefs(device).getPreferences();
 
                 for (DeviceSetting setting : settings) {
-                    // Add setting to list of dependencies
                     dependencies.put(setting.key, new ArrayList<>());
                 }
             } else {
-                Log.d("PreferenceListFragment", "No arguments found");
+                Log.e("PreferenceListFragment", "No arguments found");
             }
-        }
-
-        public PreferenceListFragment(GBDevice device, List<DeviceSetting> settings) {
-            this.device = device;
-            this.settings = settings;
-
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+            SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
+            if (preferences != null) {
+                preferences.registerOnSharedPreferenceChangeListener(this);
+            }
         }
 
         @Override
         public void onDestroy() {
             super.onDestroy();
-            getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+            SharedPreferences preferences = getPreferenceScreen().getSharedPreferences();
+            if (preferences != null) {
+                preferences.unregisterOnSharedPreferenceChangeListener(this);
+            }
         }
 
         private String getSharedPreferencesName() {
             if (device == null) {
                 Log.e("PreferenceListFragment", "Device is null");
-                return "default_shared_preferences";
+                return null;
             }
 
             return "devicesettings_" + device.getAddress();
@@ -159,20 +160,25 @@ public class PreferenceList extends LinearLayout {
 
         @Override
         public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
-            // Create a PreferenceScreen
-            setPreferencesFromResource(R.xml.wear_device_preferences, rootKey);
-            PreferenceScreen preferenceScreen = getPreferenceManager().createPreferenceScreen(getContext());
-            setPreferenceScreen(preferenceScreen);
-            getPreferenceManager().setSharedPreferencesName(getSharedPreferencesName());
-            getPreferenceManager().setSharedPreferencesMode(Context.MODE_PRIVATE);
+            Context context = getContext();
+            if (context == null) return;
 
-            // Log the settings
+            // Create a dummy PreferenceScreen to put our preferences to
+            setPreferencesFromResource(R.xml.wear_device_preferences, rootKey);
+            PreferenceScreen preferenceScreen = getPreferenceManager().createPreferenceScreen(context);
+            setPreferenceScreen(preferenceScreen);
+
+            String preferenceName = getSharedPreferencesName();
+            if (preferenceName != null) {
+                getPreferenceManager().setSharedPreferencesName(preferenceName);
+                getPreferenceManager().setSharedPreferencesMode(Context.MODE_PRIVATE);
+            }
+
             if (settings == null || settings.isEmpty()) {
                 Log.e("PreferenceListFragment", "Settings list is empty or null");
                 return;
             }
 
-            // Add preferences to the list
             PreferenceCategory category = new PreferenceCategory(getContext());
             preferenceScreen.addPreference(category);
 
@@ -208,20 +214,24 @@ public class PreferenceList extends LinearLayout {
 
                     if (setting.defaultValue != null && !setting.defaultValue.isEmpty()) {
                         preference.setDefaultValue(setting.defaultValue);
-                        defaultValues.put(setting.key, setting.defaultValue);
-                    } else {
-                        defaultValues.put(setting.key, "");
                     }
 
                     category.addPreference(preference);
-                    addSettingDependency(setting);
+                    addSettingDependency(preference, setting);
                 } catch (Exception e) {
                     Log.e("PreferenceListFragment", "Error adding preference: " + setting.key, e);
                 }
             }
+
+            // Update dependent preferences after all preferences have been added
+            for (Map.Entry<String, List<PreferenceDependency>> entry : dependencies.entrySet()) {
+                for (PreferenceDependency dependency : entry.getValue()) {
+                    updatePreferenceDependent(entry.getKey(), dependency);
+                }
+            }
         }
 
-        private void addSettingDependency(DeviceSetting setting) {
+        private void addSettingDependency(Preference preference, DeviceSetting setting) {
             if (setting.key == null || setting.key.isEmpty()) {
                 return;
             }
@@ -230,28 +240,13 @@ public class PreferenceList extends LinearLayout {
             if (setting.dependency != null) {
                 List<PreferenceDependency> list = dependencies.get(setting.dependency);
                 if (list != null) {
-                    PreferenceDependency dependency = new PreferenceDependency(setting.key, setting.dependencyValue);
-                    if (setting.seekbarIsString) {
-                        dependency.key = setting.key + "_seekbar";
-                    }
-
+                    PreferenceDependency dependency = new PreferenceDependency(preference.getKey(), setting.dependencyValue);
                     if (setting.type == DeviceSetting.DeviceSettingType.EQUALIZER_PREVIEW ||
                             setting.type == DeviceSetting.DeviceSettingType.EQUALIZER_DESCRIPTION) {
-
-                        Log.d("PreferenceListFragment", "Adding dependency for equalizer setting: " + setting.key);
-                        if (setting.type == DeviceSetting.DeviceSettingType.EQUALIZER_PREVIEW) {
-                            dependency.key = setting.key + "_preview";
-                        } else {
-                            dependency.key = setting.key + "_description";
-                        }
-
                         dependency.valueDependency = true;
                     }
 
                     list.add(dependency);
-
-                    // Initial check
-                    updatePreferenceDependent(setting.dependency, dependency);
                 }
             }
         }
@@ -266,7 +261,6 @@ public class PreferenceList extends LinearLayout {
                 case CHECKBOX:
                     CheckBoxPreference checkBoxPreference = new CheckBoxPreference(context);
                     checkBoxPreference.setKey(setting.key);
-                    checkBoxPreference.setChecked(preferences.getBoolean(setting.key, false));
                     checkBoxPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                         onPreferenceChanged(setting.key);
                         return true;
@@ -275,7 +269,6 @@ public class PreferenceList extends LinearLayout {
                 case SWITCH:
                     SwitchPreference switchPreference = new SwitchPreference(context);
                     switchPreference.setKey(setting.key);
-                    switchPreference.setChecked(preferences.getBoolean(setting.key, false));
                     switchPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                         onPreferenceChanged(setting.key);
                         return true;
@@ -298,7 +291,6 @@ public class PreferenceList extends LinearLayout {
                 case SWITCH_SCREEN:
                     SeslSwitchPreferenceScreen switchPreferenceScreen = new SeslSwitchPreferenceScreen(context);
                     switchPreferenceScreen.setKey(setting.key);
-                    switchPreferenceScreen.setChecked(preferences.getBoolean(setting.key, false));
                     switchPreferenceScreen.setOnPreferenceChangeListener((preference, newValue) -> {
                         onPreferenceChanged(setting.key);
                         return true;
@@ -327,7 +319,6 @@ public class PreferenceList extends LinearLayout {
                     dropDownPreference.setKey(setting.key);
                     dropDownPreference.setEntries(setting.entries);
                     dropDownPreference.setEntryValues(setting.entryValues);
-                    dropDownPreference.setValue(preferences.getString(setting.key, ""));
                     dropDownPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                         onPreferenceChanged(setting.key);
                         return true;
@@ -343,7 +334,6 @@ public class PreferenceList extends LinearLayout {
                         }
                     };
                     listPreference.setKey(setting.key);
-                    listPreference.setValue(preferences.getString(setting.key, ""));
                     if (setting.valueAsSummary) {
                         listPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                             onPreferenceChanged(setting.key);
@@ -365,22 +355,15 @@ public class PreferenceList extends LinearLayout {
                 case ANC:
                     NoiseControlPreference noiseControlPreference = new NoiseControlPreference(context);
                     noiseControlPreference.setKey(setting.key);
-                    noiseControlPreference.setValue(preferences.getString(setting.key, ""));
                     noiseControlPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                         onPreferenceChanged(setting.key);
                         return true;
                     });
-
-                    if (setting.entryValues != 0) {
-                        noiseControlPreference.setEntryValues(setting.entryValues);
-                    } else {
-                        Log.e("PreferenceListFragment", "No entry values found for ANC preference");
-                    }
-
+                    noiseControlPreference.setEntryValues(setting.entryValues);
                     return noiseControlPreference;
                 case SEEKBAR_PRO:
                     SeekBarPreferencePro seekBarPreferencePro = new SeekBarPreferencePro(context, null);
-                    seekBarPreferencePro.setKey(setting.seekbarIsString ? setting.key + "_seekbar" : setting.key);
+                    seekBarPreferencePro.setKey(setting.seekbarIsString ? setting.key + SEEKBAR_PREFIX : setting.key);
                     seekBarPreferencePro.setMin(setting.min);
                     seekBarPreferencePro.setMax(setting.max);
 
@@ -417,7 +400,6 @@ public class PreferenceList extends LinearLayout {
                     ButtonGroupPreference buttonGroupPreference = new ButtonGroupPreference(context);
                     buttonGroupPreference.setKey(setting.key);
                     buttonGroupPreference.setEntriesAndValues(setting.entries, setting.entryValues);
-                    buttonGroupPreference.setValue(preferences.getString(setting.key, ""));
                     buttonGroupPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                         onPreferenceChanged(setting.key);
                         return true;
@@ -429,11 +411,11 @@ public class PreferenceList extends LinearLayout {
                     switch (setting.type) {
                         case EQUALIZER_PREVIEW:
                             equalizerPresetViewPreference = EqualizerPresetViewPreference.preview(context);
-                            equalizerPresetViewPreference.setKey(setting.key + "_preview");
+                            equalizerPresetViewPreference.setKey(setting.key + EQUALIZER_PREVIEW_PREFIX);
                             break;
                         case EQUALIZER_DESCRIPTION:
                             equalizerPresetViewPreference = EqualizerPresetViewPreference.description(context);
-                            equalizerPresetViewPreference.setKey(setting.key + "_description");
+                            equalizerPresetViewPreference.setKey(setting.key + EQUALIZER_DESCRIPTION_PREFIX);
                             break;
                         default:
                             Log.e("PreferenceListFragment", "Unknown equalizer setting type: " + setting.type);
@@ -441,7 +423,7 @@ public class PreferenceList extends LinearLayout {
                     }
 
                     equalizerPresetViewPreference.setEntriesAndValues(setting.entries, setting.entryValues);
-                    equalizerPresetViewPreference.setValue(preferences.getString(setting.key, ""));
+                    equalizerPresetViewPreference.setValue(preferences.getString(setting.key, setting.defaultValue));
                     equalizerPresetViewPreference.setOnPreferenceChangeListener((preference, newValue) -> {
                         onPreferenceChanged(setting.key);
                         return true;
@@ -482,7 +464,6 @@ public class PreferenceList extends LinearLayout {
             if (pref == null) return;
 
             if (dependency.valueDependency) {
-                Log.d("PreferenceListFragment", "Updating dependent preference: " + dependency.key);
                 setPreferenceValue(pref, getValueOfPreference(key));
             } else {
                 pref.setVisible(getValueOfPreference(key).equals(dependency.value));
@@ -490,18 +471,9 @@ public class PreferenceList extends LinearLayout {
         }
 
         private void setPreferenceValue(Preference pref, String value) {
-            if (pref instanceof CheckBoxPreference) {
-                CheckBoxPreference checkBoxPreference = (CheckBoxPreference) pref;
-                checkBoxPreference.setChecked(Boolean.parseBoolean(value));
-            } else if (pref instanceof SwitchPreference) {
-                SwitchPreference switchPreference = (SwitchPreference) pref;
-                switchPreference.setChecked(Boolean.parseBoolean(value));
-            } else if (pref instanceof SeslSwitchPreferenceScreen) {
-                SeslSwitchPreferenceScreen switchPreferenceScreen = (SeslSwitchPreferenceScreen) pref;
-                switchPreferenceScreen.setChecked(Boolean.parseBoolean(value));
-            } else if (pref instanceof DropDownPreference) {
-                DropDownPreference dropDownPreference = (DropDownPreference) pref;
-                dropDownPreference.setValue(value);
+            if (pref instanceof TwoStatePreference) {
+                TwoStatePreference preference = (TwoStatePreference) pref;
+                preference.setChecked(Boolean.parseBoolean(value));
             } else if (pref instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) pref;
                 listPreference.setValue(value);
@@ -518,22 +490,13 @@ public class PreferenceList extends LinearLayout {
             Preference pref = findPreference(key);
             if (pref == null) return "";
 
-            if (pref instanceof CheckBoxPreference) {
-                CheckBoxPreference checkBoxPreference = (CheckBoxPreference) pref;
-                return String.valueOf(checkBoxPreference.isChecked());
-            } else if (pref instanceof SwitchPreference) {
-                SwitchPreference switchPreference = (SwitchPreference) pref;
-                return String.valueOf(switchPreference.isChecked());
-            } else if (pref instanceof SeslSwitchPreferenceScreen) {
-                SeslSwitchPreferenceScreen switchPreferenceScreen = (SeslSwitchPreferenceScreen) pref;
-                return String.valueOf(switchPreferenceScreen.isChecked());
-            } else if (pref instanceof DropDownPreference) {
-                DropDownPreference dropDownPreference = (DropDownPreference) pref;
-                return dropDownPreference.getValue();
+            if (pref instanceof TwoStatePreference) {
+                TwoStatePreference twoStatePreference = (TwoStatePreference) pref;
+                return String.valueOf(twoStatePreference.isChecked());
             } else if (pref instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) pref;
                 return listPreference.getValue();
-            } else if (pref instanceof SeekBarPreferencePro) {
+            }  else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 return String.valueOf(seekBarPreferencePro.getValue());
             } else if (pref instanceof ButtonGroupPreference) {
@@ -548,14 +511,8 @@ public class PreferenceList extends LinearLayout {
             Preference pref = findPreference(key);
             if (pref == null) return "";
 
-            if (pref instanceof CheckBoxPreference) {
+            if (pref instanceof TwoStatePreference) {
                 return String.valueOf(preferences.getBoolean(key, false));
-            } else if (pref instanceof SwitchPreference) {
-                return String.valueOf(preferences.getBoolean(key, false));
-            } else if (pref instanceof SeslSwitchPreferenceScreen) {
-                return String.valueOf(preferences.getBoolean(key, false));
-            } else if (pref instanceof DropDownPreference) {
-                return preferences.getString(key, "");
             } else if (pref instanceof ListPreference) {
                 return preferences.getString(key, "");
             } else if (pref instanceof SeekBarPreferencePro) {
@@ -569,22 +526,10 @@ public class PreferenceList extends LinearLayout {
 
         private void updatePreference(String key) {
             Preference pref = findPreference(key);
-            if (pref instanceof CheckBoxPreference) {
-                CheckBoxPreference checkBoxPreference = (CheckBoxPreference) pref;
+            if (pref instanceof TwoStatePreference) {
+                TwoStatePreference twoStatePreference = (TwoStatePreference) pref;
                 boolean enabled = preferences.getBoolean(key, false);
-                checkBoxPreference.setChecked(enabled);
-            } else if (pref instanceof SwitchPreference) {
-                SwitchPreference switchPreference = (SwitchPreference) pref;
-                boolean enabled = preferences.getBoolean(key, false);
-                switchPreference.setChecked(enabled);
-            } else if (pref instanceof SeslSwitchPreferenceScreen) {
-                SeslSwitchPreferenceScreen switchPreferenceScreen = (SeslSwitchPreferenceScreen) pref;
-                boolean enabled = preferences.getBoolean(key, false);
-                switchPreferenceScreen.setChecked(enabled);
-            } else if (pref instanceof DropDownPreference) {
-                DropDownPreference dropDownPreference = (DropDownPreference) pref;
-                String value = preferences.getString(key, "");
-                dropDownPreference.setValue(value);
+                twoStatePreference.setChecked(enabled);
             } else if (pref instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) pref;
                 String value = preferences.getString(key, "");
