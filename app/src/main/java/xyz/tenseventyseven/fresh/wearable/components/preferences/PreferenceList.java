@@ -223,11 +223,22 @@ public class PreferenceList extends LinearLayout {
                 }
             }
 
-            // Update dependent preferences after all preferences have been added
-            for (Map.Entry<String, List<PreferenceDependency>> entry : dependencies.entrySet()) {
-                for (PreferenceDependency dependency : entry.getValue()) {
-                    updatePreferenceDependent(entry.getKey(), dependency);
+            // Prune preferences without dependencies
+            List<PreferenceDependency> dependents;
+            for (DeviceSetting setting : settings) {
+                dependents = dependencies.get(setting.key);
+                if (dependents == null) {
+                    continue;
                 }
+
+                if (dependents.isEmpty()) {
+                    dependencies.remove(setting.key);
+                }
+            }
+
+            // Update dependent preferences after all preferences have been added
+            for (DeviceSetting setting : settings) {
+                updatePreferenceDependents(setting.key);
             }
         }
 
@@ -448,21 +459,24 @@ public class PreferenceList extends LinearLayout {
 
         private void updatePreferenceDependents(String key) {
             List<PreferenceDependency> list = dependencies.get(key);
-            if (list != null) {
-                for (PreferenceDependency dependency : list) {
-                    updatePreferenceDependent(key, dependency);
-                }
+            if (list == null || list.isEmpty()) {
+                return;
+            }
+
+            String value = getValueOfPreference(key);
+            for (PreferenceDependency dependency : list) {
+                updatePreferenceDependent(dependency, value);
             }
         }
 
-        private void updatePreferenceDependent(String key, PreferenceDependency dependency) {
+        private void updatePreferenceDependent(PreferenceDependency dependency, String value) {
             Preference pref = findPreference(dependency.key);
             if (pref == null) return;
 
             if (dependency.isValueDependency) {
-                setPreferenceValue(pref, getValueOfPreference(key));
+                setPreferenceValue(pref, value);
             } else {
-                pref.setVisible(getValueOfPreference(key).equals(dependency.value));
+                pref.setVisible(value.equals(dependency.value));
             }
         }
 
