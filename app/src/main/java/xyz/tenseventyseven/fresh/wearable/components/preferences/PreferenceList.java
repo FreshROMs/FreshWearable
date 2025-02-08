@@ -1,5 +1,6 @@
 package xyz.tenseventyseven.fresh.wearable.components.preferences;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -100,6 +101,7 @@ public class PreferenceList extends LinearLayout {
         private List<DeviceSetting> settings;
         private final Map<String, List<PreferenceDependency>> dependencies = new HashMap<>();
         private final Map<String, Preference> preferenceMap = new HashMap<>();
+        private final Map<String, String> defaultValues = new HashMap<>();
         private SharedPreferences preferences;
 
         // No-argument constructor
@@ -218,6 +220,7 @@ public class PreferenceList extends LinearLayout {
                     }
 
                     category.addPreference(preference);
+                    defaultValues.put(preference.getKey(), setting.defaultValue);
                     preferenceMap.put(preference.getKey(), preference);
                     addSettingDependency(preference, setting);
                 } catch (Exception e) {
@@ -260,6 +263,7 @@ public class PreferenceList extends LinearLayout {
             }
         }
 
+        @SuppressLint("ApplySharedPref")
         private Preference getPreference(DeviceSetting setting) {
             Context context = getContext();
             if (context == null) {
@@ -527,12 +531,13 @@ public class PreferenceList extends LinearLayout {
             if (pref instanceof TwoStatePreference) {
                 return String.valueOf(preferences.getBoolean(key, false));
             } else if (pref instanceof ListPreference) {
-                return preferences.getString(key, "");
+                return preferences.getString(key, defaultValues.get(key));
             } else if (pref instanceof SeekBarPreferencePro) {
                 if (pref.getKey().endsWith(SEEKBAR_PREFIX)) {
-                    return preferences.getString(key, "");
+                    return preferences.getString(key, defaultValues.get(key));
                 } else {
-                    return String.valueOf(preferences.getInt(key, 0));
+                    String value = defaultValues.get(key);
+                    return String.valueOf(preferences.getInt(key, Integer.parseInt(value != null ? value : "0")));
                 }
             }
 
@@ -547,11 +552,19 @@ public class PreferenceList extends LinearLayout {
                 twoStatePreference.setChecked(enabled);
             } else if (pref instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) pref;
-                String value = preferences.getString(key, "");
+                String value = preferences.getString(key, defaultValues.get(key));
                 listPreference.setValue(value);
             } else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
-                int value = preferences.getInt(key, 0);
+                String str = preferences.getString(key, defaultValues.get(key));
+                int value;
+                if (pref.getKey().endsWith(SEEKBAR_PREFIX)) {
+                    value = Integer.parseInt(str != null ? str : "0");
+                } else {
+                    String val = defaultValues.get(key);
+                    value = preferences.getInt(key, Integer.parseInt(val != null ? val : "0"));
+                }
+
                 seekBarPreferencePro.setValue(value);
             }
 
