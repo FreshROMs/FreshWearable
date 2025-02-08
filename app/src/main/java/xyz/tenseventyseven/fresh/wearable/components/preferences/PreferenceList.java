@@ -83,7 +83,7 @@ public class PreferenceList extends LinearLayout {
     public static class PreferenceDependency {
         String key;
         String value;
-        boolean valueDependency = false;
+        boolean isValueDependency = false;
 
         public PreferenceDependency() {
         }
@@ -241,11 +241,7 @@ public class PreferenceList extends LinearLayout {
                 List<PreferenceDependency> list = dependencies.get(setting.dependency);
                 if (list != null) {
                     PreferenceDependency dependency = new PreferenceDependency(preference.getKey(), setting.dependencyValue);
-                    if (setting.type == DeviceSetting.DeviceSettingType.EQUALIZER_PREVIEW ||
-                            setting.type == DeviceSetting.DeviceSettingType.EQUALIZER_DESCRIPTION) {
-                        dependency.valueDependency = true;
-                    }
-
+                    dependency.isValueDependency = setting.dependencyAsValue;
                     list.add(dependency);
                 }
             }
@@ -463,7 +459,7 @@ public class PreferenceList extends LinearLayout {
             Preference pref = findPreference(dependency.key);
             if (pref == null) return;
 
-            if (dependency.valueDependency) {
+            if (dependency.isValueDependency) {
                 setPreferenceValue(pref, getValueOfPreference(key));
             } else {
                 pref.setVisible(getValueOfPreference(key).equals(dependency.value));
