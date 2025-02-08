@@ -16,17 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-            <TextView
-                android:id="@+id/preference_screen_summary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="24.0dip"
-                android:paddingVertical="4.0dip"
-                android:textSize="14sp"
-                android:textColor="@color/oui_primary_text_color"
-                android:lineSpacingMultiplier="1.25"
-                android:visibility="gone" />
-
             <xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList
                 android:id="@+id/preference_list"
                 android:layout_width="match_parent"
