@@ -160,7 +160,7 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
     private void setupDeviceSettings(List<DeviceSetting> deviceSettings) {
         if (device == null) return;
 
-        binding.preferenceList.setSettings(this, device, deviceSettings);
+        binding.preferenceList.setSettings(this, device, deviceSettings, true);
     }
 
     private class AppBarListener implements AppBarLayout.OnOffsetChangedListener {

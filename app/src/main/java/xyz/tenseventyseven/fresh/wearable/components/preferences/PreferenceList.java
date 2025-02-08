@@ -68,15 +68,21 @@ public class PreferenceList extends LinearLayout {
     public void setSettings(Context context, GBDevice device, List<DeviceSetting> settings) {
         this.device = device;
         this.settings = settings;
-        init(context);
+        init(context, false);
     }
 
-    private void init(Context context) {
+    public void setSettings(Context context, GBDevice device, List<DeviceSetting> settings, boolean hasShortcuts) {
+        this.device = device;
+        this.settings = settings;
+        init(context, hasShortcuts);
+    }
+
+    private void init(Context context, boolean hasShortcuts) {
         WearPreferenceListBinding binding = WearPreferenceListBinding.inflate(LayoutInflater.from(context), this, true);
 
         // Get fragment manager for preference list
         FragmentManager fragmentManager = FragmentManager.findFragmentManager(this);
-        Fragment fragment = PreferenceListFragment.newInstance(device, settings);
+        Fragment fragment = PreferenceListFragment.newInstance(device, settings, hasShortcuts);
         fragmentManager.beginTransaction()
                 .replace(binding.preferencesContainer.getId(), fragment)
                 .commit();
@@ -101,6 +107,7 @@ public class PreferenceList extends LinearLayout {
         private GBDevice device;
         private WearableSettingCoordinator coordinator;
         private List<DeviceSetting> settings;
+        private boolean hasShortcuts;
         private final Map<String, List<PreferenceDependency>> dependencies = new HashMap<>();
         private final Map<String, Preference> preferenceMap = new HashMap<>();
         private final Map<String, String> defaultValues = new HashMap<>();
@@ -111,11 +118,12 @@ public class PreferenceList extends LinearLayout {
             // Required empty public constructor
         }
 
-        public static PreferenceListFragment newInstance(GBDevice device, List<DeviceSetting> settings) {
+        public static PreferenceListFragment newInstance(GBDevice device, List<DeviceSetting> settings, boolean hasShortcuts) {
             PreferenceListFragment fragment = new PreferenceListFragment();
             Bundle args = new Bundle();
             args.putParcelable("device", device);
             args.putParcelableArrayList("settings", new ArrayList<>(settings));
+            args.putBoolean("hasShortcuts", hasShortcuts);
             fragment.setArguments(args);
             return fragment;
         }
@@ -126,6 +134,7 @@ public class PreferenceList extends LinearLayout {
             if (getArguments() != null) {
                 device = getArguments().getParcelable("device");
                 settings = getArguments().getParcelableArrayList("settings");
+                hasShortcuts = getArguments().getBoolean("hasShortcuts");
                 preferences = Application.getDevicePrefs(device).getPreferences();
                 coordinator = device.getDeviceCoordinator().getDeviceSettings();
 
@@ -183,6 +192,17 @@ public class PreferenceList extends LinearLayout {
             if (settings == null || settings.isEmpty()) {
                 Log.e("PreferenceListFragment", "Settings list is empty or null");
                 return;
+            }
+
+            if (hasShortcuts) {
+                try {
+                    DeviceShortcutsPreference shortcuts = new DeviceShortcutsPreference(context);
+                    shortcuts.setShorcuts(coordinator.getShortcuts());
+                    shortcuts.setOnShortcutClickListener(key -> coordinator.onShortcutClicked(context, device, key));
+                    preferenceScreen.addPreference(shortcuts);
+                } catch (Exception e) {
+                    Log.e("PreferenceListFragment", "Error adding shortcuts", e);
+                }
             }
 
             PreferenceCategory category = new PreferenceCategory(getContext());

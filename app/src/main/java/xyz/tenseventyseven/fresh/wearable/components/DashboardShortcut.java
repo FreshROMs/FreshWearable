@@ -6,9 +6,13 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +22,11 @@ import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.databinding.WearDashboardShortcutItemBinding;
 
 public class DashboardShortcut extends RoundedLinearLayout {
+    public interface OnDashboardShortcutClickListener {
+        boolean onDashboardShortcutClicked();
+    }
+
+    public OnDashboardShortcutClickListener onDashboardShortcutClickListener;
     private WearDashboardShortcutItemBinding binding;
     private ImageView iconView;
     private TextView titleView;
@@ -63,11 +72,17 @@ public class DashboardShortcut extends RoundedLinearLayout {
 
             this.iconView.setImageDrawable(this.icon);
             this.titleView.setText(this.title);
-
-            this.binding.shortcutItem.setOnClickListener(v -> {
-                launchActivity();
-            });
         }
+
+        this.binding.shortcutItem.setOnClickListener(v -> {
+            if (this.onDashboardShortcutClickListener != null) {
+                if (this.onDashboardShortcutClickListener.onDashboardShortcutClicked()) {
+                    return;
+                }
+            }
+
+            launchActivity();
+        });
     }
 
     private void launchActivity() {
@@ -113,9 +128,19 @@ public class DashboardShortcut extends RoundedLinearLayout {
         this.iconView.setImageDrawable(drawable);
     }
 
+    public void setIcon(@DrawableRes  int resId) {
+        this.icon = getContext().getDrawable(resId);
+        this.iconView.setImageDrawable(this.icon);
+    }
+
     public void setTitle(String str) {
         this.title = str;
         this.titleView.setText(str);
+    }
+
+    public void setTitle(@StringRes int resId) {
+        this.title = getContext().getString(resId);
+        this.titleView.setText(this.title);
     }
 
     public void setActivity(String str) {
@@ -132,5 +157,9 @@ public class DashboardShortcut extends RoundedLinearLayout {
 
     public void removeExtra(String key) {
         this.extras.remove(key);
+    }
+
+    public void setOnShortcutClickListener(OnDashboardShortcutClickListener listener) {
+        this.onDashboardShortcutClickListener = listener;
     }
 }
