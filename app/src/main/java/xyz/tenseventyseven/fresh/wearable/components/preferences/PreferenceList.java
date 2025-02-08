@@ -39,6 +39,7 @@ import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.databinding.WearPreferenceListBinding;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
+import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
 
 public class PreferenceList extends LinearLayout {
     private static final String SEEKBAR_PREFIX = "_seekbar";
@@ -98,6 +99,7 @@ public class PreferenceList extends LinearLayout {
     public static class PreferenceListFragment extends PreferenceFragmentCompat
         implements SharedPreferences.OnSharedPreferenceChangeListener {
         private GBDevice device;
+        private WearableSettingCoordinator coordinator;
         private List<DeviceSetting> settings;
         private final Map<String, List<PreferenceDependency>> dependencies = new HashMap<>();
         private final Map<String, Preference> preferenceMap = new HashMap<>();
@@ -125,6 +127,7 @@ public class PreferenceList extends LinearLayout {
                 device = getArguments().getParcelable("device");
                 settings = getArguments().getParcelableArrayList("settings");
                 preferences = Application.getDevicePrefs(device).getPreferences();
+                coordinator = device.getDeviceCoordinator().getDeviceSettings();
 
                 for (DeviceSetting setting : settings) {
                     dependencies.put(setting.key, new ArrayList<>());
@@ -571,7 +574,10 @@ public class PreferenceList extends LinearLayout {
         }
 
         private void onPreferenceChanged(String key) {
-            invokeLater(() -> Application.deviceService(device).onSendConfiguration(key));
+            if (device != null) {
+                coordinator.onSettingChanged(getPreferenceScreen(), findPreference(key));
+                invokeLater(() -> Application.deviceService(device).onSendConfiguration(key));
+            }
         }
 
         private void invokeLater(Runnable runnable) {
