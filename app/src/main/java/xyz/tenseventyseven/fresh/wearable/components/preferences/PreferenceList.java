@@ -480,9 +480,6 @@ public class PreferenceList extends LinearLayout {
             }  else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 seekBarPreferencePro.setValue(Integer.parseInt(value));
-            } else if (pref instanceof ButtonGroupPreference) {
-                ButtonGroupPreference buttonGroupPreference = (ButtonGroupPreference) pref;
-                buttonGroupPreference.setValue(value);
             }
         }
 
@@ -499,9 +496,6 @@ public class PreferenceList extends LinearLayout {
             }  else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 return String.valueOf(seekBarPreferencePro.getValue());
-            } else if (pref instanceof ButtonGroupPreference) {
-                ButtonGroupPreference buttonGroupPreference = (ButtonGroupPreference) pref;
-                return buttonGroupPreference.getValue();
             }
 
             return "";
@@ -517,8 +511,6 @@ public class PreferenceList extends LinearLayout {
                 return preferences.getString(key, "");
             } else if (pref instanceof SeekBarPreferencePro) {
                 return String.valueOf(preferences.getInt(key, 0));
-            } else if (pref instanceof ButtonGroupPreference) {
-                return preferences.getString(key, "");
             }
 
             return "";
@@ -538,10 +530,6 @@ public class PreferenceList extends LinearLayout {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 int value = preferences.getInt(key, 0);
                 seekBarPreferencePro.setValue(value);
-            } else if (pref instanceof ButtonGroupPreference) {
-                ButtonGroupPreference buttonGroupPreference = (ButtonGroupPreference) pref;
-                String value = preferences.getString(key, "");
-                buttonGroupPreference.setValue(value);
             }
 
         }

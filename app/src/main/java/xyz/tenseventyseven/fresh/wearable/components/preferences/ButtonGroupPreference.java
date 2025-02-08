@@ -12,14 +12,13 @@ import android.widget.GridLayout;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceViewHolder;
 
 import xyz.tenseventyseven.fresh.R;
 
-public class ButtonGroupPreference extends Preference {
-    private CharSequence[] entries; // Display names
-    private CharSequence[] entryValues; // Corresponding values
+public class ButtonGroupPreference extends ListPreference {
     private String selectedValue;
 
     public ButtonGroupPreference(@NonNull Context context) {
@@ -32,13 +31,15 @@ public class ButtonGroupPreference extends Preference {
         setLayoutResource(R.layout.wear_preference_button_group);
 
         if (attrs != null) {
-            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ButtonGroupPreference);
-            entries = a.getTextArray(R.styleable.ButtonGroupPreference_entries);
-            entryValues = a.getTextArray(R.styleable.ButtonGroupPreference_entryValues);
-            a.recycle();
+            try (TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.ButtonGroupPreference)) {
+                setEntries(a.getTextArray(R.styleable.ButtonGroupPreference_entries));
+                setEntryValues(a.getTextArray(R.styleable.ButtonGroupPreference_entryValues));
+            }
         }
+    }
 
-        if (entries == null || entryValues == null || entries.length != entryValues.length) {
+    private void validateEntries() {
+        if (getEntries() == null || getEntryValues() == null || getEntries().length != getEntryValues().length) {
             throw new IllegalArgumentException("Entries and entryValues must be provided and have the same length.");
         }
     }
@@ -52,7 +53,7 @@ public class ButtonGroupPreference extends Preference {
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
 
-        if (entries.length != entryValues.length) {
+        if (getEntries().length != getEntryValues().length) {
             Log.e("ButtonGroupPreference", "Entries and entryValues must be provided and have the same length.");
             return;
         }
@@ -61,10 +62,13 @@ public class ButtonGroupPreference extends Preference {
         View container = holder.findViewById(R.id.button_group_container);
         if (container instanceof GridLayout) {
             GridLayout buttonContainer = (GridLayout) container;
+            CharSequence[] entries = getEntries();
+            CharSequence[] entryValues = getEntryValues();
+
             buttonContainer.removeAllViews(); // Clear existing buttons
 
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            for (int i = 0; i < entries.length; i++) {
+            for (int i = 0; i < getEntries().length; i++) {
                 String entry = entries[i].toString();
                 String value = entryValues[i].toString();
 
@@ -81,6 +85,8 @@ public class ButtonGroupPreference extends Preference {
     }
 
     private void updateButtonStyles(GridLayout buttonContainer) {
+        CharSequence[] entryValues = getEntryValues();
+
         for (int i = 0; i < buttonContainer.getChildCount(); i++) {
             View child = buttonContainer.getChildAt(i);
             if (child instanceof Button) {
@@ -116,13 +122,10 @@ public class ButtonGroupPreference extends Preference {
     }
 
     public void setEntriesAndValues(@ArrayRes int entriesRes, @ArrayRes int entryValuesRes) {
-        entries = getContext().getResources().getTextArray(entriesRes);
-        entryValues = getContext().getResources().getTextArray(entryValuesRes);
+        setEntries(entriesRes);
+        setEntryValues(entryValuesRes);
 
-        if (entries.length != entryValues.length) {
-            throw new IllegalArgumentException("Entries and entryValues must be provided and have the same length.");
-        }
-
+        validateEntries();
         notifyChanged();
     }
 }
