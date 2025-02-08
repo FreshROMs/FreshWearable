@@ -99,6 +99,7 @@ public class PreferenceList extends LinearLayout {
         private GBDevice device;
         private List<DeviceSetting> settings;
         private final Map<String, List<PreferenceDependency>> dependencies = new HashMap<>();
+        private final Map<String, Preference> preferenceMap = new HashMap<>();
         private SharedPreferences preferences;
 
         // No-argument constructor
@@ -217,6 +218,7 @@ public class PreferenceList extends LinearLayout {
                     }
 
                     category.addPreference(preference);
+                    preferenceMap.put(preference.getKey(), preference);
                     addSettingDependency(preference, setting);
                 } catch (Exception e) {
                     Log.e("PreferenceListFragment", "Error adding preference: " + setting.key, e);
@@ -455,6 +457,13 @@ public class PreferenceList extends LinearLayout {
             }
 
             updatePreferenceDependents(key);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Nullable
+        @Override
+        public <T extends Preference> T findPreference(@NonNull CharSequence key) {
+            return (T) preferenceMap.get(key.toString());
         }
 
         private void updatePreferenceDependents(String key) {
