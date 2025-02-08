@@ -622,7 +622,7 @@ public class PreferenceList extends LinearLayout {
 
         private void onPreferenceChanged(String key) {
             if (device != null) {
-                coordinator.onSettingChanged(getPreferenceScreen(), findPreference(key));
+                coordinator.onSettingChanged(getPreferenceScreen(), findPreference(key), key);
                 invokeLater(() -> Application.deviceService(device).onSendConfiguration(key));
             }
         }

@@ -18,7 +18,7 @@ public abstract class WearableSettingCoordinator {
         return null;
     }
 
-    public void onSettingChanged(PreferenceScreen preferenceScreen, Preference preference) {
+    public void onSettingChanged(PreferenceScreen preferenceScreen, Preference preference, String key) {
     }
 
     public void onShortcutClicked(Context context, GBDevice device, String key) {
