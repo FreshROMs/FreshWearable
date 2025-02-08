@@ -17,7 +17,6 @@
 package xyz.tenseventyseven.fresh.wearable.components.preferences;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
@@ -28,16 +27,15 @@ import android.widget.TextView;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.preference.Preference;
+import androidx.preference.ListPreference;
 import androidx.preference.PreferenceViewHolder;
 
 import xyz.tenseventyseven.fresh.R;
 
-public class NoiseControlPreference extends Preference {
+public class NoiseControlPreference extends ListPreference {
     private String mAncValue;
     private String mOffValue;
     private String mTransparencyValue;
-    private String mValue;
 
     View mAncIcon;
     View mOffIcon;
@@ -46,14 +44,6 @@ public class NoiseControlPreference extends Preference {
     TextView mAncLabel;
     TextView mOffLabel;
     TextView mTransparencyLabel;
-
-    private final SharedPreferences.OnSharedPreferenceChangeListener prefChangeListener =
-            (sharedPreferences, key) -> {
-                if (key != null && key.equals(getKey())) {
-                    mValue = sharedPreferences.getString(key, mOffValue); // Default to offValue
-                    notifyChanged(); // Refresh the UI
-                }
-            };
 
     public NoiseControlPreference(@NonNull Context context) {
         super(context);
@@ -81,7 +71,7 @@ public class NoiseControlPreference extends Preference {
                 mAncValue = a.getString(R.styleable.NoiseControlPreference_ancValue);
                 mOffValue = a.getString(R.styleable.NoiseControlPreference_offValue);
                 mTransparencyValue = a.getString(R.styleable.NoiseControlPreference_transparencyValue);
-                mValue = a.getString(R.styleable.NoiseControlPreference_selectedValue);
+                setValue(a.getString(R.styleable.NoiseControlPreference_selectedValue));
             }
         }
 
@@ -112,12 +102,12 @@ public class NoiseControlPreference extends Preference {
         if (isEnabled()) {
             holder.itemView.setAlpha(1.0f);
 
-            mAncIcon.setOnClickListener(v -> setValue(mAncValue));
-            mAncLabel.setOnClickListener(v -> setValue(mAncValue));
-            mOffIcon.setOnClickListener(v -> setValue(mOffValue));
-            mOffLabel.setOnClickListener(v -> setValue(mOffValue));
-            mTransparencyIcon.setOnClickListener(v -> setValue(mTransparencyValue));
-            mTransparencyLabel.setOnClickListener(v -> setValue(mTransparencyValue));
+            mAncIcon.setOnClickListener(v -> setValueInternal(mAncValue));
+            mAncLabel.setOnClickListener(v -> setValueInternal(mAncValue));
+            mOffIcon.setOnClickListener(v -> setValueInternal(mOffValue));
+            mOffLabel.setOnClickListener(v -> setValueInternal(mOffValue));
+            mTransparencyIcon.setOnClickListener(v -> setValueInternal(mTransparencyValue));
+            mTransparencyLabel.setOnClickListener(v -> setValueInternal(mTransparencyValue));
         } else {
             holder.itemView.setAlpha(0.5f);
 
@@ -134,7 +124,7 @@ public class NoiseControlPreference extends Preference {
     }
 
     private void update() {
-        if (mValue == null) {
+        if (getValue() == null) {
             return;
         }
 
@@ -144,7 +134,7 @@ public class NoiseControlPreference extends Preference {
     }
 
     private void updateIconAndLabel(View icon, TextView label, String value) {
-        boolean isSelected = isEnabled() && value.equals(mValue);
+        boolean isSelected = isEnabled() && value.equals(getValue());
 
         if (icon != null) {
             icon.setSelected(isSelected);
@@ -156,36 +146,9 @@ public class NoiseControlPreference extends Preference {
         }
     }
 
-    @Override
-    protected void onSetInitialValue(Object defaultValue) {
-        // Load the persisted value or use a default value
-        mValue = getPersistedString((String) defaultValue);
-    }
-
-    @Override
-    public void onAttached() {
-        super.onAttached();
-        // Register the preference change listener
-        getSharedPreferences().registerOnSharedPreferenceChangeListener(prefChangeListener);
-    }
-
-    @Override
-    public void onDetached() {
-        super.onDetached();
-        // Unregister the preference change listener
-        getSharedPreferences().unregisterOnSharedPreferenceChangeListener(prefChangeListener);
-    }
-
-    public String getValue() {
-        return mValue;
-    }
-
-    public void setValue(String value) {
-        final boolean changed = !value.equals(this.mValue);
-        if (changed && callChangeListener(value)) {
-            mValue = value;
-            persistString(value);
-            notifyChanged();
+    private void setValueInternal(String value) {
+        if (!value.equals(getValue()) && callChangeListener(value)) {
+            setValue(value);
         }
     }
 

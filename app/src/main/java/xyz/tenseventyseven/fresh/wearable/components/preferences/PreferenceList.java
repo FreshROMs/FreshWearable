@@ -492,10 +492,7 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) pref;
                 listPreference.setValue(value);
-            } else if (pref instanceof NoiseControlPreference) {
-                NoiseControlPreference noiseControlPreference = (NoiseControlPreference) pref;
-                noiseControlPreference.setValue(value);
-            } else if (pref instanceof SeekBarPreferencePro) {
+            }  else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 seekBarPreferencePro.setValue(Integer.parseInt(value));
             } else if (pref instanceof ButtonGroupPreference) {
@@ -529,9 +526,6 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) pref;
                 return listPreference.getValue();
-            } else if (pref instanceof NoiseControlPreference) {
-                NoiseControlPreference noiseControlPreference = (NoiseControlPreference) pref;
-                return noiseControlPreference.getValue();
             } else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 return String.valueOf(seekBarPreferencePro.getValue());
@@ -562,8 +556,6 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof DropDownPreference) {
                 return preferences.getString(key, "");
             } else if (pref instanceof ListPreference) {
-                return preferences.getString(key, "");
-            } else if (pref instanceof NoiseControlPreference) {
                 return preferences.getString(key, "");
             } else if (pref instanceof SeekBarPreferencePro) {
                 return String.valueOf(preferences.getInt(key, 0));
@@ -600,10 +592,6 @@ public class PreferenceList extends LinearLayout {
                 ListPreference listPreference = (ListPreference) pref;
                 String value = preferences.getString(key, "");
                 listPreference.setValue(value);
-            } else if (pref instanceof NoiseControlPreference) {
-                NoiseControlPreference noiseControlPreference = (NoiseControlPreference) pref;
-                String value = preferences.getString(key, "");
-                noiseControlPreference.setValue(value);
             } else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 int value = preferences.getInt(key, 0);
