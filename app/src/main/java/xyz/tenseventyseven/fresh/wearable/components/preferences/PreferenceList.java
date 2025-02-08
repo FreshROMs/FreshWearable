@@ -520,7 +520,11 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof ListPreference) {
                 return preferences.getString(key, "");
             } else if (pref instanceof SeekBarPreferencePro) {
-                return String.valueOf(preferences.getInt(key, 0));
+                if (pref.getKey().endsWith(SEEKBAR_PREFIX)) {
+                    return preferences.getString(key, "");
+                } else {
+                    return String.valueOf(preferences.getInt(key, 0));
+                }
             }
 
             return "";
