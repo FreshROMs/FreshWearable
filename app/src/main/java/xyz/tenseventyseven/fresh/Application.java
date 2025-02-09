@@ -20,6 +20,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package xyz.tenseventyseven.fresh;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -2122,8 +2123,9 @@ public class Application extends android.app.Application {
         return prefs.getString(WEAR_LAST_DEVICE_ADDRESS, null);
     }
 
+    @SuppressLint("ApplySharedPref")
     public void setLastDeviceAddress(String address) {
         SharedPreferences prefs = getPrefs().getPreferences();
-        prefs.edit().putString(WEAR_LAST_DEVICE_ADDRESS, address).apply();
+        prefs.edit().putString(WEAR_LAST_DEVICE_ADDRESS, address).commit();
     }
 }
