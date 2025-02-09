@@ -53,7 +53,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="48.0dip">
             <xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList
                 android:id="@+id/preference_list"
                 android:layout_width="match_parent"
