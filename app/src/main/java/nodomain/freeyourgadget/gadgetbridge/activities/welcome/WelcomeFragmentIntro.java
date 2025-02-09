@@ -49,26 +49,7 @@ public class WelcomeFragmentIntro extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
 
         final View view = inflater.inflate(R.layout.fragment_welcome_intro, container, false);
-        final String[] themes = getResources().getStringArray(R.array.pref_theme_values);
-        final Prefs prefs = Application.getPrefs();
-        final String currentTheme = prefs.getString("pref_key_theme", getString(R.string.pref_theme_value_system));
-        final int currentThemeIndex = Arrays.asList(themes).indexOf(currentTheme);
 
-        final MaterialAutoCompleteTextView themeMenu = view.findViewById(R.id.app_theme_dropdown_menu);
-        themeMenu.setSaveEnabled(false);  // https://github.com/material-components/material-components-android/issues/1464#issuecomment-1258051448
-        themeMenu.setText(getResources().getStringArray(R.array.pref_theme_options)[currentThemeIndex], false);
-        themeMenu.setOnItemClickListener((adapterView, view1, i, l) -> {
-            final SharedPreferences.Editor editor = prefs.getPreferences().edit();
-            editor.putString("pref_key_theme", themes[i]).apply();
-            final Handler handler = new Handler();
-            handler.postDelayed(() -> {
-                // Delay recreation of the Activity to give the dropdown some time to settle.
-                // If we recreate it immediately, the theme popup will reopen, which is not what the user expects.
-                Intent intent = new Intent();
-                intent.setAction(Application.ACTION_THEME_CHANGE);
-                LocalBroadcastManager.getInstance(requireContext()).sendBroadcast(intent);
-            }, 500);
-        });
         return view;
     }
 }

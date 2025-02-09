@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -67,7 +68,8 @@ public class WelcomeFragmentPermissions extends Fragment {
             requestAllPermissions();
         });
 
-        if (((AppCompatActivity)getActivity()).getSupportActionBar().isShowing()) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null && actionBar.isShowing()) {
             // Hide title when the Action Bar is visible (i.e. when not in the first run flow)
             view.findViewById(R.id.permissions_title).setVisibility(View.GONE);
         }
