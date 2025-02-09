@@ -102,9 +102,28 @@
         android:supportsRtl="true"
         android:theme="@style/GadgetbridgeTheme"
         tools:replace="android:label">
+        <!-- Metadata for Samsung One UI -->
+        <meta-data
+            android:name="SamsungBasicInteraction"
+            android:value="SEP10" />
+        <meta-data
+            android:name="com.samsung.android.icon_container.has_icon_container"
+            android:value="true" />
+        <meta-data
+            android:name="com.samsung.android.icon_container.feature_appicon"
+            android:value="ADAPTIVEICON_SHADOW" />
+
+        <!-- Samsung One UI Theming for Color Palette -->
+        <meta-data
+            android:name="theming-meta"
+            android:value="meta_fresh_wearable" />
+        <meta-data
+            android:name="theming-meta-xml"
+            android:value="@xml/meta_fresh_wearable" />
         <activity
             android:name=".wearable.activities.devicesettings.PreferenceScreenActivity"
             android:exported="false" />
+
         <activity
             android:name=".wearable.activities.DashboardActivity"
             android:exported="true"
@@ -580,7 +599,8 @@
         <receiver
             android:name="nodomain.freeyourgadget.gadgetbridge.database.PeriodicExporter"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <!--
             forcing the DebugActivity to portrait mode avoids crashes with the progress
             dialog when changing orientation
