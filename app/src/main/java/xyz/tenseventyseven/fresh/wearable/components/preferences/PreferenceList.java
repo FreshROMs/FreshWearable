@@ -121,6 +121,7 @@ public class PreferenceList extends LinearLayout {
         private final Map<String, String> defaultValues = new HashMap<>();
         private final Map<String, String[]> preferencesWithValues = new HashMap<>();
         private SharedPreferences preferences;
+        private PreferenceScreen screen;
 
         // No-argument constructor
         public PreferenceListFragment() {
@@ -193,6 +194,7 @@ public class PreferenceList extends LinearLayout {
             setPreferencesFromResource(R.xml.wear_device_preferences, rootKey);
             PreferenceScreen preferenceScreen = getPreferenceManager().createPreferenceScreen(context);
             setPreferenceScreen(preferenceScreen);
+            screen = getPreferenceScreen();
 
             String preferenceName = getSharedPreferencesName();
             if (preferenceName != null) {
@@ -708,8 +710,10 @@ public class PreferenceList extends LinearLayout {
 
         private void onPreferenceChanged(String key) {
             if (device != null) {
-                coordinator.onSettingChanged(getPreferenceScreen(), findPreference(key), key);
-                invokeLater(() -> Application.deviceService(device).onSendConfiguration(key));
+                new Thread(() -> {
+                    coordinator.onSettingChanged(device, screen, findPreference(key), key);
+                    invokeLater(() -> Application.deviceService(device).onSendConfiguration(key));
+                }).start();
             }
         }
 

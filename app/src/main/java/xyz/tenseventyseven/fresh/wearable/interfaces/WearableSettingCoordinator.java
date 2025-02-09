@@ -19,7 +19,10 @@ public abstract class WearableSettingCoordinator {
         return null;
     }
 
-    public void onSettingChanged(PreferenceScreen preferenceScreen, Preference preference, String key) {
+    public void onSettingChanged(GBDevice device, PreferenceScreen preferenceScreen, Preference preference, String key) {
+    }
+
+    public void onSettingChanged(GBDevice device, SharedPreferences sharedPreferences, String key) {
     }
 
     public void onSettingsCreated(PreferenceScreen preferenceScreen) {
