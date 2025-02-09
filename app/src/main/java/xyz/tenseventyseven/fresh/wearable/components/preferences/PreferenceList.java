@@ -301,6 +301,8 @@ public class PreferenceList extends LinearLayout {
             for (DeviceSetting setting : settings) {
                 updatePreferenceDependents(setting.key);
             }
+
+            coordinator.onSettingsCreated(preferenceScreen);
         }
 
         private void addSettingDependency(Preference preference, DeviceSetting setting) {

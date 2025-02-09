@@ -1,6 +1,7 @@
 package xyz.tenseventyseven.fresh.wearable.interfaces;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
@@ -19,6 +20,9 @@ public abstract class WearableSettingCoordinator {
     }
 
     public void onSettingChanged(PreferenceScreen preferenceScreen, Preference preference, String key) {
+    }
+
+    public void onSettingsCreated(PreferenceScreen preferenceScreen) {
     }
 
     public void onShortcutClicked(Context context, GBDevice device, String key) {
