@@ -136,6 +136,12 @@ public class DeviceListActivity extends AbstractNoActionBarActivity implements
             }
         }
 
+        if (mConnectedDevices.isEmpty()) {
+            binding.deviceListConnectedContainer.setVisibility(View.GONE);
+        } else {
+            binding.deviceListConnectedContainer.setVisibility(View.VISIBLE);
+        }
+
         mConnectedDevicesAdapter.notifyDataSetChanged();
         mDisconnectedDevicesAdapter.notifyDataSetChanged();
     }

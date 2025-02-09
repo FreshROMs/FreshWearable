@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+                    android:id="@+id/device_list_connected_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24.0dip"
