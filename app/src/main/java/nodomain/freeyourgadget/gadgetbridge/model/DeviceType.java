@@ -246,6 +246,7 @@ import nodomain.freeyourgadget.gadgetbridge.devices.pebble.PebbleCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.pinetime.PineTimeJFCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.qc35.QC35Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridCoordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.realme.RealmeBudsAir5Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.realme.RealmeBudsT110Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.roidmi.Roidmi1Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.roidmi.Roidmi3Coordinator;
@@ -598,6 +599,7 @@ public enum DeviceType {
     ASTEROIDOS(AsteroidOSDeviceCoordinator.class),
     OPPO_ENCO_AIR(OppoEncoAirCoordinator.class),
     OPPO_ENCO_AIR2(OppoEncoAir2Coordinator.class),
+    REALME_BUDS_AIR_5(RealmeBudsAir5Coordinator.class),
     REALME_BUDS_T110(RealmeBudsT110Coordinator.class),
     SOFLOW_SO6(SoFlowCoordinator.class),
     WITHINGS_STEEL_HR(WithingsSteelHRDeviceCoordinator.class),
