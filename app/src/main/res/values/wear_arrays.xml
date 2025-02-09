@@ -26,6 +26,12 @@
         <item>6</item>
     </string-array>
 
+    <string-array name="redmi_buds_wear_noise_cancelling_strength_values">
+        <item>1</item>
+        <item>0</item>
+        <item>2</item>
+    </string-array>
+
     <string-array name="redmi_buds_wear_equalizer_v1_presets_drawables">
         <item>@drawable/equalizer_graph_dynamic</item>
         <item>@drawable/equalizer_graph_bass_boost</item>
@@ -38,5 +44,16 @@
         <item>Powerful lows add punch.</item>
         <item>Clean and precise. Good for speech.</item>
         <item>Vivid and spacious. Good for instrumental music.</item>
+    </string-array>
+
+    <string-array name="wear_auto_answer_calls_delay_names">
+        <item>@string/wear_buds_automatically_answer_calls_delay_5_seconds</item>
+        <item>@string/wear_buds_automatically_answer_calls_delay_10_seconds</item>
+        <item>@string/wear_buds_automatically_answer_calls_delay_15_seconds</item>
+    </string-array>
+    <string-array name="wear_auto_answer_calls_delay_values">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
     </string-array>
 </resources>

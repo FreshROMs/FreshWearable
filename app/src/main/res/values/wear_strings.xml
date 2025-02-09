@@ -16,4 +16,41 @@
     <string name="wear_ambient_sound_mode_natural">Natural</string>
     <string name="wear_ambient_sound_mode_enhance_voice">Amplify voices</string>
     <string name="wear_ambient_sound_mode_enhance_surroundings">Amplify environmental sounds</string>
+
+    <string name="wear_buds_dual_connection">Dual connection</string>
+    <string name="wear_buds_dual_connection_screen_summary">Switch quickly to another paired device without disconnecting your earbuds or turning on pairing mode again. This works with any nearby device that was previously paired with your earbuds.</string>
+
+    <string name="wear_buds_adaptive_sound">Adaptive sound</string>
+    <string name="wear_buds_adaptive_sound_summary">Automatically adjust the volume based on your surroundings and activities.</string>
+
+    <string name="wear_buds_gesture_settings">Gestures</string>
+    <string name="wear_buds_gesture_settings_screen_summary">Control your earbuds effortlessly with intuitive touch gestures. Use single tap, double tap, triple tap, or tap and hold to play or pause music, skip tracks, adjust volume, answer calls, or activate your voice assistant, all without reaching for your device.</string>
+    <string name="wear_buds_gesture_settings_category_left">Left earbud</string>
+    <string name="wear_buds_gesture_settings_category_right">Right earbud</string>
+    <string name="wear_buds_gesture_settings_single_tap">Single tap</string>
+    <string name="wear_buds_gesture_settings_double_tap">Double tap</string>
+    <string name="wear_buds_gesture_settings_triple_tap">Triple tap</string>
+    <string name="wear_buds_gesture_settings_touch_and_hold">Touch and hold</string>
+    <string name="wear_buds_gesture_settings_touch_and_hold_screen_summary_redmi">Customize the long-press gesture on your earbuds to suit your needs. Choose between toggling Active Noise Cancellation (ANC), Transparency Mode, or turning them off, or set it to activate your voice assistant for quick commands.</string>
+    <string name="wear_buds_gesture_settings_touch_and_hold_mode">Touch and hold mode</string>
+    <string name="wear_buds_gesture_settings_touch_and_hold_assistant_description">A valid voice assistant must be installed on your device to use this feature.</string>
+    <string name="wear_buds_gesture_settings_touch_and_hold_two_selections_required">At least two options are required to be selected.</string>
+
+    <string name="wear_buds_in_ear_detection">In-ear detection</string>
+    <string name="wear_buds_in_ear_detection_screen_summary">In-ear detection automatically pauses playback when the earbuds are removed and resumes it when they are placed back in your ears, ensuring a seamless listening experience.</string>
+
+    <string name="wear_device_notifications_settings">Notifications</string>
+
+    <string name="wear_buds_read_notifications_aloud">Read notifications aloud</string>
+    <string name="wear_buds_read_notifications_aloud_screen_summary">Hear notifications read aloud when you receive them. You can also choose to have notifications read aloud only when you\'re wearing your earbuds.</string>
+    <string name="wear_buds_read_notifications_exclusive">Pause media playback</string>
+    <string name="wear_buds_read_notifications_exclusive_summary">Automatically pause media playback when notifications are read aloud.</string>
+
+    <string name="wear_buds_automatically_answer_calls">Automatically answer calls</string>
+    <string name="wear_buds_automatically_answer_calls_screen_summary">Automatically answer incoming calls when you\'re wearing your earbuds.</string>
+    <string name="wear_buds_automatically_answer_calls_screen_summary_answer_only">Automatically answer incoming calls when you\'re wearing your earbuds. Calls received when you\'re already wearing the earbuds must be answered manually.</string>
+    <string name="wear_buds_automatically_answer_calls_delay">Delay before answering</string>
+    <string name="wear_buds_automatically_answer_calls_delay_5_seconds">5 seconds</string>
+    <string name="wear_buds_automatically_answer_calls_delay_10_seconds">10 seconds</string>
+    <string name="wear_buds_automatically_answer_calls_delay_15_seconds">15 seconds</string>
 </resources>
