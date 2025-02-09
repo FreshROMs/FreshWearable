@@ -84,6 +84,10 @@ public class PreferenceList extends LinearLayout {
         init(context, false, summary);
     }
 
+    public void clear() {
+        removeAllViews();
+    }
+
     private void init(Context context, boolean hasShortcuts, String summary) {
         WearPreferenceListBinding binding = WearPreferenceListBinding.inflate(LayoutInflater.from(context), this, true);
 
