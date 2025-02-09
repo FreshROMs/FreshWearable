@@ -48,6 +48,7 @@ public class DeviceSetting implements Parcelable {
     public String dependency = "";
     public String dependencyValue = "";
     public boolean dependencyAsValue = false;
+    public boolean dependencyDisablesPref = false;
     public String defaultValue = "";
     public String activity = "";
     public boolean valueAsSummary = false;
@@ -92,6 +93,7 @@ public class DeviceSetting implements Parcelable {
         this.dependency = in.readString();
         this.dependencyValue = in.readString();
         this.dependencyAsValue = in.readByte() != 0;
+        this.dependencyDisablesPref = in.readByte() != 0;
         this.defaultValue = in.readString();
         this.activity = in.readString();
         this.valueAsSummary = in.readByte() != 0;
@@ -328,6 +330,7 @@ public class DeviceSetting implements Parcelable {
         dest.writeString(this.dependency);
         dest.writeString(this.dependencyValue);
         dest.writeByte((byte) (this.dependencyAsValue ? 1 : 0));
+        dest.writeByte((byte) (this.dependencyDisablesPref ? 1 : 0));
         dest.writeString(this.defaultValue);
         dest.writeString(this.activity);
         dest.writeByte((byte) (this.valueAsSummary ? 1 : 0));

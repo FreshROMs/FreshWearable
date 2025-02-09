@@ -105,6 +105,7 @@ public class PreferenceList extends LinearLayout {
         String key;
         String value;
         boolean isValueDependency = false;
+        boolean isValueDisablePreference = false;
 
         public PreferenceDependency() {
         }
@@ -325,6 +326,7 @@ public class PreferenceList extends LinearLayout {
                 if (list != null) {
                     PreferenceDependency dependency = new PreferenceDependency(preference.getKey(), setting.dependencyValue);
                     dependency.isValueDependency = setting.dependencyAsValue;
+                    dependency.isValueDisablePreference = setting.dependencyDisablesPref;
                     list.add(dependency);
                 }
             }
@@ -629,6 +631,8 @@ public class PreferenceList extends LinearLayout {
 
             if (dependency.isValueDependency) {
                 setPreferenceValue(pref, value);
+            } else if (dependency.isValueDisablePreference) {
+                pref.setEnabled(value.equals(dependency.value));
             } else {
                 pref.setVisible(value.equals(dependency.value));
             }
