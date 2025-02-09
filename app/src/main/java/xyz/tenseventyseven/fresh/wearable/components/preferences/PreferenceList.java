@@ -272,7 +272,7 @@ public class PreferenceList extends LinearLayout {
                     }
 
                     if (setting.defaultValue != null && !setting.defaultValue.isEmpty()) {
-                        preference.setDefaultValue(setting.defaultValue);
+                        setPreferenceDefaultValue(preference, setting.defaultValue);
                     }
 
                     category.addPreference(preference);
@@ -559,6 +559,19 @@ public class PreferenceList extends LinearLayout {
             }  else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
                 seekBarPreferencePro.setValue(Integer.parseInt(value));
+            }
+        }
+
+        private void setPreferenceDefaultValue(Preference pref, String value) {
+            if (pref instanceof TwoStatePreference) {
+                TwoStatePreference preference = (TwoStatePreference) pref;
+                preference.setDefaultValue(Boolean.parseBoolean(value));
+            } else if (pref instanceof ListPreference) {
+                ListPreference listPreference = (ListPreference) pref;
+                listPreference.setDefaultValue(value);
+            }  else if (pref instanceof SeekBarPreferencePro) {
+                SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
+                seekBarPreferencePro.setDefaultValue(Integer.parseInt(value));
             }
         }
 
