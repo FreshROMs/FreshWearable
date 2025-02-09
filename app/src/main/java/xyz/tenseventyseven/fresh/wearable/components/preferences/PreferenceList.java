@@ -499,6 +499,16 @@ public class PreferenceList extends LinearLayout {
                     });
 
                     return equalizerPresetViewPreference;
+                case DESCRIPTION:
+                    EditTextPreference editTextPreference = new EditTextPreference(context);
+                    editTextPreference.setPersistent(false);
+                    editTextPreference.setSelectable(false);
+                    editTextPreference.setCopyingEnabled(false);
+                    editTextPreference.setKey(setting.key);
+                    editTextPreference.setSummary(setting.summary);
+                    editTextPreference.setLayoutResource(R.layout.wear_preference_summary);
+                    editTextPreference.seslSetSummaryColor(context.getColor(R.color.wearable_primary_text));
+                    return editTextPreference;
                 default:
                     Log.w("PreferenceListFragment", "Unknown setting type: " + setting.type);
             }

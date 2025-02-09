@@ -27,6 +27,7 @@ public class DeviceSetting implements Parcelable {
         BUTTON_GROUP,
         EQUALIZER_PREVIEW,
         EQUALIZER_DESCRIPTION,
+        DESCRIPTION,
     }
 
     public DeviceSettingType type = DeviceSettingType.DIVIDER;
@@ -254,6 +255,10 @@ public class DeviceSetting implements Parcelable {
         setting.entryValues = entryValues;
         setting.dependencyAsValue = true;
         return setting;
+    }
+
+    public static DeviceSetting description(String key, int summary) {
+        return new DeviceSetting(DeviceSettingType.DESCRIPTION, key, 0, summary, 0, null);
     }
 
     /*
