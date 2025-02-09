@@ -242,6 +242,12 @@ public class PreferenceList extends LinearLayout {
                         category.setTitle(setting.title);
                     }
 
+                    if (!setting.key.isEmpty()) {
+                        category.setKey(setting.key);
+                        addSettingDependency(category, setting);
+                        preferenceMap.put(setting.key, category);
+                    }
+
                     preferenceScreen.addPreference(category);
                     continue;
                 }
@@ -303,7 +309,7 @@ public class PreferenceList extends LinearLayout {
             }
 
             // If this setting depends on another setting, add it to the list
-            if (setting.dependency != null) {
+            if (setting.dependency != null && !setting.dependency.isEmpty()) {
                 List<PreferenceDependency> list = dependencies.get(setting.dependency);
                 if (list != null) {
                     PreferenceDependency dependency = new PreferenceDependency(preference.getKey(), setting.dependencyValue);

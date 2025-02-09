@@ -157,6 +157,10 @@ public class DeviceSetting implements Parcelable {
         return new DeviceSetting(DeviceSettingType.DIVIDER);
     }
 
+    public static DeviceSetting divider(String key) {
+        return new DeviceSetting(DeviceSettingType.DIVIDER, key, 0, 0, 0, null);
+    }
+
     // Divider with title
     public static DeviceSetting divider(int title) {
         return new DeviceSetting(DeviceSettingType.DIVIDER, "", title, 0, 0, null);
