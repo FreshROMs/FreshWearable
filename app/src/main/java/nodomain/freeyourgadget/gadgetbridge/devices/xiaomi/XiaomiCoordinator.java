@@ -620,4 +620,9 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     public int getDeviceImageResource(GBDevice device) {
         return super.getDeviceImageResource(device);
     }
+
+    @Override
+    public int getDeviceIconResource() {
+        return dev.oneuiproject.oneui.R.drawable.ic_oui_galaxy_watch;
+    }
 }
