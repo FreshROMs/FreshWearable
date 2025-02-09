@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import java.util.Objects;
 
 import dev.oneuiproject.oneui.preference.SeekBarPreferencePro;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import nodomain.freeyourgadget.gadgetbridge.util.preferences.MinMaxTextWatcher;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.databinding.WearPreferenceListBinding;
@@ -545,6 +547,43 @@ public class PreferenceList extends LinearLayout {
                     editTextPreference.setLayoutResource(R.layout.wear_preference_summary);
                     editTextPreference.seslSetSummaryColor(context.getColor(R.color.wearable_primary_text));
                     return editTextPreference;
+                case EDIT_TEXT:
+                    EditTextPreference editText = new EditTextPreference(context);
+                    editText.setKey(setting.key);
+                    editText.setSummary(setting.summary);
+                    editText.setDialogTitle(setting.title);
+                    editText.setOnPreferenceChangeListener((preference, newValue) -> {
+                        if (allowPreferenceChange(editText, newValue.toString())) {
+                            onPreferenceChanged(setting.key);
+                            return true;
+                        }
+                        return false;
+                    });
+
+                    editText.setOnBindEditTextListener(input -> {
+                        switch (setting.valueKind) {
+                            case INT:
+                            case LONG:
+                                input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                                input.addTextChangedListener(new MinMaxTextWatcher(input, setting.min, setting.max, true));
+                                break;
+                            case FLOAT:
+                            case DOUBLE:
+                                input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                                input.addTextChangedListener(new MinMaxTextWatcher(input, setting.min, setting.max, false));
+                                break;
+                            case STRING:
+                            default:
+                                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                                break;
+                        }
+                    });
+
+                    if (setting.valueAsSummary) {
+                        editText.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
+                    }
+
+                    return editText;
                 default:
                     Log.w("PreferenceListFragment", "Unknown setting type: " + setting.type);
             }
@@ -616,6 +655,22 @@ public class PreferenceList extends LinearLayout {
             if (pref instanceof TwoStatePreference) {
                 TwoStatePreference preference = (TwoStatePreference) pref;
                 preference.setDefaultValue(Boolean.parseBoolean(setting.defaultValue));
+            } else if (pref instanceof EditTextPreference) {
+                EditTextPreference editTextPreference = (EditTextPreference) pref;
+                switch (setting.valueKind) {
+                    case INT:
+                    case LONG:
+                        editTextPreference.setDefaultValue(String.valueOf(Integer.parseInt(setting.defaultValue)));
+                        break;
+                    case FLOAT:
+                    case DOUBLE:
+                        editTextPreference.setDefaultValue(String.valueOf(Float.parseFloat(setting.defaultValue)));
+                        break;
+                    case STRING:
+                    default:
+                        editTextPreference.setDefaultValue(setting.defaultValue);
+                        break;
+                }
             } else if (pref instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) pref;
                 listPreference.setDefaultValue(setting.defaultValue);

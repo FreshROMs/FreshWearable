@@ -28,6 +28,16 @@ public class DeviceSetting implements Parcelable {
         EQUALIZER_PREVIEW,
         EQUALIZER_DESCRIPTION,
         DESCRIPTION,
+        EDIT_TEXT,
+    }
+
+    public enum ValueKind {
+        STRING,
+        INT,
+        BOOLEAN,
+        FLOAT,
+        DOUBLE,
+        LONG,
     }
 
     public DeviceSettingType type = DeviceSettingType.DIVIDER;
@@ -55,6 +65,9 @@ public class DeviceSetting implements Parcelable {
     public boolean showValue = true;
     public boolean showTicks = false;
     public boolean seamlessSeekbar = false;
+
+    // For EditTextPreference, add value type
+    public ValueKind valueKind = ValueKind.STRING;
 
     // Main constructor
     public DeviceSetting(DeviceSettingType type, String key, int title, int summary, int icon, String defaultValue) {
@@ -93,6 +106,7 @@ public class DeviceSetting implements Parcelable {
         this.showTicks = in.readByte() != 0;
         this.seamlessSeekbar = in.readByte() != 0;
         this.screenSummary = in.readInt();
+        this.valueKind = ValueKind.values()[in.readInt()];
 
         int settingsSize = in.readInt();
         this.settings = new ArrayList<>(settingsSize);
@@ -259,6 +273,10 @@ public class DeviceSetting implements Parcelable {
         return new DeviceSetting(DeviceSettingType.DESCRIPTION, key, 0, summary, 0, null);
     }
 
+    public static DeviceSetting editText(String key, int title, int summary, int icon, String defaultValue) {
+        return new DeviceSetting(DeviceSettingType.EDIT_TEXT, key, title, summary, icon, defaultValue);
+    }
+
     /*
      * Helper methods
      */
@@ -324,6 +342,7 @@ public class DeviceSetting implements Parcelable {
         dest.writeByte((byte) (this.showTicks ? 1 : 0));
         dest.writeByte((byte) (this.seamlessSeekbar ? 1 : 0));
         dest.writeInt(this.screenSummary);
+        dest.writeInt(this.valueKind.ordinal());
 
         dest.writeInt(this.settings.size());
         for (DeviceSetting setting : this.settings) {
