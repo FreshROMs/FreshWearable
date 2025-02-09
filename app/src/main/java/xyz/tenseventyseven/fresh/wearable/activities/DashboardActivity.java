@@ -90,8 +90,12 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
     protected void onResume() {
         super.onResume();
 
-        setupLastDevice();
         binding.preferenceList.clear();
+        setupLastDevice();
+        if (device == null) {
+            return;
+        }
+
         WearableSettingCoordinator deviceSettings = device.getDeviceCoordinator().getDeviceSettings();
         if (deviceSettings != null) {
             setupDeviceSettings(deviceSettings.getSettings());
@@ -151,7 +155,11 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
         List<GBDevice> devices = deviceManager.getDevices();
         String lastDeviceAddress = Application.app().getLastDeviceAddress();
 
-        if (lastDeviceAddress != null) {
+        if (devices.isEmpty()) {
+            return;
+        }
+
+        if (lastDeviceAddress != null && !lastDeviceAddress.isEmpty()) {
             for (GBDevice device : devices) {
                 if (device.getAddress().equals(lastDeviceAddress)) {
                     this.device = device;
