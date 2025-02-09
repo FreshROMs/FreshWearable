@@ -16,11 +16,12 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package nodomain.freeyourgadget.gadgetbridge.service.devices.redmibuds;
 
-import nodomain.freeyourgadget.gadgetbridge.service.serial.AbstractSerialDeviceSupport;
+import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
+import nodomain.freeyourgadget.gadgetbridge.service.AbstractHeadphoneDeviceSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.serial.GBDeviceIoThread;
 import nodomain.freeyourgadget.gadgetbridge.service.serial.GBDeviceProtocol;
 
-public class RedmiBudsDeviceSupport extends AbstractSerialDeviceSupport {
+public class RedmiBudsDeviceSupport extends AbstractHeadphoneDeviceSupport {
     @Override
     protected GBDeviceProtocol createDeviceProtocol() {
         return new RedmiBudsProtocol(getDevice());

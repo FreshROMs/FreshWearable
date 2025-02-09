@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsScreen;
 import xyz.tenseventyseven.fresh.AppException;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettings;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSpecificSettingsCustomizer;
@@ -91,6 +92,9 @@ public abstract class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
         } else if (supports(RedmiBudsCapabilities.ActiveNoiseCancellationV1)) {
             deviceSpecificSettings.addRootScreen(R.xml.devicesettings_redmibuds_anc_v1);
         }
+
+        deviceSpecificSettings.addRootScreen(DeviceSpecificSettingsScreen.CALLS_AND_NOTIFICATIONS);
+        deviceSpecificSettings.addSubScreen(DeviceSpecificSettingsScreen.CALLS_AND_NOTIFICATIONS, R.xml.devicesettings_headphones);
 
         addSettingsUnderHeader(deviceSpecificSettings, device, R.xml.devicesettings_header_sound_vibration, new LinkedHashMap<RedmiBudsCapabilities, Integer>() {{
             put(RedmiBudsCapabilities.EqualizerV1, R.xml.devicesettings_redmibuds_equalizer_v1);
