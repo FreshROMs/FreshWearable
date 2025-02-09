@@ -194,6 +194,11 @@ public abstract class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
     }
 
     @Override
+    public int getDeviceIconResource() {
+        return dev.oneuiproject.oneui.R.drawable.ic_oui_buds_pro;
+    }
+
+    @Override
     public int getDeviceImageResource() {
         return R.drawable.headset_redmi_buds_5_black;
     }
