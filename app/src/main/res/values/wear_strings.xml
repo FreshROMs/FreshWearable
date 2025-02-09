@@ -56,4 +56,9 @@
     <string name="wear_buds_automatically_answer_calls_delay_5_seconds">5 seconds</string>
     <string name="wear_buds_automatically_answer_calls_delay_10_seconds">10 seconds</string>
     <string name="wear_buds_automatically_answer_calls_delay_15_seconds">15 seconds</string>
+
+    <string name="wear_device_developer_options">Developer options</string>
+
+    <string name="wear_device_battery_notifications">Battery notifications</string>
+    <string name="wear_device_battery_notifications_screen_summary">Receive notifications when your device\'s battery is low or when it\'s fully charged.</string>
 </resources>

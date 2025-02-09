@@ -15,6 +15,10 @@ public abstract class WearableSettingCoordinator {
         return null;
     }
 
+    public List<DeviceSetting> getDeveloperOptions() {
+        return null;
+    }
+
     public List<DeviceShortcut> getShortcuts() {
         return null;
     }

@@ -179,6 +179,23 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
     private void setupDeviceSettings(List<DeviceSetting> deviceSettings) {
         if (device == null) return;
 
+        List<DeviceSetting> settings = deviceSettings;
+        if (settings == null) {
+            return;
+        }
+
+        DeviceSetting batterySettings = DashboardUtils.getBatterySettings(device);
+        if (batterySettings != null) {
+            settings.add(DeviceSetting.divider());
+            settings.add(batterySettings);
+        }
+
+        DeviceSetting developerOptions = DashboardUtils.getDeveloperOptions(device);
+        if (developerOptions != null) {
+            settings.add(DeviceSetting.divider());
+            settings.add(developerOptions);
+        }
+
         binding.preferenceList.setSettings(this, device, deviceSettings, true);
     }
 
