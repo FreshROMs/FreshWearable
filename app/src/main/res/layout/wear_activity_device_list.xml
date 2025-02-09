@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.oneuiproject.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/device_list_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:title="@string/wear_app_name"
+    app:expandable="false"
+    app:expanded="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:baselineAligned="false">
+        <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24.0dip"
+                    android:background="@color/oui_background_color">
+                    <ListView
+                        android:id="@+id/device_list_connected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
+
+                <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/oui_background_color">
+                    <ListView
+                        android:id="@+id/device_list_disconnected"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
+            </LinearLayout>
+        </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
+        <LinearLayout
+            android:id="@+id/delete_devices_button_container"
+            android:layout_width="match_parent"
+            android:layout_height="64.0dip">
+            <Button
+                android:id="@+id/delete_devices_button"
+                style="@style/GadgetbridgeTheme.Button.Title"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="16.0dip"
+                android:layout_marginVertical="8.0dip"
+                android:text="@string/wear_remove_button_title" />
+        </LinearLayout>
+    </LinearLayout>
+</dev.oneuiproject.oneui.layout.ToolbarLayout>

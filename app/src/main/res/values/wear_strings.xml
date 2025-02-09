@@ -3,6 +3,9 @@
     <string name="wear_app_name">Fresh Wearable</string>
     <string name="wear_app_launcher_name">Wearable</string>
 
+    <string name="wear_remove_button_title">Remove</string>
+    <string name="wear_device_list_remove_devices">Remove devices</string>
+
     <string name="wear_device_battery_status_single">%d%%</string>
     <string name="wear_device_buds_battery_status_single_bud">%d%% Case %d%%</string>
     <string name="wear_device_buds_battery_status_combined">L • R %d%% Case %d%%</string>

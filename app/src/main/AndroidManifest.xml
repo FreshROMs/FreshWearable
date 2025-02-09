@@ -120,6 +120,11 @@
         <meta-data
             android:name="theming-meta-xml"
             android:value="@xml/meta_fresh_wearable" />
+
+        <activity
+            android:name=".wearable.activities.DeviceListActivity"
+            android:exported="false" />
+
         <activity
             android:name=".wearable.activities.devicesettings.PreferenceScreenActivity"
             android:exported="false" />

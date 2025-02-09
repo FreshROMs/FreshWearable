@@ -77,10 +77,21 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
         setupAppBar(getResources().getConfiguration());
         setupIntentListeners();
 
+        // Setup FAB
+        binding.activityDeviceFab.setOnClickListener(view -> {
+            startActivity(new Intent(this, DeviceListActivity.class));
+        });
+
         // Request device info from service
         Application.deviceService().requestDeviceInfo();
-        setupLastDevice();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setupLastDevice();
+        binding.preferenceList.clear();
         WearableSettingCoordinator deviceSettings = device.getDeviceCoordinator().getDeviceSettings();
         if (deviceSettings != null) {
             setupDeviceSettings(deviceSettings.getSettings());
