@@ -55,7 +55,6 @@ public class DeviceSetting implements Parcelable {
     public boolean showValue = true;
     public boolean showTicks = false;
     public boolean seamlessSeekbar = false;
-    public boolean seekbarIsString = false; // This is meant for retrofitted preferences that used to use dropdowns or dialog selections
 
     // Main constructor
     public DeviceSetting(DeviceSettingType type, String key, int title, int summary, int icon, String defaultValue) {
@@ -93,7 +92,6 @@ public class DeviceSetting implements Parcelable {
         this.showValue = in.readByte() != 0;
         this.showTicks = in.readByte() != 0;
         this.seamlessSeekbar = in.readByte() != 0;
-        this.seekbarIsString = in.readByte() != 0;
         this.screenSummary = in.readInt();
 
         int settingsSize = in.readInt();
@@ -325,7 +323,6 @@ public class DeviceSetting implements Parcelable {
         dest.writeByte((byte) (this.showValue ? 1 : 0));
         dest.writeByte((byte) (this.showTicks ? 1 : 0));
         dest.writeByte((byte) (this.seamlessSeekbar ? 1 : 0));
-        dest.writeByte((byte) (this.seekbarIsString ? 1 : 0));
         dest.writeInt(this.screenSummary);
 
         dest.writeInt(this.settings.size());

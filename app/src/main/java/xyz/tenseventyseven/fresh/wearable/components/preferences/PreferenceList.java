@@ -43,7 +43,7 @@ import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
 
 public class PreferenceList extends LinearLayout {
-    private static final String SEEKBAR_PREFIX = "_seekbar";
+    private static final String SEEKBAR_SUFFIX = "_seekbar";
     private static final String EQUALIZER_PREVIEW_PREFIX = "_preview";
     private static final String EQUALIZER_DESCRIPTION_PREFIX = "_description";
 
@@ -119,6 +119,7 @@ public class PreferenceList extends LinearLayout {
         private final Map<String, List<PreferenceDependency>> dependencies = new HashMap<>();
         private final Map<String, Preference> preferenceMap = new HashMap<>();
         private final Map<String, String> defaultValues = new HashMap<>();
+        private final Map<String, String[]> preferencesWithValues = new HashMap<>();
         private SharedPreferences preferences;
 
         // No-argument constructor
@@ -272,7 +273,7 @@ public class PreferenceList extends LinearLayout {
                     }
 
                     if (setting.defaultValue != null && !setting.defaultValue.isEmpty()) {
-                        setPreferenceDefaultValue(preference, setting.defaultValue);
+                        setPreferenceDefaultValue(preference, setting);
                     }
 
                     category.addPreference(preference);
@@ -434,11 +435,12 @@ public class PreferenceList extends LinearLayout {
                     return noiseControlPreference;
                 case SEEKBAR_PRO:
                     SeekBarPreferencePro seekBarPreferencePro = new SeekBarPreferencePro(context, null);
-                    seekBarPreferencePro.setKey(setting.seekbarIsString ? setting.key + SEEKBAR_PREFIX : setting.key);
+                    seekBarPreferencePro.setKey(setting.entryValues != 0 ? setting.key + SEEKBAR_SUFFIX : setting.key);
                     seekBarPreferencePro.setMin(setting.min);
                     seekBarPreferencePro.setMax(setting.max);
 
-                    if (setting.seekbarIsString) {
+                    if (setting.entryValues != 0) {
+                        preferencesWithValues.put(setting.key, context.getResources().getStringArray(setting.entryValues));
                         seekBarPreferencePro.setValue(Integer.parseInt(preferences.getString(setting.key, setting.defaultValue)));
                     } else {
                         seekBarPreferencePro.setValue(preferences.getInt(setting.key, Integer.parseInt(setting.defaultValue)));
@@ -457,10 +459,14 @@ public class PreferenceList extends LinearLayout {
                     seekBarPreferencePro.setShowSeekBarValue(setting.showValue);
 
                     seekBarPreferencePro.setOnPreferenceChangeListener((preference, newValue) -> {
-                        if (setting.seekbarIsString) {
+                        if (setting.entryValues != 0) {
                             // This preference saves values as an integer, but setting tells us
                             // it should be saved as a string, so we need to convert it.
-                            preferences.edit().putString(setting.key, String.valueOf(newValue)).commit();
+                            String[] values = preferencesWithValues.get(setting.key);
+                            if (values != null) {
+                                int index = (int) newValue;
+                                preferences.edit().putString(setting.key, values[index]).commit();
+                            }
                         }
 
                         onPreferenceChanged(setting.key);
@@ -570,20 +576,28 @@ public class PreferenceList extends LinearLayout {
                 listPreference.setValue(value);
             }  else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
-                seekBarPreferencePro.setValue(Integer.parseInt(value));
+                if (pref.getKey().endsWith(SEEKBAR_SUFFIX)) {
+                    seekBarPreferencePro.setValue(findIndexFromEntries(preferencesWithValues.get(pref.getKey().replace(SEEKBAR_SUFFIX, "")), value));
+                } else {
+                    seekBarPreferencePro.setValue(Integer.parseInt(value));
+                }
             }
         }
 
-        private void setPreferenceDefaultValue(Preference pref, String value) {
+        private void setPreferenceDefaultValue(Preference pref, DeviceSetting setting) {
             if (pref instanceof TwoStatePreference) {
                 TwoStatePreference preference = (TwoStatePreference) pref;
-                preference.setDefaultValue(Boolean.parseBoolean(value));
+                preference.setDefaultValue(Boolean.parseBoolean(setting.defaultValue));
             } else if (pref instanceof ListPreference) {
                 ListPreference listPreference = (ListPreference) pref;
-                listPreference.setDefaultValue(value);
+                listPreference.setDefaultValue(setting.defaultValue);
             }  else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
-                seekBarPreferencePro.setDefaultValue(Integer.parseInt(value));
+                if (setting.entryValues != 0) {
+                    seekBarPreferencePro.setDefaultValue(findIndexFromEntries(preferencesWithValues.get(setting.key), setting.defaultValue));
+                } else {
+                    seekBarPreferencePro.setDefaultValue(Integer.parseInt(setting.defaultValue));
+                }
             }
         }
 
@@ -599,7 +613,11 @@ public class PreferenceList extends LinearLayout {
                 return listPreference.getValue();
             }  else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
-                return String.valueOf(seekBarPreferencePro.getValue());
+                if (pref.getKey().endsWith(SEEKBAR_SUFFIX) && preferencesWithValues.containsKey(pref.getKey().replace(SEEKBAR_SUFFIX, ""))) {
+                    return preferencesWithValues.get(pref.getKey().replace(SEEKBAR_SUFFIX, ""))[seekBarPreferencePro.getValue()];
+                } else {
+                    return String.valueOf(seekBarPreferencePro.getValue());
+                }
             }
 
             return "";
@@ -614,8 +632,8 @@ public class PreferenceList extends LinearLayout {
             } else if (pref instanceof ListPreference) {
                 return preferences.getString(key, defaultValues.get(key));
             } else if (pref instanceof SeekBarPreferencePro) {
-                if (pref.getKey().endsWith(SEEKBAR_PREFIX)) {
-                    return preferences.getString(key, defaultValues.get(key));
+                if (pref.getKey().endsWith(SEEKBAR_SUFFIX)) {
+                    return preferences.getString(key.replace(SEEKBAR_SUFFIX, ""), defaultValues.get(key));
                 } else {
                     String value = defaultValues.get(key);
                     return String.valueOf(preferences.getInt(key, Integer.parseInt(value != null ? value : "0")));
@@ -637,18 +655,29 @@ public class PreferenceList extends LinearLayout {
                 listPreference.setValue(value);
             } else if (pref instanceof SeekBarPreferencePro) {
                 SeekBarPreferencePro seekBarPreferencePro = (SeekBarPreferencePro) pref;
-                String str = preferences.getString(key, defaultValues.get(key));
-                int value;
-                if (pref.getKey().endsWith(SEEKBAR_PREFIX)) {
-                    value = Integer.parseInt(str != null ? str : "0");
+                if (pref.getKey().endsWith(SEEKBAR_SUFFIX)) {
+                    String value = preferences.getString(key.replace(SEEKBAR_SUFFIX, ""), defaultValues.get(key));
+                    seekBarPreferencePro.setValue(findIndexFromEntries(preferencesWithValues.get(key.replace(SEEKBAR_SUFFIX, "")), value));
                 } else {
-                    String val = defaultValues.get(key);
-                    value = preferences.getInt(key, Integer.parseInt(val != null ? val : "0"));
+                    String value = defaultValues.get(key);
+                    seekBarPreferencePro.setValue(preferences.getInt(key, Integer.parseInt(value != null ? value : "0")));
                 }
-
-                seekBarPreferencePro.setValue(value);
             }
 
+        }
+
+        private int findIndexFromEntries(String[] entries, String value) {
+            if (entries == null || entries.length == 0) {
+                return 0;
+            }
+
+            for (int i = 0; i < entries.length; i++) {
+                if (entries[i].equals(value)) {
+                    return i;
+                }
+            }
+
+            return 0;
         }
 
         private void onPreferenceChanged(String key) {
