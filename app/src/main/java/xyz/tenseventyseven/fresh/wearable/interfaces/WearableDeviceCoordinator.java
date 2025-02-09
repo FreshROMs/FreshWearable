@@ -35,6 +35,11 @@ public interface WearableDeviceCoordinator {
     int getDefaultIconResource();
 
     @DrawableRes
+    default int getDeviceIconResource() {
+        return getDefaultIconResource();
+    }
+
+    @DrawableRes
     default int getDeviceImageResource() {
         return getDefaultIconResource();
     }

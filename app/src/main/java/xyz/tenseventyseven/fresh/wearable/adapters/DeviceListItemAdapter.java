@@ -78,7 +78,7 @@ public class DeviceListItemAdapter extends ArrayAdapter<GBDevice> {
         // Set device name and image
         String name = device.getAliasOrName();
         deviceNameLabel.setText(name);
-        deviceImageView.setImageResource(coordinator.getDefaultIconResource());
+        deviceImageView.setImageResource(coordinator.getDeviceIconResource());
 
         if (selectMode) {
             checkBox.setVisibility(View.VISIBLE);
