@@ -334,16 +334,22 @@ public class PreferenceList extends LinearLayout {
                     CheckBoxPreference checkBoxPreference = new CheckBoxPreference(context);
                     checkBoxPreference.setKey(setting.key);
                     checkBoxPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                        onPreferenceChanged(setting.key);
-                        return true;
+                        if (allowPreferenceChange(checkBoxPreference, newValue.toString())) {
+                            onPreferenceChanged(setting.key);
+                            return true;
+                        }
+                        return false;
                     });
                     return checkBoxPreference;
                 case SWITCH:
                     SwitchPreference switchPreference = new SwitchPreference(context);
                     switchPreference.setKey(setting.key);
                     switchPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                        onPreferenceChanged(setting.key);
-                        return true;
+                        if (allowPreferenceChange(switchPreference, newValue.toString())) {
+                            onPreferenceChanged(setting.key);
+                            return true;
+                        }
+                        return false;
                     });
 
                     if (setting.valueAsSummary) {
@@ -364,8 +370,11 @@ public class PreferenceList extends LinearLayout {
                     SeslSwitchPreferenceScreen switchPreferenceScreen = new SeslSwitchPreferenceScreen(context);
                     switchPreferenceScreen.setKey(setting.key);
                     switchPreferenceScreen.setOnPreferenceChangeListener((preference, newValue) -> {
-                        onPreferenceChanged(setting.key);
-                        return true;
+                        if (allowPreferenceChange(switchPreferenceScreen, newValue.toString())) {
+                            onPreferenceChanged(setting.key);
+                            return true;
+                        }
+                        return false;
                     });
                     switchPreferenceScreen.setOnPreferenceClickListener(preference -> {
                         launchActivity(setting);
@@ -392,8 +401,11 @@ public class PreferenceList extends LinearLayout {
                     dropDownPreference.setEntries(setting.entries);
                     dropDownPreference.setEntryValues(setting.entryValues);
                     dropDownPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                        onPreferenceChanged(setting.key);
-                        return true;
+                        if (allowPreferenceChange(dropDownPreference, newValue.toString())) {
+                            onPreferenceChanged(setting.key);
+                            return true;
+                        }
+                        return false;
                     });
                     dropDownPreference.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
                     dropDownPreference.seslSetSummaryColor(context.getColor(R.color.wearable_accent_primary));
@@ -428,8 +440,11 @@ public class PreferenceList extends LinearLayout {
                     NoiseControlPreference noiseControlPreference = new NoiseControlPreference(context);
                     noiseControlPreference.setKey(setting.key);
                     noiseControlPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                        onPreferenceChanged(setting.key);
-                        return true;
+                        if (allowPreferenceChange(noiseControlPreference, newValue.toString())) {
+                            onPreferenceChanged(setting.key);
+                            return true;
+                        }
+                        return false;
                     });
                     noiseControlPreference.setEntryValues(setting.entryValues);
                     return noiseControlPreference;
@@ -459,6 +474,10 @@ public class PreferenceList extends LinearLayout {
                     seekBarPreferencePro.setShowSeekBarValue(setting.showValue);
 
                     seekBarPreferencePro.setOnPreferenceChangeListener((preference, newValue) -> {
+                        if (!allowPreferenceChange(seekBarPreferencePro, newValue.toString())) {
+                            return false;
+                        }
+
                         if (setting.entryValues != 0) {
                             // This preference saves values as an integer, but setting tells us
                             // it should be saved as a string, so we need to convert it.
@@ -478,8 +497,11 @@ public class PreferenceList extends LinearLayout {
                     buttonGroupPreference.setKey(setting.key);
                     buttonGroupPreference.setEntriesAndValues(setting.entries, setting.entryValues);
                     buttonGroupPreference.setOnPreferenceChangeListener((preference, newValue) -> {
-                        onPreferenceChanged(setting.key);
-                        return true;
+                        if (allowPreferenceChange(buttonGroupPreference, newValue.toString())) {
+                            onPreferenceChanged(setting.key);
+                            return true;
+                        }
+                        return false;
                     });
                     return buttonGroupPreference;
                 case EQUALIZER_PREVIEW:
@@ -678,6 +700,10 @@ public class PreferenceList extends LinearLayout {
             }
 
             return 0;
+        }
+
+        private boolean allowPreferenceChange(Preference preference, String newValue) {
+            return coordinator.allowPreferenceChange(screen, preference, newValue);
         }
 
         private void onPreferenceChanged(String key) {
