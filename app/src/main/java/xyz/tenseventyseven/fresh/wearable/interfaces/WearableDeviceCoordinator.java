@@ -52,4 +52,8 @@ public interface WearableDeviceCoordinator {
     default WearableSettingCoordinator getDeviceSettings() {
         return null;
     }
+
+    default WearableSettingCoordinator getDeviceSettings(GBDevice device) {
+        return getDeviceSettings();
+    }
 }

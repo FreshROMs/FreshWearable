@@ -155,11 +155,11 @@ public class PreferenceList extends LinearLayout {
                 hasShortcuts = getArguments().getBoolean("hasShortcuts");
                 summary = getArguments().getString("summary");
                 preferences = Application.getDevicePrefs(device).getPreferences();
-                coordinator = device.getDeviceCoordinator().getDeviceSettings();
 
                 for (DeviceSetting setting : settings) {
                     dependencies.put(setting.key, new ArrayList<>());
                 }
+                coordinator = device.getDeviceCoordinator().getDeviceSettings(device);
             } else {
                 Log.e("PreferenceListFragment", "No arguments found");
             }

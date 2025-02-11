@@ -22,7 +22,7 @@ public class DashboardUtils {
         );
         screen.settings = new ArrayList<>();
 
-        List<DeviceSetting> deviceOptions = coordinator.getDeviceSettings().getDeveloperOptions();
+        List<DeviceSetting> deviceOptions = coordinator.getDeviceSettings(device).getDeveloperOptions();
         if (deviceOptions != null && !deviceOptions.isEmpty()) {
             screen.settings.addAll(deviceOptions);
         }

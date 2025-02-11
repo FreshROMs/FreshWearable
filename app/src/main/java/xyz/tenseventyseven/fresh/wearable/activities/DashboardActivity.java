@@ -96,7 +96,7 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
             return;
         }
 
-        WearableSettingCoordinator deviceSettings = device.getDeviceCoordinator().getDeviceSettings();
+        WearableSettingCoordinator deviceSettings = device.getDeviceCoordinator().getDeviceSettings(device);
         if (deviceSettings != null) {
             setupDeviceSettings(deviceSettings.getSettings());
         }

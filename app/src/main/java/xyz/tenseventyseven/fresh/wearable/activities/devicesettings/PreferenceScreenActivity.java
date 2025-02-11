@@ -77,8 +77,8 @@ public class PreferenceScreenActivity extends AbstractNoActionBarActivity {
         SharedPreferences prefs = Application.getDevicePrefs(device).getPreferences();
         new Thread(() -> {
             prefs.edit().putBoolean(setting.key, isChecked).commit();
-            device.getDeviceCoordinator().getDeviceSettings().onSettingChanged(device, Application.getDevicePrefs(device).getPreferences(), setting.key);
             Application.deviceService(device).onSendConfiguration(setting.key);
+            device.getDeviceCoordinator().getDeviceSettings(device).onSettingChanged(device, Application.getDevicePrefs(device).getPreferences(), setting.key);
         }).start();
     }
 
