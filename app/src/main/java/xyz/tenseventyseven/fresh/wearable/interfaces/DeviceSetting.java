@@ -52,6 +52,8 @@ public class DeviceSetting implements Parcelable {
     public String defaultValue = "";
     public String activity = "";
     public boolean valueAsSummary = false;
+    public boolean screenHasSwitchBar = false;
+    public String screenSwitchBarKey = "";
     private Map<String, Object> extras = new HashMap<>();
 
     // For SpinnerPreference, add labels and corresponding values
@@ -108,6 +110,8 @@ public class DeviceSetting implements Parcelable {
         this.showTicks = in.readByte() != 0;
         this.seamlessSeekbar = in.readByte() != 0;
         this.screenSummary = in.readInt();
+        this.screenHasSwitchBar = in.readByte() != 0;
+        this.screenSwitchBarKey = in.readString();
         this.valueKind = ValueKind.values()[in.readInt()];
 
         int settingsSize = in.readInt();
@@ -206,23 +210,32 @@ public class DeviceSetting implements Parcelable {
     }
 
     public static DeviceSetting switchScreen(String key, int title, int summary, int icon, String defaultValue) {
-        return new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+        DeviceSetting setting =  new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+        setting.screenHasSwitchBar = true;
+        setting.screenSwitchBarKey = key;
+        return setting;
     }
 
     public static DeviceSetting switchScreen(String key, int title, int summary, int icon, String defaultValue, boolean valueAsSummary) {
         DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+        setting.screenHasSwitchBar = true;
+        setting.screenSwitchBarKey = key;
         setting.valueAsSummary = valueAsSummary;
         return setting;
     }
 
     public static DeviceSetting switchScreen(String key, int title, int summary, int icon, String defaultValue, String activity) {
         DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+        setting.screenHasSwitchBar = true;
+        setting.screenSwitchBarKey = key;
         setting.activity = activity;
         return setting;
     }
 
     public static DeviceSetting switchScreen(String key, int title, int summary, int icon, String defaultValue, String activity, boolean valueAsSummary) {
         DeviceSetting setting = new DeviceSetting(DeviceSettingType.SWITCH_SCREEN, key, title, summary, icon, defaultValue);
+        setting.screenHasSwitchBar = true;
+        setting.screenSwitchBarKey = key;
         setting.activity = activity;
         setting.valueAsSummary = valueAsSummary;
         return setting;
@@ -345,6 +358,8 @@ public class DeviceSetting implements Parcelable {
         dest.writeByte((byte) (this.showTicks ? 1 : 0));
         dest.writeByte((byte) (this.seamlessSeekbar ? 1 : 0));
         dest.writeInt(this.screenSummary);
+        dest.writeByte((byte) (this.screenHasSwitchBar ? 1 : 0));
+        dest.writeString(this.screenSwitchBarKey);
         dest.writeInt(this.valueKind.ordinal());
 
         dest.writeInt(this.settings.size());

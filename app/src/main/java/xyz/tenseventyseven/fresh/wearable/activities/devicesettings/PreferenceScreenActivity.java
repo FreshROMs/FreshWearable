@@ -60,7 +60,7 @@ public class PreferenceScreenActivity extends AbstractNoActionBarActivity {
         toolbarLayout.setTitle(getString(setting.title));
         if (isSwitchBar) {
             toolbarLayout.getSwitchBar().setVisibility(View.VISIBLE);
-            toolbarLayout.getSwitchBar().setChecked(Application.getDevicePrefs(device).getPreferences().getBoolean(setting.key, Boolean.parseBoolean(setting.defaultValue)));
+            toolbarLayout.getSwitchBar().setChecked(Application.getDevicePrefs(device).getPreferences().getBoolean(setting.screenSwitchBarKey, Boolean.parseBoolean(setting.defaultValue)));
             toolbarLayout.getSwitchBar().addOnSwitchChangeListener(this::onSwitchBarChange);
         }
     }
@@ -76,9 +76,9 @@ public class PreferenceScreenActivity extends AbstractNoActionBarActivity {
 
         SharedPreferences prefs = Application.getDevicePrefs(device).getPreferences();
         new Thread(() -> {
-            prefs.edit().putBoolean(setting.key, isChecked).commit();
-            Application.deviceService(device).onSendConfiguration(setting.key);
+            prefs.edit().putBoolean(setting.screenSwitchBarKey, isChecked).commit();
             device.getDeviceCoordinator().getDeviceSettings(device).onSettingChanged(device, Application.getDevicePrefs(device).getPreferences(), setting.key);
+            Application.deviceService(device).onSendConfiguration(setting.screenSwitchBarKey);
         }).start();
     }
 

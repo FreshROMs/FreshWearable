@@ -794,7 +794,7 @@ public class PreferenceList extends LinearLayout {
             if (setting.activity == null || setting.activity.isEmpty()) {
                 intent = new Intent(context, PreferenceScreenActivity.class);
                 intent.putExtra(GBDevice.EXTRA_DEVICE, this.device);
-                intent.putExtra(DeviceSetting.EXTRA_IS_SWITCH_BAR, setting.type == DeviceSetting.DeviceSettingType.SWITCH_SCREEN);
+                intent.putExtra(DeviceSetting.EXTRA_IS_SWITCH_BAR, setting.screenHasSwitchBar);
                 intent.putExtra(DeviceSetting.EXTRA_SETTING, setting);
             } else {
                 intent.setClassName(context, setting.activity);
