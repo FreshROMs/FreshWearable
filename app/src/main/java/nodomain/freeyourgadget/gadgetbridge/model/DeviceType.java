@@ -88,6 +88,7 @@ import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.forerunner.Ga
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.forerunner.GarminForerunner45Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.forerunner.GarminForerunner55Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.forerunner.GarminForerunner620Coordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.forerunner.GarminForerunner735XTCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.forerunner.GarminForerunner955Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.forerunner.GarminForerunner965Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.instinct.GarminInstinct2Coordinator;
@@ -119,6 +120,7 @@ import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.vivomove.Garm
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.vivomove.GarminVivomoveTrendCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.vivosmart.GarminVivosmart5Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.garmin.watches.vivosport.GarminVivosportCoordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.gree.GreeAcCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.hama.fit6900.HamaFit6900DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.hplus.EXRIZUK8Coordinator;
 import nodomain.freeyourgadget.gadgetbridge.devices.hplus.HPlusCoordinator;
@@ -489,6 +491,7 @@ public enum DeviceType {
     GARMIN_FORERUNNER_265(GarminForerunner265Coordinator.class),
     GARMIN_FORERUNNER_265S(GarminForerunner265SCoordinator.class),
     GARMIN_FORERUNNER_620(GarminForerunner620Coordinator.class),
+    GARMIN_FORERUNNER_735XT(GarminForerunner735XTCoordinator.class),
     GARMIN_FORERUNNER_955(GarminForerunner955Coordinator.class),
     GARMIN_FORERUNNER_965(GarminForerunner965Coordinator.class),
     GARMIN_SWIM_2(GarminSwim2Coordinator.class),
@@ -519,6 +522,7 @@ public enum DeviceType {
     GARMIN_VIVOACTIVE_5(GarminVivoActive5Coordinator.class),
     GARMIN_VIVOSMART_5(GarminVivosmart5Coordinator.class),
     GARMIN_VIVOSPORT(GarminVivosportCoordinator.class),
+    GREE_AC(GreeAcCoordinator.class),
     VIBRATISSIMO(VibratissimoCoordinator.class),
     SONY_SWR12(SonySWR12DeviceCoordinator.class),
     LIVEVIEW(LiveviewCoordinator.class),

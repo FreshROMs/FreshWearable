@@ -677,6 +677,10 @@
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.watch9.Watch9PairingActivity"
             android:label="@string/title_activity_watch9_pairing" />
         <activity
+            android:name="nodomain.freeyourgadget.gadgetbridge.devices.gree.GreeAcPairingActivity"
+            android:label="@string/devicetype_gree_ac"
+            android:parentActivityName="nodomain.freeyourgadget.gadgetbridge.activities.discovery.DiscoveryActivityV2" />
+        <activity
             android:name="nodomain.freeyourgadget.gadgetbridge.devices.watch9.Watch9CalibrationActivity"
             android:label="@string/title_activity_watch9_calibration" />
         <activity
