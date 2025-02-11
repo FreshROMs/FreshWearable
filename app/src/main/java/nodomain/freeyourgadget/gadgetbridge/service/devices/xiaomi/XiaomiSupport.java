@@ -259,6 +259,11 @@ public class XiaomiSupport extends AbstractDeviceSupport {
     }
 
     @Override
+    public void onSetDNDMode(boolean enable) {
+        systemService.setDndMode(enable);
+    }
+
+    @Override
     public void onTestNewFunction() {
         //sendCommand("test new function", 2, 29);
         parseAllActivityFilesFromStorage();
