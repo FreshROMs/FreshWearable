@@ -34,7 +34,6 @@ import java.util.UUID;
 import nodomain.freeyourgadget.gadgetbridge.capabilities.loyaltycards.LoyaltyCard;
 import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventCameraRemote;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
-import nodomain.freeyourgadget.gadgetbridge.impl.GBDeviceMusic;
 import nodomain.freeyourgadget.gadgetbridge.model.Alarm;
 import nodomain.freeyourgadget.gadgetbridge.model.CalendarEventSpec;
 import nodomain.freeyourgadget.gadgetbridge.model.CallSpec;
@@ -174,6 +173,11 @@ public class ServiceDeviceSupport implements DeviceSupport {
             return;
         }
         delegate.onNotification(notificationSpec);
+    }
+
+    @Override
+    public void onSetDNDMode(boolean enable) {
+        delegate.onSetDNDMode(enable);
     }
 
     @Override

@@ -155,8 +155,11 @@ public interface EventHandler {
 
     void onCameraStatusChange(GBDeviceEventCameraRemote.Event event, String filename);
 
-
     void onMusicListReq();
 
     void onMusicOperation(int operation, int playlistIndex, String playlistName, ArrayList<Integer> musicIds);
+
+    default void onSetDNDMode(boolean enable) {
+
+    }
 }

@@ -1098,6 +1098,12 @@
     <string name="silent_mode_normal_vibrate">Normal / Vibrate</string>
     <string name="silent_mode_normal_silent">Normal / Silent</string>
     <string name="silent_mode_vibrate_silent">Vibrate / Silent</string>
+    <string name="prefs_do_not_disturb_sync">Sync Do not disturb with phone</string>
+    <string name="prefs_do_not_disturb_sync_summary">Sync Do not disturb settings with the phone</string>
+    <string name="prefs_do_not_disturb_sync_watch_mode">Do not disturb mode</string>
+    <string name="prefs_do_not_disturb_sync_mode_none">No notifications allowed</string>
+    <string name="prefs_do_not_disturb_sync_mode_alarms">Alarms only</string>
+    <string name="prefs_do_not_disturb_sync_mode_priority">Priority only</string>
     <string name="prefs_always_on_display">Always On Display</string>
     <string name="prefs_always_on_display_follow_watchface">Style follows Watchface</string>
     <string name="prefs_always_on_display_style">Style</string>

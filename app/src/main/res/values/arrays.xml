@@ -276,6 +276,17 @@
         <item>vibrate_silent</item>
     </string-array>
 
+    <string-array name="phone_do_not_disturb_mode">
+        <item>@string/prefs_do_not_disturb_sync_mode_priority</item>
+        <item>@string/prefs_do_not_disturb_sync_mode_alarms</item>
+        <item>@string/prefs_do_not_disturb_sync_mode_none</item>
+    </string-array>
+    <string-array name="phone_do_not_disturb_mode_values">
+        <item>priority</item>
+        <item>alarms</item>
+        <item>none</item>
+    </string-array>
+
     <string-array name="pebble_activitytracker">
         <item name="4">Pebble Health</item>
         <item name="3">Misfit</item>

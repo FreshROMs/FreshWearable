@@ -605,4 +605,6 @@ public class DeviceSettingsPreferenceConst {
     public static final String PREF_BATTERY_DISCHARGE_MANUAL = "battery_discharge_manual";
     public static final String PREF_BATTERY_MINIMUM_CHARGE = "battery_minimum_charge";
     public static final String PREF_BATTERY_ALLOW_PASS_THROUGH = "battery_allow_pass_through";
+    public static final String PREF_DND_SYNC = "prefs_do_not_disturb_sync";
+    public static final String PREF_DND_SYNC_WITH_WATCH_MODE = "prefs_do_not_disturb_sync_with_watch_mode";
 }

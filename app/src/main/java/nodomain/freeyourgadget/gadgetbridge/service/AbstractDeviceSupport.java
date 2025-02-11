@@ -56,6 +56,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
+import nodomain.freeyourgadget.gadgetbridge.deviceevents.GBDeviceEventDoNotDisturb;
+import nodomain.freeyourgadget.gadgetbridge.util.DoNotDisturbMode;
 import xyz.tenseventyseven.fresh.BuildConfig;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
@@ -245,8 +247,14 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
             handleGBDeviceEvent((GBDeviceMusicData) deviceEvent);
         } else if (deviceEvent instanceof GBDeviceMusicUpdate) {
             handleGBDeviceEvent((GBDeviceMusicUpdate) deviceEvent);
+        } else if (deviceEvent instanceof GBDeviceEventDoNotDisturb) {
+            handleGBDeviceEvent((GBDeviceEventDoNotDisturb) deviceEvent);
         }
+    }
 
+    private void handleGBDeviceEvent(GBDeviceEventDoNotDisturb deviceEvent) {
+        LOG.info("Got GBDeviceEventDoNotDisturb: enabled = {}", deviceEvent.isEnabled());
+        DoNotDisturbMode.setPhoneMode(getDevice().getAddress(), deviceEvent.isEnabled());
     }
 
     private void handleGBDeviceEvent(GBDeviceEventSilentMode deviceEvent) {

@@ -587,4 +587,11 @@ public class GBDeviceService implements DeviceService {
         intent.putExtra("musicIds", musicIds);
         invokeService(intent);
     }
+
+    @Override
+    public void onSetDNDMode(boolean enable) {
+        Intent intent = createIntent().setAction(ACTION_SET_DND_MODE)
+                .putExtra(EXTRA_DND_ENABLED, enable);
+        invokeService(intent);
+    }
 }

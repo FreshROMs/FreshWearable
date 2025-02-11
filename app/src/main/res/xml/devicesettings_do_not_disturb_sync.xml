@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SwitchPreferenceCompat
+        android:defaultValue="false"
+        android:key="prefs_do_not_disturb_sync"
+        android:title="@string/prefs_do_not_disturb_sync"
+        android:summary="@string/prefs_do_not_disturb_sync_summary" />
+
+    <ListPreference
+        android:defaultValue="priority"
+        android:entries="@array/phone_do_not_disturb_mode"
+        android:entryValues="@array/phone_do_not_disturb_mode_values"
+        android:key="prefs_do_not_disturb_sync_with_watch_mode"
+        android:title="@string/prefs_do_not_disturb_sync_watch_mode"
+        app:useSimpleSummaryProvider="true" />
+</androidx.preference.PreferenceScreen>

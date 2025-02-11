@@ -25,6 +25,7 @@ package nodomain.freeyourgadget.gadgetbridge.service;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -111,6 +112,7 @@ import nodomain.freeyourgadget.gadgetbridge.util.GBPrefs;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
 import nodomain.freeyourgadget.gadgetbridge.util.language.LanguageUtils;
 import nodomain.freeyourgadget.gadgetbridge.util.language.Transliterator;
+import nodomain.freeyourgadget.gadgetbridge.externalevents.DoNotDisturbModeReceiver;
 
 import static nodomain.freeyourgadget.gadgetbridge.model.DeviceService.*;
 
@@ -257,6 +259,7 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
     private BluetoothPairingRequestReceiver mBlueToothPairingRequestReceiver = null;
     private AlarmClockReceiver mAlarmClockReceiver = null;
     private SilentModeReceiver mSilentModeReceiver = null;
+    private DoNotDisturbModeReceiver mDoNotDisturbModeReceiver = null;
     private GBAutoFetchReceiver mGBAutoFetchReceiver = null;
     private AutoConnectIntervalReceiver mAutoConnectInvervalReceiver = null;
 
@@ -945,7 +948,11 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 deviceSupport.onSetConstantVibration(intensity);
                 break;
             }
-            case ACTION_CALLSTATE:
+            case ACTION_SET_DND_MODE: {
+                boolean enabled = intentCopy.getBooleanExtra(EXTRA_DND_ENABLED, false);
+                deviceSupport.onSetDNDMode(enabled);
+                break;
+            } case ACTION_CALLSTATE:
                 CallSpec callSpec = new CallSpec();
                 callSpec.command = intentCopy.getIntExtra(EXTRA_CALL_COMMAND, CallSpec.CALL_UNDEFINED);
                 callSpec.number = intentCopy.getStringExtra(EXTRA_CALL_PHONENUMBER);
@@ -1400,6 +1407,13 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 ContextCompat.registerReceiver(this, mSilentModeReceiver, filter, ContextCompat.RECEIVER_EXPORTED);
             }
 
+            if (mDoNotDisturbModeReceiver == null) {
+                mDoNotDisturbModeReceiver = new DoNotDisturbModeReceiver(this);
+                IntentFilter filter = new IntentFilter();
+                filter.addAction(NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED);
+                ContextCompat.registerReceiver(this, mDoNotDisturbModeReceiver, filter, ContextCompat.RECEIVER_EXPORTED);
+            }
+
             if (locationService == null) {
                 locationService = new GBLocationService(this);
                 LocalBroadcastManager.getInstance(this).registerReceiver(locationService, locationService.buildFilter());
@@ -1490,6 +1504,10 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
             if (mSilentModeReceiver != null) {
                 unregisterReceiver(mSilentModeReceiver);
                 mSilentModeReceiver = null;
+            }
+            if (mDoNotDisturbModeReceiver != null) {
+                unregisterReceiver(mDoNotDisturbModeReceiver);
+                mDoNotDisturbModeReceiver = null;
             }
             if (locationService != null) {
                 LocalBroadcastManager.getInstance(this).unregisterReceiver(locationService);
