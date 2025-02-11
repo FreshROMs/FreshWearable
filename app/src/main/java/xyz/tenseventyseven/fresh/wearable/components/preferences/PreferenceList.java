@@ -220,6 +220,7 @@ public class PreferenceList extends LinearLayout {
                 getPreferenceManager().setSharedPreferencesMode(Context.MODE_PRIVATE);
             }
 
+            PreferenceCategory category = null;
             if (summary != null && !summary.isEmpty()) {
                 try {
                     EditTextPreference summaryPreference = new EditTextPreference(context);
@@ -232,6 +233,7 @@ public class PreferenceList extends LinearLayout {
                     summaryPreference.seslSetSummaryColor(context.getColor(R.color.wearable_primary_text));
 
                     preferenceScreen.addPreference(summaryPreference);
+                    category = addPreferenceCategory(context, preferenceScreen, null);
                 } catch (Exception e) {
                     Log.e("PreferenceListFragment", "Error adding summary", e);
                 }
@@ -246,6 +248,7 @@ public class PreferenceList extends LinearLayout {
                         shortcuts.setOnShortcutClickListener(key -> coordinator.onShortcutClicked(context, device, key));
                         preferenceScreen.addPreference(shortcuts);
                     }
+                    category = addPreferenceCategory(context, preferenceScreen, null);
                 } catch (Exception e) {
                     Log.e("PreferenceListFragment", "Error adding shortcuts", e);
                 }
@@ -256,23 +259,9 @@ public class PreferenceList extends LinearLayout {
                 return;
             }
 
-            PreferenceCategory category = new PreferenceCategory(getContext());
-            preferenceScreen.addPreference(category);
-
             for (DeviceSetting setting : settings) {
                 if (setting.type == DeviceSetting.DeviceSettingType.DIVIDER) {
-                    category = new PreferenceCategory(getContext());
-                    if (setting.title != 0) {
-                        category.setTitle(setting.title);
-                    }
-
-                    if (!setting.key.isEmpty()) {
-                        category.setKey(setting.key);
-                        addSettingDependency(category, setting);
-                        preferenceMap.put(setting.key, category);
-                    }
-
-                    preferenceScreen.addPreference(category);
+                    category = addPreferenceCategory(context, preferenceScreen, setting);
                     continue;
                 }
 
@@ -299,7 +288,7 @@ public class PreferenceList extends LinearLayout {
                         setPreferenceDefaultValue(preference, setting);
                     }
 
-                    category.addPreference(preference);
+                    addPreference(preference, preferenceScreen, category);
                     defaultValues.put(preference.getKey(), setting.defaultValue);
                     preferenceMap.put(preference.getKey(), preference);
                     addSettingDependency(preference, setting);
@@ -314,6 +303,32 @@ public class PreferenceList extends LinearLayout {
             }
 
             coordinator.onSettingsCreated(preferenceScreen);
+        }
+
+        private PreferenceCategory addPreferenceCategory(Context context, PreferenceScreen screen, DeviceSetting setting) {
+            PreferenceCategory category = new PreferenceCategory(context);
+            if (setting != null) {
+                if (setting.title != 0) {
+                    category.setTitle(setting.title);
+                }
+
+                if (!setting.key.isEmpty()) {
+                    category.setKey(setting.key);
+                    addSettingDependency(category, setting);
+                    preferenceMap.put(setting.key, category);
+                }
+            }
+
+            screen.addPreference(category);
+            return category;
+        }
+
+        private void addPreference(Preference preference, PreferenceScreen screen, PreferenceCategory category) {
+            if (category != null) {
+                category.addPreference(preference);
+            } else {
+                screen.addPreference(preference);
+            }
         }
 
         private void addSettingDependency(Preference preference, DeviceSetting setting) {
