@@ -111,7 +111,7 @@ public class PasswordCapabilityImpl {
         });
     }
 
-    private static class InputFilter_Digits_1to4 implements InputFilter {
+    public static class InputFilter_Digits_1to4 implements InputFilter {
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
             for (int i = start; i < end; i++) {
@@ -127,11 +127,11 @@ public class PasswordCapabilityImpl {
         }
     }
 
-    private static class ExpectedLengthTextWatcher implements TextWatcher {
+    public static class ExpectedLengthTextWatcher implements TextWatcher {
         private final EditText editText;
         private final int expectedLength;
 
-        private ExpectedLengthTextWatcher(final EditText editText, final int expectedLength) {
+        public ExpectedLengthTextWatcher(final EditText editText, final int expectedLength) {
             this.editText = editText;
             this.expectedLength = expectedLength;
         }

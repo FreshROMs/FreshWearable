@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -14,12 +15,14 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.DropDownPreference;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
+import androidx.preference.MultiSelectListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragmentCompat;
@@ -28,20 +31,33 @@ import androidx.preference.SeslSwitchPreferenceScreen;
 import androidx.preference.SwitchPreference;
 import androidx.preference.TwoStatePreference;
 
+import com.mobeta.android.dslv.DragSortListPreference;
+import com.mobeta.android.dslv.DragSortListPreferenceFragment;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import dev.oneuiproject.oneui.preference.SeekBarPreferencePro;
+import nodomain.freeyourgadget.gadgetbridge.capabilities.password.PasswordCapabilityImpl;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import nodomain.freeyourgadget.gadgetbridge.util.XDatePreference;
+import nodomain.freeyourgadget.gadgetbridge.util.XDatePreferenceFragment;
+import nodomain.freeyourgadget.gadgetbridge.util.XTimePreference;
+import nodomain.freeyourgadget.gadgetbridge.util.XTimePreferenceFragment;
+import nodomain.freeyourgadget.gadgetbridge.util.dialogs.MaterialEditTextPreferenceDialogFragment;
+import nodomain.freeyourgadget.gadgetbridge.util.dialogs.MaterialListPreferenceDialogFragment;
+import nodomain.freeyourgadget.gadgetbridge.util.dialogs.MaterialMultiSelectListPreferenceDialogFragment;
 import nodomain.freeyourgadget.gadgetbridge.util.preferences.MinMaxTextWatcher;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.databinding.WearPreferenceListBinding;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
+import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceShortcut;
 import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
 
 public class PreferenceList extends LinearLayout {
@@ -223,10 +239,13 @@ public class PreferenceList extends LinearLayout {
 
             if (hasShortcuts) {
                 try {
-                    DeviceShortcutsPreference shortcuts = new DeviceShortcutsPreference(context);
-                    shortcuts.setShorcuts(coordinator.getShortcuts());
-                    shortcuts.setOnShortcutClickListener(key -> coordinator.onShortcutClicked(context, device, key));
-                    preferenceScreen.addPreference(shortcuts);
+                    List<DeviceShortcut> deviceShortcuts = coordinator.getShortcuts();
+                    if (deviceShortcuts != null && !deviceShortcuts.isEmpty()) {
+                        DeviceShortcutsPreference shortcuts = new DeviceShortcutsPreference(context);
+                        shortcuts.setShorcuts(deviceShortcuts);
+                        shortcuts.setOnShortcutClickListener(key -> coordinator.onShortcutClicked(context, device, key));
+                        preferenceScreen.addPreference(shortcuts);
+                    }
                 } catch (Exception e) {
                     Log.e("PreferenceListFragment", "Error adding shortcuts", e);
                 }
@@ -543,47 +562,161 @@ public class PreferenceList extends LinearLayout {
                     editTextPreference.seslSetSummaryColor(context.getColor(R.color.wearable_primary_text));
                     return editTextPreference;
                 case EDIT_TEXT:
-                    EditTextPreference editText = new EditTextPreference(context);
-                    editText.setKey(setting.key);
-                    editText.setSummary(setting.summary);
-                    editText.setDialogTitle(setting.title);
-                    editText.setOnPreferenceChangeListener((preference, newValue) -> {
-                        if (allowPreferenceChange(editText, newValue.toString())) {
+                    return getEditTextPreference(setting, context);
+                case SELECT_DIALOG:
+                    ListPreference listPreferenceDialog = new ListPreference(context);
+                    listPreferenceDialog.setKey(setting.key);
+                    listPreferenceDialog.setEntries(setting.entries);
+                    listPreferenceDialog.setEntryValues(setting.entryValues);
+                    listPreferenceDialog.setOnPreferenceChangeListener((preference, newValue) -> {
+                        if (allowPreferenceChange(listPreferenceDialog, newValue.toString())) {
                             onPreferenceChanged(setting.key);
                             return true;
                         }
                         return false;
                     });
-
-                    editText.setOnBindEditTextListener(input -> {
-                        switch (setting.valueKind) {
-                            case INT:
-                            case LONG:
-                                input.setInputType(InputType.TYPE_CLASS_NUMBER);
-                                input.addTextChangedListener(new MinMaxTextWatcher(input, setting.min, setting.max, true));
-                                break;
-                            case FLOAT:
-                            case DOUBLE:
-                                input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-                                input.addTextChangedListener(new MinMaxTextWatcher(input, setting.min, setting.max, false));
-                                break;
-                            case STRING:
-                            default:
-                                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                                break;
+                    listPreferenceDialog.setSummaryProvider(ListPreference.SimpleSummaryProvider.getInstance());
+                    listPreferenceDialog.seslSetSummaryColor(context.getColor(R.color.wearable_accent_primary));
+                    return listPreferenceDialog;
+                case TIME_PICKER:
+                    XTimePreference xTimePreference = new XTimePreference(context, null);
+                    xTimePreference.setKey(setting.key);
+                    xTimePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                        if (allowPreferenceChange(xTimePreference, newValue.toString())) {
+                            onPreferenceChanged(setting.key);
+                            return true;
                         }
+                        return false;
                     });
-
-                    if (setting.valueAsSummary) {
-                        editText.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
-                    }
-
-                    return editText;
+                    return xTimePreference;
+                case DATE_PICKER:
+                    XDatePreference xDatePreference = new XDatePreference(context, null);
+                    xDatePreference.setKey(setting.key);
+                    xDatePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                        if (allowPreferenceChange(xDatePreference, newValue.toString())) {
+                            onPreferenceChanged(setting.key);
+                            return true;
+                        }
+                        return false;
+                    });
+                    return xDatePreference;
+                case DRAG_SORT:
+                    return getDragSortListPreference(setting, context);
                 default:
                     Log.w("PreferenceListFragment", "Unknown setting type: " + setting.type);
             }
 
             return null;
+        }
+
+        private DragSortListPreference getDragSortListPreference(DeviceSetting setting, Context context) {
+            try {
+                DragSortListPreference dragSortListPreference = new DragSortListPreference(context, null);
+                dragSortListPreference.setKey(setting.key);
+                dragSortListPreference.setDefaultValue(R.array.pref_transliteration_languages_default);
+                dragSortListPreference.setEntries(setting.entries);
+                dragSortListPreference.setEntryValues(setting.entryValues);
+                dragSortListPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+                    if (allowPreferenceChange(dragSortListPreference, newValue.toString())) {
+                        onPreferenceChanged(setting.key);
+                        return true;
+                    }
+                    return false;
+                });
+                dragSortListPreference.setSelectable(true);
+                dragSortListPreference.setPersistent(true);
+                dragSortListPreference.setDialogTitle(setting.title);
+                return dragSortListPreference;
+            } catch (Exception e) {
+                Log.e("PreferenceListFragment", "Error creating DragSortListPreference", e);
+                return null;
+            }
+        }
+
+        @Override
+        public void onDisplayPreferenceDialog(@NonNull Preference preference) {
+            DialogFragment dialogFragment;
+            if (preference instanceof XTimePreference) {
+                dialogFragment = new XTimePreferenceFragment();
+            } else if (preference instanceof XDatePreference) {
+                dialogFragment = new XDatePreferenceFragment();
+            } else if (preference instanceof DragSortListPreference) {
+                dialogFragment = new DragSortListPreferenceFragment();
+            } else if (preference instanceof EditTextPreference) {
+                dialogFragment = MaterialEditTextPreferenceDialogFragment.newInstance(preference.getKey());
+            } else if (preference instanceof ListPreference) {
+                dialogFragment = MaterialListPreferenceDialogFragment.newInstance(preference.getKey());
+            } else if (preference instanceof MultiSelectListPreference) {
+                dialogFragment = MaterialMultiSelectListPreferenceDialogFragment.newInstance(preference.getKey());
+            } else {
+                super.onDisplayPreferenceDialog(preference);
+                return;
+            }
+
+            final Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+            dialogFragment.setTargetFragment(this, 0);
+            if (getFragmentManager() != null) {
+                dialogFragment.show(getFragmentManager(), "androidx.preference.PreferenceFragment.DIALOG");
+            }
+        }
+
+        @NonNull
+        private EditTextPreference getEditTextPreference(DeviceSetting setting, Context context) {
+            EditTextPreference editText = new EditTextPreference(context);
+            editText.setKey(setting.key);
+            if (setting.title != 0) {
+                editText.setDialogTitle(setting.title);
+            }
+            if (setting.summary != 0) {
+                editText.setSummary(setting.summary);
+            }
+            editText.setOnPreferenceChangeListener((preference, newValue) -> {
+                if (allowPreferenceChange(editText, newValue.toString())) {
+                    onPreferenceChanged(setting.key);
+                    return true;
+                }
+                return false;
+            });
+
+            editText.setOnBindEditTextListener(input -> {
+                switch (setting.valueKind) {
+                    case INT:
+                    case LONG:
+                        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        input.addTextChangedListener(new MinMaxTextWatcher(input, setting.min, setting.max, true));
+                        break;
+                    case FLOAT:
+                    case DOUBLE:
+                        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+                        input.addTextChangedListener(new MinMaxTextWatcher(input, setting.min, setting.max, false));
+                        break;
+                    case PASSWORD:
+                        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        break;
+                    case NUMBER_PASSWORD:
+                        final List<InputFilter> inputFilters = new ArrayList<>();
+                        input.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+
+                        if (setting.length != 0) {
+                            inputFilters.add(new InputFilter.LengthFilter(setting.length));
+                        }
+
+                        input.setFilters(inputFilters.toArray(new InputFilter[0]));
+                        input.addTextChangedListener(new PasswordCapabilityImpl.ExpectedLengthTextWatcher(input, setting.length));
+                        break;
+                    case STRING:
+                    default:
+                        input.setInputType(InputType.TYPE_CLASS_TEXT);
+                        break;
+                }
+            });
+
+            if (setting.valueAsSummary) {
+                editText.setSummaryProvider(EditTextPreference.SimpleSummaryProvider.getInstance());
+            }
+            return editText;
         }
 
         @Override

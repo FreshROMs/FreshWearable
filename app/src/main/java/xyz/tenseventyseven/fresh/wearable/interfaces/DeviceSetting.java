@@ -29,6 +29,11 @@ public class DeviceSetting implements Parcelable {
         EQUALIZER_DESCRIPTION,
         DESCRIPTION,
         EDIT_TEXT,
+        SELECT_DIALOG,
+        TIME_PICKER,
+        DATE_PICKER,
+        TIME_RANGE_PICKER,
+        DRAG_SORT,
     }
 
     public enum ValueKind {
@@ -38,6 +43,8 @@ public class DeviceSetting implements Parcelable {
         FLOAT,
         DOUBLE,
         LONG,
+        PASSWORD,
+        NUMBER_PASSWORD,
     }
 
     public DeviceSettingType type = DeviceSettingType.DIVIDER;
@@ -71,6 +78,7 @@ public class DeviceSetting implements Parcelable {
 
     // For EditTextPreference, add value type
     public ValueKind valueKind = ValueKind.STRING;
+    public int length = 0;
 
     // Main constructor
     public DeviceSetting(DeviceSettingType type, String key, int title, int summary, int icon, String defaultValue) {
@@ -113,6 +121,7 @@ public class DeviceSetting implements Parcelable {
         this.screenHasSwitchBar = in.readByte() != 0;
         this.screenSwitchBarKey = in.readString();
         this.valueKind = ValueKind.values()[in.readInt()];
+        this.length = in.readInt();
 
         int settingsSize = in.readInt();
         this.settings = new ArrayList<>(settingsSize);
@@ -292,6 +301,26 @@ public class DeviceSetting implements Parcelable {
         return new DeviceSetting(DeviceSettingType.EDIT_TEXT, key, title, summary, icon, defaultValue);
     }
 
+    public static DeviceSetting selectDialog(String key, int title, int summary, int icon, String defaultValue) {
+        return new DeviceSetting(DeviceSettingType.SELECT_DIALOG, key, title, summary, icon, defaultValue);
+    }
+
+    public static DeviceSetting timePicker(String key, int title, int summary, int icon, String defaultValue) {
+        return new DeviceSetting(DeviceSettingType.TIME_PICKER, key, title, summary, icon, defaultValue);
+    }
+
+    public static DeviceSetting datePicker(String key, int title, int summary, int icon, String defaultValue) {
+        return new DeviceSetting(DeviceSettingType.DATE_PICKER, key, title, summary, icon, defaultValue);
+    }
+
+    public static DeviceSetting timeRangePicker(String key, int title, int summary, int icon, String defaultValue) {
+        return new DeviceSetting(DeviceSettingType.TIME_RANGE_PICKER, key, title, summary, icon, defaultValue);
+    }
+
+    public static DeviceSetting dragSort(String key, int title, int summary, int icon, String defaultValue) {
+        return new DeviceSetting(DeviceSettingType.DRAG_SORT, key, title, summary, icon, defaultValue);
+    }
+
     /*
      * Helper methods
      */
@@ -361,6 +390,7 @@ public class DeviceSetting implements Parcelable {
         dest.writeByte((byte) (this.screenHasSwitchBar ? 1 : 0));
         dest.writeString(this.screenSwitchBarKey);
         dest.writeInt(this.valueKind.ordinal());
+        dest.writeInt(this.length);
 
         dest.writeInt(this.settings.size());
         for (DeviceSetting setting : this.settings) {
