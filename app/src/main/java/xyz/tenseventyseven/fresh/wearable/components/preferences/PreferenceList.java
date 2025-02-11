@@ -103,16 +103,15 @@ public class PreferenceList extends LinearLayout {
 
     public static class PreferenceDependency {
         String key;
-        String value;
+        List<String> value;
         boolean isValueDependency = false;
         boolean isValueDisablePreference = false;
 
         public PreferenceDependency() {
         }
 
-        public PreferenceDependency(String key, String value) {
+        public PreferenceDependency(String key) {
             this.key = key;
-            this.value = value;
         }
     }
 
@@ -155,10 +154,6 @@ public class PreferenceList extends LinearLayout {
                 hasShortcuts = getArguments().getBoolean("hasShortcuts");
                 summary = getArguments().getString("summary");
                 preferences = Application.getDevicePrefs(device).getPreferences();
-
-                for (DeviceSetting setting : settings) {
-                    dependencies.put(setting.key, new ArrayList<>());
-                }
                 coordinator = device.getDeviceCoordinator().getDeviceSettings(device);
             } else {
                 Log.e("PreferenceListFragment", "No arguments found");
@@ -294,22 +289,9 @@ public class PreferenceList extends LinearLayout {
                 }
             }
 
-            // Prune preferences without dependencies
-            List<PreferenceDependency> dependents;
-            for (DeviceSetting setting : settings) {
-                dependents = dependencies.get(setting.key);
-                if (dependents == null) {
-                    continue;
-                }
-
-                if (dependents.isEmpty()) {
-                    dependencies.remove(setting.key);
-                }
-            }
-
             // Update dependent preferences after all preferences have been added
-            for (DeviceSetting setting : settings) {
-                updatePreferenceDependents(setting.key);
+            for (String key : dependencies.keySet()) {
+                updatePreferenceDependents(key, null);
             }
 
             coordinator.onSettingsCreated(preferenceScreen);
@@ -323,12 +305,23 @@ public class PreferenceList extends LinearLayout {
             // If this setting depends on another setting, add it to the list
             if (setting.dependency != null && !setting.dependency.isEmpty()) {
                 List<PreferenceDependency> list = dependencies.get(setting.dependency);
-                if (list != null) {
-                    PreferenceDependency dependency = new PreferenceDependency(preference.getKey(), setting.dependencyValue);
-                    dependency.isValueDependency = setting.dependencyAsValue;
-                    dependency.isValueDisablePreference = setting.dependencyDisablesPref;
-                    list.add(dependency);
+                if (list == null) {
+                    list = new ArrayList<>();
+                    dependencies.put(setting.dependency, list);
                 }
+
+                PreferenceDependency dependency = new PreferenceDependency(preference.getKey());
+                if (setting.dependencyValue.contains(",")) {
+                    dependency.value = new ArrayList<>();
+                    dependency.value.addAll(Arrays.asList(setting.dependencyValue.split(",")));
+                } else {
+                    dependency.value = new ArrayList<>();
+                    dependency.value.add(setting.dependencyValue);
+                }
+
+                dependency.isValueDependency = setting.dependencyAsValue;
+                dependency.isValueDisablePreference = setting.dependencyDisablesPref;
+                list.add(dependency);
             }
         }
 
@@ -599,11 +592,12 @@ public class PreferenceList extends LinearLayout {
                 return;
             }
 
-            if (!Objects.equals(getValueOfPreference(key), getValueFromSharedPreference(key))) {
+            if (preferenceMap.containsKey(key) &&
+                    !Objects.equals(getValueOfPreference(key), getValueFromSharedPreference(key))) {
                 updatePreference(key);
             }
 
-            updatePreferenceDependents(key);
+            updatePreferenceDependents(key, null);
         }
 
         @SuppressWarnings("unchecked")
@@ -613,13 +607,20 @@ public class PreferenceList extends LinearLayout {
             return (T) preferenceMap.get(key.toString());
         }
 
-        private void updatePreferenceDependents(String key) {
+        private void updatePreferenceDependents(String key, String value) {
             List<PreferenceDependency> list = dependencies.get(key);
             if (list == null || list.isEmpty()) {
                 return;
             }
 
-            String value = getValueOfPreference(key);
+            if (value == null) {
+                if (preferenceMap.containsKey(key)) {
+                    value = getValueOfPreference(key);
+                } else {
+                    value = getValueFromSharedPreference(key);
+                }
+            }
+
             for (PreferenceDependency dependency : list) {
                 updatePreferenceDependent(dependency, value);
             }
@@ -632,9 +633,13 @@ public class PreferenceList extends LinearLayout {
             if (dependency.isValueDependency) {
                 setPreferenceValue(pref, value);
             } else if (dependency.isValueDisablePreference) {
-                pref.setEnabled(value.equals(dependency.value));
+                boolean enabled = dependency.value.contains(value);
+                pref.setEnabled(enabled);
+                updatePreferenceDependents(dependency.key, enabled ? "true" : "false");
             } else {
-                pref.setVisible(value.equals(dependency.value));
+                boolean enabled = dependency.value.contains(value);
+                pref.setVisible(enabled);
+                updatePreferenceDependents(dependency.key, enabled ? "true" : "false");
             }
         }
 
@@ -711,6 +716,13 @@ public class PreferenceList extends LinearLayout {
         }
 
         private String getValueFromSharedPreference(String key) {
+            // Check if the key exists in the map first
+            if (preferences.contains(key)) {
+                Map<String, ?> all = preferences.getAll();
+                return String.valueOf(all.get(key));
+            }
+
+            // Fallback to the original logic if the key is not found in the map
             Preference pref = findPreference(key);
             if (pref == null) return "";
 
@@ -781,7 +793,9 @@ public class PreferenceList extends LinearLayout {
         }
 
         private void invokeLater(Runnable runnable) {
-            getListView().post(runnable);
+            if (getListView() != null) {
+                getListView().post(runnable);
+            }
         }
 
         void launchActivity(DeviceSetting setting) {
