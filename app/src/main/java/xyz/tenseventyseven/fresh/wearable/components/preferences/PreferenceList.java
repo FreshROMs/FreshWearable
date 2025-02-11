@@ -183,6 +183,10 @@ public class PreferenceList extends LinearLayout {
             if (preferences != null) {
                 preferences.registerOnSharedPreferenceChangeListener(this);
             }
+
+            if (coordinator != null && screen != null) {
+                coordinator.onSettingsResumed(screen);
+            }
         }
 
         @Override

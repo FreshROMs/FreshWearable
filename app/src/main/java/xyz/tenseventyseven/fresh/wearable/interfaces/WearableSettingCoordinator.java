@@ -32,6 +32,9 @@ public abstract class WearableSettingCoordinator {
     public void onSettingsCreated(PreferenceScreen preferenceScreen) {
     }
 
+    public void onSettingsResumed(PreferenceScreen preferenceScreen) {
+    }
+
     public boolean allowPreferenceChange(PreferenceScreen screen, Preference preference, String newValue) {
         return true;
     }
