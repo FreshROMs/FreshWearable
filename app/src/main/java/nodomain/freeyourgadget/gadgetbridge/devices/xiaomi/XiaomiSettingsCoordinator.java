@@ -1,0 +1,766 @@
+package nodomain.freeyourgadget.gadgetbridge.devices.xiaomi;
+
+import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_CAMERA_REMOTE;
+import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_INACTIVITY;
+import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_PASSWORD;
+import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_SCREEN_ON_ON_NOTIFICATIONS;
+import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_SLEEP_MODE_SCHEDULE;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.preference.Preference;
+import androidx.preference.PreferenceScreen;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
+import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
+import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
+import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceShortcut;
+import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
+
+public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
+    private XiaomiCoordinator coordinator;
+    private GBDevice device;
+
+    public XiaomiSettingsCoordinator(XiaomiCoordinator coordinator, GBDevice device) {
+        this.coordinator = coordinator;
+        this.device = device;
+    }
+
+    @Override
+    public List<DeviceSetting> getSettings() {
+        List<DeviceSetting> settings = new ArrayList<>();
+        settings.add(getNotificationSettings());
+
+        DeviceSetting setting = getContactsSettings();
+        if (setting != null) {
+            settings.add(setting);
+        }
+
+        setting = getCalendarSettings();
+        if (setting != null) {
+            settings.add(setting);
+        }
+
+        settings.add(DeviceSetting.divider());
+        settings.add(getHealthSettings());
+
+        List<DeviceSetting> miscSettings = getMiscSettings();
+        if (!miscSettings.isEmpty()) {
+            settings.add(DeviceSetting.divider());
+            settings.addAll(miscSettings);
+        }
+
+        return settings;
+    }
+
+    @Override
+    public List<DeviceSetting> getDeveloperOptions() {
+        return super.getDeveloperOptions();
+    }
+
+    @Override
+    public List<DeviceShortcut> getShortcuts() {
+        return super.getShortcuts();
+    }
+
+    @Override
+    public void onSettingChanged(GBDevice device, PreferenceScreen preferenceScreen, Preference preference, String key) {
+        super.onSettingChanged(device, preferenceScreen, preference, key);
+    }
+
+    @Override
+    public void onSettingChanged(GBDevice device, SharedPreferences sharedPreferences, String key) {
+        super.onSettingChanged(device, sharedPreferences, key);
+    }
+
+    @Override
+    public void onSettingsCreated(PreferenceScreen preferenceScreen) {
+        super.onSettingsCreated(preferenceScreen);
+    }
+
+    @Override
+    public boolean allowPreferenceChange(PreferenceScreen screen, Preference preference, String newValue) {
+        return super.allowPreferenceChange(screen, preference, newValue);
+    }
+
+    @Override
+    public void onShortcutClicked(Context context, GBDevice device, String key) {
+        super.onShortcutClicked(context, device, key);
+    }
+
+    private List<DeviceSetting> getMiscSettings() {
+        List<DeviceSetting> settings = new ArrayList<>();
+        DeviceSetting setting;
+        if (coordinator.supports(device, FEAT_CAMERA_REMOTE)) {
+            setting = DeviceSetting.screen(
+                    "screen_camera_remots",
+                    R.string.wear_device_camera_remote_settings,
+                    R.string.wear_device_camera_remote_settings_summary,
+                    R.drawable.wear_ic_settings_camera_remote
+            );
+            setting.screenSummary = R.string.wear_device_camera_remote_settings_screen_summary;
+            setting.screenHasSwitchBar = true;
+            setting.screenSwitchBarKey = "camera_remote";
+            setting.valueAsSummary = false;
+            setting.settings = new ArrayList<>();
+
+            settings.add(setting);
+        }
+
+        setting = DeviceSetting.screen(
+                "screen_time_and_date",
+                R.string.wear_device_time_and_date_settings,
+                R.string.wear_device_time_and_date_settings_summary,
+                R.drawable.wear_ic_settings_time_and_date
+        );
+        setting.settings = new ArrayList<>();
+
+        DeviceSetting preference = DeviceSetting.dropdown(
+                "time_format",
+                R.string.pref_title_timeformat,
+                0,
+                "auto",
+                R.array.pref_timeformat_entries,
+                R.array.pref_timeformat_values
+        );
+        preference.valueAsSummary = true;
+        setting.settings.add(preference);
+        if (coordinator.getWorldClocksSlotCount() > 0) {
+            setting.settings.add(DeviceSetting.divider());
+            preference = DeviceSetting.screen(
+                    "world_clocks",
+                    R.string.pref_world_clocks_title,
+                    R.string.pref_world_clocks_summary,
+                    0,
+                    "nodomain.freeyourgadget.gadgetbridge.activities.ConfigureWorldClocks"
+            );
+            preference.putExtra(GBDevice.EXTRA_DEVICE, device);
+            setting.settings.add(preference);
+        }
+        settings.add(setting);
+
+        if (coordinator.supports(device, FEAT_PASSWORD)) {
+            setting = DeviceSetting.screen(
+                    "screen_password_settings",
+                    R.string.wear_device_password_settings,
+                    R.string.wear_device_password_settings_summary,
+                    R.drawable.wear_ic_settings_security
+            );
+            setting.screenSummary = R.string.wear_device_password_settings_screen_summary;
+            setting.defaultValue = "false";
+            setting.screenHasSwitchBar = true;
+            setting.screenSwitchBarKey = "pref_password_enabled";
+            setting.settings = new ArrayList<>();
+
+            preference = DeviceSetting.editText(
+                    "pref_password",
+                    R.string.prefs_password,
+                    0,
+                    0,
+                    "true"
+            );
+            preference.valueAsSummary = false;
+            preference.valueKind = DeviceSetting.ValueKind.NUMBER_PASSWORD;
+            preference.length = 6;
+            preference.dependency = "pref_password_enabled";
+            preference.dependencyValue = "true";
+
+            setting.settings.add(preference);
+            settings.add(setting);
+        }
+
+        return settings;
+    }
+
+    private DeviceSetting getHealthSettings() {
+        DeviceSetting setting = DeviceSetting.screen(
+                "pref_health",
+                R.string.wear_device_health_settings,
+                R.string.wear_device_health_settings_summary,
+                R.drawable.wear_ic_settings_health
+        );
+        setting.settings = new ArrayList<>();
+
+        // Heart rate monitor settings
+        {
+            DeviceSetting screen = DeviceSetting.screen(
+                    "screen_heart_rate_monitor",
+                    R.string.wear_device_heartrate_settings,
+                    R.string.wear_device_heartrate_settings_summary,
+                    0
+            );
+            screen.screenSummary = R.string.wear_device_heartrate_settings_screen_summary;
+            screen.settings = new ArrayList<>();
+
+            DeviceSetting preference = DeviceSetting.dropdown(
+                    "heartrate_measurement_interval",
+                    R.string.wear_device_heartrate_settings_interval,
+                    0,
+                    "0",
+                    R.array.xiaomi_wear_hr_measurement_interval_names,
+                    R.array.xiaomi_wear_hr_measurement_interval_values
+            );
+            preference.valueAsSummary = true;
+            screen.settings.add(preference);
+
+            screen.settings.add(DeviceSetting.divider());
+
+            preference = DeviceSetting.dropdown(
+                    "heartrate_alert_threshold",
+                    R.string.prefs_heartrate_alert_high_threshold,
+                    0,
+                    "0",
+                    R.array.prefs_miband_heartrate_high_alert_threshold_with_off,
+                    R.array.prefs_miband_heartrate_high_alert_threshold_with_off_values
+            );
+            preference.valueAsSummary = true;
+            preference.dependency = "heartrate_measurement_interval";
+            preference.dependencyValue = "-1,60";
+            preference.dependencyDisablesPref = true;
+            screen.settings.add(preference);
+
+            preference = DeviceSetting.dropdown(
+                    "heartrate_alert_low_threshold",
+                    R.string.prefs_heartrate_alert_low_threshold,
+                    0,
+                    "0",
+                    R.array.prefs_miband_heartrate_low_alert_threshold,
+                    R.array.prefs_miband_heartrate_low_alert_threshold_values
+            );
+            preference.valueAsSummary = true;
+            preference.dependency = "heartrate_measurement_interval";
+            preference.dependencyValue = "-1,60";
+            preference.dependencyDisablesPref = true;
+            screen.settings.add(preference);
+
+            setting.settings.add(screen);
+        }
+
+        // Blood oxygen monitor settings
+        if (coordinator.supportsSpo2(device)){
+            DeviceSetting screen = DeviceSetting.screen(
+                    "screen_blood_oxygen_monitor",
+                    R.string.wear_device_blood_oxygen_settings,
+                    R.string.wear_device_blood_oxygen_settings_summary,
+                    0
+            );
+            screen.screenSummary = R.string.wear_device_blood_oxygen_settings_screen_summary;
+            screen.screenHasSwitchBar = true;
+            screen.screenSwitchBarKey = "spo2_all_day_monitoring_enabled";
+
+            DeviceSetting preference = DeviceSetting.dropdown(
+                    "spo2_low_alert_threshold",
+                    R.string.prefs_spo2_alert_threshold,
+                    0,
+                    "0",
+                    R.array.prefs_spo2_alert_threshold,
+                    R.array.prefs_spo2_alert_threshold_values
+            );
+            preference.valueAsSummary = true;
+            preference.dependency = "spo2_all_day_monitoring_enabled";
+            preference.dependencyValue = "true";
+            preference.dependencyDisablesPref = true;
+            screen.settings.add(preference);
+
+            setting.settings.add(screen);
+        }
+
+        // Stress monitoring settings
+        if (coordinator.supportsStressMeasurement()){
+            DeviceSetting screen = DeviceSetting.screen(
+                    "screen_stress_monitor",
+                    R.string.wear_device_stress_monitoring_settings,
+                    R.string.wear_device_stress_monitoring_settings_summary,
+                    0
+            );
+            screen.screenSummary = R.string.wear_device_stress_monitoring_settings_screen_summary;
+            screen.screenHasSwitchBar = true;
+            screen.screenSwitchBarKey = "heartrate_stress_monitoring";
+
+            DeviceSetting preference = DeviceSetting.switchSetting(
+                    "heartrate_stress_relaxation_reminder",
+                    R.string.prefs_relaxation_reminder_title,
+                    R.string.prefs_relaxation_reminder_description,
+                    0,
+                    "false"
+            );
+            preference.dependency = "heartrate_stress_monitoring";
+            preference.dependencyValue = "true";
+            preference.dependencyDisablesPref = true;
+            screen.settings.add(preference);
+
+            setting.settings.add(screen);
+        }
+
+        // Sleep monitoring settings
+        getSleepSettings(setting);
+
+        // Sedentary reminder settings
+        getSedentaryReminderSettings(setting);
+
+        // Activity settings
+        getActivitySettings(setting);
+
+        return setting;
+    }
+
+    private void getActivitySettings(DeviceSetting setting) {
+        DeviceSetting screen = DeviceSetting.screen(
+                "screen_activity_settings",
+                R.string.wear_device_activity_settings,
+                R.string.wear_device_activity_settings_summary,
+                0
+        );
+        if (coordinator.supportsPai()) {
+            screen.summary = R.string.wear_device_activity_settings_summary_pai;
+        }
+
+        screen.screenSummary = R.string.wear_device_activity_settings_screen_summary;
+        screen.settings = new ArrayList<>();
+
+        DeviceSetting preference = DeviceSetting.switchSetting(
+                "fitness_goal_notification",
+                R.string.wear_device_activity_settings_goal_notification,
+                R.string.wear_device_activity_settings_goal_notification_summary,
+                0,
+                "true"
+        );
+        preference.valueAsSummary = true;
+        screen.settings.add(preference);
+
+        preference = DeviceSetting.dropdown(
+                "fitness_goal_notification_vibration",
+                R.string.wear_device_activity_settings_secondary_goal,
+                0,
+                "standing_time",
+                R.array.goal_fitness_secondary_goal_entries,
+                R.array.goal_fitness_secondary_goal_values
+        );
+        preference.valueAsSummary = true;
+        screen.settings.add(preference);
+
+        if (coordinator.supportsPai()) {
+            screen.settings.add(DeviceSetting.divider());
+            preference = DeviceSetting.switchSetting(
+                    "pref_vitality_score_daily",
+                    R.string.pref_vitality_score_daily_title,
+                    R.string.pref_vitality_score_daily_summary,
+                    0,
+                    "false"
+            );
+            preference.valueAsSummary = true;
+            screen.settings.add(preference);
+
+            screen.settings.add(DeviceSetting.divider());
+            preference = DeviceSetting.switchSetting(
+                    "pref_vitality_score_7_day",
+                    R.string.pref_vitality_score_7_day_title,
+                    R.string.pref_vitality_score_7_day_summary,
+                    0,
+                    "false"
+            );
+            preference.valueAsSummary = true;
+            screen.settings.add(preference);
+        }
+
+        screen.settings.add(DeviceSetting.divider());
+
+        preference = DeviceSetting.switchSetting(
+                "workout_send_gps_to_band",
+                R.string.wear_device_activity_settings_allow_device_to_get_location,
+                R.string.wear_device_activity_settings_allow_device_to_get_location_summary,
+                0,
+                "false"
+        );
+        preference.valueAsSummary = true;
+        screen.settings.add(preference);
+
+        screen.settings.add(DeviceSetting.divider());
+
+        preference = DeviceSetting.switchSetting(
+                "workout_start_on_phone",
+                R.string.wear_device_activity_settings_fitness_app_integration,
+                R.string.wear_device_activity_settings_fitness_app_integration_summary,
+                0,
+                "false"
+        );
+        preference.valueAsSummary = true;
+        screen.settings.add(preference);
+
+        preference = DeviceSetting.screen(
+                "workout_start_on_phone_settings",
+                R.string.wear_device_activity_settings_fitness_app_integration_settings,
+                0,
+                0,
+                "nodomain.freeyourgadget.gadgetbridge.activities.SettingsActivity"
+        );
+        preference.dependency = "workout_start_on_phone";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        screen.settings.add(preference);
+
+        setting.settings.add(screen);
+    }
+
+    private void getSedentaryReminderSettings(DeviceSetting setting) {
+        if (!coordinator.supports(device, FEAT_INACTIVITY)) {
+            return;
+        }
+
+        DeviceSetting screen = DeviceSetting.screen(
+                "screen_sedentary_reminder",
+                R.string.wear_device_sedentary_reminder_settings,
+                R.string.wear_device_sedentary_reminder_settings_summary,
+                0
+        );
+        screen.screenSummary = R.string.wear_device_sedentary_reminder_settings_screen_summary_xiaomi;
+        screen.screenHasSwitchBar = true;
+        screen.screenSwitchBarKey = "inactivity_warnings_enable";
+        screen.settings = new ArrayList<>();
+
+        DeviceSetting preference = DeviceSetting.timePicker(
+                "inactivity_warnings_start",
+                R.string.wear_device_start_time,
+                0,
+                0,
+                "06:00"
+        );
+        preference.valueAsSummary = true;
+        preference.dependency = "inactivity_warnings_enable";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        screen.settings.add(preference);
+
+        preference = DeviceSetting.timePicker(
+                "inactivity_warnings_end",
+                R.string.wear_device_end_time,
+                0,
+                0,
+                "22:00"
+        );
+        preference.valueAsSummary = true;
+        preference.dependency = "inactivity_warnings_enable";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        screen.settings.add(preference);
+
+        screen.settings.add(DeviceSetting.divider());
+
+        preference = DeviceSetting.switchSetting(
+                "inactivity_warnings_dnd",
+                R.string.wear_device_sedentary_reminder_do_not_disturb,
+                0,
+                0,
+                "false"
+        );
+        preference.valueAsSummary = true;
+        preference.dependency = "inactivity_warnings_enable";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        screen.settings.add(preference);
+
+        preference = DeviceSetting.timePicker(
+                "inactivity_warnings_dnd_start",
+                R.string.wear_device_start_time,
+                0,
+                0,
+                "12:00"
+        );
+        preference.valueAsSummary = true;
+        preference.dependency = "inactivity_warnings_dnd";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        screen.settings.add(preference);
+
+        preference = DeviceSetting.timePicker(
+                "inactivity_warnings_dnd_end",
+                R.string.wear_device_end_time,
+                0,
+                0,
+                "14:00"
+        );
+        preference.valueAsSummary = true;
+        preference.dependency = "inactivity_warnings_dnd";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        screen.settings.add(preference);
+
+        setting.settings.add(screen);
+    }
+
+    private void getSleepSettings(DeviceSetting setting) {
+        DeviceSetting screen = DeviceSetting.screen(
+                "pref_sleep",
+                R.string.wear_device_sleep_settings,
+                R.string.wear_device_sleep_settings_summary,
+                0
+        );
+        screen.screenSummary = R.string.wear_device_sleep_settings_screen_summary_xiaomi;
+        screen.settings = new ArrayList<>();
+
+        DeviceSetting preference = DeviceSetting.switchSetting(
+                "heartrate_sleep_detection",
+                R.string.wear_device_sleep_settings_advanced_sleep_tracking,
+                R.string.wear_device_sleep_settings_advanced_sleep_tracking_summary,
+                0,
+                "false"
+        );
+        preference.valueAsSummary = true;
+        screen.settings.add(preference);
+
+        preference = DeviceSetting.switchSetting(
+                "heartrate_sleep_breathing_quality_monitoring",
+                R.string.wear_device_sleep_settings_breathing_score,
+                R.string.wear_device_sleep_settings_breathing_score_summary,
+                0,
+                "false"
+        );
+        preference.valueAsSummary = true;
+        screen.settings.add(preference);
+
+        if (coordinator.supports(device, FEAT_SLEEP_MODE_SCHEDULE)) {
+            screen.settings.add(DeviceSetting.divider());
+            DeviceSetting subScreen = DeviceSetting.switchScreen(
+                    "sleep_mode_schedule_enabled",
+                    R.string.wear_device_sleep_settings_sleep_mode,
+                    R.string.wear_device_sleep_settings_sleep_mode_summary,
+                    0,
+                    "false"
+            );
+            subScreen.screenSummary = R.string.wear_device_sleep_settings_sleep_mode_screen_summary;
+            subScreen.settings = new ArrayList<>();
+
+            subScreen.settings.add(DeviceSetting.divider(R.string.wear_device_sleep_settings_sleep_mode_schedule));
+
+            preference = DeviceSetting.timePicker(
+                    "sleep_mode_schedule_start",
+                    R.string.wear_device_sleep_settings_sleep_mode_bedtime,
+                    0,
+                    0,
+                    ""
+            );
+            preference.valueAsSummary = true;
+            preference.dependency = "sleep_mode_schedule_enabled";
+            preference.dependencyValue = "true";
+            preference.dependencyDisablesPref = true;
+            subScreen.settings.add(preference);
+
+            preference = DeviceSetting.timePicker(
+                    "sleep_mode_schedule_end",
+                    R.string.wear_device_sleep_settings_sleep_mode_wake_up_time,
+                    0,
+                    0,
+                    ""
+            );
+            preference.valueAsSummary = true;
+            preference.dependency = "sleep_mode_schedule_enabled";
+            preference.dependencyValue = "true";
+            preference.dependencyDisablesPref = true;
+            subScreen.settings.add(preference);
+
+            screen.settings.add(subScreen);
+        }
+
+        setting.settings.add(DeviceSetting.divider());
+        setting.settings.add(screen);
+    }
+
+    private DeviceSetting getCalendarSettings() {
+        if (!coordinator.supportsCalendarEvents()) {
+            return null;
+        }
+
+        DeviceSetting screen = DeviceSetting.screen(
+                "screen_sync_calendar",
+                R.string.wear_device_calendar_settings,
+                R.string.wear_device_calendar_settings_summary,
+                R.drawable.wear_ic_settings_calendar
+        );
+        screen.screenHasSwitchBar = true;
+        screen.screenSwitchBarKey = "sync_calendar";
+        screen.valueAsSummary = false;
+        screen.screenSummary = R.string.wear_device_calendar_settings_screen_summary;
+        screen.settings = new ArrayList<>();
+
+        DeviceSetting preference = DeviceSetting.editText(
+                "calendar_lookahead_days",
+                R.string.pref_title_calendar_lookahead,
+                0,
+                0,
+                "true"
+        );
+        preference.valueKind = DeviceSetting.ValueKind.INT;
+        preference.defaultValue = "7";
+        preference.max = 999;
+        preference.valueAsSummary = true;
+        preference.dependency = "sync_calendar";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        screen.settings.add(preference);
+        screen.settings.add(DeviceSetting.divider());
+
+        preference = DeviceSetting.switchSetting(
+                "sync_birthdays",
+                R.string.pref_title_sync_birthdays,
+                R.string.pref_summary_sync_birthdays,
+                0,
+                "false"
+        );
+        preference.dependency = "sync_calendar";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        screen.settings.add(preference);
+
+        preference = DeviceSetting.screen(
+                "blacklist_calendars",
+                R.string.pref_blacklist_calendars,
+                R.string.pref_blacklist_calendars_summary,
+                0,
+                "nodomain.freeyourgadget.gadgetbridge.activities.CalBlacklistActivity"
+        );
+        preference.putExtra(GBDevice.EXTRA_DEVICE, device);
+        preference.dependency = "sync_calendar";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        screen.settings.add(preference);
+
+        return screen;
+    }
+
+    private DeviceSetting getContactsSettings() {
+        if (coordinator.getContactsSlotCount(device) <= 0) {
+            return null;
+        }
+
+        DeviceSetting setting = DeviceSetting.screen(
+                "pref_contacts",
+                R.string.wear_device_contacts_settings,
+                R.string.wear_device_contacts_settings_summary,
+                R.drawable.wear_ic_settings_contacts,
+                "nodomain.freeyourgadget.gadgetbridge.activities.ConfigureContacts"
+        );
+        setting.putExtra(GBDevice.EXTRA_DEVICE, device);
+
+        return setting;
+    }
+
+    private DeviceSetting getNotificationSettings() {
+        DeviceSetting setting = DeviceSetting.screen(
+                "send_app_notifications_screen",
+                R.string.wear_device_notifications_settings,
+                R.string.wear_device_notifications_settings_summary,
+                R.drawable.wear_ic_settings_notifications
+        );
+        setting.defaultValue = "true";
+        setting.screenHasSwitchBar = true;
+        setting.screenSwitchBarKey = "send_app_notifications";
+        setting.valueAsSummary = false;
+        setting.settings = new ArrayList<>();
+
+        DeviceSetting preference;
+        if (coordinator.supports(device, FEAT_SCREEN_ON_ON_NOTIFICATIONS)) {
+            preference = DeviceSetting.switchSetting(
+                    "screen_on_on_notifications",
+                    R.string.pref_title_screen_on_on_notifications,
+                    R.string.pref_summary_screen_on_on_notifications,
+                    0,
+                    "true"
+            );
+            setting.settings.add(preference);
+        }
+
+        preference = DeviceSetting.switchSetting(
+                "autoremove_notifications",
+                R.string.pref_title_autoremove_notifications,
+                R.string.pref_summary_autoremove_notifications,
+                0,
+                "true"
+        );
+        setting.settings.add(preference);
+
+
+        if (coordinator.getCannedRepliesSlotCount(device) > 0) {
+            setting.settings.add(getCannedMessageSettings());
+        }
+
+        setting.settings.add(DeviceSetting.divider());
+        preference = DeviceSetting.switchScreen(
+                DeviceSettingsPreferenceConst.PREF_DND_SYNC,
+                R.string.wear_device_notifications_settings_dnd_sync,
+                0,
+                0,
+                "false"
+        );
+        preference.valueAsSummary = true;
+        preference.screenSummary = R.string.wear_device_notifications_settings_dnd_sync_screen_summary;
+        preference.settings = new ArrayList<>();
+
+        DeviceSetting dndMode = DeviceSetting.dropdown(
+                DeviceSettingsPreferenceConst.PREF_DND_SYNC_WITH_WATCH_MODE,
+                R.string.wear_device_notifications_dnd_sync_mode,
+                0,
+                "priority",
+                R.array.phone_do_not_disturb_mode,
+                R.array.phone_do_not_disturb_mode_values
+        );
+        dndMode.valueAsSummary = true;
+        dndMode.dependency = DeviceSettingsPreferenceConst.PREF_DND_SYNC;
+        dndMode.dependencyValue = "true";
+        dndMode.dependencyDisablesPref = true;
+        preference.settings.add(dndMode);
+        preference.settings.add(DeviceSetting.divider());
+
+        dndMode = DeviceSetting.description(
+                "dnd_sync_description",
+                R.string.wear_device_notifications_dnd_sync_mode_summary
+        );
+        preference.settings.add(dndMode);
+
+        setting.settings.add(preference);
+
+        setting.settings.add(DeviceSetting.divider());
+
+        preference = DeviceSetting.dragSort(
+                "pref_transliteration_languages",
+                R.string.pref_title_transliteration,
+                R.string.pref_summary_transliteration,
+                0,
+                "true"
+        );
+        preference.entries = R.array.pref_transliteration_languages;
+        preference.entryValues = R.array.pref_transliteration_languages_values;
+        setting.settings.add(preference);
+
+        return setting;
+    }
+
+    private DeviceSetting getCannedMessageSettings() {
+        DeviceSetting setting = DeviceSetting.screen(
+                "screen_canned_messages_dismisscall",
+                R.string.pref_title_canned_messages_dismisscall,
+                R.string.pref_summary_canned_messages_dismisscall,
+                0
+        );
+        setting.valueAsSummary = false;
+        setting.settings = new ArrayList<>();
+
+        for (int i = 0; i < coordinator.getCannedRepliesSlotCount(device); i++) {
+            DeviceSetting preference = DeviceSetting.editText(
+                    "canned_message_" + i,
+                    0,
+                    0,
+                    0,
+                    "true"
+            );
+            preference.valueAsSummary = true;
+            setting.settings.add(preference);
+        }
+
+        return setting;
+    }
+}

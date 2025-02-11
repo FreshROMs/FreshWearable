@@ -68,6 +68,7 @@ import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPrefere
 import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiSupport;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.activity.impl.WorkoutSummaryParser;
 import nodomain.freeyourgadget.gadgetbridge.util.Prefs;
+import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
 
 public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     // On plaintext devices, user id is used as auth key - numeric
@@ -624,5 +625,10 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     @Override
     public int getDeviceIconResource() {
         return dev.oneuiproject.oneui.R.drawable.ic_oui_galaxy_watch;
+    }
+
+    @Override
+    public WearableSettingCoordinator getDeviceSettings(GBDevice device) {
+        return new XiaomiSettingsCoordinator(this, device);
     }
 }
