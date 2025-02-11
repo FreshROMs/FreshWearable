@@ -65,6 +65,14 @@
         <item>@string/wear_device_heartrate_settings_interval_30_minutes</item>
     </string-array>
 
+    <string-array name="xiaomi_wear_hr_measurement_interval_names_summary">
+        <item>@string/wear_device_heartrate_settings_interval_off</item>
+        <item>@string/wear_device_heartrate_settings_interval_auto_summary</item>
+        <item>@string/wear_device_heartrate_settings_interval_1_minute_summary</item>
+        <item>@string/wear_device_heartrate_settings_interval_10_minutes_summary</item>
+        <item>@string/wear_device_heartrate_settings_interval_30_minutes_summary</item>
+    </string-array>
+
     <string-array name="xiaomi_wear_hr_measurement_interval_values">
         <item>0</item>
         <item>-1</item>

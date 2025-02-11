@@ -61,9 +61,10 @@
 
     <string name="wear_device_health_settings">Health</string>
     <string name="wear_device_health_settings_summary">Heart rate • Sleep • Activity</string>
+    <string name="wear_device_health_settings_measurement">Measurement</string>
+    <string name="wear_device_health_settings_measurement_reminder">Measurement can cause a light to flash on the back of your device.</string>
 
     <string name="wear_device_heartrate_settings">Heart rate</string>
-    <string name="wear_device_heartrate_settings_summary">Continuous monitoring • Alerts</string>
     <string name="wear_device_heartrate_settings_screen_summary">Monitor your heart rate continuously throughout the day and receive alerts when it exceeds or falls below your set thresholds. Stay informed about your heart health and take necessary precautions to maintain a healthy lifestyle.</string>
     <string name="wear_device_heartrate_settings_interval">Measurement interval</string>
     <string name="wear_device_heartrate_settings_interval_off">Off</string>
@@ -76,16 +77,25 @@
     <string name="wear_device_heartrate_settings_interval_45_minutes">Every 45 minutes</string>
     <string name="wear_device_heartrate_settings_interval_60_minutes">Every hour</string>
 
+    <string name="wear_device_heartrate_settings_interval_auto_summary">Monitor continuously</string>
+    <string name="wear_device_heartrate_settings_interval_1_minute_summary">Monitor every minute</string>
+    <string name="wear_device_heartrate_settings_interval_5_minutes_summary">Monitor every 5 minutes</string>
+    <string name="wear_device_heartrate_settings_interval_10_minutes_summary">Monitor every 10 minutes</string>
+    <string name="wear_device_heartrate_settings_interval_15_minutes_summary">Monitor every 15 minutes</string>
+    <string name="wear_device_heartrate_settings_interval_30_minutes_summary">Monitor every 30 minutes</string>
+    <string name="wear_device_heartrate_settings_interval_45_minutes_summary">Monitor every 45 minutes</string>
+    <string name="wear_device_heartrate_settings_interval_60_minutes_summary">Monitor every hour</string>
+
     <string name="wear_device_stress_monitoring_settings">Stress</string>
-    <string name="wear_device_stress_monitoring_settings_summary">Stress levels • Relaxation reminders</string>
+    <string name="wear_device_stress_monitoring_settings_summary">Monitor your stress levels and receive reminders to relax</string>
     <string name="wear_device_stress_monitoring_settings_screen_summary">Monitor your stress levels and receive reminders to relax and unwind when you\'re feeling overwhelmed. Stay calm and composed throughout the day with timely relaxation reminders and stress management tips.</string>
 
     <string name="wear_device_blood_oxygen_settings">Blood oxygen</string>
-    <string name="wear_device_blood_oxygen_settings_summary">SpO2 monitoring • Alerts</string>
+    <string name="wear_device_blood_oxygen_settings_summary">Monitor your blood oxygen levels and receive alerts</string>
     <string name="wear_device_blood_oxygen_settings_screen_summary">Monitor your blood oxygen levels continuously and receive alerts when they fall below your set thresholds. Stay informed about your respiratory health and take necessary precautions to maintain a healthy lifestyle.</string>
 
     <string name="wear_device_sleep_settings">Sleep</string>
-    <string name="wear_device_sleep_settings_summary">Sleep tracking • Sleep mode</string>
+    <string name="wear_device_sleep_settings_summary">Track your sleep patterns and receive insights</string>
     <string name="wear_device_sleep_settings_screen_summary">Track your sleep patterns and receive insights into your sleep quality and duration. Enable sleep mode to ensure a restful night\'s sleep by minimizing disturbances and distractions, allowing you to wake up feeling refreshed and rejuvenated.</string>
     <string name="wear_device_sleep_settings_screen_summary_xiaomi">Track your sleep patterns and receive insights into your sleep quality and duration. Enable sleep mode to ensure a restful night\'s sleep by minimizing disturbances and distractions, allowing you to wake up feeling refreshed and rejuvenated. You can also set a sleep schedule to maintain a consistent sleep routine and improve your overall well-being.</string>
     <string name="wear_device_sleep_settings_advanced_sleep_tracking">Advanced sleep tracking</string>
@@ -100,14 +110,12 @@
     <string name="wear_device_sleep_settings_sleep_mode_wake_up_time">Wake up time</string>
 
     <string name="wear_device_sedentary_reminder_settings">Sedentary reminders</string>
-    <string name="wear_device_sedentary_reminder_settings_summary">Idle alerts • Do not disturb</string>
+    <string name="wear_device_sedentary_reminder_settings_summary">Stay active and maintain a healthy lifestyle</string>
     <string name="wear_device_sedentary_reminder_settings_screen_summary">Stay active and maintain a healthy lifestyle by receiving reminders to move when you\'ve been inactive for too long. Customize the duration and frequency of reminders to suit your needs and ensure you stay active throughout the day.</string>
     <string name="wear_device_sedentary_reminder_settings_screen_summary_xiaomi">Stay active and maintain a healthy lifestyle by receiving reminders to move when you\'ve been inactive for too long. You can also enable Do Not Disturb mode during sedentary reminders to minimize distractions and focus on your activities.</string>
     <string name="wear_device_sedentary_reminder_do_not_disturb">Do not disturb</string>
 
     <string name="wear_device_activity_settings">Activity</string>
-    <string name="wear_device_activity_settings_summary">Workouts • Goals • Tracking</string>
-    <string name="wear_device_activity_settings_summary_pai">Workouts • Goals • Vitality score</string>
     <string name="wear_device_activity_settings_screen_summary">Stay active and motivated by tracking your daily activities and workouts. Set fitness goals, monitor your progress, and receive insights into your activity levels to maintain a healthy lifestyle and improve your overall well-being.</string>
     <string name="wear_device_activity_settings_goal_notification">Goal notifications</string>
     <string name="wear_device_activity_settings_goal_notification_summary">Receive notifications when you reach your daily activity goals.</string>

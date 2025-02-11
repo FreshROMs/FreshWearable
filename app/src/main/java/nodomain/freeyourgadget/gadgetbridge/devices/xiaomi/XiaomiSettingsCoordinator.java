@@ -8,11 +8,14 @@ import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.Xiaomi
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.preference.Preference;
 import androidx.preference.PreferenceScreen;
+import androidx.preference.SeslSwitchPreferenceScreen;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
@@ -81,6 +84,37 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
     @Override
     public void onSettingsCreated(PreferenceScreen preferenceScreen) {
         super.onSettingsCreated(preferenceScreen);
+        updateSedentaryPreference(preferenceScreen);
+    }
+
+    @Override
+    public void onSettingsResumed(PreferenceScreen preferenceScreen) {
+        super.onSettingsResumed(preferenceScreen);
+        updateSedentaryPreference(preferenceScreen);
+    }
+
+    private void updateSedentaryPreference(PreferenceScreen preferenceScreen) {
+        Preference sedentaryScreen = preferenceScreen.findPreference("inactivity_warnings_enable");
+        if (sedentaryScreen instanceof SeslSwitchPreferenceScreen) {
+            SeslSwitchPreferenceScreen switchScreen = (SeslSwitchPreferenceScreen) sedentaryScreen;
+            SharedPreferences prefs = switchScreen.getSharedPreferences();
+            if (prefs == null) return;
+            String start = prefs.getString("inactivity_warnings_start", "06:00");
+            String end = prefs.getString("inactivity_warnings_end", "22:00");
+            start = formatTimeToLocale(switchScreen.getContext(), start);
+            end = formatTimeToLocale(switchScreen.getContext(), end);
+
+            switchScreen.setTitle(start + " - " + end);
+            switchScreen.seslSetSummaryColor(switchScreen.getContext().getColor(R.color.wearable_accent_primary));
+            switchScreen.setSummary(switchScreen.isChecked() ? R.string.function_enabled : R.string.pref_button_action_disabled);
+        }
+    }
+
+    private String formatTimeToLocale(Context context, String time) {
+        String[] timeParts = time.split(":");
+        int hour = Integer.parseInt(timeParts[0]);
+        int minute = Integer.parseInt(timeParts[1]);
+        return android.text.format.DateFormat.getTimeFormat(context).format(new Date(0, 0, 0, hour, minute));
     }
 
     @Override
@@ -186,14 +220,19 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
         );
         setting.settings = new ArrayList<>();
 
+        setting.settings.add(DeviceSetting.divider(R.string.wear_device_health_settings_measurement));
+
         // Heart rate monitor settings
         {
             DeviceSetting screen = DeviceSetting.screen(
-                    "screen_heart_rate_monitor",
+                    "heartrate_measurement_interval",
                     R.string.wear_device_heartrate_settings,
-                    R.string.wear_device_heartrate_settings_summary,
+                    0,
                     0
             );
+            screen.entries = R.array.xiaomi_wear_hr_measurement_interval_names_summary;
+            screen.entryValues = R.array.xiaomi_wear_hr_measurement_interval_values;
+            screen.valueAsSummary = true;
             screen.screenSummary = R.string.wear_device_heartrate_settings_screen_summary;
             screen.settings = new ArrayList<>();
 
@@ -243,15 +282,15 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
 
         // Blood oxygen monitor settings
         if (coordinator.supportsSpo2(device)){
-            DeviceSetting screen = DeviceSetting.screen(
-                    "screen_blood_oxygen_monitor",
+            DeviceSetting screen = DeviceSetting.switchScreen(
+                    "spo2_all_day_monitoring_enabled",
                     R.string.wear_device_blood_oxygen_settings,
                     R.string.wear_device_blood_oxygen_settings_summary,
-                    0
+                    0,
+                    "false"
             );
+            screen.valueAsSummary = true;
             screen.screenSummary = R.string.wear_device_blood_oxygen_settings_screen_summary;
-            screen.screenHasSwitchBar = true;
-            screen.screenSwitchBarKey = "spo2_all_day_monitoring_enabled";
 
             DeviceSetting preference = DeviceSetting.dropdown(
                     "spo2_low_alert_threshold",
@@ -272,15 +311,15 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
 
         // Stress monitoring settings
         if (coordinator.supportsStressMeasurement()){
-            DeviceSetting screen = DeviceSetting.screen(
-                    "screen_stress_monitor",
+            DeviceSetting screen = DeviceSetting.switchScreen(
+                    "heartrate_stress_monitoring",
                     R.string.wear_device_stress_monitoring_settings,
                     R.string.wear_device_stress_monitoring_settings_summary,
-                    0
+                    0,
+                    "false"
             );
+            screen.valueAsSummary = true;
             screen.screenSummary = R.string.wear_device_stress_monitoring_settings_screen_summary;
-            screen.screenHasSwitchBar = true;
-            screen.screenSwitchBarKey = "heartrate_stress_monitoring";
 
             DeviceSetting preference = DeviceSetting.switchSetting(
                     "heartrate_stress_relaxation_reminder",
@@ -300,29 +339,24 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
         // Sleep monitoring settings
         getSleepSettings(setting);
 
-        // Sedentary reminder settings
-        getSedentaryReminderSettings(setting);
+        setting.settings.add(DeviceSetting.divider());
+        setting.settings.add(DeviceSetting.description(
+                "measurement_reminder",
+                R.string.wear_device_health_settings_measurement_reminder
+        ));
+        setting.settings.add(DeviceSetting.divider());
 
         // Activity settings
         getActivitySettings(setting);
+
+        // Sedentary reminder settings
+        getSedentaryReminderSettings(setting);
 
         return setting;
     }
 
     private void getActivitySettings(DeviceSetting setting) {
-        DeviceSetting screen = DeviceSetting.screen(
-                "screen_activity_settings",
-                R.string.wear_device_activity_settings,
-                R.string.wear_device_activity_settings_summary,
-                0
-        );
-        if (coordinator.supportsPai()) {
-            screen.summary = R.string.wear_device_activity_settings_summary_pai;
-        }
-
-        screen.screenSummary = R.string.wear_device_activity_settings_screen_summary;
-        screen.settings = new ArrayList<>();
-
+        setting.settings.add(DeviceSetting.divider(R.string.wear_device_activity_settings));
         DeviceSetting preference = DeviceSetting.switchSetting(
                 "fitness_goal_notification",
                 R.string.wear_device_activity_settings_goal_notification,
@@ -331,7 +365,7 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 "true"
         );
         preference.valueAsSummary = true;
-        screen.settings.add(preference);
+        setting.settings.add(preference);
 
         preference = DeviceSetting.dropdown(
                 "fitness_goal_notification_vibration",
@@ -342,10 +376,10 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 R.array.goal_fitness_secondary_goal_values
         );
         preference.valueAsSummary = true;
-        screen.settings.add(preference);
+        setting.settings.add(preference);
 
         if (coordinator.supportsPai()) {
-            screen.settings.add(DeviceSetting.divider());
+            setting.settings.add(DeviceSetting.divider());
             preference = DeviceSetting.switchSetting(
                     "pref_vitality_score_daily",
                     R.string.pref_vitality_score_daily_title,
@@ -354,9 +388,9 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                     "false"
             );
             preference.valueAsSummary = true;
-            screen.settings.add(preference);
+            setting.settings.add(preference);
 
-            screen.settings.add(DeviceSetting.divider());
+            setting.settings.add(DeviceSetting.divider());
             preference = DeviceSetting.switchSetting(
                     "pref_vitality_score_7_day",
                     R.string.pref_vitality_score_7_day_title,
@@ -365,10 +399,10 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                     "false"
             );
             preference.valueAsSummary = true;
-            screen.settings.add(preference);
+            setting.settings.add(preference);
         }
 
-        screen.settings.add(DeviceSetting.divider());
+        setting.settings.add(DeviceSetting.divider());
 
         preference = DeviceSetting.switchSetting(
                 "workout_send_gps_to_band",
@@ -378,9 +412,9 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 "false"
         );
         preference.valueAsSummary = true;
-        screen.settings.add(preference);
+        setting.settings.add(preference);
 
-        screen.settings.add(DeviceSetting.divider());
+        setting.settings.add(DeviceSetting.divider());
 
         preference = DeviceSetting.switchSetting(
                 "workout_start_on_phone",
@@ -390,7 +424,7 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 "false"
         );
         preference.valueAsSummary = true;
-        screen.settings.add(preference);
+        setting.settings.add(preference);
 
         preference = DeviceSetting.screen(
                 "workout_start_on_phone_settings",
@@ -402,9 +436,7 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
         preference.dependency = "workout_start_on_phone";
         preference.dependencyValue = "true";
         preference.dependencyDisablesPref = true;
-        screen.settings.add(preference);
-
-        setting.settings.add(screen);
+        setting.settings.add(preference);
     }
 
     private void getSedentaryReminderSettings(DeviceSetting setting) {
@@ -412,15 +444,15 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
             return;
         }
 
-        DeviceSetting screen = DeviceSetting.screen(
-                "screen_sedentary_reminder",
+        DeviceSetting screen = DeviceSetting.switchScreen(
+                "inactivity_warnings_enable",
                 R.string.wear_device_sedentary_reminder_settings,
                 R.string.wear_device_sedentary_reminder_settings_summary,
-                0
+                0,
+                "false"
         );
+        screen.valueAsSummary = false;
         screen.screenSummary = R.string.wear_device_sedentary_reminder_settings_screen_summary_xiaomi;
-        screen.screenHasSwitchBar = true;
-        screen.screenSwitchBarKey = "inactivity_warnings_enable";
         screen.settings = new ArrayList<>();
 
         DeviceSetting preference = DeviceSetting.timePicker(
@@ -490,6 +522,7 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
         preference.dependencyDisablesPref = true;
         screen.settings.add(preference);
 
+        setting.settings.add(DeviceSetting.divider(R.string.wear_device_sedentary_reminder_settings));
         setting.settings.add(screen);
     }
 
@@ -566,7 +599,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
             screen.settings.add(subScreen);
         }
 
-        setting.settings.add(DeviceSetting.divider());
         setting.settings.add(screen);
     }
 
