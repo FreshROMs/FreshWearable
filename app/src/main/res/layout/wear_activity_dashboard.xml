@@ -45,7 +45,7 @@
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <dev.oneuiproject.oneui.widget.RoundedNestedScrollView
         android:id="@+id/dashboard_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -54,13 +54,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingBottom="84.0dip">
+            android:paddingBottom="108.0dip">
             <xyz.tenseventyseven.fresh.wearable.components.preferences.PreferenceList
                 android:id="@+id/preference_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </dev.oneuiproject.oneui.widget.RoundedNestedScrollView>
 
     <dev.oneuiproject.oneui.widget.ScrollAwareFloatingActionButton
         android:id="@+id/activity_device_fab"
