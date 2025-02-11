@@ -501,6 +501,7 @@
     <string name="activity_type_walking">Gehen</string>
     <string name="activity_type_swimming">Schwimmen</string>
     <string name="activity_type_unknown">Unbekannte Aktivität</string>
+    <string name="activity_type_athletics">Leichtathletik</string>
     <string name="activity_summaries">Sportliche Aktivitäten</string>
     <string name="activity_type_biking">Radfahren</string>
     <string name="activity_type_treadmill">Laufband</string>
@@ -796,7 +797,7 @@
 \nBitte stelle sicher, dass du die .fw Datei, dann die .res Datei und schließlich die .gps Datei installierst. Deine Uhr wird nach der Installation der .fw Datei neu gestartet.
 \n
 \nHinweis: Du musst die .res und .gps nicht installieren, wenn diese Dateien genau die gleichen sind wie die zuvor installierten.
-\n 
+\n
 \nINSTALLATION AUF EIGENE GEFAHR!</string>
     <string name="mi2_prefs_button_press_broadcast_default_value" translatable="false">nodomain.freeyourgadget.gadgetbridge.ButtonPressed</string>
     <string name="devicetype_qhybrid">Fossil Q Hybrid</string>
@@ -904,7 +905,7 @@
 \n
 \nBitte stelle sicher, dass du die .fw Datei, dann die .res Datei und schließlich die .gps Datei installierst. Deine Uhr wird nach der Installation der .fw Datei neu gestartet.
 \n
-\nHinweis: Du musst die .res und .gps nicht installieren, wenn diese Dateien genau die gleichen sind wie die zuvor installierten. 
+\nHinweis: Du musst die .res und .gps nicht installieren, wenn diese Dateien genau die gleichen sind wie die zuvor installierten.
 \n
 \nINSTALLATION AUF EIGENE GEFAHR!</string>
     <string name="devicetype_amazfit_trex">Amazfit T-Rex</string>
@@ -2726,6 +2727,7 @@
     <string name="activity_type_trampoline">Trampolin</string>
     <string name="activity_type_javelin">Speerwurf</string>
     <string name="devicetype_nothing_cmf_watch_pro">CMF Watch Pro</string>
+    <string name="activity_type_barbell">Langhantel</string>
     <string name="activity_type_belly_dance">Bauchtanz</string>
     <string name="activity_type_hunting">Jagen</string>
     <string name="pref_force_wear_location_summary">Erzwinge Unterstützung für Standort der Uhr
@@ -3224,6 +3226,20 @@
     <string name="activity_type_floor_climbing">Treppensteigen</string>
     <string name="activity_type_breathwork">Atemübungen</string>
     <string name="activity_type_inline_skating">Inlineskating</string>
+    <string name="activity_type_finswimming">Flossen-schwimmen</string>
+    <string name="activity_type_parallel_bars">Barren</string>
+    <string name="activity_type_tug_of_war">Tauziehen</string>
+    <string name="activity_type_wall_ball">Wandball</string>
+    <string name="activity_type_water_polo">Wasserball</string>
+    <string name="activity_type_bobsleigh">Bobfahren</string>
+    <string name="activity_type_other_water_sports">anderer Wassersport</string>
+    <string name="activity_type_other_winter_sports">anderer Wintersport</string>
+    <string name="activity_type_diving">Tauchen</string>
+    <string name="activity_type_deadlift">Kreuzheben</string>
+    <string name="activity_type_abs">Bauchmuskeln</string>
+    <string name="activity_type_back">Rücken</string>
+    <string name="activity_type_equestrian">Reitsport</string>
+    <string name="activity_type_artistic_swimming">Synchronschwimmen</string>
     <string name="pref_time_sync">Automatische Zeitsynchronisation</string>
     <string name="dateformat_day_month">Tag, Monat</string>
     <string name="dateformat_month_day">Monat, Tag</string>
@@ -3318,6 +3334,7 @@
     <string name="mijia_lywsd_comfort_upper">Obergrenze</string>
     <string name="activity_type_laser_tag">Laser Tag</string>
     <string name="activity_type_billiard_pool">Poolbillard</string>
+    <string name="activity_type_sledding">Rodeln</string>
     <string name="activity_type_biathlon">Biathlon</string>
     <string name="activity_type_bungee_jumping">Bungeejumping</string>
     <string name="activity_type_wakeboarding">Wakeboarden</string>
@@ -3332,6 +3349,7 @@
     <string name="recoveryTime">Erholungszeit</string>
     <string name="activity_type_frisbee">Frisbee</string>
     <string name="activity_type_judo">Judo</string>
+    <string name="activity_type_stair_climber">Stepper</string>
     <string name="activity_type_table_football">Tischfußball</string>
     <string name="distance_avg">Strecke durchschnittlich</string>
     <string name="distance_total">Strecke insgesamt</string>
