@@ -114,11 +114,7 @@ public class XiaomiSystemService extends AbstractXiaomiService implements Xiaomi
     private BatteryState currentBatteryState = BatteryState.UNKNOWN;
     private SleepState currentSleepDetectionState = SleepState.UNKNOWN;
 
-    // Timestamp to track the last time DND mode was set
-    private long lastDndModeSetTime = 0;
-
-    // Delay by 500ms
-    private static final long DND_MODE_SET_COOLDOWN_MS = TimeUnit.MILLISECONDS.toMillis(500);
+    private boolean isSettingDNDMode = false;
 
     public XiaomiSystemService(final XiaomiSupport support) {
         super(support);
@@ -167,13 +163,13 @@ public class XiaomiSystemService extends AbstractXiaomiService implements Xiaomi
                 handlePassword(cmd.getSystem().getPassword());
                 return;
             case CMD_DND_MODE_SET:
-                LOG.debug("Got set DND, status={}", cmd.getSystem().getDndStatus().getStatus());
-                long currentTime = System.currentTimeMillis();
-                if (currentTime - lastDndModeSetTime < DND_MODE_SET_COOLDOWN_MS) {
-                    return; // Skip processing to avoid the loop
+                if (isSettingDNDMode) {
+                    LOG.debug("This is a confirmation of a DND mode set command");
+                    isSettingDNDMode = false;
+                    return;
                 }
+                LOG.debug("Got set DND, status={}", cmd.getSystem().getDndStatus().getStatus());
                 boolean enabled = cmd.getSystem().getDndStatus().getStatus() == 0;
-                lastDndModeSetTime = currentTime; // Set the timestamp before sending the command
                 getSupport().evaluateGBDeviceEvent(new GBDeviceEventDoNotDisturb(enabled));
                 return;
             case CMD_MISC_SETTING_SET:
@@ -277,16 +273,15 @@ public class XiaomiSystemService extends AbstractXiaomiService implements Xiaomi
     }
 
     public void setDndMode(boolean enabled) {
-        long currentTime = System.currentTimeMillis();
-        LOG.debug("Set DND mode to {}", enabled);
-        if (currentTime - lastDndModeSetTime < DND_MODE_SET_COOLDOWN_MS) {
-            return; // Skip setting DND mode to avoid the loop
+        if (isSettingDNDMode) {
+            LOG.debug("Already setting DND mode, ignoring");
+            return;
         }
 
         int status = enabled ? 0 : 2;
-        lastDndModeSetTime = currentTime;
+        isSettingDNDMode = true;
         getSupport().sendCommand(
-                "set dnd mode",
+                "set DND mode",
                 XiaomiProto.Command.newBuilder()
                         .setType(COMMAND_TYPE)
                         .setSubtype(CMD_DND_MODE_SET)
