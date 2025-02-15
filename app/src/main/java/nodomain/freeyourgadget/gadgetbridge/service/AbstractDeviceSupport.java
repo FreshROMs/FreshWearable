@@ -1304,4 +1304,13 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
 
     @Override
     public void onMusicOperation(int operation, int playlistIndex, String playlistName, ArrayList<Integer> musicIds) {}
+
+    /**
+     * If the device supports a "DND sync" functionality, this method can
+     * be overridden and implemented by the device support class. This is
+     * called when the DND mode is changed on the phone.
+     * @param enable
+     */
+    @Override
+    public void onSetDNDMode(boolean enable) {}
 }

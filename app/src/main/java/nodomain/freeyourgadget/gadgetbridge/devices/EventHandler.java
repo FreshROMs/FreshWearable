@@ -159,7 +159,5 @@ public interface EventHandler {
 
     void onMusicOperation(int operation, int playlistIndex, String playlistName, ArrayList<Integer> musicIds);
 
-    default void onSetDNDMode(boolean enable) {
-
-    }
+    void onSetDNDMode(boolean enable);
 }

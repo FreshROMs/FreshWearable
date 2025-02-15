@@ -177,6 +177,9 @@ public class ServiceDeviceSupport implements DeviceSupport {
 
     @Override
     public void onSetDNDMode(boolean enable) {
+        if (checkBusy("set DND mode") || checkThrottle("set DND mode")) {
+            return;
+        }
         delegate.onSetDNDMode(enable);
     }
 
