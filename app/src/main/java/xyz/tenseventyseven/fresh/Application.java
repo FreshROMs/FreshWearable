@@ -55,6 +55,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -256,6 +257,7 @@ public class Application extends android.app.Application {
         deviceService = createDeviceService();
         loadAppsNotifBlackList();
         loadAppsPebbleBlackList();
+        loadPerDeviceAppsNotifBlackList();
 
         PeriodicExporter.enablePeriodicExport(context);
 
@@ -528,6 +530,21 @@ public class Application extends android.app.Application {
         editor.apply();
     }
 
+    private static void saveAppsNotifBlackList(SharedPreferences.Editor editor, String deviceAddress) {
+        HashSet<String> blacklist = per_device_apps_notification_blacklist.get(deviceAddress);
+        if (blacklist == null) {
+            return;
+        }
+
+        GB.log("Saving apps_notification_blacklist with " + blacklist.size() + " entries", GB.INFO, null);
+        if (blacklist.isEmpty()) {
+            editor.putStringSet(GBPrefs.PACKAGE_BLACKLIST, null);
+        } else {
+            Prefs.putStringSet(editor, GBPrefs.PACKAGE_BLACKLIST, blacklist);
+        }
+        editor.apply();
+    }
+
     public static void addAppToNotifBlacklist(String packageName) {
         if (apps_notification_blacklist.add(packageName)) {
             saveAppsNotifBlackList();
@@ -538,6 +555,85 @@ public class Application extends android.app.Application {
         GB.log("Removing from apps_notification_blacklist: " + packageName, GB.INFO, null);
         apps_notification_blacklist.remove(packageName);
         saveAppsNotifBlackList();
+    }
+
+    private static Map<String, HashSet<String>> per_device_apps_notification_blacklist = null;
+    public static boolean isAppBlacklisted(String deviceAddress, String packageName) {
+        if (per_device_apps_notification_blacklist == null) {
+            GB.log("isAppBlacklistedForDevice: per_device_apps_notification_blacklist is null!", GB.INFO, null);
+        }
+        if (per_device_apps_notification_blacklist != null) {
+            HashSet<String> blacklist = per_device_apps_notification_blacklist.get(deviceAddress);
+            return blacklist != null && blacklist.contains(packageName);
+        }
+        return false;
+    }
+
+    public static void setAppsNotifBlackListForDevice(String deviceAddress, Set<String> packageNames) {
+        SharedPreferences sharedPreferences = getDeviceSpecificSharedPrefs(deviceAddress);
+        setAppsNotifBlackListForDevice(deviceAddress, packageNames, sharedPreferences.edit());
+    }
+
+    public static void setAppsNotifBlackListForDevice(String deviceAddress, Set<String> packageNames, SharedPreferences.Editor editor) {
+        if (packageNames == null) {
+            GB.log("Set null per_device_apps_notification_blacklist for device " + deviceAddress, GB.INFO, null);
+            if (per_device_apps_notification_blacklist != null) {
+                per_device_apps_notification_blacklist.remove(deviceAddress);
+            }
+        } else {
+            if (per_device_apps_notification_blacklist == null) {
+                per_device_apps_notification_blacklist = new HashMap<>();
+            }
+            per_device_apps_notification_blacklist.put(deviceAddress, new HashSet<>(packageNames));
+        }
+        GB.log("New per_device_apps_notification_blacklist for device " + deviceAddress + " has " + (packageNames == null ? 0 : packageNames.size()) + " entries", GB.INFO, null);
+        saveAppsNotifBlackList(editor, deviceAddress);
+    }
+
+    public static void addAppToNotifBlacklistForDevice(String deviceAddress, String packageName) {
+        if (per_device_apps_notification_blacklist == null) {
+            per_device_apps_notification_blacklist = new HashMap<>();
+        }
+        HashSet<String> blacklist = per_device_apps_notification_blacklist.get(deviceAddress);
+        if (blacklist == null) {
+            blacklist = new HashSet<>();
+            per_device_apps_notification_blacklist.put(deviceAddress, blacklist);
+        }
+        if (blacklist.add(packageName)) {
+            SharedPreferences sharedPreferences = getDeviceSpecificSharedPrefs(deviceAddress);
+            saveAppsNotifBlackList(sharedPreferences.edit(), deviceAddress);
+        }
+    }
+
+    public static synchronized void removeFromAppsNotifBlacklistForDevice(String deviceAddress, String packageName) {
+        GB.log("Removing from per_device_apps_notification_blacklist for device " + deviceAddress + ": " + packageName, GB.INFO, null);
+        if (per_device_apps_notification_blacklist != null) {
+            HashSet<String> blacklist = per_device_apps_notification_blacklist.get(deviceAddress);
+            if (blacklist != null) {
+                blacklist.remove(packageName);
+                SharedPreferences sharedPreferences = getDeviceSpecificSharedPrefs(deviceAddress);
+                saveAppsNotifBlackList(sharedPreferences.edit(), deviceAddress);
+            }
+        }
+    }
+
+    private static void loadPerDeviceAppsNotifBlackList() {
+        GB.log("Loading per_device_apps_notification_blacklist", GB.INFO, null);
+        per_device_apps_notification_blacklist = new HashMap<>();
+        try (DBHandler db = acquireDB()) {
+            DaoSession daoSession = db.getDaoSession();
+            List<Device> activeDevices = DBHelper.getActiveDevices(daoSession);
+            for (Device dbDevice : activeDevices) {
+                SharedPreferences deviceSpecificSharedPrefs = Application.getDeviceSpecificSharedPrefs(dbDevice.getIdentifier());
+                HashSet<String> blacklist = (HashSet<String>) deviceSpecificSharedPrefs.getStringSet(GBPrefs.PACKAGE_BLACKLIST, null); // lgtm [java/abstract-to-concrete-cast]
+                if (blacklist != null) {
+                    per_device_apps_notification_blacklist.put(dbDevice.getIdentifier(), blacklist);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to load per-device apps notification blacklist", e);
+        }
+        GB.log("Loaded per_device_apps_notification_blacklist has " + per_device_apps_notification_blacklist.size() + " entries", GB.INFO, null);
     }
 
     private static HashSet<String> apps_pebblemsg_blacklist = null;

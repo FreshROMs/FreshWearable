@@ -58,6 +58,8 @@ public class NotificationSpec {
 
     public int dndSuppressed;
 
+    public int priority;
+
     public NotificationSpec() {
         this(-1);
     }

@@ -42,9 +42,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -844,6 +846,28 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 device.sendDeviceUpdateIntent(this, GBDevice.DeviceUpdateSubject.NOTHING);
                 break;
             case ACTION_NOTIFICATION: {
+                String source = intentCopy.getStringExtra(EXTRA_NOTIFICATION_SOURCEAPPID);
+                if (Application.isAppBlacklisted(device.getAddress(), source)) {
+                    LOG.info("App {} is blacklisted for device {}", source, device.getAddress());
+                    return;
+                }
+
+                if (devicePrefs.getBoolean("notifications_ignore_when_screen_on", true)) {
+                    PowerManager powermanager = (PowerManager) getSystemService(POWER_SERVICE);
+                    if (powermanager != null && powermanager.isScreenOn()) {
+                        LOG.info("Screen is on, not sending notification to device {}", device.getAddress());
+                        return;
+                    }
+                }
+
+                int priority = intentCopy.getIntExtra(EXTRA_NOTIFICATION_PRIORITY, 0);
+                if (priority < NotificationCompat.PRIORITY_DEFAULT) {
+                    if (devicePrefs.getBoolean("notifications_ignore_low_priority", true)) {
+                        LOG.info("Ignoring low priority notification for device {}", device.getAddress());
+                        return;
+                    }
+                }
+
                 int desiredId = intentCopy.getIntExtra(EXTRA_NOTIFICATION_ID, -1);
                 NotificationSpec notificationSpec = new NotificationSpec(desiredId);
                 notificationSpec.phoneNumber = intentCopy.getStringExtra(EXTRA_NOTIFICATION_PHONENUMBER);

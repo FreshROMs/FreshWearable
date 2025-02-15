@@ -384,6 +384,7 @@ public class NotificationListener extends NotificationListenerService {
         NotificationSpec notificationSpec = new NotificationSpec();
         notificationSpec.key = sbn.getKey();
         notificationSpec.when = notification.when;
+        notificationSpec.priority = notification.priority;
 
         // determinate Source App Name ("Label")
         String name = NotificationUtils.getApplicationLabel(this, source);
@@ -992,13 +993,10 @@ public class NotificationListener extends NotificationListenerService {
     private boolean shouldIgnoreSource(StatusBarNotification sbn) {
         String source = sbn.getPackageName();
 
-        Prefs prefs = Application.getPrefs();
-
         /* do not display messages from "android"
          * This includes keyboard selection message, usb connection messages, etc
          * Hope it does not filter out too much, we will see...
          */
-
         if (source.equals("android") ||
                 source.equals("com.android.systemui") ||
                 source.equals("com.android.dialer") ||
@@ -1006,34 +1004,6 @@ public class NotificationListener extends NotificationListenerService {
                 source.equals("com.cyanogenmod.eleven")) {
             LOG.info("Ignoring notification, is a system event");
             return true;
-        }
-
-        if (source.equals("com.moez.QKSMS") ||
-                source.equals("com.android.mms") ||
-                source.equals("com.sonyericsson.conversations") ||
-                source.equals("com.android.messaging") ||
-                source.equals("org.smssecure.smssecure") ||
-                source.equals("org.fossify.messages") ||
-                source.equals("dev.octoshrimpy.quik")) {
-            if (!"never".equals(prefs.getString("notification_mode_sms", "when_screen_off"))) {
-                LOG.info("Ignoring notification, it's an sms notification");
-                return true;
-            }
-        }
-
-        if (Application.getPrefs().getString("notification_list_is_blacklist", "true").equals("true")) {
-            if (Application.appIsNotifBlacklisted(source)) {
-                LOG.info("Ignoring notification, application is blacklisted");
-                return true;
-            }
-        } else {
-            if (Application.appIsNotifBlacklisted(source)) {
-                LOG.info("Allowing notification, application is whitelisted");
-                return false;
-            } else {
-                LOG.info("Ignoring notification, application is not whitelisted");
-                return true;
-            }
         }
 
         return false;
@@ -1104,33 +1074,11 @@ public class NotificationListener extends NotificationListenerService {
             return true;
         }
 
-        Prefs prefs = Application.getPrefs();
-
-        // Check for screen on when posting the notification; for removal, the screen
-        // has to be on (obviously)
-        if (!remove) {
-            if (!prefs.getBoolean("notifications_generic_whenscreenon", false)) {
-                PowerManager powermanager = (PowerManager) getSystemService(POWER_SERVICE);
-                if (powermanager != null && powermanager.isScreenOn()) {
-                    LOG.info("Not forwarding notification, screen seems to be on and settings do not allow this");
-                    return true;
-                }
-            }
-        }
-
-        if (sbn.getNotification().priority < Notification.PRIORITY_DEFAULT) {
-            if (prefs.getBoolean("notifications_ignore_low_priority", true)) {
-                LOG.info("Ignoring low priority notification");
-                return true;
-            }
-        }
-
         if (shouldIgnoreOngoing(sbn, type)) {
             return false;
         }
 
         return (notification.flags & Notification.FLAG_ONGOING_EVENT) == Notification.FLAG_ONGOING_EVENT;
-
     }
 
 
