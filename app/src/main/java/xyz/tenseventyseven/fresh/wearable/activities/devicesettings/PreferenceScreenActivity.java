@@ -85,12 +85,6 @@ public class PreferenceScreenActivity extends AbstractNoActionBarActivity {
     private void setupSettings() {
         if (device == null) return;
         PreferenceList preferenceList = binding.preferenceList;
-
-        String summary = "";
-        if (setting.screenSummary != 0) {
-            summary = getString(setting.screenSummary);
-        }
-
-        preferenceList.setSettings(this, device, setting.settings, summary);
+        preferenceList.setSettings(this, device, setting);
     }
 }

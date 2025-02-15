@@ -194,6 +194,10 @@ public class DeviceSetting implements Parcelable {
         return new DeviceSetting(DeviceSettingType.DIVIDER, "", title, 0, 0, null);
     }
 
+    public static DeviceSetting screen(String key) {
+        return new DeviceSetting(DeviceSettingType.SCREEN, key, 0, 0, 0, null);
+    }
+
     public static DeviceSetting screen(String key, int title, int summary, int icon) {
         return new DeviceSetting(DeviceSettingType.SCREEN, key, title, summary, icon, null);
     }

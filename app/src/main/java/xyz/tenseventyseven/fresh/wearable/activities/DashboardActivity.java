@@ -16,6 +16,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.material.appbar.AppBarLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -178,25 +179,26 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
 
     private void setupDeviceSettings(List<DeviceSetting> deviceSettings) {
         if (device == null) return;
+        DeviceSetting main = DeviceSetting.screen("main");
+        main.settings = new ArrayList<>();
 
-        List<DeviceSetting> settings = deviceSettings;
-        if (settings == null) {
-            return;
+        if (deviceSettings != null) {
+            main.settings.addAll(deviceSettings);
         }
 
         DeviceSetting batterySettings = DashboardUtils.getBatterySettings(device);
         if (batterySettings != null) {
-            settings.add(DeviceSetting.divider());
-            settings.add(batterySettings);
+            main.settings.add(DeviceSetting.divider());
+            main.settings.add(batterySettings);
         }
 
         DeviceSetting developerOptions = DashboardUtils.getDeveloperOptions(device);
         if (developerOptions != null) {
-            settings.add(DeviceSetting.divider());
-            settings.add(developerOptions);
+            main.settings.add(DeviceSetting.divider());
+            main.settings.add(developerOptions);
         }
 
-        binding.preferenceList.setSettings(this, device, deviceSettings, true);
+        binding.preferenceList.setSettings(this, device, main, true);
     }
 
     private class AppBarListener implements AppBarLayout.OnOffsetChangedListener {

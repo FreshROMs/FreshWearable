@@ -66,7 +66,8 @@ public class PreferenceList extends LinearLayout {
     private static final String EQUALIZER_DESCRIPTION_PREFIX = "_description";
 
     private GBDevice device;
-    private List<DeviceSetting> settings;
+    private DeviceSetting settings = null;
+    private boolean hasShortcuts = false;
 
     public PreferenceList(Context context) {
         super(context);
@@ -84,34 +85,34 @@ public class PreferenceList extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    public void setSettings(Context context, GBDevice device, List<DeviceSetting> settings) {
+    public void setSettings(Context context, GBDevice device, DeviceSetting settings) {
         this.device = device;
         this.settings = settings;
-        init(context, false, null);
+        init(context);
     }
 
-    public void setSettings(Context context, GBDevice device, List<DeviceSetting> settings, boolean hasShortcuts) {
+    public void setSettings(Context context, GBDevice device, DeviceSetting settings, boolean hasShortcuts) {
         this.device = device;
         this.settings = settings;
-        init(context, hasShortcuts, null);
-    }
-
-    public void setSettings(Context context, GBDevice device, List<DeviceSetting> settings, String summary) {
-        this.device = device;
-        this.settings = settings;
-        init(context, false, summary);
+        this.hasShortcuts = hasShortcuts;
+        init(context);
     }
 
     public void clear() {
         removeAllViews();
     }
 
-    private void init(Context context, boolean hasShortcuts, String summary) {
+    private void init(Context context) {
+        if (settings == null) {
+            Log.e("PreferenceList", "Settings are null");
+            return;
+        }
+
         WearPreferenceListBinding binding = WearPreferenceListBinding.inflate(LayoutInflater.from(context), this, true);
 
         // Get fragment manager for preference list
         FragmentManager fragmentManager = FragmentManager.findFragmentManager(this);
-        Fragment fragment = PreferenceListFragment.newInstance(device, settings, hasShortcuts, summary);
+        Fragment fragment = PreferenceListFragment.newInstance(device, settings, hasShortcuts);
         fragmentManager.beginTransaction()
                 .replace(binding.preferencesContainer.getId(), fragment)
                 .commit();
@@ -135,9 +136,8 @@ public class PreferenceList extends LinearLayout {
         implements SharedPreferences.OnSharedPreferenceChangeListener {
         private GBDevice device;
         private WearableSettingCoordinator coordinator;
-        private List<DeviceSetting> settings;
+        private DeviceSetting settings;
         private boolean hasShortcuts;
-        private String summary;
         private final Map<String, List<PreferenceDependency>> dependencies = new HashMap<>();
         private final Map<String, Preference> preferenceMap = new HashMap<>();
         private final Map<String, String> defaultValues = new HashMap<>();
@@ -150,13 +150,12 @@ public class PreferenceList extends LinearLayout {
             // Required empty public constructor
         }
 
-        public static PreferenceListFragment newInstance(GBDevice device, List<DeviceSetting> settings, boolean hasShortcuts, String summary) {
+        public static PreferenceListFragment newInstance(GBDevice device, DeviceSetting settings, boolean hasShortcuts) {
             PreferenceListFragment fragment = new PreferenceListFragment();
             Bundle args = new Bundle();
             args.putParcelable("device", device);
-            args.putParcelableArrayList("settings", new ArrayList<>(settings));
+            args.putParcelable("settings", settings);
             args.putBoolean("hasShortcuts", hasShortcuts);
-            args.putString("summary", summary);
             fragment.setArguments(args);
             return fragment;
         }
@@ -166,9 +165,8 @@ public class PreferenceList extends LinearLayout {
             super.onAttach(context);
             if (getArguments() != null) {
                 device = getArguments().getParcelable("device");
-                settings = getArguments().getParcelableArrayList("settings");
+                settings = getArguments().getParcelable("settings");
                 hasShortcuts = getArguments().getBoolean("hasShortcuts");
-                summary = getArguments().getString("summary");
                 preferences = Application.getDevicePrefs(device).getPreferences();
                 coordinator = device.getDeviceCoordinator().getDeviceSettings(device);
             } else {
@@ -224,12 +222,16 @@ public class PreferenceList extends LinearLayout {
                 getPreferenceManager().setSharedPreferencesMode(Context.MODE_PRIVATE);
             }
 
+            if (settings.key != null) {
+                screen.setKey(settings.key);
+            }
+
             PreferenceCategory category = null;
-            if (summary != null && !summary.isEmpty()) {
+            if (settings.screenSummary != 0) {
                 try {
                     EditTextPreference summaryPreference = new EditTextPreference(context);
                     summaryPreference.setKey("summary");
-                    summaryPreference.setSummary(summary);
+                    summaryPreference.setSummary(settings.screenSummary);
                     summaryPreference.setPersistent(false);
                     summaryPreference.setCopyingEnabled(false);
                     summaryPreference.setSelectable(false);
@@ -258,12 +260,12 @@ public class PreferenceList extends LinearLayout {
                 }
             }
 
-            if (settings == null || settings.isEmpty()) {
+            if (settings == null || settings.settings.isEmpty()) {
                 Log.e("PreferenceListFragment", "Settings list is empty or null");
                 return;
             }
 
-            for (DeviceSetting setting : settings) {
+            for (DeviceSetting setting : settings.settings) {
                 if (setting.type == DeviceSetting.DeviceSettingType.DIVIDER) {
                     category = addPreferenceCategory(context, preferenceScreen, setting);
                     continue;
