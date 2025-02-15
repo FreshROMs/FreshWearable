@@ -73,6 +73,16 @@
         <item>@string/wear_device_heartrate_settings_interval_30_minutes_summary</item>
     </string-array>
 
+    <string-array name="wear_device_notifications_options">
+        <item>@string/wear_device_notifications_show_notifications_screen_off</item>
+        <item>@string/wear_device_notifications_show_notifications_screen_on</item>
+    </string-array>
+
+    <string-array name="wear_device_notifications_options_values">
+        <item>true</item>
+        <item>false</item>
+    </string-array>
+
     <string-array name="xiaomi_wear_hr_measurement_interval_values">
         <item>0</item>
         <item>-1</item>

@@ -17,6 +17,7 @@ import androidx.preference.SeslSwitchPreferenceScreen;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
@@ -74,11 +75,17 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
     @Override
     public void onSettingChanged(GBDevice device, PreferenceScreen preferenceScreen, Preference preference, String key) {
         super.onSettingChanged(device, preferenceScreen, preference, key);
+        updateSedentaryPreference(preferenceScreen);
     }
 
     @Override
     public void onSettingChanged(GBDevice device, SharedPreferences sharedPreferences, String key) {
         super.onSettingChanged(device, sharedPreferences, key);
+        if (Objects.equals(key, "screen_on_on_notifications_dropdown")) {
+            Log.d("XiaomiSettingsCoordinator", "screen_on_on_notifications_dropdown changed");
+            String value = sharedPreferences.getString(key, "false");
+            sharedPreferences.edit().putBoolean("notifications_ignore_when_screen_on", "true".equals(value)).apply();
+        }
     }
 
     @Override
@@ -94,6 +101,8 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
     }
 
     private void updateSedentaryPreference(PreferenceScreen preferenceScreen) {
+        if (!Objects.equals(preferenceScreen.getKey(), "pref_health")) return;
+
         Preference sedentaryScreen = preferenceScreen.findPreference("inactivity_warnings_enable");
         if (sedentaryScreen instanceof SeslSwitchPreferenceScreen) {
             SeslSwitchPreferenceScreen switchScreen = (SeslSwitchPreferenceScreen) sedentaryScreen;
@@ -695,24 +704,59 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
         setting.settings = new ArrayList<>();
 
         DeviceSetting preference;
+        preference = DeviceSetting.screen(
+                "screen_notifications_app_filter",
+                R.string.wear_device_notifications_app_notifications,
+                R.string.wear_device_notifications_app_notifications_summary,
+                0,
+                "xyz.tenseventyseven.fresh.wearable.activities.AppNotificationsPickerActivity"
+        );
+        preference.putExtra(GBDevice.EXTRA_DEVICE, device);
+        preference.dependency = "send_app_notifications";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        setting.settings.add(preference);
+
+        setting.settings.add(DeviceSetting.divider());
+
         if (coordinator.supports(device, FEAT_SCREEN_ON_ON_NOTIFICATIONS)) {
-            preference = DeviceSetting.switchSetting(
-                    "screen_on_on_notifications",
-                    R.string.pref_title_screen_on_on_notifications,
-                    R.string.pref_summary_screen_on_on_notifications,
+            preference = DeviceSetting.dropdown(
+                    "screen_on_on_notifications_dropdown",
+                    R.string.wear_device_notifications_show_notifications_options,
                     0,
-                    "true"
+                    "true",
+                    R.array.wear_device_notifications_options,
+                    R.array.wear_device_notifications_options_values
             );
+            preference.dependency = "send_app_notifications";
+            preference.dependencyValue = "true";
+            preference.dependencyDisablesPref = true;
+            preference.valueAsSummary = true;
             setting.settings.add(preference);
         }
 
         preference = DeviceSetting.switchSetting(
+                "notifications_ignore_low_priority",
+                R.string.wear_device_notifications_ignore_low_priority_notifications,
+                R.string.wear_device_notifications_ignore_low_priority_notifications_summary,
+                0,
+                "false"
+        );
+        preference.dependency = "send_app_notifications";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        setting.settings.add(preference);
+
+        preference = DeviceSetting.switchSetting(
                 "autoremove_notifications",
-                R.string.pref_title_autoremove_notifications,
-                R.string.pref_summary_autoremove_notifications,
+                R.string.wear_device_notifications_remove_notifications_when_removed,
+                R.string.wear_device_notifications_remove_notifications_when_removed_summary,
                 0,
                 "true"
         );
+        preference.dependency = "send_app_notifications";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
         setting.settings.add(preference);
 
 
