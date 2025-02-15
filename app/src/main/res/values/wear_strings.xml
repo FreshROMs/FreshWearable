@@ -6,6 +6,10 @@
     <string name="wear_remove_button_title">Remove</string>
     <string name="wear_device_list_remove_devices">Remove devices</string>
 
+    <string name="wear_app_picker_all_apps">All apps</string>
+    <string name="wear_app_picker_no_apps">No apps</string>
+    <string name="wear_app_picker_search_hint">Search apps</string>
+
     <string name="wear_device_battery_status_single">%d%%</string>
     <string name="wear_device_buds_battery_status_single_bud">%d%% Case %d%%</string>
     <string name="wear_device_buds_battery_status_combined">L • R %d%% Case %d%%</string>
@@ -47,10 +51,23 @@
 
     <string name="wear_device_notifications_settings">Notifications</string>
     <string name="wear_device_notifications_settings_summary">Sync notifications • Transliteration</string>
+    <string name="wear_device_notifications_settings_screen_summary">Stay informed and connected by receiving notifications directly on your device. Sync notifications from your phone to your device, and enable transliteration to view messages in your preferred language. Customize notification settings to suit your needs and ensure you never miss an important alert.</string>
     <string name="wear_device_notifications_settings_dnd_sync">Sync Do not disturb with phone</string>
     <string name="wear_device_notifications_settings_dnd_sync_screen_summary">Sync Do not disturb so that turning it on or off on one device will automatically apply the same setting to the other device. Exceptions set on the phone will also apply to the device.</string>
     <string name="wear_device_notifications_dnd_sync_mode">Do not disturb mode on phone</string>
     <string name="wear_device_notifications_dnd_sync_mode_summary">This mode will be applied to the phone when Do not disturb mode is turned on on the device.</string>
+    <string name="wear_device_notifications_app_notifications">App notifications</string>
+    <string name="wear_device_notifications_app_notifications_summary">Choose which apps can send notifications to your device.</string>
+
+    <string name="wear_device_notifications_show_notifications_options">Show notifications on watch</string>
+    <string name="wear_device_notifications_show_notifications_screen_off">Show alerts when phone not in use</string>
+    <string name="wear_device_notifications_show_notifications_screen_on">Show alerts even when phone in use</string>
+
+    <string name="wear_device_notifications_ignore_low_priority_notifications">Ignore low priority notifications</string>
+    <string name="wear_device_notifications_ignore_low_priority_notifications_summary">Hide notifications that are marked as low priority on your phone.</string>
+
+    <string name="wear_device_notifications_remove_notifications_when_removed">Remove notifications when removed on phone</string>
+    <string name="wear_device_notifications_remove_notifications_when_removed_summary">Remove notifications on your device when they are dismissed on your phone.</string>
 
     <string name="wear_device_contacts_settings">Contacts</string>
     <string name="wear_device_contacts_settings_summary">Sync contacts • Calls • Messages</string>

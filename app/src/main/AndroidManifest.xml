@@ -102,6 +102,7 @@
         android:supportsRtl="true"
         android:theme="@style/GadgetbridgeTheme"
         tools:replace="android:label">
+
         <!-- Metadata for Samsung One UI -->
         <meta-data
             android:name="SamsungBasicInteraction"
@@ -122,13 +123,15 @@
             android:value="@xml/meta_fresh_wearable" />
 
         <activity
+            android:label="@string/wear_device_notifications_app_notifications"
+            android:name=".wearable.activities.AppNotificationsPickerActivity"
+            android:exported="false" />
+        <activity
             android:name=".wearable.activities.DeviceListActivity"
             android:exported="false" />
-
         <activity
             android:name=".wearable.activities.devicesettings.PreferenceScreenActivity"
             android:exported="false" />
-
         <activity
             android:name=".wearable.activities.DashboardActivity"
             android:exported="true"

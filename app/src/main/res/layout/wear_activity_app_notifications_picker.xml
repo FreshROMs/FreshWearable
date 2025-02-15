@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.oneuiproject.oneui.layout.ToolbarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:expanded="false"
+    app:expandable="false"
+    app:showNavButtonAsBack="true"
+    app:title="@string/wear_device_notifications_app_notifications">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:transitionGroup="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@android:id/summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="@string/wear_device_notifications_app_notifications_summary"
+            android:textAlignment="viewStart"
+            android:textSize="14sp"
+            android:textColor="@color/oui_primary_text_color"
+            android:lineSpacingMultiplier="1.25"
+            android:paddingTop="4.0dip"
+            android:paddingBottom="24.0dip"
+            android:paddingHorizontal="24.0dip" />
+
+        <dev.oneuiproject.oneui.widget.RoundedFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:roundedCorners="top_right|top_left"
+            android:background="?android:colorBackground"
+            android:layout_weight="1">
+
+            <androidx.apppickerview.widget.AppPickerView
+                android:id="@+id/app_picker_view"
+                android:layout_width="match_parent"
+                android:clipToPadding="false"
+                android:layout_height="match_parent"/>
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nsvNoItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvNoItem"
+                    android:textSize="16sp"
+                    android:textColor="?actionMenuTextColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    tools:ignore="TextContrastCheck"
+                    android:text="No item found"
+                    />
+            </androidx.core.widget.NestedScrollView>
+
+            <androidx.appcompat.widget.SeslProgressBar
+                android:id="@+id/apppicker_progress"
+                style="@style/Widget.AppCompat.ProgressBar.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+        </dev.oneuiproject.oneui.widget.RoundedFrameLayout>
+
+    </LinearLayout>
+</dev.oneuiproject.oneui.layout.ToolbarLayout>
