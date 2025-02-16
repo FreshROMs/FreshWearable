@@ -25,6 +25,7 @@ import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
 
 public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
     private RedmiBudsCoordinator coordinator;
+    private GBDevice device;
     private static final String GESTURE_SHORTCUT_KEY = "redmi_buds_gesture_shortcut";
     private static final String NOTIFICATIONS_SETTINGS_KEY = "redmi_buds_notifications_shortcut";
     private static final String AUTO_ANSWER_DELAY_KEY = "redmi_buds_auto_answer_delay";
@@ -44,8 +45,9 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
     private static final String SETTING_AMBIENT = "ambient";
     private static final String SETTING_OFF = "off";
 
-    RedmiBudsSettingsCoordinator(RedmiBudsCoordinator coordinator) {
+    RedmiBudsSettingsCoordinator(RedmiBudsCoordinator coordinator, GBDevice device) {
         this.coordinator = coordinator;
+        this.device = device;
     }
 
     @Override
@@ -73,12 +75,26 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
 
     @Override
     public void onSettingsCreated(PreferenceScreen preferenceScreen) {
+        super.onSettingsCreated(preferenceScreen);
         if (preferenceScreen.findPreference(DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_LEFT) != null) {
             handleAmbientSoundCheckboxes(SIDE_LEFT, preferenceScreen);
         }
 
         if (preferenceScreen.findPreference(DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_CONTROL_LONG_TAP_MODE_RIGHT) != null) {
             handleAmbientSoundCheckboxes(SIDE_RIGHT, preferenceScreen);
+        }
+
+        updateDeviceInformation(preferenceScreen);
+    }
+
+    private void updateDeviceInformation(PreferenceScreen preferenceScreen) {
+        if (!Objects.equals(preferenceScreen.getKey(), "pref_screen_about_device")) {
+            return;
+        }
+
+        Preference firmwareVersion = preferenceScreen.findPreference("firmware_version");
+        if (firmwareVersion != null) {
+            firmwareVersion.setSummary(device.getFirmwareVersion() + " (" + device.getFirmwareVersion2() + ")");
         }
     }
 

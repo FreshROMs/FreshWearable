@@ -209,7 +209,7 @@ public abstract class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
     }
 
     @Override
-    public RedmiBudsSettingsCoordinator getDeviceSettings() {
-        return new RedmiBudsSettingsCoordinator(this);
+    public RedmiBudsSettingsCoordinator getDeviceSettings(GBDevice device) {
+        return new RedmiBudsSettingsCoordinator(this, device);
     }
 }

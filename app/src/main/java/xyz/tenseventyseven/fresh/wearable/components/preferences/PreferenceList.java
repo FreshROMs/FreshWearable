@@ -479,6 +479,15 @@ public class PreferenceList extends LinearLayout {
                         listPreference.seslSetSummaryColor(context.getColor(R.color.wearable_accent_primary));
                     }
                     return listPreference;
+                case INFO:
+                    ListPreference infoPreference = new ListPreference(context) {
+                        @Override
+                        protected void onClick() {
+
+                        }
+                    };
+                    infoPreference.setKey(setting.key);
+                    return infoPreference;
                 case ANC:
                     NoiseControlPreference noiseControlPreference = new NoiseControlPreference(context);
                     noiseControlPreference.setKey(setting.key);
@@ -623,6 +632,8 @@ public class PreferenceList extends LinearLayout {
                     return xDatePreference;
                 case DRAG_SORT:
                     return getDragSortListPreference(setting, context);
+                case ABOUT_DEVICE_HEADER:
+                    return new AboutDeviceHeaderPreference(context, device);
                 default:
                     Log.w("PreferenceListFragment", "Unknown setting type: " + setting.type);
             }

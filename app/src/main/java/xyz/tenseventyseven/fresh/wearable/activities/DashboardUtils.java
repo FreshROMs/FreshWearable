@@ -204,4 +204,28 @@ public class DashboardUtils {
 
         return screen;
     }
+
+    public static DeviceSetting getAboutDeviceSettings() {
+        DeviceSetting screen = DeviceSetting.screen(
+                "pref_screen_about_device",
+                R.string.wear_device_about_device,
+                R.string.wear_device_about_device_summary,
+                R.drawable.wear_ic_settings_about_device
+        );
+        screen.settings = new ArrayList<>();
+
+        screen.settings.add(DeviceSetting.aboutDeviceHeader());
+        screen.settings.add(DeviceSetting.divider());
+
+        screen.settings.add(
+                DeviceSetting.info(
+                        "firmware_version",
+                        R.string.wear_device_about_device_firmware_version,
+                        0,
+                        0
+                )
+        );
+
+        return screen;
+    }
 }

@@ -192,9 +192,12 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
             main.settings.add(batterySettings);
         }
 
+        DeviceSetting aboutSettings = DashboardUtils.getAboutDeviceSettings();
+        main.settings.add(DeviceSetting.divider());
+        main.settings.add(aboutSettings);
+
         DeviceSetting developerOptions = DashboardUtils.getDeveloperOptions(device);
         if (developerOptions != null) {
-            main.settings.add(DeviceSetting.divider());
             main.settings.add(developerOptions);
         }
 

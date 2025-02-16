@@ -34,6 +34,8 @@ public class DeviceSetting implements Parcelable {
         DATE_PICKER,
         TIME_RANGE_PICKER,
         DRAG_SORT,
+        ABOUT_DEVICE_HEADER,
+        INFO,
     }
 
     public enum ValueKind {
@@ -323,6 +325,14 @@ public class DeviceSetting implements Parcelable {
 
     public static DeviceSetting dragSort(String key, int title, int summary, int icon, String defaultValue) {
         return new DeviceSetting(DeviceSettingType.DRAG_SORT, key, title, summary, icon, defaultValue);
+    }
+
+    public static DeviceSetting aboutDeviceHeader() {
+        return new DeviceSetting(DeviceSettingType.ABOUT_DEVICE_HEADER, "", 0, 0, 0, null);
+    }
+
+    public static DeviceSetting info(String key, int title, int summary, int icon) {
+        return new DeviceSetting(DeviceSettingType.INFO, key, title, summary, icon, null);
     }
 
     /*

@@ -92,6 +92,18 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
     public void onSettingsCreated(PreferenceScreen preferenceScreen) {
         super.onSettingsCreated(preferenceScreen);
         updateSedentaryPreference(preferenceScreen);
+        updateDeviceInformation(preferenceScreen);
+    }
+
+    private void updateDeviceInformation(PreferenceScreen preferenceScreen) {
+        if (!Objects.equals(preferenceScreen.getKey(), "pref_screen_about_device")) {
+            return;
+        }
+
+        Preference firmwareVersion = preferenceScreen.findPreference("firmware_version");
+        if (firmwareVersion != null) {
+            firmwareVersion.setSummary(device.getFirmwareVersion());
+        }
     }
 
     @Override
