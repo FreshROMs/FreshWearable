@@ -1,12 +1,16 @@
 package nodomain.freeyourgadget.gadgetbridge.devices.xiaomi;
 
 import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_CAMERA_REMOTE;
+import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_DISPLAY_ITEMS;
 import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_INACTIVITY;
 import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_PASSWORD;
 import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_SCREEN_ON_ON_NOTIFICATIONS;
 import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_SLEEP_MODE_SCHEDULE;
+import static nodomain.freeyourgadget.gadgetbridge.service.devices.xiaomi.XiaomiPreferences.FEAT_WIDGETS;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
@@ -19,9 +23,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
+import nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreensListActivity;
+import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.R;
+import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceShortcut;
 import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
@@ -33,6 +41,73 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
     public XiaomiSettingsCoordinator(XiaomiCoordinator coordinator, GBDevice device) {
         this.coordinator = coordinator;
         this.device = device;
+    }
+
+    private static final String WIDGETS_SHORTCUT_KEY = "widgets";
+    private static final String DISPLAY_ITEMS_SHORTCUT_KEY = "display_items";
+    private static final String ALARMS_SHORTCUT_KEY = "alarms";
+    private static final String WATCHFACE_SHORTCUT_KEY = "watchface";
+
+    @Override
+    public void onShortcutClicked(Context context, GBDevice device, String key) {
+        switch (key) {
+            case ALARMS_SHORTCUT_KEY:
+                Intent alarms = new Intent(context, ConfigureAlarms.class);
+                alarms.putExtra(GBDevice.EXTRA_DEVICE, device);
+                context.startActivity(alarms);
+                break;
+            case WATCHFACE_SHORTCUT_KEY:
+                Class<? extends Activity> appsManagementActivity = coordinator.getAppsManagementActivity();
+                if (appsManagementActivity != null) {
+                    Intent intent = new Intent(context, appsManagementActivity);
+                    intent.putExtra(GBDevice.EXTRA_DEVICE, device);
+                    context.startActivity(intent);
+                }
+                break;
+            case WIDGETS_SHORTCUT_KEY:
+                final Intent widgets = new Intent(context, WidgetScreensListActivity.class);
+                widgets.putExtra(GBDevice.EXTRA_DEVICE, device);
+                context.startActivity(widgets);
+                break;
+            case DISPLAY_ITEMS_SHORTCUT_KEY:
+                DeviceSetting settings = getDisplayItemsSettings();
+                Intent notificationsIntent = new Intent(context, PreferenceScreenActivity.class);
+                notificationsIntent.putExtra(GBDevice.EXTRA_DEVICE, device);
+                notificationsIntent.putExtra(DeviceSetting.EXTRA_IS_SWITCH_BAR, false);
+                notificationsIntent.putExtra(DeviceSetting.EXTRA_SETTING, settings);
+                context.startActivity(notificationsIntent);
+                break;
+        }
+    }
+
+    private DeviceSetting getDisplayItemsSettings() {
+        DeviceSetting setting = DeviceSetting.screen(
+                "screen_display_items",
+                R.string.wear_device_watchface_apps_screen,
+                0,
+                0
+        );
+        setting.settings = new ArrayList<>();
+
+        return setting;
+    }
+
+    @Override
+    public List<DeviceShortcut> getShortcuts() {
+        List<DeviceShortcut> shortcuts = new ArrayList<>();
+        shortcuts.add(new DeviceShortcut(WATCHFACE_SHORTCUT_KEY, R.string.wear_device_watchface_settings, R.drawable.home_tab_watchface));
+
+        if (coordinator.supports(device, FEAT_DISPLAY_ITEMS)) {
+            shortcuts.add(new DeviceShortcut(DISPLAY_ITEMS_SHORTCUT_KEY, R.string.wear_device_watchface_apps_screen, R.drawable.home_tab_apps));
+        }
+
+        if (coordinator.supports(device, FEAT_WIDGETS)) {
+            shortcuts.add(new DeviceShortcut(WIDGETS_SHORTCUT_KEY, R.string.menuitem_widgets, R.drawable.home_tab_tile));
+        }
+
+        shortcuts.add(new DeviceShortcut(ALARMS_SHORTCUT_KEY, R.string.wear_device_watchface_alarms, R.drawable.home_tab_quick_settings));
+
+        return shortcuts;
     }
 
     @Override
@@ -65,11 +140,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
     @Override
     public List<DeviceSetting> getDeveloperOptions() {
         return super.getDeveloperOptions();
-    }
-
-    @Override
-    public List<DeviceShortcut> getShortcuts() {
-        return super.getShortcuts();
     }
 
     @Override
@@ -141,11 +211,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
     @Override
     public boolean allowPreferenceChange(PreferenceScreen screen, Preference preference, String newValue) {
         return super.allowPreferenceChange(screen, preference, newValue);
-    }
-
-    @Override
-    public void onShortcutClicked(Context context, GBDevice device, String key) {
-        super.onShortcutClicked(context, device, key);
     }
 
     private List<DeviceSetting> getMiscSettings() {

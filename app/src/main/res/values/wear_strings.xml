@@ -178,4 +178,8 @@
     <string name="wear_device_about_device_product_name">Product name</string>
     <string name="wear_device_about_device_model_number">Model number</string>
     <string name="wear_device_about_device_firmware_version">Firmware version</string>
+
+    <string name="wear_device_watchface_settings">Watch faces</string>
+    <string name="wear_device_watchface_alarms">Alarms</string>
+    <string name="wear_device_watchface_apps_screen">Apps screen</string>
 </resources>
