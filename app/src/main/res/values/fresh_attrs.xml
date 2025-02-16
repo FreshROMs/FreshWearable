@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HorizontalProgressView">
+        <attr name="hProgress" format="float" />
+        <attr name="hMin" format="float" />
+        <attr name="hMax" format="float" />
+        <attr name="hBackgroundColor" format="color" />
+        <attr name="hProgressColor" format="color" />
+        <attr name="hDotColor" format="color" />
+        <attr name="hDotBorderColor" format="color" />
+    </declare-styleable>
+</resources>
