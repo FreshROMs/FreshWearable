@@ -50,7 +50,7 @@
     <string name="wear_buds_in_ear_detection_screen_summary">In-ear detection automatically pauses playback when the earbuds are removed and resumes it when they are placed back in your ears, ensuring a seamless listening experience.</string>
 
     <string name="wear_device_notifications_settings">Notifications</string>
-    <string name="wear_device_notifications_settings_summary">Sync notifications • Transliteration</string>
+    <string name="wear_device_notifications_settings_summary">Show notifications • Sync Do not disturb</string>
     <string name="wear_device_notifications_settings_screen_summary">Stay informed and connected by receiving notifications directly on your device. Sync notifications from your phone to your device, and enable transliteration to view messages in your preferred language. Customize notification settings to suit your needs and ensure you never miss an important alert.</string>
     <string name="wear_device_notifications_settings_dnd_sync">Sync Do not disturb with phone</string>
     <string name="wear_device_notifications_settings_dnd_sync_screen_summary">Sync Do not disturb so that turning it on or off on one device will automatically apply the same setting to the other device. Exceptions set on the phone will also apply to the device.</string>
@@ -70,14 +70,14 @@
     <string name="wear_device_notifications_remove_notifications_when_removed_summary">Remove notifications on your device when they are dismissed on your phone.</string>
 
     <string name="wear_device_contacts_settings">Contacts</string>
-    <string name="wear_device_contacts_settings_summary">Sync contacts • Calls • Messages</string>
+    <string name="wear_device_contacts_settings_summary">Quick call • Sync contacts</string>
 
     <string name="wear_device_calendar_settings">Calendar</string>
-    <string name="wear_device_calendar_settings_summary">Sync events • Birthdays • Blacklist calendars</string>
+    <string name="wear_device_calendar_settings_summary">Sync events • Alerts • Block calendars</string>
     <string name="wear_device_calendar_settings_screen_summary">Stay organized by syncing your phone\'s calendar events directly to your watch. Receive timely reminders and alerts in advance, ensuring you\'re always prepared for meetings, appointments, and important occasions, all at a glance on your wrist.</string>
 
     <string name="wear_device_health_settings">Health</string>
-    <string name="wear_device_health_settings_summary">Heart rate • Sleep • Activity</string>
+    <string name="wear_device_health_settings_summary">Measurement • Workouts</string>
     <string name="wear_device_health_settings_measurement">Measurement</string>
     <string name="wear_device_health_settings_measurement_reminder">Measurement can cause a light to flash on the back of your device.</string>
 
@@ -139,9 +139,9 @@
     <string name="wear_device_activity_settings_secondary_goal">Secondary goal</string>
     <string name="wear_device_activity_settings_allow_device_to_get_location">Allow device to get location</string>
     <string name="wear_device_activity_settings_allow_device_to_get_location_summary">Allow the device to access your location to provide accurate activity tracking and workout data.</string>
-    <string name="wear_device_activity_settings_fitness_app_integration">Fitness app integration</string>
-    <string name="wear_device_activity_settings_fitness_app_integration_summary">Automatically open your preferred fitness app when you start a workout on your device.</string>
-    <string name="wear_device_activity_settings_fitness_app_integration_settings">Fitness app integration settings</string>
+    <string name="wear_device_activity_settings_fitness_app_integration">OpenTracks integration</string>
+    <string name="wear_device_activity_settings_fitness_app_integration_summary">Automatically sync your workout data with OpenTracks to view detailed statistics and insights about your activities.</string>
+    <string name="wear_device_activity_settings_fitness_app_integration_settings">OpenTracks integration settings</string>
 
     <string name="wear_device_camera_remote_settings">Camera remote</string>
     <string name="wear_device_camera_remote_settings_summary">Remote shutter • Timer • Flash</string>

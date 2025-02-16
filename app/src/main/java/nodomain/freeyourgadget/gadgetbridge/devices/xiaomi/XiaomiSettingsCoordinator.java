@@ -27,6 +27,7 @@ import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreensListActivity;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
+import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.RedmiBudsCapabilities;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
@@ -218,7 +219,7 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
         DeviceSetting setting;
         if (coordinator.supports(device, FEAT_CAMERA_REMOTE)) {
             setting = DeviceSetting.screen(
-                    "screen_camera_remots",
+                    "screen_camera_remote",
                     R.string.wear_device_camera_remote_settings,
                     R.string.wear_device_camera_remote_settings_summary,
                     R.drawable.wear_ic_settings_camera_remote
@@ -450,7 +451,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 0,
                 "true"
         );
-        preference.valueAsSummary = true;
         setting.settings.add(preference);
 
         preference = DeviceSetting.dropdown(
@@ -473,7 +473,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                     0,
                     "false"
             );
-            preference.valueAsSummary = true;
             setting.settings.add(preference);
 
             setting.settings.add(DeviceSetting.divider());
@@ -484,7 +483,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                     0,
                     "false"
             );
-            preference.valueAsSummary = true;
             setting.settings.add(preference);
         }
 
@@ -497,7 +495,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 0,
                 "false"
         );
-        preference.valueAsSummary = true;
         setting.settings.add(preference);
 
         setting.settings.add(DeviceSetting.divider());
@@ -509,7 +506,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 0,
                 "false"
         );
-        preference.valueAsSummary = true;
         setting.settings.add(preference);
 
         preference = DeviceSetting.screen(
@@ -629,7 +625,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 0,
                 "false"
         );
-        preference.valueAsSummary = true;
         screen.settings.add(preference);
 
         preference = DeviceSetting.switchSetting(
@@ -639,7 +634,6 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 0,
                 "false"
         );
-        preference.valueAsSummary = true;
         screen.settings.add(preference);
 
         if (coordinator.supports(device, FEAT_SLEEP_MODE_SCHEDULE)) {
@@ -651,6 +645,7 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                     0,
                     "false"
             );
+            subScreen.valueAsSummary = true;
             subScreen.screenSummary = R.string.wear_device_sleep_settings_sleep_mode_screen_summary;
             subScreen.settings = new ArrayList<>();
 
