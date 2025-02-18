@@ -62,4 +62,14 @@ public class RedmiWatch3ActiveCoordinator extends XiaomiCoordinator {
     public int getContactsSlotCount(final GBDevice device) {
         return 10; // TODO:verify
     }
+
+    @Override
+    public DeviceKind getDeviceKind() {
+        return DeviceKind.WATCH;
+    }
+
+    @Override
+    public int getDeviceImageResource() {
+        return R.drawable.watch_redmi_watch_3_active;
+    }
 }
