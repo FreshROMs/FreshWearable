@@ -974,7 +974,9 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
             }
             case ACTION_SET_DND_MODE: {
                 boolean enabled = intentCopy.getBooleanExtra(EXTRA_DND_ENABLED, false);
-                deviceSupport.onSetDNDMode(enabled);
+                if (devicePrefs.getBoolean("prefs_do_not_disturb_sync", false)) {
+                    deviceSupport.onSetDNDMode(enabled);
+                }
                 break;
             } case ACTION_CALLSTATE:
                 CallSpec callSpec = new CallSpec();
