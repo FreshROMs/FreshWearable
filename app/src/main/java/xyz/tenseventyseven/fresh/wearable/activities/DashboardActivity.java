@@ -28,6 +28,7 @@ import xyz.tenseventyseven.fresh.common.AbstractNoActionBarActivity;
 import xyz.tenseventyseven.fresh.databinding.WearActivityDashboardBinding;
 import xyz.tenseventyseven.fresh.wearable.components.DeviceHeader;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
+import xyz.tenseventyseven.fresh.wearable.interfaces.WearableDeviceCoordinator;
 import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
 
 public class DashboardActivity extends AbstractNoActionBarActivity {
@@ -55,6 +56,7 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
                     if (dev.getAddress().equals(device.getAddress())) {
                         if (!header.isInitialized()) {
                             header.setDevice(device);
+                            updateDeviceImageHeight();
                         }
 
                         header.refresh();
@@ -147,8 +149,18 @@ public class DashboardActivity extends AbstractNoActionBarActivity {
         }
 
         header.setDevice(device);
+        updateDeviceImageHeight();
         binding.toolbar.setTitle(device.getAliasOrName());
         header.refresh();
+    }
+
+    private void updateDeviceImageHeight() {
+        float proportion = 0.4f;
+        if (device.getDeviceCoordinator().getDeviceKind() == WearableDeviceCoordinator.DeviceKind.WATCH) {
+            proportion = 0.55f;
+        }
+
+        binding.appBar.seslSetCustomHeightProportion(true, proportion);
     }
 
     private void setupLastDevice() {

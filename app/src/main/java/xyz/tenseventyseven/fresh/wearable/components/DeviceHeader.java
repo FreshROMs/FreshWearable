@@ -33,6 +33,7 @@ import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.databinding.WearDeviceHeaderBinding;
 import xyz.tenseventyseven.fresh.wearable.components.header.DeviceHeaderBatteryCommon;
+import xyz.tenseventyseven.fresh.wearable.interfaces.WearableDeviceCoordinator;
 
 public class DeviceHeader extends LinearLayout {
     private WearDeviceHeaderBinding binding;
@@ -111,6 +112,13 @@ public class DeviceHeader extends LinearLayout {
         deviceImage.setImageDrawable(
                 mContext.getDrawable(mDevice.getDeviceCoordinator().getDeviceImageResource(mDevice))
         );
+
+        // If watch set maxheight to 260dip, else 130dip
+        if (mDevice.getDeviceCoordinator().getDeviceKind() == WearableDeviceCoordinator.DeviceKind.WATCH) {
+            deviceImage.setMaxHeight((int) (260 * mContext.getResources().getDisplayMetrics().density));
+        } else {
+            deviceImage.setMaxHeight((int) (140 * mContext.getResources().getDisplayMetrics().density));
+        }
 
         if (!mDevice.isConnected()) {
             mDeviceHeaderBattery.setVisibility(View.GONE);
