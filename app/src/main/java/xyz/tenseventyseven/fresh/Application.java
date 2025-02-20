@@ -636,6 +636,13 @@ public class Application extends android.app.Application {
         GB.log("Loaded per_device_apps_notification_blacklist has " + per_device_apps_notification_blacklist.size() + " entries", GB.INFO, null);
     }
 
+    public static Set<String> getPerDeviceAppsNotifBlackList(String deviceAddress) {
+        if (per_device_apps_notification_blacklist == null) {
+            GB.log("getPerDeviceAppsNotifBlackList: per_device_apps_notification_blacklist is null!", GB.INFO, null);
+        }
+        return per_device_apps_notification_blacklist != null ? per_device_apps_notification_blacklist.get(deviceAddress) : null;
+    }
+
     private static HashSet<String> apps_pebblemsg_blacklist = null;
 
     public static boolean appIsPebbleBlacklisted(String sender) {
