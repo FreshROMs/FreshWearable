@@ -632,6 +632,8 @@ public class PreferenceList extends LinearLayout {
                     return xDatePreference;
                 case DRAG_SORT:
                     return getDragSortListPreference(setting, context);
+                case BATTERY_HEADER:
+                    return new BatteryHeaderPreference(context, device);
                 case ABOUT_DEVICE_HEADER:
                     return new AboutDeviceHeaderPreference(context, device);
                 default:

@@ -2,4 +2,11 @@
 <resources>
     <dimen name="wear_preference_divider_inset_margin">16.0dip</dimen>
     <dimen name="wear_1dp">1.0dip</dimen>
+
+    <dimen name="wear_battery_header_multi_progress_size">72.0dip</dimen>
+    <dimen name="wear_battery_header_multi_progress_stroke">6.0dip</dimen>
+    <dimen name="wear_battery_header_multi_gap">18.0dip</dimen>
+    <dimen name="wear_battery_header_multi_text_margin">8.0dip</dimen>
+    <dimen name="wear_battery_header_multi_progress_icon_size">28.0dip</dimen>
+    <dimen name="wear_battery_header_multi_text_size">15sp</dimen>
 </resources>

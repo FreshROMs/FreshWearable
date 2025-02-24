@@ -111,19 +111,20 @@ public class DashboardUtils {
         final BatteryConfig[] batteryConfigs = coordinator.getBatteryConfig(device);
         DeviceSetting screen = DeviceSetting.screen(
                 "pref_screen_battery",
-                R.string.wear_device_battery_notifications,
-                0,
-                R.drawable.wear_ic_settings_battery_notifications
+                R.string.wear_device_battery_settings,
+                R.string.wear_device_battery_settings_summary,
+                R.drawable.wear_ic_settings_battery
         );
-        screen.screenSummary = R.string.wear_device_battery_notifications_screen_summary;
         screen.settings = new ArrayList<>();
+
+        screen.settings.add(DeviceSetting.batteryHeader());
 
         for (final BatteryConfig batteryConfig : batteryConfigs) {
             if (batteryConfigs.length > 1 || coordinator.addBatteryPollingSettings()) {
                 screen.settings.add(DeviceSetting.divider(
                         batteryConfig.getBatteryLabel() != GBDevice.BATTERY_LABEL_DEFAULT
                                 ? batteryConfig.getBatteryLabel()
-                                : R.string.battery_i
+                                : R.string.wear_device_battery_notifications
                 ));
             }
 

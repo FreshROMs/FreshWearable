@@ -178,6 +178,11 @@
 
     <string name="wear_device_battery_notifications">Battery notifications</string>
     <string name="wear_device_battery_notifications_screen_summary">Receive notifications when your device\'s battery is low or when it\'s fully charged.</string>
+
+    <string name="wear_device_battery_settings">Battery</string>
+    <string name="wear_device_battery_settings_summary">Battery saver • Battery optimization</string>
+    <string name="wear_device_battery_settings_subtext_available">available</string>
+
     <string name="wear_device_about_device">About device</string>
     <string name="wear_device_about_device_summary">Status • Device name • Software version</string>
     <string name="wear_device_about_device_device_name">Device name</string>
