@@ -31,6 +31,7 @@ import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.RedmiBudsCa
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.R;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
+import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.widgets.WidgetSettingsActivity;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceShortcut;
 import xyz.tenseventyseven.fresh.wearable.interfaces.WearableSettingCoordinator;
@@ -66,7 +67,7 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 }
                 break;
             case WIDGETS_SHORTCUT_KEY:
-                final Intent widgets = new Intent(context, WidgetScreensListActivity.class);
+                final Intent widgets = new Intent(context, WidgetSettingsActivity.class);
                 widgets.putExtra(GBDevice.EXTRA_DEVICE, device);
                 context.startActivity(widgets);
                 break;
