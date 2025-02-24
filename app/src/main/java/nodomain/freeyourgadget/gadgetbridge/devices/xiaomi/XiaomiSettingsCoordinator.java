@@ -153,8 +153,8 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
     @Override
     public void onSettingChanged(GBDevice device, SharedPreferences sharedPreferences, String key) {
         super.onSettingChanged(device, sharedPreferences, key);
-        if (Objects.equals(key, "screen_on_on_notifications_dropdown")) {
-            Log.d("XiaomiSettingsCoordinator", "screen_on_on_notifications_dropdown changed");
+        if (Objects.equals(key, "notifications_ignore_when_screen_on_dropdown")) {
+            Log.d("XiaomiSettingsCoordinator", "notifications_ignore_when_screen_on_dropdown changed");
             String value = sharedPreferences.getString(key, "false");
             sharedPreferences.edit().putBoolean("notifications_ignore_when_screen_on", "true".equals(value)).apply();
         }
@@ -792,21 +792,19 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
 
         setting.settings.add(DeviceSetting.divider());
 
-        if (coordinator.supports(device, FEAT_SCREEN_ON_ON_NOTIFICATIONS)) {
-            preference = DeviceSetting.dropdown(
-                    "screen_on_on_notifications_dropdown",
-                    R.string.wear_device_notifications_show_notifications_options,
-                    0,
-                    "true",
-                    R.array.wear_device_notifications_options,
-                    R.array.wear_device_notifications_options_values
-            );
-            preference.dependency = "send_app_notifications";
-            preference.dependencyValue = "true";
-            preference.dependencyDisablesPref = true;
-            preference.valueAsSummary = true;
-            setting.settings.add(preference);
-        }
+        preference = DeviceSetting.dropdown(
+                "notifications_ignore_when_screen_on_dropdown",
+                R.string.wear_device_notifications_show_notifications_options,
+                0,
+                "true",
+                R.array.wear_device_notifications_options,
+                R.array.wear_device_notifications_options_values
+        );
+        preference.dependency = "send_app_notifications";
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        preference.valueAsSummary = true;
+        setting.settings.add(preference);
 
         preference = DeviceSetting.switchSetting(
                 "notifications_ignore_low_priority",
@@ -871,6 +869,17 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
         preference.settings.add(dndMode);
 
         setting.settings.add(preference);
+
+        if (coordinator.supports(device, FEAT_SCREEN_ON_ON_NOTIFICATIONS)) {
+            preference = DeviceSetting.switchSetting(
+                    "screen_on_on_notifications",
+                    R.string.wear_device_notifications_turn_on_screen,
+                    R.string.wear_device_notifications_turn_on_screen_summary,
+                    0,
+                    "false"
+            );
+            setting.settings.add(preference);
+        }
 
         setting.settings.add(DeviceSetting.divider());
 
