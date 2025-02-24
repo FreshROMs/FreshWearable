@@ -21,8 +21,8 @@
             android:importantForAccessibility="no"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_battery_charging_80"
-            android:alpha="0.6"
-            app:tint="?textColorPrimary" />
+            android:tint="@color/wearable_header_subtitle"
+            tools:ignore="UseAppTint" />
 
         <TextView
             android:id="@+id/header_battery_level_watch"
@@ -31,6 +31,7 @@
             android:layout_gravity="center_vertical"
             android:textFontWeight="600"
             android:textSize="16sp"
+            android:textColor="@color/wearable_header_subtitle"
             android:text="100%" />
     </LinearLayout>
 
@@ -54,6 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textSize="15sp"
+            android:textColor="@color/wearable_header_subtitle"
             android:text="Charging" />
     </LinearLayout>
 </LinearLayout>

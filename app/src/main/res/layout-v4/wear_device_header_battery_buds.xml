@@ -21,14 +21,13 @@
             android:layout_height="24dp"
             android:layout_marginEnd="6.0dip"
             android:importantForAccessibility="no"
-            android:alpha="0.6"
-            app:tint="?textColorPrimary" />
+            android:tint="@color/wearable_header_subtitle" />
         
         <ImageView
             android:id="@+id/header_battery_level_buds_left_charging"
             android:layout_width="18.0dip"
             android:layout_height="18.0dip"
-            android:tint="@color/secondarytext"
+            app:tint="@color/wearable_header_subtitle"
             android:src="@drawable/ic_oui_charging" />
 
         <TextView
@@ -38,6 +37,7 @@
             android:layout_gravity="center_vertical"
             android:textFontWeight="600"
             android:textSize="15sp"
+            android:textColor="@color/wearable_header_subtitle"
             android:text="L" />
 
         <TextView
@@ -48,6 +48,7 @@
             android:textFontWeight="600"
             android:layout_marginStart="4.0dip"
             android:textSize="15sp"
+            android:textColor="@color/wearable_header_subtitle"
             android:text="100%" />
 
         <TextView
@@ -59,13 +60,14 @@
             android:layout_marginEnd="6.0dip"
             android:textFontWeight="600"
             android:textSize="15sp"
+            android:textColor="@color/wearable_header_subtitle"
             android:text="•" />
 
         <ImageView
             android:id="@+id/header_battery_level_buds_right_charging"
             android:layout_width="18.0dip"
             android:layout_height="18.0dip"
-            android:tint="@color/secondarytext"
+            app:tint="@color/wearable_header_subtitle"
             android:src="@drawable/ic_oui_charging" />
 
         <TextView
@@ -75,6 +77,7 @@
             android:layout_gravity="center_vertical"
             android:textFontWeight="600"
             android:textSize="15sp"
+            android:textColor="@color/wearable_header_subtitle"
             android:text="R" />
 
         <TextView
@@ -85,6 +88,7 @@
             android:layout_marginStart="4.0dip"
             android:textFontWeight="600"
             android:textSize="15sp"
+            android:textColor="@color/wearable_header_subtitle"
             android:text="100%" />
     </LinearLayout>
 
@@ -103,15 +107,14 @@
             android:layout_height="24dp"
             android:layout_marginEnd="6.0dip"
             android:importantForAccessibility="no"
-            android:alpha="0.6"
-            app:tint="?textColorPrimary" />
+            android:tint="@color/wearable_header_subtitle" />
 
         <ImageView
             android:id="@+id/header_battery_level_case_charging"
             android:layout_width="18.0dip"
             android:layout_height="18.0dip"
             android:layout_marginEnd="2.0dip"
-            android:tint="@color/secondarytext"
+            app:tint="@color/wearable_header_subtitle"
             android:src="@drawable/ic_oui_charging" />
 
         <TextView
@@ -121,6 +124,7 @@
             android:layout_gravity="center_vertical"
             android:textFontWeight="600"
             android:textSize="15sp"
+            android:textColor="@color/wearable_header_subtitle"
             android:text="100%" />
     </LinearLayout>
 </LinearLayout>

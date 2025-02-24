@@ -27,8 +27,8 @@
         android:layout_marginVertical="4.0dip"
         android:gravity="center"
         android:text="Device Name"
-        android:textColor="?textColorPrimary"
         android:textFontWeight="600"
+        android:textColor="@color/wearable_header_title"
         android:fontFamily="sec"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
