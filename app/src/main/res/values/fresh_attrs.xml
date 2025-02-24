@@ -9,4 +9,12 @@
         <attr name="hDotColor" format="color" />
         <attr name="hDotBorderColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="CircularProgressView">
+        <attr name="cProgress" format="float" />
+        <attr name="cMax" format="float" />
+        <attr name="cStroke" format="dimension" />
+        <attr name="cBackgroundColor" format="color" />
+        <attr name="cProgressColor" format="color" />
+    </declare-styleable>
 </resources>
