@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.preference.CheckBoxPreference;
@@ -68,6 +69,12 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
 
     @Override
     public void onSettingChanged(GBDevice device, SharedPreferences sharedPreferences, String key) {
+        super.onSettingChanged(device, sharedPreferences, key);
+        if (Objects.equals(key, "notifications_ignore_when_screen_on_dropdown")) {
+            String value = sharedPreferences.getString(key, "false");
+            sharedPreferences.edit().putBoolean("notifications_ignore_when_screen_on", "true".equals(value)).apply();
+        }
+
         if (key.equals(DeviceSettingsPreferenceConst.PREF_REDMI_BUDS_AUTO_REPLY_PHONECALL)) {
             handleAutoAnswerChange(device, sharedPreferences, sharedPreferences.getBoolean(key, false));
         }
@@ -456,15 +463,60 @@ public class RedmiBudsSettingsCoordinator extends WearableSettingCoordinator {
         readAloud.screenSummary = R.string.wear_buds_read_notifications_aloud_screen_summary;
         readAloud.settings = new ArrayList<>();
 
+        DeviceSetting preference = DeviceSetting.screen(
+                "screen_notifications_app_filter",
+                R.string.wear_device_notifications_app_notifications,
+                R.string.wear_device_notifications_app_notifications_summary,
+                0,
+                "xyz.tenseventyseven.fresh.wearable.activities.devicesettings.AppNotificationsPickerActivity"
+        );
+        preference.putExtra(GBDevice.EXTRA_DEVICE, device);
+        preference.dependency = DeviceSettingsPreferenceConst.PREF_SPEAK_NOTIFICATIONS_ALOUD;
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        readAloud.settings.add(preference);
+
         readAloud.settings.add(DeviceSetting.divider());
-        DeviceSetting exclusiveMode = DeviceSetting.switchSetting(
+
+        preference = DeviceSetting.dropdown(
+                "notifications_ignore_when_screen_on_dropdown",
+                R.string.wear_device_notifications_show_notifications_options_buds,
+                0,
+                "true",
+                R.array.wear_device_notifications_options_buds,
+                R.array.wear_device_notifications_options_values
+        );
+        preference.dependency = DeviceSettingsPreferenceConst.PREF_SPEAK_NOTIFICATIONS_ALOUD;
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        preference.valueAsSummary = true;
+        readAloud.settings.add(preference);
+
+        preference = DeviceSetting.switchSetting(
+                "notifications_ignore_low_priority",
+                R.string.wear_device_notifications_ignore_low_priority_notifications,
+                R.string.wear_device_notifications_ignore_low_priority_notifications_summary_buds,
+                0,
+                "false"
+        );
+        preference.dependency = DeviceSettingsPreferenceConst.PREF_SPEAK_NOTIFICATIONS_ALOUD;
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        readAloud.settings.add(preference);
+
+        readAloud.settings.add(DeviceSetting.divider());
+
+        preference = DeviceSetting.switchSetting(
                 DeviceSettingsPreferenceConst.PREF_SPEAK_NOTIFICATIONS_FOCUS_EXCLUSIVE,
                 R.string.wear_buds_read_notifications_exclusive,
                 R.string.wear_buds_read_notifications_exclusive_summary,
                 0,
                 "false"
         );
-        readAloud.settings.add(exclusiveMode);
+        preference.dependency = DeviceSettingsPreferenceConst.PREF_SPEAK_NOTIFICATIONS_ALOUD;
+        preference.dependencyValue = "true";
+        preference.dependencyDisablesPref = true;
+        readAloud.settings.add(preference);
 
         notificationsScreen.settings.add(readAloud);
 
