@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes;
 
 import java.util.List;
 
+import nodomain.freeyourgadget.gadgetbridge.capabilities.widgets.WidgetManager;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 
 public interface WearableDeviceCoordinator {
@@ -55,5 +56,9 @@ public interface WearableDeviceCoordinator {
 
     default WearableSettingCoordinator getDeviceSettings(GBDevice device) {
         return getDeviceSettings();
+    }
+
+    default WidgetManager getWearableWidgetManager(GBDevice device) {
+        return null;
     }
 }

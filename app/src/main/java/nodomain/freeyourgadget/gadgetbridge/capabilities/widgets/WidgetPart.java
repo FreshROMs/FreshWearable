@@ -23,10 +23,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import xyz.tenseventyseven.fresh.wearable.interfaces.WearableWidgetPart;
+
 /**
  * A widget part is a single widget in a widget screen.
  */
-public class WidgetPart implements Serializable {
+public class WidgetPart extends WearableWidgetPart implements Serializable {
     // Null when not selected
     @Nullable
     private String id;
