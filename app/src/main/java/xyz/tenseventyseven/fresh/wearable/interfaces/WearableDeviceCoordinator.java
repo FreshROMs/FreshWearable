@@ -22,6 +22,7 @@ public interface WearableDeviceCoordinator {
         ECG_MONITOR,
         OTHER
     }
+    int COMBINED_BUDS_BATTERY_INDEX = -1;
 
     default DeviceKind getDeviceKind() {
         return DeviceKind.OTHER;
@@ -56,6 +57,10 @@ public interface WearableDeviceCoordinator {
 
     default WearableSettingCoordinator getDeviceSettings(GBDevice device) {
         return getDeviceSettings();
+    }
+
+    default int getBatteryIconResource(int index) {
+        return getDefaultIconResource();
     }
 
     default WidgetManager getWearableWidgetManager(GBDevice device) {

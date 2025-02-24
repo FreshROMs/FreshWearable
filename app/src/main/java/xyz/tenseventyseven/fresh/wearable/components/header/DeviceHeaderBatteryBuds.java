@@ -16,7 +16,9 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. */
 package xyz.tenseventyseven.fresh.wearable.components.header;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -28,6 +30,7 @@ import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryConfig;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
 import xyz.tenseventyseven.fresh.databinding.WearDeviceHeaderBatteryBudsBinding;
+import xyz.tenseventyseven.fresh.wearable.interfaces.WearableDeviceCoordinator;
 import xyz.tenseventyseven.fresh.wearable.utils.BatteryUtils;
 
 public class DeviceHeaderBatteryBuds extends DeviceHeaderBatteryCommon {
@@ -52,6 +55,7 @@ public class DeviceHeaderBatteryBuds extends DeviceHeaderBatteryCommon {
         binding = WearDeviceHeaderBatteryBudsBinding.inflate(LayoutInflater.from(context), this, true);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void refresh() {
         if (mDevice == null || binding == null) {
@@ -76,11 +80,13 @@ public class DeviceHeaderBatteryBuds extends DeviceHeaderBatteryCommon {
         DeviceCoordinator coordinator = mDevice.getDeviceCoordinator();
         BatteryConfig[] config = coordinator.getBatteryConfig(mDevice);
 
+        Drawable caseDrawable = getContext().getDrawable(coordinator.getBatteryIconResource(0));
         if (config.length > 1) {
-            caseIcon.setImageDrawable(getContext().getDrawable(config[0].getBatteryIcon()));
-            budsIcon.setImageDrawable(getContext().getDrawable(config[1].getBatteryIcon()));
+            Drawable budsDrawable = getContext().getDrawable(coordinator.getBatteryIconResource(WearableDeviceCoordinator.COMBINED_BUDS_BATTERY_INDEX));
+            caseIcon.setImageDrawable(caseDrawable);
+            budsIcon.setImageDrawable(budsDrawable);
         } else {
-            budsIcon.setImageDrawable(getContext().getDrawable(config[0].getBatteryIcon()));
+            budsIcon.setImageDrawable(caseDrawable);
         }
 
         // Get battery levels
@@ -165,7 +171,6 @@ public class DeviceHeaderBatteryBuds extends DeviceHeaderBatteryCommon {
             return false;
         }
 
-        return device.getBatteryState(batteryIndex) == BatteryState.BATTERY_CHARGING ||
-                device.getBatteryState(batteryIndex) == BatteryState.BATTERY_CHARGING_FULL;
+        return device.getBatteryState(batteryIndex) == BatteryState.BATTERY_CHARGING;
     }
 }

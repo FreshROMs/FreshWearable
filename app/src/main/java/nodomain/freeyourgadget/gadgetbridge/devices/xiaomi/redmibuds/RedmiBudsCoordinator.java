@@ -160,11 +160,11 @@ public abstract class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
         }
 
         if (supports(RedmiBudsCapabilities.ReportsLeftEarbudBattery)) {
-            batteryConfigs.add(new BatteryConfig(1, R.drawable.ic_buds3_left_right, R.string.left_earbud));
+            batteryConfigs.add(new BatteryConfig(1, R.drawable.ic_buds3_left, R.string.left_earbud));
         }
 
         if (supports(RedmiBudsCapabilities.ReportsRightEarbudBattery)) {
-            batteryConfigs.add(new BatteryConfig(2, R.drawable.ic_buds3_left_right, R.string.right_earbud));
+            batteryConfigs.add(new BatteryConfig(2, R.drawable.ic_buds3_right, R.string.right_earbud));
         }
 
         return batteryConfigs.toArray(new BatteryConfig[0]);
@@ -211,5 +211,20 @@ public abstract class RedmiBudsCoordinator extends AbstractDeviceCoordinator {
     @Override
     public RedmiBudsSettingsCoordinator getDeviceSettings(GBDevice device) {
         return new RedmiBudsSettingsCoordinator(this, device);
+    }
+
+    @Override
+    public int getBatteryIconResource(int index) {
+        switch (index) {
+            case 0:
+                return R.drawable.ic_buds3_case_solid;
+            case 1:
+                return R.drawable.ic_buds3_left;
+            case 2:
+                return R.drawable.ic_buds3_right;
+            case COMBINED_BUDS_BATTERY_INDEX:
+            default:
+                return R.drawable.ic_buds3_left_right;
+        }
     }
 }
