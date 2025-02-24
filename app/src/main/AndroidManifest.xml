@@ -123,6 +123,10 @@
             android:value="@xml/meta_fresh_wearable" />
 
         <activity
+            android:label="@string/menuitem_widgets"
+            android:name=".wearable.activities.devicesettings.widgets.WidgetSettingsActivity"
+            android:exported="false" />
+        <activity
             android:label="@string/wear_device_notifications_app_notifications"
             android:name=".wearable.activities.devicesettings.AppNotificationsPickerActivity"
             android:exported="false" />

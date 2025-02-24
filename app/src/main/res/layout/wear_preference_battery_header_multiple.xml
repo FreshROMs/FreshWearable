@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:paddingTop="12.0dip"
+    android:paddingBottom="12.0dip"
+    android:paddingHorizontal="16.0dip"
+    android:background="@color/oui_round_and_bgcolor">
+
+    <LinearLayout
+        android:id="@+id/battery_percentage_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <xyz.tenseventyseven.fresh.components.CircularProgressView
+                android:id="@+id/battery_percentage_1_progress"
+                android:layout_width="@dimen/wear_battery_header_multi_progress_size"
+                android:layout_height="@dimen/wear_battery_header_multi_progress_size"
+                app:cBackgroundColor="@color/wearable_battery_progress_background"
+                app:cProgressColor="@color/wearable_battery_progress_normal"
+                app:cStroke="@dimen/wear_battery_header_multi_progress_stroke" />
+
+            <ImageView
+                android:id="@+id/battery_percentage_1_icon"
+                android:layout_width="@dimen/wear_battery_header_multi_progress_icon_size"
+                android:layout_height="@dimen/wear_battery_header_multi_progress_icon_size"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/battery_percentage_1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/wear_battery_header_multi_text_margin"
+            android:textAlignment="center"
+            android:textSize="@dimen/wear_battery_header_multi_text_size"
+            android:textFontWeight="600" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/battery_percentage_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/wear_battery_header_multi_gap">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <xyz.tenseventyseven.fresh.components.CircularProgressView
+                android:id="@+id/battery_percentage_2_progress"
+                android:layout_width="@dimen/wear_battery_header_multi_progress_size"
+                android:layout_height="@dimen/wear_battery_header_multi_progress_size"
+                app:cBackgroundColor="@color/wearable_battery_progress_background"
+                app:cProgressColor="@color/wearable_battery_progress_normal"
+                app:cStroke="@dimen/wear_battery_header_multi_progress_stroke" />
+
+            <ImageView
+                android:id="@+id/battery_percentage_2_icon"
+                android:layout_width="@dimen/wear_battery_header_multi_progress_icon_size"
+                android:layout_height="@dimen/wear_battery_header_multi_progress_icon_size"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/battery_percentage_2_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/wear_battery_header_multi_text_margin"
+            android:textAlignment="center"
+            android:textSize="@dimen/wear_battery_header_multi_text_size"
+            android:textFontWeight="600" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/battery_percentage_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginStart="@dimen/wear_battery_header_multi_gap">
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <xyz.tenseventyseven.fresh.components.CircularProgressView
+                android:id="@+id/battery_percentage_3_progress"
+                android:layout_width="@dimen/wear_battery_header_multi_progress_size"
+                android:layout_height="@dimen/wear_battery_header_multi_progress_size"
+                app:cBackgroundColor="@color/wearable_battery_progress_background"
+                app:cProgressColor="@color/wearable_battery_progress_normal"
+                app:cStroke="@dimen/wear_battery_header_multi_progress_stroke" />
+
+            <ImageView
+                android:id="@+id/battery_percentage_3_icon"
+                android:layout_width="@dimen/wear_battery_header_multi_progress_icon_size"
+                android:layout_height="@dimen/wear_battery_header_multi_progress_icon_size"
+                android:layout_gravity="center"
+                android:importantForAccessibility="no" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/battery_percentage_3_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/wear_battery_header_multi_text_margin"
+            android:textAlignment="center"
+            android:textSize="@dimen/wear_battery_header_multi_text_size"
+            android:textFontWeight="600" />
+    </LinearLayout>
+
+</LinearLayout>

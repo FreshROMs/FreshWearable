@@ -234,6 +234,7 @@ dependencies {
     implementation "sesl.androidx.apppickerview:apppickerview:1.0.1+1.0.1-sesl6+rev3"
     implementation "io.github.tribalfs:oneui-design:0.5.1+oneui6"
     implementation "io.github.oneuiproject:icons:1.1.0"
+    implementation "me.relex:circleindicator:2.1.6"
 
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
     implementation "com.google.code.gson:gson:2.12.1"

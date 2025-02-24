@@ -22,4 +22,9 @@
         <attr name="drawableEntries" format="reference" /> <!-- Array of drawable names -->
         <attr name="graphEntries" format="reference" /> <!-- Array of corresponding values -->
     </declare-styleable>
+
+    <declare-styleable name="WidgetPreviewItem">
+        <attr name="wpTitle" format="string" />
+        <attr name="wpSubtitle" format="string" />
+    </declare-styleable>
 </resources>

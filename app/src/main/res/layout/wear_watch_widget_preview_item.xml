@@ -1,0 +1,51 @@
+<dev.oneuiproject.oneui.widget.RoundedFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget_preview_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="#17171A">
+
+    <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="24.0dip"
+        android:paddingVertical="12.0dip">
+        <ImageView
+            android:id="@+id/widget_preview_item_icon"
+            android:layout_width="48.0dip"
+            android:layout_height="48.0dip"
+            android:layout_gravity="center"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_oui_widget"
+            android:tint="#FFFFFF"
+            tools:ignore="UseAppTint" />
+        <TextView
+            android:id="@+id/widget_preview_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Widget name"
+            android:textFontWeight="600"
+            android:layout_gravity="center"
+            android:layout_marginTop="4.0dip"
+            android:maxLines="3"
+            android:inputType="textMultiLine"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:clickable="false"
+            android:focusable="false"
+            android:textColor="#FFFFFF"
+            style="@style/TextAppearance.AppCompat" />
+    </dev.oneuiproject.oneui.widget.RoundedLinearLayout>
+    <dev.oneuiproject.oneui.widget.RoundedLinearLayout
+        android:id="@+id/widget_preview_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground" />
+
+</dev.oneuiproject.oneui.widget.RoundedFrameLayout>

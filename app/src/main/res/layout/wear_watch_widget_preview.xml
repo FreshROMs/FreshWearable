@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/widget_preview_2x2_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginBottom="4.0dip"
+        android:orientation="horizontal">
+        <xyz.tenseventyseven.fresh.wearable.components.widgets.WatchWidgetPreviewItem
+            android:id="@+id/widget_preview_2x2_t_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="4.0dip"
+            android:clickable="true"
+            app:wpTitle="Widget name"
+            app:wpSubtitle="2x1" />
+        <xyz.tenseventyseven.fresh.wearable.components.widgets.WatchWidgetPreviewItem
+            android:id="@+id/widget_preview_2x2_t_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="4.0dip"
+            app:wpTitle="Widget name"
+            app:wpSubtitle="2x1" />
+    </LinearLayout>
+
+    <xyz.tenseventyseven.fresh.wearable.components.widgets.WatchWidgetPreviewItem
+        android:id="@+id/widget_preview_2x4_center_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="4.0dip"
+        android:layout_marginBottom="4.0dip"
+        app:wpTitle="Widget name"
+        app:wpSubtitle="2x4" />
+
+    <xyz.tenseventyseven.fresh.wearable.components.widgets.WatchWidgetPreviewItem
+        android:id="@+id/widget_preview_2x4_center_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="4.0dip"
+        android:layout_marginBottom="4.0dip"
+        app:wpTitle="Widget name"
+        app:wpSubtitle="2x4" />
+
+    <LinearLayout
+        android:id="@+id/widget_preview_2x2_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="4.0dip"
+        android:orientation="horizontal">
+        <xyz.tenseventyseven.fresh.wearable.components.widgets.WatchWidgetPreviewItem
+            android:id="@+id/widget_preview_2x2_b_left"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="4.0dip"
+            app:wpTitle="Widget name"
+            app:wpSubtitle="2x1" />
+        <xyz.tenseventyseven.fresh.wearable.components.widgets.WatchWidgetPreviewItem
+            android:id="@+id/widget_preview_2x2_b_right"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="4.0dip"
+            app:wpTitle="Widget name"
+            app:wpSubtitle="2x1" />
+    </LinearLayout>
+
+</LinearLayout>
