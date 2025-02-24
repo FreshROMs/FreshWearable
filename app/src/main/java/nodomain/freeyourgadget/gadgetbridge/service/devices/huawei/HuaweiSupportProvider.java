@@ -134,10 +134,12 @@ import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.Send
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendDeviceReportThreshold;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendExtendedAccountRequest;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendFitnessUserInfoRequest;
+import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendGetDefaultSwitch;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendGpsDataRequest;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendFileUploadInfo;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendHeartRateZonesConfig;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendOTASetAutoUpdate;
+import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendReverseCapabilitiesRequest;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendRunPaceConfigRequest;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendSetContactsRequest;
 import nodomain.freeyourgadget.gadgetbridge.service.devices.huawei.requests.SendNotifyHeartRateCapabilityRequest;
@@ -822,13 +824,14 @@ public class HuaweiSupportProvider {
             initRequestQueue.add(new SendExtendedAccountRequest(this));
             initRequestQueue.add(new GetSettingRelatedRequest(this));
             initRequestQueue.add(new AcceptAgreementsRequest(this));
+            initRequestQueue.add(new SendReverseCapabilitiesRequest(this));
+            initRequestQueue.add(new SendSetUpDeviceStatusRequest(this));
             initRequestQueue.add(new GetActivityTypeRequest(this));
+            initRequestQueue.add(new GetWearStatusRequest(this));
             initRequestQueue.add(new GetConnectStatusRequest(this));
             initRequestQueue.add(new GetDndLiftWristTypeRequest(this));
             initRequestQueue.add(new SendDndDeleteRequest(this));
             initRequestQueue.add(new SendDndAddRequest(this));
-            initRequestQueue.add(new SendSetUpDeviceStatusRequest(this));
-            initRequestQueue.add(new GetWearStatusRequest(this));
             initRequestQueue.add(new SendMenstrualCapabilityRequest(this));
             initRequestQueue.add(new SendNotifyHeartRateCapabilityRequest(this));
             initRequestQueue.add(new SendNotifyRestHeartRateCapabilityRequest(this));
@@ -843,6 +846,7 @@ public class HuaweiSupportProvider {
             initRequestQueue.add(new GetWatchfaceParams(this));
             initRequestQueue.add(new SendCameraRemoteSetupEvent(this, CameraRemote.CameraRemoteSetup.Request.Event.ENABLE_CAMERA));
             initRequestQueue.add(new GetAppInfoParams(this));
+            initRequestQueue.add(new SendGetDefaultSwitch(this));
             initRequestQueue.add(new GetMusicInfoParams(this));
             initRequestQueue.add(new GetExtendedMusicInfoParams(this));
             initRequestQueue.add(new SetActivateOnLiftRequest(this));
@@ -2503,6 +2507,35 @@ public class HuaweiSupportProvider {
         huaweiP2PManager.unregisterAllService();
         huaweiDataSyncManager.unregisterAll();
         this.huaweiDataSyncTreeCircleGoals = null;
+    }
+
+    public void deviceFileDownloadRequest(String filename, byte fileType, byte fileId, int fileSize, String srcPackage, String dstPackage, String srcFingerprint, String dstFingerprint) {
+        HuaweiFileDownloadManager.FileRequest request = HuaweiFileDownloadManager.FileRequest.IncomingFileRequest(filename, new HuaweiFileDownloadManager.FileDownloadCallback() {
+            @Override
+            public void downloadComplete(HuaweiFileDownloadManager.FileRequest fileRequest) {
+                    LOG.info("Download file: {}", fileRequest.getFilename());
+                    huaweiP2PManager.handleFile(fileRequest.getSrcPackage(), fileRequest.getDstPackage(), fileRequest.getSrcFingerprint(), fileRequest.getDstFingerprint(), fileRequest.getFilename(), fileRequest.getData());
+            }
+
+            @Override
+            public void downloadException(HuaweiFileDownloadManager.HuaweiFileDownloadException e) {
+                super.downloadException(e);
+                LOG.debug("Download exception");
+            }
+        });
+
+        request.setInitFormDevice(true);
+        request.setInFileType(fileType);
+        request.setFileId(fileId);
+        request.setFileSize(fileSize);
+        request.setSrcPackage(srcPackage);
+        request.setDstPackage(dstPackage);
+        request.setSrcFingerprint(srcFingerprint);
+        request.setDstFingerprint(dstFingerprint);
+        request.setNeedVerify(true);
+
+        huaweiFileDownloadManager.addToQueue(request, false);
+
     }
 
     public boolean downloadTruSleepData(int start, int end) {

@@ -174,7 +174,7 @@
     <string name="title_activity_discovery">Scanner les appareils</string>
     <string name="discovery_stop_scanning">Arrêter le scan</string>
     <string name="discovery_start_scanning">Démarrer le scan</string>
-    <string name="action_discover">Connecter un nouvel appareil</string>
+    <string name="action_discover">Connecter nouvel appareil</string>
     <string name="device_with_rssi">%1$s (%2$s)</string>
     <string name="title_activity_android_pairing">Appairer l\'appareil</string>
     <string name="android_pairing_hint">Utiliser l\'appairage Bluetooth d\'Android pour jumeler l\'appareil.</string>
@@ -347,7 +347,7 @@ Temps de sommeil préféré en heures</string>
     <string name="charts_legend_heartrate">Fréquence cardiaque</string>
     <string name="live_activity_heart_rate">Fréquence cardiaque</string>
     <string name="pref_title_pebble_health_store_raw">Stockez les enregistrements brut dans la base de données</string>
-    <string name="pref_summary_pebble_health_store_raw">Si coché, les données « brutes » sont stockées pour une interprétation ultérieure, augmentant la taille de la base de données.</string>
+    <string name="pref_summary_pebble_health_store_raw">Stocke les données « brutes », augmentant la taille de la base de données pour interprétation ultérieure.</string>
     <string name="action_db_management">Gestion des données</string>
     <string name="title_activity_db_management">Gestion des données</string>
     <string name="activity_db_management_import_export_explanation">Les opérations d\'Import/Export utilisent le répertoire suivant (voir ci-dessous) sur votre appareil. Ce répertoire est accessible à d\'autres applications Android et depuis votre ordinateur. Merci de prendre note que ce répertoire et tout son contenu seront effacés si vous désinstallez Gadgetbridge. Cela inclut :
@@ -683,15 +683,7 @@ Temps de sommeil préféré en heures</string>
     <string name="pref_title_authkey">Clé d\'autorisation</string>
     <string name="pref_summary_authkey">Changez la clé d\'autorisation pour une clé commune à tous vos appareils Android sur lesquels vous souhaitez vous connecter. La précédente clé par défaut est 0123456789@ABCDE</string>
     <string name="devicetype_bfh16">BFH-16</string>
-    <string name="fw_upgrade_notice_amazfitcor2">Vous êtes sur le point d\'installer le micrologiciel %s sur votre Amazfit Cor 2. 
-\n 
-\nVeuillez installer le fichier .fw, puis le fichier .res. Votre montre redémarrera après installation du .fw. 
-\n 
-\nNote : il n\'est pas nécessaire d\'installer le fichier .res si celui-ci est identique à celui installé précédemment. 
-\n 
-\nCONTINUEZ À VOS RISQUES ET PÉRILS ! 
-\n 
-\nNON TESTÉ, IL PEUT ÊTRE NÉCESSAIRE DE FLASHER UN MICROLOGICIEL BEATS_W SI LE NOM DE L\'APPAREIL EST « Amazfit Band 2 »</string>
+    <string name="fw_upgrade_notice_amazfitcor2">Vous êtes sur le point d\'installer le micrologiciel %s sur votre Amazfit Cor 2. \n \nVeuillez installer le fichier .fw, puis le fichier .res. Votre montre redémarrera après installation du fichier .fw. \n \nNote : il n\'est pas nécessaire d\'installer le fichier .res si celui-ci est identique à celui installé précédemment. \n \nCONTINUEZ À VOS RISQUES ET PÉRILS ! \n \nNON TESTÉ, IL PEUT ÊTRE NÉCESSAIRE DE FLASHER UN MICROLOGICIEL BEATS_W SI LE NOM DE L\'APPAREIL EST « Amazfit Band 2 »</string>
     <string name="dutch">Néerlandais</string>
     <string name="turkish">Turc</string>
     <string name="ukrainian">Ukrainien</string>
@@ -1339,7 +1331,7 @@ Temps de sommeil préféré en heures</string>
     <string name="pref_applications_settings">Liste des applications</string>
     <string name="toast_app_must_be_selected">L\'app doit être sélectionnée pour être configurée</string>
     <string name="pref_title_notification_use_as_allow">Autoriser les notifications des apps sélectionnées</string>
-    <string name="title_activity_notification_management">Configuration des notifications</string>
+    <string name="title_activity_notification_management">Configuration notifications</string>
     <string name="pref_header_notification_application_settings">Réglages par application</string>
     <string name="toast_app_must_not_be_selected">L\'app ne doit pas être sélectionnée pour être configurée</string>
     <string name="prefs_equalizer_preset">Préréglage d\'égalisation</string>
@@ -1574,7 +1566,7 @@ Temps de sommeil préféré en heures</string>
     <string name="pref_summary_opentracks_packagename">Utilisé pour démarrer/arrêter l\'enregistrement GPS dans une app. de fitness externe.</string>
     <string name="pref_device_action_fitness_app_control_start">Démarrage de l\'enregistrement dans l\'app Fitness</string>
     <string name="pref_device_action_fitness_app_control_stop">Arrêt de l\'enregistrement dans l\'app Fitness</string>
-    <string name="pref_title_notifications_generic_settings">Configuration des notifications Android</string>
+    <string name="pref_title_notifications_generic_settings">Configuration notifications Android</string>
     <string name="autoExport_lastTime_label">Dernier export automatique : %1$s</string>
     <string name="activity_db_management_autoexport_enabled_yes">L\'export automatique est activé.</string>
     <string name="activity_db_management_autoexport_scheduled_yes">L\'export automatique a été (initialement) réglé pour %1$s</string>
@@ -1769,7 +1761,7 @@ Temps de sommeil préféré en heures</string>
     <string name="open_fw_installer_warning_text">Cette fonction a la capacité de rendre inopérant/endommager votre appareil. Cela étant dit, cela ne s\'est jamais produit pour aucun des développeurs, mais rappelez-vous que vous faites cela à vos risques et périls.</string>
     <string name="open_fw_installer_ensure_device_connected">Assurez-vous que l\'appareil %s est bien connecté</string>
     <string name="open_fw_installer_connect_maximum_one_device">Merci de connecter UN SEUL appareil vers lequel vous souhaitez envoyer le fichier.</string>
-    <string name="open_fw_installer_getting_files_text">Comme nous ne pouvons pas distribue les fichiers de firmware, vous devrez les obtenir par vous-même. Cela signifie que vous devrez chercher les fichiers dans des fichiers apk, en ligne, dans des forums, sur Amazfitwatchfaces (pour les appareils Miband/Amazfit) et ainsi de suite.</string>
+    <string name="open_fw_installer_getting_files_text">Comme nous ne pouvons pas distribuer les fichiers de firmware, vous devrez les obtenir par vous-même. Cela signifie que vous devrez chercher les fichiers dans des fichiers apk, en ligne, dans des forums, sur Amazfitwatchfaces (pour les appareils Miband/Amazfit) et ainsi de suite.</string>
     <string name="open_fw_installer_connect_minimum_one_device">Merci de connecter AU MOINS UN appareil vers lequel vous voulez envoyer le fichier.</string>
     <string name="appmanager_item_outdated">(obsolète)</string>
     <string name="appmanager_app_share">Partager</string>
@@ -2152,7 +2144,7 @@ Temps de sommeil préféré en heures</string>
     <string name="pref_morning_updates_categories_title">Les catégories de mises à jour du matin</string>
     <string name="pref_morning_updates_categories_summary">Liste des catégories à afficher tous les matins</string>
     <string name="bluetooth_calls_pairing">Pairage pour les appels Bluetooth</string>
-    <string name="bluetooth_calls_settings">Configuration des appels Bluetooth</string>
+    <string name="bluetooth_calls_settings">Configuration appels Bluetooth</string>
     <string name="pref_display_caller_title">Afficher les informations du contact</string>
     <string name="pref_display_caller_summary">Afficher le numéro ou le nom pour les appels entrants</string>
     <string name="pref_pair_bluetooth_calls_summary">Appuyer ici pour commencer le processus de pairage</string>
@@ -3359,7 +3351,7 @@ Temps de sommeil préféré en heures</string>
     <string name="lactateThresholdHeartRate">Fréquence cardiaque du seuil de lactate</string>
     <string name="recoveryTime">Temps de récupération</string>
     <string name="sleep_colored_stats_awake_avg">Moy. éveillé</string>
-    <string name="weight_lbs">%1$.2f lbs</string>
+    <string name="weight_lbs">%1$.2f livres</string>
     <string name="weight_kg">%1$.2f kg</string>
     <string name="devicetype_garmin_fenix_5x_plus">Garmin Fenix 5X Plus</string>
     <string name="pref_description_developer_options">Logs, API d’intention</string>
@@ -3662,5 +3654,106 @@ Temps de sommeil préféré en heures</string>
     <string name="permission_query_all_packages_summary">Lecture des noms et icônes de toutes les applications installées</string>
     <string name="sleep_avg">Moy. endormi</string>
     <string name="sleep_score">Score sommeil</string>
-    <string name="sleep_score_value">Score: %1d</string>
+    <string name="sleep_score_value">Score : %1d</string>
+    <string name="first_start_intro_welcome_to">Bienvenue dans</string>
+    <string name="first_start_intro_tag_line">Libérez-vous des applications propriétaire et des services cloud des fournisseurs de gadgets.</string>
+    <string name="devicetype_garmin_forerunner_45">Garmin Forerunner 45</string>
+    <string name="garmin_intensity_minutes">Minutes intensives</string>
+    <string name="Jumps">Sauts</string>
+    <string name="jumps_minute">Sauts/min</string>
+    <string name="jumps_unit">sauts</string>
+    <string name="summary_battery_discharge_intervals_set">Envoyer la configuration ci-dessous à l\'appareil</string>
+    <string name="devicetype_casioecbs100">Casio ECB-S100</string>
+    <string name="power_w">Puissance en W</string>
+    <string name="permission_disable_doze_title">Ignorer les optimisations de batterie</string>
+    <string name="permission_disable_doze_summary">Permet de fonctionner en arrière-plan sans entrave par les optimisations de batterie Android</string>
+    <string name="weekly_total">Total semaine</string>
+    <string name="devicetype_marstek_b2500">Marstek B2500</string>
+    <string name="watchface_widget_type_sp02">SpO2</string>
+    <string name="activity_type_upper_body">Haut du corps</string>
+    <string name="activity_type_lower_body">Bas du corps</string>
+    <string name="devicetype_garmin_fenix_6x_pro_solar">Garmin Fenix 6X Pro Solar</string>
+    <string name="devicetype_garmin_fenix_7x">Garmin Fenix 7X</string>
+    <string name="devicetype_redmi_buds_4_active">Redmi Buds 4 Active</string>
+    <string name="devicetype_redmi_watch_5_lite">Redmi Watch 5 Lite</string>
+    <string name="devicetype_huawei_band2pro">Huawei Band 2 (Pro)</string>
+    <string name="devicetype_colmi_r09">Colmi R09</string>
+    <string name="totalJumps">Total de sauts</string>
+    <string name="devicetype_huawei_freebuds_5i">Huawei FreeBuds 5i</string>
+    <string name="devicetype_sony_wf_c510">Sony WF-C510</string>
+    <string name="devicetype_redmi_buds_6_active">Redmi Buds 6 Active</string>
+    <string name="charts_show_balance_sleep_title">Afficher équilibre sommeil</string>
+    <string name="fw_upgrade_notice_huawei">Vous êtes sur le point de télécharger le micrologiciel %s sur votre %s.\n\nVotre micrologiciel actuel est %s\n\nVotre appareil va redémarrer après le téléchargement.\n\nCONTINUEZ À VOS RISQUES ET PÉRILS !</string>
+    <string name="remote_control">Commande à distance</string>
+    <string name="charts_show_balance_sleep_summary">Afficher excès/manque de sommeil dans des graphiques hebdomadaires et mensuels</string>
+    <string name="charts_show_balance_steps_title">Afficher le solde de pas</string>
+    <string name="charts_show_balance_steps_summary">Afficher excès/manque de pas dans des graphiques hebdomadaires et mensuels</string>
+    <string name="view_file">Vue</string>
+    <string name="activity_detail_inspect_file">Inspecter le fichier</string>
+    <string name="workout_repetitions">Répétitions</string>
+    <string name="workout_revolutions">Révolutions</string>
+    <string name="unit_repetitions">réps</string>
+    <string name="unit_revolutions">révs</string>
+    <string name="unit_repetitions_per_minute">réps/min</string>
+    <string name="unit_revolutions_per_minute">révs/min</string>
+    <string name="devicetype_miband9active">Xiaomi Smart Band 9 Active</string>
+    <string name="devicetype_soundcore_q30">Soundcore Q30</string>
+    <string name="reset">Réinitialiser</string>
+    <string name="avgJumpRate">Taux de saut moyen</string>
+    <string name="notifications_dismiss_all">Tout rejeter</string>
+    <string name="poolLength">Longueur du bassin</string>
+    <string name="swim_avg_cadence">Cadence moyenne de nage</string>
+    <string name="strokes_per_length">coups/longueur</string>
+    <string name="prefs_active_noise_cancelling_transport">Transport</string>
+    <string name="prefs_title_gatt_client_filter_char">Charactéristiques BLE</string>
+    <string name="prefs_summary_gatt_client_filter_char">Filtre pour des caractéristiques BLE spécifiques, séparées par une virgule</string>
+    <string name="activity_type_barbell">Barre à disques</string>
+    <string name="stepRateMax">Taux de pas maximal</string>
+    <string name="pref_override_features_title">Remplacer les fonctionnalités prises en charge</string>
+    <string name="maxJumpRate">Taux de saut maximal</string>
+    <string name="prefs_active_noise_cancelling_indoor">Intérieur</string>
+    <string name="prefs_active_noise_cancelling_outdoor">Extérieur</string>
+    <string name="activity_prefs_goal_standing_hours">Objectif journalier : heures debout</string>
+    <string name="devicetype_amazfit_active_2">Amazfit Active 2</string>
+    <string name="devicetype_garmin_fenix_7s_pro">Garmin Fenix 7S Pro</string>
+    <string name="devicetype_garmin_instinct_e">Garmin Instinct E</string>
+    <string name="redmi_buds_5_pro_transparency_regular">Régulier/ère</string>
+    <string name="redmi_buds_5_pro_adaptive_sound">Son adaptatif</string>
+    <string name="discharge_interval_1">Intervalle de décharge 1</string>
+    <string name="battery_discharge_intervals">Intervalles de décharge de la batterie</string>
+    <string name="discharge_interval_2">Intervalle de décharge 2</string>
+    <string name="discharge_interval_3">Intervalle de décharge 3</string>
+    <string name="battery_minimum_charge">Charge minimale de la batterie en %</string>
+    <string name="battery_allow_pass_though_summary">Lorsqu\'elle est activée, la batterie peut être chargée tout en se déchargeant</string>
+    <string name="pref_override_features_summary">Activer/désactiver des fonctionnalités spécifiques de l\'appareil. Cela peut entraîner des problèmes et/ou un dysfonctionnement de votre appareil</string>
+    <string name="discharge_interval_5">Intervalle de décharge 5</string>
+    <string name="discharge_interval_4">Intervalle de décharge 4</string>
+    <string name="manual_discharge_summary">lorsqu\'il est désactivé, cela suppose une décharge intelligente contrôlée par un wattmètre externe (non pris en charge par Gadgetbridge)</string>
+    <string name="fit_file_viewer">Visionneuse de fichiers FIT</string>
+    <string name="update_firmware_operation_check_failed">Vérification du micrologiciel échouée</string>
+    <string name="pref_garmin_fake_oauth_title">Envoyer de fausses réponses OAuth</string>
+    <string name="pref_garmin_fake_oauth_warning">Ne pas activer cette option si vous prévoyez d’utiliser l’application officielle ou de connecter la montre à Internet. Après avoir activé ce paramètre, vous devrez peut-être réinitialiser la montre aux valeurs d’usine pour l’authentifier à nouveau.</string>
+    <string name="permission_read_phone_state_summary">État de lecture des appels en cours</string>
+    <string name="update_firmware_operation_check_in_progress">Vérification micrologiciel</string>
+    <string name="canned_replies_not_empty">Il devrait y avoir au moins une réponse prédéfinie.</string>
+    <string name="manual_discharge">Intervalles de déchargement manuel</string>
+    <string name="permission_bluetooth_admin_title">Admin Bluetooth</string>
+    <string name="permission_post_notification_summary">Affichage d’un avis continu qui maintient le service en cours</string>
+    <string name="about_build_details_copied_to_clipboard">Détails de la compilation copiés dans le presse-papiers</string>
+    <string name="devicetype_sony_wh_ult900n">Sony WH-ULT900N</string>
+    <string name="copy_to_clipboard">Copier</string>
+    <string name="devicetype_garmin_forerunner_735xt">Garmin Forerunner 735XT</string>
+    <string name="devicetype_even_realities_g1">Even Realities G1</string>
+    <string name="gree_pair_clipboard">Nom du périphérique : %s\nAdresse Mac : %s\nLier la clé : %s</string>
+    <string name="devicetype_garmin_lily_2_active">Garmin Lily 2 Active</string>
+    <string name="gree_controller_host">Hôte</string>
+    <string name="pref_garmin_fake_oauth_summary">Corrige certaines fonctions telles que la météo et les mises à jour AGPS sans se connecter à l’application officielle tous les 90 jours.</string>
+    <string name="permission_manage_dnd_summary">Modification de la politique du MDN (DND) sur les avis (notifications)</string>
+    <string name="permission_fine_location_title">Bon emplacement</string>
+    <string name="redmi_buds_5_pro_transparency_strength">Force de la transparence</string>
+    <string name="music_multiselect_limit">Limite pour la sélection de plus d’un élément atteinte</string>
+    <string name="title_activity_even_realities_g1_pairing">Même jumelage de G1</string>
+    <string name="pairing_even_realities_g1_working">Jumelage avec %1s...</string>
+    <string name="pairing_even_realities_g1_find_both_fail">Échec pour trouver les lentilles droites et gauches. Veuillez scanner à nouveau.</string>
+    <string name="pairing_even_realities_g1_select_next_lens">%1$s Critère sélectionné pour l\'appariement. Plusieurs candidats pour l\'objectif %2$s trouvé. Veuillez sélectionner l\'objectif %2$s dans la liste ci-dessous.</string>
 </resources>

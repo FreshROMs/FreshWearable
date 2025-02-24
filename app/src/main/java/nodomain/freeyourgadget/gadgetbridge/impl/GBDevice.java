@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import xyz.tenseventyseven.fresh.BuildConfig;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
 import nodomain.freeyourgadget.gadgetbridge.model.BatteryState;
@@ -472,6 +473,7 @@ public class GBDevice implements Parcelable {
     // TODO: this doesn't really belong here
     public void sendDeviceUpdateIntent(Context context, DeviceUpdateSubject subject) {
         Intent deviceUpdateIntent = new Intent(ACTION_DEVICE_CHANGED);
+        deviceUpdateIntent.setPackage(BuildConfig.APPLICATION_ID);
         deviceUpdateIntent.putExtra(EXTRA_DEVICE, this);
         deviceUpdateIntent.putExtra(EXTRA_UPDATE_SUBJECT, subject);
         LocalBroadcastManager.getInstance(context).sendBroadcast(deviceUpdateIntent);

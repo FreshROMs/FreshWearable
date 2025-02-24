@@ -625,15 +625,7 @@
     <string name="mode_configuration">モード設定</string>
     <string name="save_configuration">設定を保存</string>
     <string name="appwidget_not_connected">接続されていないためアラームは設定されません。</string>
-    <string name="fw_upgrade_notice_amazfitcor2">Amazfit Cor 2 に %s ファームウェアをインストールしようとしています。
-\n 
-\n.fw ファイルをインストールしてから、.res ファイルをインストールしてください。 .fw ファイルをインストールした後、バンドが再起動します。
-\n 
-\n注: .res ファイルが前回にインストールしたものと同じ場合、新たに.res ファイルをインストールする必要はありません。
-\n 
-\n自己責任の下で行ってください！
-\n 
-\n完全にはテストされていません。デバイス名が \"Amazfit Band 2\" の場合、おそらく BEATS_W ファームウェアをフラッシュする必要があります</string>
+    <string name="fw_upgrade_notice_amazfitcor2">Amazfit Cor 2 に %s ファームウェアをインストールしようとしています。 \n \n.fw ファイルをインストールしてから、.res ファイルをインストールしてください。 .fw ファイルをインストールした後、バンドが再起動します。 \n \n注: .res ファイルが前回にインストールしたものと同じ場合、新たに.res ファイルをインストールする必要はありません。 \n \n自己責任の下で行ってください！ \n \n完全にはテストされていません。デバイス名が \"Amazfit Band 2\" の場合、おそらく BEATS_W ファームウェアをフラッシュする必要があります</string>
     <string name="pref_title_support_voip_calls">VoIP アプリの通話を有効にする</string>
     <string name="fw_upgrade_notice_miband4">Mi Band 4 に %s ファームウェアをインストールしようとしています。
 \n
@@ -2704,4 +2696,26 @@
     <string name="devicetype_garmin_fenix_7_pro">Garmin Fenix 7 Pro</string>
     <string name="devicetype_garmin_fenix_7s">Garmin Fenix 7S</string>
     <string name="devicetype_garmin_forerunner_255">Garmin Forerunner 255</string>
+    <string name="pref_title_notification_times_enabled">通知の時間</string>
+    <string name="search">探す</string>
+    <string name="gps_glonass">GPS + GLONASS</string>
+    <string name="title_activity_musicmanager">ミュージック マネージャー</string>
+    <string name="prefs_activity_in_device_card_title_summary">歩数、移動距離、睡眠情報をデバイスカードに表示する</string>
+    <string name="proprietary_app_warning">この機能にはプロプライエタリなアプリのインストールが必要です</string>
+    <string name="pref_header_sound">サウンド</string>
+    <string name="pref_description_user_interface">テーマ、メイン画面</string>
+    <string name="pref_description_dashboard">ウィジェット、統合するデバイスの選択</string>
+    <string name="pref_description_automations">自動エクスポート、自動取得</string>
+    <string name="pref_description_deprecated_functionalities">将来的に削除される予定の設定</string>
+    <string name="pref_header_main_screen">メイン画面</string>
+    <string name="pref_title_user_interface">ユーザーインターフェース</string>
+    <string name="pref_description_about_you">誕生日、性別、身長、体重、目標</string>
+    <string name="pref_description_developer_options">ログ、Intent API</string>
+    <string name="pref_header_external_integrations">外部アプリとの連携</string>
+    <string name="pref_header_automations">オートメーション</string>
+    <string name="pref_description_general">スタートアップ、言語、地域、位置情報</string>
+    <string name="pref_description_notifications">アプリの通知、ホワイトリスト/ブラックリスト</string>
+    <string name="pref_title_nagivation_apps">ナビゲーションアプリ</string>
+    <string name="pref_summary_notification_times_enabled">設定した時刻の間にのみ通知を送信します</string>
+    <string name="pref_time_sync">時刻の自動同期</string>
 </resources>

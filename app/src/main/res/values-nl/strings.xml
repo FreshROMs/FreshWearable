@@ -682,15 +682,7 @@
     <string name="pref_title_authkey">Authenticatiesleutel</string>
     <string name="pref_summary_authkey">Wijzig de authenticatiesleutel in een algemene sleutel op al uw Android-apparaten waarmee u verbinding wilt maken. De vorige standaardsleutel voor alle apparaten is 0123456789@ABCDE</string>
     <string name="devicetype_bfh16">BFH-16</string>
-    <string name="fw_upgrade_notice_amazfitcor2">U staat op het punt om de firmware %s te installeren op uw Amazfit Cor 2.
-\n
-\nZorg ervoor dat u het .fw-bestand installeert, daarna het .res-bestand. Uw horloge wordt opnieuw gestart na het installeren van het .fw-bestand.
-\n
-\nOpmerking: U hoeft de .res niet te installeren als deze exact dezelfde is als degene die ervoor al was geïnstalleerd.
-\n
-\nGA VERDER OP EIGEN RISICO!
-\n
-\nVOLLEDIG ONGETEST, MISSCHIEN MOET JE EEN BEATS_W_FIRMWARE INSTALLEREN ALS JE DEVICE NAAM \"Amazfit Band 2\" IS</string>
+    <string name="fw_upgrade_notice_amazfitcor2">U staat op het punt om de firmware %s te installeren op uw Amazfit Cor 2. \n \nZorg ervoor dat u het .fw-bestand installeert, daarna het .res-bestand. Uw horloge wordt opnieuw gestart na het installeren van het .fw-bestand. \n \nOpmerking: U hoeft de .res niet te installeren als deze exact dezelfde is als degene die ervoor al was geïnstalleerd. \n \nGA VERDER OP EIGEN RISICO! \n \nVOLLEDIG ONGETEST, MISSCHIEN MOET JE EEN BEATS_W_FIRMWARE INSTALLEREN ALS JE DEVICE NAAM \"Amazfit Band 2\" IS</string>
     <string name="dutch">Nederlands</string>
     <string name="turkish">Turks</string>
     <string name="ukrainian">Oekraïens</string>
@@ -3708,4 +3700,67 @@
     <string name="permission_contacts_summary">Contactpersonen doorsturen naar gadgets</string>
     <string name="permission_read_call_log_summary">Oproepenlijst doorsturen naar gadgets</string>
     <string name="permission_external_storage_summary">Openen van afbeeldingen, ringtones, app-bestanden en meer</string>
+    <string name="pref_override_features_summary">Schakel specifieke apparaatfuncties in/uit. Dit kan zorgen voor problemen en kan de werking van uw apparaat negatief beïnvloeden</string>
+    <string name="pref_override_features_title">Negeer ondersteunde functies</string>
+    <string name="permission_disable_doze_title">Negeer batterijoptimalisatie</string>
+    <string name="devicetype_garmin_forerunner_45">Garmin Forerunner 45</string>
+    <string name="charts_show_balance_sleep_title">Toon slaapbalans</string>
+    <string name="charts_show_balance_sleep_summary">Toon te veel / te weinig slaap in wekelijkse en maandelijkse grafieken</string>
+    <string name="charts_show_balance_steps_title">Toon stappenbalans</string>
+    <string name="charts_show_balance_steps_summary">Toon te veel / te weinig stappen in wekelijkse en maandelijkse grafieken</string>
+    <string name="devicetype_redmi_buds_6_active">Redmi Buds 6 Active</string>
+    <string name="devicetype_sony_wf_c510">Sony WF-C510</string>
+    <string name="canned_replies_not_empty">Er moet minimaal één voorgedefinieerd bericht zijn.</string>
+    <string name="permission_disable_doze_summary">Maakt het mogelijk om in de achtergrond te werken zonder dat de batterij-optimalisaties van Android dit belemmeren</string>
+    <string name="notifications_dismiss_all">Alles afwijzen</string>
+    <string name="devicetype_garmin_fenix_7s_pro">Garmin Fenix 7S Pro</string>
+    <string name="prefs_active_noise_cancelling_transport">Transport</string>
+    <string name="prefs_active_noise_cancelling_indoor">Binnen</string>
+    <string name="activity_prefs_goal_standing_hours">Dagelijks doel: uren staand</string>
+    <string name="prefs_summary_gatt_client_filter_char">Filter voor specifieke BLE-karakteristieken, gescheiden door komma\'s</string>
+    <string name="prefs_active_noise_cancelling_outdoor">Buiten</string>
+    <string name="devicetype_soundcore_q30">Soundcore Q30</string>
+    <string name="devicetype_amazfit_active_2">Amazfit Active 2</string>
+    <string name="prefs_title_gatt_client_filter_char">BLE-karakteristieken</string>
+    <string name="activity_type_barbell">Barbell</string>
+    <string name="devicetype_garmin_instinct_e">Garmin Instinct E</string>
+    <string name="view_file">Toon</string>
+    <string name="unit_repetitions_per_minute">herhalingen/min</string>
+    <string name="unit_revolutions_per_minute">omwentelingen/min</string>
+    <string name="fit_file_viewer">FIT-bestand-weergave</string>
+    <string name="devicetype_miband9active">Xiaomi Smart Band 9 Active</string>
+    <string name="poolLength">Lengte van zwembad</string>
+    <string name="swim_avg_cadence">Gemiddelde zwemcadans</string>
+    <string name="strokes_per_length">slagen/lengte</string>
+    <string name="unit_repetitions">herhalingen</string>
+    <string name="unit_revolutions">omwentelingen</string>
+    <string name="uploading">Uploaden…</string>
+    <string name="title_activity_even_realities_g1_pairing">Even G1 koppelen</string>
+    <string name="pairing_even_realities_g1_select_next_lens">%1$s lens geselecteerd voor koppelen. Meerdere kandidaten gevonden voor de %2$s lens. Selecteer de %2$s lens uit de onderstaande lijst.</string>
+    <string name="pairing_even_realities_g1_working">Koppelen met %1s...</string>
+    <string name="pairing_even_realities_g1_find_both_fail">Kon niet zowel de rechter als de linker lens vinden. Probeer opnieuw te scannen.</string>
+    <string name="pairing_even_realities_g1_invalid_device">Even G1 apparaat ongeldig: %1$s.</string>
+    <string name="devicetype_even_realities_g1">Even Realities G1</string>
+    <string name="fw_upgrade_notice_huawei">Je staat op het punt om firmware %s naar je %s te uploaden.\n\nDe huidige firmware is %s\n\nJe apparaat zal herstarten na het uploaden.\n\nGA DOOR OP EIGEN RISICO!</string>
+    <string name="remote_control">Afstandsbediening</string>
+    <string name="devicetype_garmin_forerunner_735xt">Garmin Forerunner 735XT</string>
+    <string name="workout_repetitions">Herhalingen</string>
+    <string name="workout_revolutions">Omwentelingen</string>
+    <string name="devicetype_gree_ac">Gree Air Conditioner</string>
+    <string name="devicetype_sony_wh_ult900n">Sony WH-ULT900N</string>
+    <string name="activity_detail_inspect_file">Inspecteer bestand</string>
+    <string name="reset">Reset</string>
+    <string name="pairing_even_realities_g1_bottom_hint">Meerdere koppelingsdialogen zullen op uw Android-apparaat weergegeven worden. Zo niet, controleer het meldingenscherm en accepteer de koppelingsverzoeken daar. Zowel de linker als rechter lens moeten gekoppeld worden.</string>
+    <string name="update_firmware_operation_check_in_progress">Firmware controleren</string>
+    <string name="copy_to_clipboard">Kopieer</string>
+    <string name="update_firmware_operation_check_failed">Firmware-controle mislukt</string>
+    <string name="devicetype_garmin_lily_2_active">Garmin Lily 2 Active</string>
+    <string name="pref_garmin_fake_oauth_summary">Herstelt enkele functies zoals het weerbericht en AGPS-updates zonder elke 90 dagen te moeten verbinden met de officiële app.</string>
+    <string name="pref_garmin_fake_oauth_title">Stuur nagemaakte OAuth-antwoorden</string>
+    <string name="pref_garmin_fake_oauth_warning">Schakel dit niet in als u van plan bent de officiële app te gebruiken of het horloge met het internet te verbinden. Na het inschakelen van deze instelling moet u het horloge naar fabrieksinstellingen terugzetten om opnieuw te kunnen authenticeren.</string>
+    <string name="gree_controller_host">Server</string>
+    <string name="gree_pair_status_success">Koppelen succesvol.\n\nKoppelingssleutel: %s</string>
+    <string name="gree_pair_status_failure">Koppelen mislukt: %s</string>
+    <string name="gree_pair_clipboard">Apparaatnaam: %s\nMac-addres: %s\nKoppelingssleutel: %s</string>
+    <string name="gree_pair_info">U staat op het punt te koppelen met %s (%s). Geef de Wi-Fi- en serverinformatie op voor het koppelen. Zie onze website voor meer informatie.</string>
 </resources>
