@@ -631,4 +631,9 @@ public abstract class XiaomiCoordinator extends AbstractBLEDeviceCoordinator {
     public WearableSettingCoordinator getDeviceSettings(GBDevice device) {
         return new XiaomiSettingsCoordinator(this, device);
     }
+
+    @Override
+    public WidgetManager getWearableWidgetManager(GBDevice device) {
+        return new XiaomiWearableWidgetManager(device);
+    }
 }

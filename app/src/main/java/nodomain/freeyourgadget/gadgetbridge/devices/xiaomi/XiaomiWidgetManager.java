@@ -144,7 +144,7 @@ public class XiaomiWidgetManager implements WidgetManager {
         return parts;
     }
 
-    private WidgetPart fromRawWidgetPart(final XiaomiProto.WidgetPart widgetPart, final Collection<WidgetPartSubtype> subtypes) {
+    WidgetPart fromRawWidgetPart(final XiaomiProto.WidgetPart widgetPart, final Collection<WidgetPartSubtype> subtypes) {
         final WidgetType type = fromRawWidgetType(widgetPart.getType());
 
         if (type == null) {
@@ -376,7 +376,7 @@ public class XiaomiWidgetManager implements WidgetManager {
     }
 
     @Nullable
-    private WidgetType fromRawWidgetType(final int rawType) {
+    WidgetType fromRawWidgetType(final int rawType) {
         switch (rawType) {
             case 1:
                 return WidgetType.SMALL;
@@ -481,7 +481,7 @@ public class XiaomiWidgetManager implements WidgetManager {
     }
 
     @Nullable
-    private XiaomiProto.WidgetPart findRawPart(final int type, final int id) {
+    XiaomiProto.WidgetPart findRawPart(final int type, final int id) {
         final XiaomiProto.WidgetParts rawWidgetParts = getRawWidgetParts();
 
         for (final XiaomiProto.WidgetPart rawPart : rawWidgetParts.getWidgetPartList()) {
