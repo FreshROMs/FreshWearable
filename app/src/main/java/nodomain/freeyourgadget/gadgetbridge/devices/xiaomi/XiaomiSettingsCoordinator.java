@@ -781,7 +781,7 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 R.string.wear_device_notifications_app_notifications,
                 R.string.wear_device_notifications_app_notifications_summary,
                 0,
-                "xyz.tenseventyseven.fresh.wearable.activities.AppNotificationsPickerActivity"
+                "xyz.tenseventyseven.fresh.wearable.activities.devicesettings.AppNotificationsPickerActivity"
         );
         preference.putExtra(GBDevice.EXTRA_DEVICE, device);
         preference.dependency = "send_app_notifications";

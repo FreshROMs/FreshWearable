@@ -124,7 +124,7 @@
 
         <activity
             android:label="@string/wear_device_notifications_app_notifications"
-            android:name=".wearable.activities.AppNotificationsPickerActivity"
+            android:name=".wearable.activities.devicesettings.AppNotificationsPickerActivity"
             android:exported="false" />
         <activity
             android:name=".wearable.activities.DeviceListActivity"

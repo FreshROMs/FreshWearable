@@ -1,4 +1,4 @@
-package xyz.tenseventyseven.fresh.wearable.activities;
+package xyz.tenseventyseven.fresh.wearable.activities.devicesettings;
 
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
