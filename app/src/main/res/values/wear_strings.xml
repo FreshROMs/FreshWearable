@@ -60,14 +60,21 @@
     <string name="wear_device_notifications_app_notifications_summary">Choose which apps can send notifications to your device.</string>
 
     <string name="wear_device_notifications_show_notifications_options">Show notifications on watch</string>
+    <string name="wear_device_notifications_show_notifications_options_buds">Read notifications on earbuds</string>
     <string name="wear_device_notifications_show_notifications_screen_off">Show alerts when phone not in use</string>
+    <string name="wear_device_notifications_show_notifications_screen_off_buds">Hear alerts when phone not in use</string>
     <string name="wear_device_notifications_show_notifications_screen_on">Show alerts even when phone in use</string>
+    <string name="wear_device_notifications_show_notifications_screen_on_buds">Hear alerts even when phone in use</string>
 
     <string name="wear_device_notifications_ignore_low_priority_notifications">Ignore low priority notifications</string>
     <string name="wear_device_notifications_ignore_low_priority_notifications_summary">Hide notifications that are marked as low priority on your phone.</string>
+    <string name="wear_device_notifications_ignore_low_priority_notifications_summary_buds">Do not hear notifications that are marked as low priority on your phone.</string>
 
     <string name="wear_device_notifications_remove_notifications_when_removed">Remove notifications when removed on phone</string>
     <string name="wear_device_notifications_remove_notifications_when_removed_summary">Remove notifications on your device when they are dismissed on your phone.</string>
+
+    <string name="wear_device_notifications_turn_on_screen">Turn on screen for notifications</string>
+    <string name="wear_device_notifications_turn_on_screen_summary">Turn on the screen on your device when you receive a notification.</string>
 
     <string name="wear_device_contacts_settings">Contacts</string>
     <string name="wear_device_contacts_settings_summary">Quick call • Sync contacts</string>
