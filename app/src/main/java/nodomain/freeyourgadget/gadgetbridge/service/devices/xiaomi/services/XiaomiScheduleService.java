@@ -107,6 +107,7 @@ public class XiaomiScheduleService extends AbstractXiaomiService {
                 handleAlarms(cmd.getSchedule().getAlarms());
                 return;
             case CMD_ALARMS_CREATE:
+            case CMD_ALARMS_EDIT:
                 pendingAlarmAcks--;
                 LOG.debug("Got alarms create ack, remaining {}", pendingAlarmAcks);
                 if (pendingAlarmAcks <= 0) {
@@ -454,20 +455,20 @@ public class XiaomiScheduleService extends AbstractXiaomiService {
 
             final XiaomiProto.Schedule.Builder schedule = XiaomiProto.Schedule.newBuilder();
 
+            pendingAlarmAcks++;
             if (watchAlarm != null) {
                 // update existing alarm
                 LOG.debug("Update alarm {}", alarm.getPosition());
                 watchAlarms.put(alarm.getPosition(), alarm);
                 schedule.setEditAlarm(
                         XiaomiProto.Alarm.newBuilder()
-                                .setId(alarm.getPosition() + 1)
+                                .setId(alarm.getPosition())
                                 .setAlarmDetails(alarmDetails)
                                 .build()
                 );
             } else {
                 LOG.debug("Create alarm {}", alarm.getPosition());
                 // watchAlarms will be updated later, since we don't know the correct ID here
-                pendingAlarmAcks++;
                 schedule.setCreateAlarm(alarmDetails);
             }
 
