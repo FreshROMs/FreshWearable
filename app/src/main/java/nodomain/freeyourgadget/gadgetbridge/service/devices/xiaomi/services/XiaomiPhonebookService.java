@@ -26,7 +26,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.UUID;
 
+import nodomain.freeyourgadget.gadgetbridge.database.DBHelper;
+import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.Application;
 import xyz.tenseventyseven.fresh.R;
 import nodomain.freeyourgadget.gadgetbridge.model.Contact;
@@ -38,9 +41,9 @@ public class XiaomiPhonebookService extends AbstractXiaomiService {
 
     public static final Integer COMMAND_TYPE = 21;
     private static final Logger LOG = LoggerFactory.getLogger(XiaomiPhonebookService.class.getSimpleName());
-
     private static final int CMD_GET_CONTACT = 2;
     private static final int CMD_GET_CONTACT_RESPONSE = 3;
+    private static final int CMD_GET_CONTACTS = 4;
     private static final int CMD_ADD_CONTACT_LIST = 5;
     private static final int CMD_SET_CONTACT_LIST = 7;
 
@@ -69,9 +72,52 @@ public class XiaomiPhonebookService extends AbstractXiaomiService {
 
                 handleContactRequest(payload.getRequestedPhoneNumber());
                 return;
+            case CMD_GET_CONTACTS:
+                LOG.debug("Received request for contact list");
+                if (payload == null) {
+                    LOG.debug("Received request for contact list without payload, probably an ack");
+                    return;
+                }
+
+                if (payload.hasContactList()) {
+                    LOG.debug("WOW, we got a contact list!");
+                    handleContacts(payload.getContactList());
+                }
+                return;
         }
 
         LOG.warn("Unhandled Phonebook command {}", cmd.getSubtype());
+    }
+
+    private void handleContacts(XiaomiProto.ContactList contactList) {
+        LOG.debug("Received contact list with {} contacts", contactList.getContactInfoCount());
+        int count = contactList.getContactInfoCount();
+        GBDevice device = getSupport().getDevice();
+
+        // Device takes precedence over the database, so we clear the database first
+        DBHelper.clearContacts(device);
+
+        for (int i = 0; i < count; i++) {
+            XiaomiProto.ContactInfo contact = contactList.getContactInfo(i);
+            nodomain.freeyourgadget.gadgetbridge.entities.Contact dbContact = new nodomain.freeyourgadget.gadgetbridge.entities.Contact();
+            dbContact.setName(contact.getDisplayName());
+            dbContact.setNumber(contact.getPhoneNumber());
+            dbContact.setContactId(UUID.randomUUID().toString());
+            DBHelper.store(device, dbContact);
+        }
+    }
+
+    @Override
+    public void initialize() {
+        if (getCoordinator().getContactsSlotCount(getSupport().getDevice()) > 0) {
+            getSupport().sendCommand(
+                    "request contact list",
+                    XiaomiProto.Command.newBuilder()
+                            .setType(COMMAND_TYPE)
+                            .setSubtype(CMD_GET_CONTACTS)
+                            .build()
+            );
+        }
     }
 
     public void handleContactRequest(String phoneNumber) {

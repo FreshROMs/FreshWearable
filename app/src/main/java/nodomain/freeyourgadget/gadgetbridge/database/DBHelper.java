@@ -831,8 +831,11 @@ public class DBHelper {
             final DaoSession daoSession = db.getDaoSession();
             final User user = getUser(daoSession);
             final Device dbDevice = DBHelper.findDevice(device, daoSession);
+            if (dbDevice == null) {
+                throw new IllegalStateException("Device not found in database");
+            }
 
-            contact.setDevice(dbDevice);
+            contact.setDeviceId(dbDevice.getId());
             contact.setUserId(user.getId());
             daoSession.insertOrReplace(contact);
         } catch (final Exception e) {
