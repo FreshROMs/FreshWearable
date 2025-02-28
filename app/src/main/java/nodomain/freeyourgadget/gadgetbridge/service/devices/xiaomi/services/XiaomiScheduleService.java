@@ -35,6 +35,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TimeZone;
 
+import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.Application;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
 import nodomain.freeyourgadget.gadgetbridge.database.DBHandler;
@@ -509,12 +510,14 @@ public class XiaomiScheduleService extends AbstractXiaomiService {
     public void handleAlarms(final XiaomiProto.Alarms alarms) {
         LOG.debug("Got {} alarms from the watch", alarms.getAlarmCount());
 
+        GBDevice device = getSupport().getDevice();
         final GBDeviceEventUpdatePreferences eventUpdatePreferences = new GBDeviceEventUpdatePreferences()
                 .withPreference(XiaomiPreferences.PREF_ALARM_SLOTS, alarms.getMaxAlarms());
 
         getSupport().evaluateGBDeviceEvent(eventUpdatePreferences);
 
         watchAlarms.clear();
+        DBHelper.clearAlarms(device);
         for (final XiaomiProto.Alarm alarm : alarms.getAlarmList()) {
             final nodomain.freeyourgadget.gadgetbridge.entities.Alarm gbAlarm = new nodomain.freeyourgadget.gadgetbridge.entities.Alarm();
             gbAlarm.setUnused(false); // If the band sent it, it's not unused
@@ -536,40 +539,11 @@ public class XiaomiScheduleService extends AbstractXiaomiService {
             }
 
             watchAlarms.put(gbAlarm.getPosition(), gbAlarm);
+            DBHelper.store(device, gbAlarm);
         }
 
-        final List<nodomain.freeyourgadget.gadgetbridge.entities.Alarm> dbAlarms = DBHelper.getAlarms(getSupport().getDevice());
-        int numUpdatedAlarms = 0;
-
-        for (nodomain.freeyourgadget.gadgetbridge.entities.Alarm alarm : dbAlarms) {
-            final int pos = alarm.getPosition();
-            final Alarm updatedAlarm = watchAlarms.get(pos);
-
-            final boolean alarmNeedsUpdate;
-            if (updatedAlarm == null) {
-                alarmNeedsUpdate = !alarm.getUnused();
-            } else {
-                alarmNeedsUpdate = !alarmsEqual(alarm, updatedAlarm);
-            }
-            if (alarmNeedsUpdate) {
-                numUpdatedAlarms++;
-                LOG.info("Updating alarm index={}, unused={}", pos, updatedAlarm == null);
-                alarm.setUnused(updatedAlarm == null);
-                if (updatedAlarm != null) {
-                    alarm.setEnabled(updatedAlarm.getEnabled());
-                    alarm.setSmartWakeup(updatedAlarm.getSmartWakeup());
-                    alarm.setHour(updatedAlarm.getHour());
-                    alarm.setMinute(updatedAlarm.getMinute());
-                    alarm.setRepetition(updatedAlarm.getRepetition());
-                }
-                DBHelper.store(alarm);
-            }
-        }
-
-        if (numUpdatedAlarms > 0) {
-            final Intent intent = new Intent(DeviceService.ACTION_SAVE_ALARMS);
-            LocalBroadcastManager.getInstance(getSupport().getContext()).sendBroadcast(intent);
-        }
+        final Intent intent = new Intent(DeviceService.ACTION_SAVE_ALARMS);
+        LocalBroadcastManager.getInstance(getSupport().getContext()).sendBroadcast(intent);
     }
 
     private boolean alarmsEqual(final Alarm alarm1, final Alarm alarm2) {
