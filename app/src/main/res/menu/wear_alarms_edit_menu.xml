@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_turn_on_alarms"
+        android:visible="true"
+        android:icon="@drawable/ic_oui_alarm_outline"
+        android:title="@string/wear_device_alarms_turn_on"
+        android:showAsAction="always" />
+    <item
+        android:id="@+id/action_turn_off_alarms"
+        android:visible="true"
+        android:icon="@drawable/ic_oui_alarm_off"
+        android:title="@string/wear_device_alarms_turn_off"
+        android:showAsAction="always" />
+    <item
+        android:id="@+id/action_delete"
+        android:visible="true"
+        android:icon="@drawable/ic_oui_delete_outline"
+        android:title="@string/Delete"
+        android:showAsAction="always" />
+</menu>

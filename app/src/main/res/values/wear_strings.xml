@@ -194,4 +194,11 @@
     <string name="wear_device_watchface_settings">Watch faces</string>
     <string name="wear_device_watchface_alarms">Alarms</string>
     <string name="wear_device_watchface_apps_screen">Apps screen</string>
+
+    <string name="wear_device_alarms_title">Alarms</string>
+    <string name="wear_device_alarms_repeat_text">Every %s</string>
+    <string name="wear_device_alarms_repeat_text_daily">Every day</string>
+    <string name="wear_device_alarms_turn_on">Turn on</string>
+    <string name="wear_device_alarms_turn_off">Turn off</string>
+    <string name="wear_device_alarms_none">No alarms</string>
 </resources>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.oneuiproject.oneui.widget.RoundedLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8.0dip"
+    android:background="@color/oui_background_color">
+    <LinearLayout
+        android:id="@+id/alarm_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingVertical="32.0dip"
+        android:paddingHorizontal="24.0dip"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <CheckBox
+            android:id="@+id/alarm_selected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16.0dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:clickable="true"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/alarm_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="32sp"
+                android:textFontWeight="500"
+                android:textColor="@color/oui_primary_text_color"
+                tools:text="Apps"
+                tools:targetApi="p" />
+
+            <TextView
+                android:id="@+id/alarm_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6.0dip"
+                android:textSize="16sp"
+                android:textFontWeight="500"
+                android:textColor="@color/oui_primary_text_color"
+                tools:text="AM"
+                tools:targetApi="p" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/alarm_day_of_week_repeat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginStart="8.0dip"
+            android:layout_marginEnd="8.0dip"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/alarm_repeat_sunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4.0dip"
+                android:layout_weight="1"
+                android:textColor="@color/wear_alarm_repeat_text_color"
+                android:gravity="center"
+                android:text="S"
+                android:textFontWeight="600"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/alarm_repeat_monday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4.0dip"
+                android:layout_weight="1"
+                android:textColor="@color/wear_alarm_repeat_text_color"
+                android:gravity="center"
+                android:text="M"
+                android:textFontWeight="600"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/alarm_repeat_tuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4.0dip"
+                android:layout_weight="1"
+                android:textColor="@color/wear_alarm_repeat_text_color"
+                android:gravity="center"
+                android:text="T"
+                android:textFontWeight="600"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/alarm_repeat_wednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4.0dip"
+                android:layout_weight="1"
+                android:textColor="@color/wear_alarm_repeat_text_color"
+                android:gravity="center"
+                android:text="W"
+                android:textFontWeight="600"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/alarm_repeat_thursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4.0dip"
+                android:layout_weight="1"
+                android:textColor="@color/wear_alarm_repeat_text_color"
+                android:gravity="center"
+                android:text="T"
+                android:textFontWeight="600"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/alarm_repeat_friday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4.0dip"
+                android:layout_weight="1"
+                android:textColor="@color/wear_alarm_repeat_text_color"
+                android:gravity="center"
+                android:text="F"
+                android:textFontWeight="600"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <androidx.appcompat.widget.AppCompatCheckedTextView
+                android:id="@+id/alarm_repeat_saturday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4.0dip"
+                android:layout_weight="1"
+                android:textColor="@color/wear_alarm_repeat_text_color"
+                android:gravity="center"
+                android:text="S"
+                android:textFontWeight="600"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/alarm_day_once"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textFontWeight="500"
+            android:textColor="@color/wearable_secondary_text"
+            android:layout_marginStart="8.0dip"
+            android:layout_marginEnd="8.0dip"
+            tools:text="Once"
+            tools:targetApi="p" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/alarm_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12.0dip"
+            android:gravity="end" />
+    </LinearLayout>
+</dev.oneuiproject.oneui.widget.RoundedLinearLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_add_alarm"
+        android:icon="@drawable/ic_oui_add"
+        android:title="@string/oui_common_add"
+        android:showAsAction="always"
+        android:iconTint="@color/wearable_header_title" />
+
+    <item
+        android:id="@+id/action_edit_alarms"
+        android:title="@string/oui_common_edit"
+        android:showAsAction="never"
+        android:iconTint="@color/wearable_header_title" />
+</menu>

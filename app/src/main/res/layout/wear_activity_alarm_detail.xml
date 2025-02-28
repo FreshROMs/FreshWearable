@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/oui_round_and_bgcolor"
+    tools:context=".wearable.activities.devicesettings.alarms.AlarmDetailActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <androidx.picker.widget.SeslTimePicker
+            android:id="@+id/time_picker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <dev.oneuiproject.oneui.widget.RoundedNestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.25"
+        android:background="@color/oui_background_color">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="32.0dip">
+            <TextView
+                android:id="@+id/next_alarm_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16.0dip"
+                android:textColor="@color/wearable_primary_text"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal">
+
+                <ToggleButton
+                    android:id="@+id/day_sunday"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:textOff="S"
+                    android:textOn="S"
+                    style="@style/DayToggleButton"
+                    android:background="@drawable/wear_alarm_day_toggle_bg" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ToggleButton
+                    android:id="@+id/day_monday"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:textOff="M"
+                    android:textOn="M"
+                    style="@style/DayToggleButton"
+                    android:background="@drawable/wear_alarm_day_toggle_bg" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ToggleButton
+                    android:id="@+id/day_tuesday"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:textOff="T"
+                    android:textOn="T"
+                    style="@style/DayToggleButton"
+                    android:background="@drawable/wear_alarm_day_toggle_bg" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ToggleButton
+                    android:id="@+id/day_wednesday"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:textOff="W"
+                    android:textOn="W"
+                    style="@style/DayToggleButton"
+                    android:background="@drawable/wear_alarm_day_toggle_bg" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ToggleButton
+                    android:id="@+id/day_thursday"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:textOff="T"
+                    android:textOn="T"
+                    style="@style/DayToggleButton"
+                    android:background="@drawable/wear_alarm_day_toggle_bg" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ToggleButton
+                    android:id="@+id/day_friday"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:textOff="F"
+                    android:textOn="F"
+                    style="@style/DayToggleButton"
+                    android:background="@drawable/wear_alarm_day_toggle_bg" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ToggleButton
+                    android:id="@+id/day_saturday"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="3dp"
+                    android:textOff="S"
+                    android:textOn="S"
+                    style="@style/DayToggleButton"
+                    android:background="@drawable/wear_alarm_day_toggle_bg" />
+            </LinearLayout>
+        </LinearLayout>
+    </dev.oneuiproject.oneui.widget.RoundedNestedScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64.0dip"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_cancel"
+            style="@style/GadgetbridgeTheme.Button.Title"
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="16.0dip"
+            android:layout_marginVertical="8.0dip"
+            android:text="Cancel" />
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/GadgetbridgeTheme.Button.Title"
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="16.0dip"
+            android:layout_marginVertical="8.0dip"
+            android:text="Save" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dev.oneuiproject.oneui.layout.ToolbarLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:expanded="false"
+    app:showNavButtonAsBack="true"
+    tools:context=".wearable.activities.devicesettings.alarms.AlarmsActivity">
+    <dev.oneuiproject.oneui.widget.RoundedConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" >
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/alarm_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+                <LinearLayout
+                    android:id="@+id/alarm_no_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:layout_width="64.0dip"
+                        android:layout_height="64.0dip"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_oui_alarm_outline"
+                        app:tint="@color/wearable_secondary_text" />
+                    <TextView
+                        android:textSize="18sp"
+                        android:textColor="@color/wearable_secondary_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12.0dip"
+                        android:textAlignment="center"
+                        android:text="@string/wear_device_alarms_none"
+                        android:textFontWeight="500" />
+                </LinearLayout>
+            </FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </dev.oneuiproject.oneui.widget.RoundedConstraintLayout>
+</dev.oneuiproject.oneui.layout.ToolbarLayout>

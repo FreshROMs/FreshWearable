@@ -78,6 +78,14 @@
         <item name="android:fontWeight" tools:targetApi="o">600</item>
         <item name="android:textFontWeight" tools:targetApi="q">600</item>
         <item name="buttonCornerRadius">600dp</item>
+    <style name="GadgetbridgeTheme.Alarm.Button.Toggle" parent="android:Widget">
+        <item name="android:background">@drawable/wear_alarm_day_toggle_bg</item>
+    </style>
+
+    <style name="DayToggleButton">
+        <item name="android:buttonStyleToggle">@style/GadgetbridgeTheme.Alarm.Button.Toggle</item>
+        <item name="android:textColor">@color/wear_alarm_day_toggle_text</item>
+        <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
     <!-- splash screen -->

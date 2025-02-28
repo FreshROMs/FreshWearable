@@ -102,7 +102,6 @@
         android:supportsRtl="true"
         android:theme="@style/GadgetbridgeTheme"
         tools:replace="android:label">
-
         <!-- Metadata for Samsung One UI -->
         <meta-data
             android:name="SamsungBasicInteraction"
@@ -112,9 +111,7 @@
             android:value="true" />
         <meta-data
             android:name="com.samsung.android.icon_container.feature_appicon"
-            android:value="ADAPTIVEICON_SHADOW" />
-
-        <!-- Samsung One UI Theming for Color Palette -->
+            android:value="ADAPTIVEICON_SHADOW" /> <!-- Samsung One UI Theming for Color Palette -->
         <meta-data
             android:name="theming-meta"
             android:value="meta_fresh_wearable" />
@@ -123,13 +120,20 @@
             android:value="@xml/meta_fresh_wearable" />
 
         <activity
-            android:label="@string/menuitem_widgets"
-            android:name=".wearable.activities.devicesettings.widgets.WidgetSettingsActivity"
+            android:name=".wearable.activities.devicesettings.alarms.AlarmDetailActivity"
             android:exported="false" />
         <activity
-            android:label="@string/wear_device_notifications_app_notifications"
+            android:name=".wearable.activities.devicesettings.alarms.AlarmsActivity"
+            android:exported="false"
+            android:label="@string/wear_device_watchface_alarms" />
+        <activity
+            android:name=".wearable.activities.devicesettings.widgets.WidgetSettingsActivity"
+            android:exported="false"
+            android:label="@string/menuitem_widgets" />
+        <activity
             android:name=".wearable.activities.devicesettings.AppNotificationsPickerActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="@string/wear_device_notifications_app_notifications" />
         <activity
             android:name=".wearable.activities.DeviceListActivity"
             android:exported="false" />
