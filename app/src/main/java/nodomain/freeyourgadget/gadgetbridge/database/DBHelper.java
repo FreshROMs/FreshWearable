@@ -779,6 +779,26 @@ public class DBHelper {
         return Collections.emptyList();
     }
 
+    public static void clearContacts(@NonNull GBDevice gbDevice) {
+        try (DBHandler db = Application.acquireDB()) {
+            final DaoSession daoSession = db.getDaoSession();
+            final SQLiteDatabase sqlDb = daoSession.getContactDao().getDatabase();
+            final User user = getUser(daoSession);
+            final Device dbDevice = DBHelper.findDevice(gbDevice, daoSession);
+            if (dbDevice != null) {
+                // Use raw SQL delete since the entity doesn't have a proper primary key
+                final String deleteQuery = "DELETE FROM CONTACT WHERE USER_ID = ? AND DEVICE_ID = ?";
+                final String[] whereArgs = new String[] {
+                        String.valueOf(user.getId()),
+                        String.valueOf(dbDevice.getId())
+                };
+                sqlDb.execSQL(deleteQuery, whereArgs);
+            }
+        } catch (final Exception e) {
+            LOG.error("Error clearing contacts from db", e);
+        }
+    }
+
     public static void store(final Reminder reminder) {
         try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
@@ -800,6 +820,20 @@ public class DBHelper {
     public static void store(final Contact contact) {
         try (DBHandler db = Application.acquireDB()) {
             final DaoSession daoSession = db.getDaoSession();
+            daoSession.insertOrReplace(contact);
+        } catch (final Exception e) {
+            LOG.error("Error acquiring database", e);
+        }
+    }
+
+    public static void store(GBDevice device, final Contact contact) {
+        try (DBHandler db = Application.acquireDB()) {
+            final DaoSession daoSession = db.getDaoSession();
+            final User user = getUser(daoSession);
+            final Device dbDevice = DBHelper.findDevice(device, daoSession);
+
+            contact.setDevice(dbDevice);
+            contact.setUserId(user.getId());
             daoSession.insertOrReplace(contact);
         } catch (final Exception e) {
             LOG.error("Error acquiring database", e);
