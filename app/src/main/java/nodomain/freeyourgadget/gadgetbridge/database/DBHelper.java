@@ -38,10 +38,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
+import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.Property;
 import de.greenrobot.dao.query.Query;
 import de.greenrobot.dao.query.QueryBuilder;
@@ -624,12 +626,78 @@ public class DBHelper {
         return Collections.emptyList();
     }
 
+    // Same as getAlarms but uses position as map key
+    @NonNull
+    public static HashMap<Integer, Alarm> getAlarmsMap(@NonNull GBDevice gbDevice) {
+        List<Alarm> alarms = getAlarms(gbDevice);
+        HashMap<Integer, Alarm> alarmMap = new HashMap<>();
+        for (Alarm alarm : alarms) {
+            alarmMap.put(alarm.getPosition(), alarm);
+        }
+        return alarmMap;
+    }
+
+    public static void delete(@NonNull GBDevice gbDevice, @NonNull Alarm alarm) {
+        try (DBHandler db = Application.acquireDB()) {
+            DaoSession daoSession = db.getDaoSession();
+            SQLiteDatabase sqlDb = daoSession.getAlarmDao().getDatabase();
+            User user = getUser(daoSession);
+            Device dbDevice = DBHelper.findDevice(gbDevice, daoSession);
+            if (dbDevice != null) {
+                // Use raw SQL delete since the entity doesn't have a proper primary key
+                String deleteQuery = "DELETE FROM ALARM WHERE USER_ID = ? AND DEVICE_ID = ? AND POSITION = ?";
+                String[] whereArgs = new String[] {
+                        String.valueOf(user.getId()),
+                        String.valueOf(dbDevice.getId()),
+                        String.valueOf(alarm.getPosition())
+                };
+                sqlDb.execSQL(deleteQuery, whereArgs);
+            }
+        } catch (Exception e) {
+            LOG.error("Error clearing alarms from db", e);
+        }
+    }
+
+    public static void clearAlarms(@NonNull GBDevice gbDevice) {
+        try (DBHandler db = Application.acquireDB()) {
+            DaoSession daoSession = db.getDaoSession();
+            SQLiteDatabase sqlDb = ((AbstractDao) daoSession.getAlarmDao()).getDatabase();
+            User user = getUser(daoSession);
+            Device dbDevice = DBHelper.findDevice(gbDevice, daoSession);
+            if (dbDevice != null) {
+                // Use raw SQL delete since the entity doesn't have a proper primary key
+                String deleteQuery = "DELETE FROM ALARM WHERE USER_ID = ? AND DEVICE_ID = ?";
+                String[] whereArgs = new String[] {
+                        String.valueOf(user.getId()),
+                        String.valueOf(dbDevice.getId())
+                };
+                sqlDb.execSQL(deleteQuery, whereArgs);
+            }
+        } catch (Exception e) {
+            LOG.error("Error clearing alarms from db", e);
+        }
+    }
+
     public static void store(Alarm alarm) {
         try (DBHandler db = Application.acquireDB()) {
             DaoSession daoSession = db.getDaoSession();
             daoSession.insertOrReplace(alarm);
         } catch (Exception e) {
-             LOG.error("Error acquiring database", e);
+            LOG.error("Error acquiring database", e);
+        }
+    }
+
+    public static void store(GBDevice device, Alarm alarm) {
+        try (DBHandler db = Application.acquireDB()) {
+            DaoSession daoSession = db.getDaoSession();
+            User user = getUser(daoSession);
+            Device dbDevice = DBHelper.findDevice(device, daoSession);
+
+            alarm.setDevice(dbDevice);
+            alarm.setUser(user);
+            daoSession.insertOrReplace(alarm);
+        } catch (Exception e) {
+            LOG.error("Error acquiring database", e);
         }
     }
 
