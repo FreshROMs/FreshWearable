@@ -58,6 +58,7 @@ public interface DeviceService extends EventHandler {
     String ACTION_PHONE_FOUND = PREFIX + ".action.phone_found";
     String ACTION_SET_CONSTANT_VIBRATION = PREFIX + ".action.set_constant_vibration";
     String ACTION_SET_ALARMS = PREFIX + ".action.set_alarms";
+    String ACTION_REQUEST_ALARMS = PREFIX + ".action.request_alarms";
     String ACTION_SET_DND_MODE = PREFIX + ".action.set_dnd_mode";
     String EXTRA_DND_ENABLED = "dnd_enabled";
     String ACTION_SAVE_ALARMS = PREFIX + ".action.save_alarms";

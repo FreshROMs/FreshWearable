@@ -375,6 +375,14 @@ public class ServiceDeviceSupport implements DeviceSupport {
     }
 
     @Override
+    public void onRequestAlarms() {
+        if (checkBusy("request alarms")) {
+            return;
+        }
+        delegate.onRequestAlarms();
+    }
+
+    @Override
     public void onSetReminders(ArrayList<? extends Reminder> reminders) {
         if (checkBusy("set reminders")) {
             return;

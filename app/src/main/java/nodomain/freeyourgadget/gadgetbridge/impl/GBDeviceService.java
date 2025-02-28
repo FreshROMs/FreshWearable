@@ -209,6 +209,12 @@ public class GBDeviceService implements DeviceService {
     }
 
     @Override
+    public void onRequestAlarms() {
+        Intent intent = createIntent().setAction(ACTION_REQUEST_ALARMS);
+        invokeService(intent);
+    }
+
+    @Override
     public void onSetCallState(CallSpec callSpec) {
         Context context = Application.getContext();
         String currentPrivacyMode = Application.getPrefs().getString("pref_call_privacy_mode", Application.getContext().getString(R.string.p_call_privacy_mode_off));

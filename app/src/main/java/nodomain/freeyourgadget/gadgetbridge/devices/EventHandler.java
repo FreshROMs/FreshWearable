@@ -54,6 +54,8 @@ public interface EventHandler {
 
     void onSetAlarms(ArrayList<? extends Alarm> alarms);
 
+    void onRequestAlarms();
+
     void onSetReminders(ArrayList<? extends Reminder> reminders);
 
     void onSetLoyaltyCards(ArrayList<LoyaltyCard> cards);

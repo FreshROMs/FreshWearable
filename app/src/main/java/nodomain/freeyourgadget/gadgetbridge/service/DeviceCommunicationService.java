@@ -1083,6 +1083,9 @@ public class DeviceCommunicationService extends Service implements SharedPrefere
                 ArrayList<? extends Alarm> alarms = (ArrayList<? extends Alarm>) intentCopy.getSerializableExtra(EXTRA_ALARMS);
                 deviceSupport.onSetAlarms(alarms);
                 break;
+            case ACTION_REQUEST_ALARMS:
+                deviceSupport.onRequestAlarms();
+                break;
             case ACTION_SET_REMINDERS:
                 ArrayList<? extends Reminder> reminders = (ArrayList<? extends Reminder>) intentCopy.getSerializableExtra(EXTRA_REMINDERS);
                 deviceSupport.onSetReminders(reminders);

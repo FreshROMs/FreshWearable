@@ -1313,4 +1313,14 @@ public abstract class AbstractDeviceSupport implements DeviceSupport {
      */
     @Override
     public void onSetDNDMode(boolean enable) {}
+
+    /**
+     * If the device supports alarm clock functionality, this method can
+     * be overridden and implemented by the device support class. This is
+     * called when the alarms are requested from the device.
+     */
+    @Override
+    public void onRequestAlarms() {
+
+    }
 }
