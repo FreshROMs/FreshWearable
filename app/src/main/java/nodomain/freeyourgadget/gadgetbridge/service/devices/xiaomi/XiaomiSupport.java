@@ -315,6 +315,13 @@ public class XiaomiSupport extends AbstractDeviceSupport {
     }
 
     @Override
+    public void onRequestAlarms() {
+        if (getCoordinator().supportsAlarms()) {
+            scheduleService.requestAlarms();
+        }
+    }
+
+    @Override
     public void onSetCallState(final CallSpec callSpec) {
         notificationService.onSetCallState(callSpec);
     }
