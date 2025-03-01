@@ -73,11 +73,13 @@
 
     <style name="GadgetbridgeTheme.Button.Title" parent="@style/Widget.AppCompat.Button">
         <item name="android:background">@drawable/sesl_btn_no_background</item>
-        <item name="android:textColor">@color/oui_primary_icon_color</item>
+        <item name="android:textColor">@color/wearable_header_title</item>
         <item name="android:textSize">18sp</item>
         <item name="android:fontWeight" tools:targetApi="o">600</item>
         <item name="android:textFontWeight" tools:targetApi="q">600</item>
-        <item name="buttonCornerRadius">600dp</item>
+        <item name="buttonCornerRadius">800dp</item>
+    </style>
+
     <style name="GadgetbridgeTheme.Alarm.Button.Toggle" parent="android:Widget">
         <item name="android:background">@drawable/wear_alarm_day_toggle_bg</item>
     </style>
