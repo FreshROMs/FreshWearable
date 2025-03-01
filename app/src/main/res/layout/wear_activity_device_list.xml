@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <dev.oneuiproject.oneui.layout.ToolbarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/device_list_toolbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:title="@string/wear_app_name"
     app:expandable="false"
     app:expanded="false">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +20,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingHorizontal="10.0dip">
                 <dev.oneuiproject.oneui.widget.RoundedLinearLayout
                     android:id="@+id/device_list_connected_container"
                     android:layout_width="match_parent"
