@@ -120,6 +120,9 @@
             android:value="@xml/meta_fresh_wearable" />
 
         <activity
+            android:name=".wearable.activities.devicesettings.ContactsActivity"
+            android:exported="false" />
+        <activity
             android:name=".wearable.activities.devicesettings.alarms.AlarmDetailActivity"
             android:exported="false" />
         <activity

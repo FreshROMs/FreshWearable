@@ -201,4 +201,7 @@
     <string name="wear_device_alarms_turn_on">Turn on</string>
     <string name="wear_device_alarms_turn_off">Turn off</string>
     <string name="wear_device_alarms_none">No alarms</string>
+
+    <string name="wear_device_contacts_title">Contacts</string>
+    <string name="wear_device_contacts_none">No contacts</string>
 </resources>

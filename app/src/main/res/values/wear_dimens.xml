@@ -9,4 +9,5 @@
     <dimen name="wear_battery_header_multi_text_margin">8.0dip</dimen>
     <dimen name="wear_battery_header_multi_progress_icon_size">28.0dip</dimen>
     <dimen name="wear_battery_header_multi_text_size">15sp</dimen>
+    <dimen name="wear_contact_list_divider_inset_start">76.0dip</dimen>
 </resources>

@@ -229,23 +229,23 @@ public class AlarmsActivity extends AbstractNoActionBarActivity implements MenuP
 
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-        menuInflater.inflate(R.menu.wear_alarms_menu, menu);
+        menuInflater.inflate(R.menu.wear_list_menu, menu);
 
         boolean enabled = !binding.swipeRefreshLayout.isRefreshing() && adapter.getItems().size() < device.getDeviceCoordinator().getAlarmSlotCount(device);
-        menu.findItem(R.id.action_add_alarm).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        menu.findItem(R.id.action_add_alarm).setEnabled(enabled);
+        menu.findItem(R.id.action_add).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.findItem(R.id.action_add).setEnabled(enabled);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            menu.findItem(R.id.action_add_alarm).setIconTintList(getColorStateList(enabled ? R.color.wearable_header_title : R.color.wearable_secondary_text));
+            menu.findItem(R.id.action_add).setIconTintList(getColorStateList(enabled ? R.color.wearable_header_title : R.color.wearable_secondary_text));
         }
     }
 
     @Override
     public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
-        if (id == R.id.action_add_alarm) {
+        if (id == R.id.action_add) {
             onAddAlarm();
             return true;
-        } else if (id == R.id.action_edit_alarms) {
+        } else if (id == R.id.action_edit) {
             adapter.setEditMode(true);
             return true;
         }
