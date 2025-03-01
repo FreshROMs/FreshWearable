@@ -25,12 +25,9 @@ import java.util.Objects;
 
 import nodomain.freeyourgadget.gadgetbridge.activities.ConfigureAlarms;
 import nodomain.freeyourgadget.gadgetbridge.activities.devicesettings.DeviceSettingsPreferenceConst;
-import nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreensListActivity;
-import nodomain.freeyourgadget.gadgetbridge.devices.DeviceCoordinator;
-import nodomain.freeyourgadget.gadgetbridge.devices.xiaomi.redmibuds.RedmiBudsCapabilities;
 import nodomain.freeyourgadget.gadgetbridge.impl.GBDevice;
 import xyz.tenseventyseven.fresh.R;
-import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.PreferenceScreenActivity;
+import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.alarms.AlarmsActivity;
 import xyz.tenseventyseven.fresh.wearable.activities.devicesettings.widgets.WidgetSettingsActivity;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceSetting;
 import xyz.tenseventyseven.fresh.wearable.interfaces.DeviceShortcut;
@@ -54,6 +51,11 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
     public void onShortcutClicked(Context context, GBDevice device, String key) {
         switch (key) {
             case ALARMS_SHORTCUT_KEY:
+                Intent alarmsNew = new Intent(context, AlarmsActivity.class);
+                alarmsNew.putExtra(GBDevice.EXTRA_DEVICE, device);
+                context.startActivity(alarmsNew);
+                break;
+            case DISPLAY_ITEMS_SHORTCUT_KEY:
                 Intent alarms = new Intent(context, ConfigureAlarms.class);
                 alarms.putExtra(GBDevice.EXTRA_DEVICE, device);
                 context.startActivity(alarms);
@@ -71,14 +73,14 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 widgets.putExtra(GBDevice.EXTRA_DEVICE, device);
                 context.startActivity(widgets);
                 break;
-            case DISPLAY_ITEMS_SHORTCUT_KEY:
-                DeviceSetting settings = getDisplayItemsSettings();
-                Intent notificationsIntent = new Intent(context, PreferenceScreenActivity.class);
-                notificationsIntent.putExtra(GBDevice.EXTRA_DEVICE, device);
-                notificationsIntent.putExtra(DeviceSetting.EXTRA_IS_SWITCH_BAR, false);
-                notificationsIntent.putExtra(DeviceSetting.EXTRA_SETTING, settings);
-                context.startActivity(notificationsIntent);
-                break;
+//            case DISPLAY_ITEMS_SHORTCUT_KEY:
+//                DeviceSetting settings = getDisplayItemsSettings();
+//                Intent notificationsIntent = new Intent(context, PreferenceScreenActivity.class);
+//                notificationsIntent.putExtra(GBDevice.EXTRA_DEVICE, device);
+//                notificationsIntent.putExtra(DeviceSetting.EXTRA_IS_SWITCH_BAR, false);
+//                notificationsIntent.putExtra(DeviceSetting.EXTRA_SETTING, settings);
+//                context.startActivity(notificationsIntent);
+//                break;
         }
     }
 
@@ -756,7 +758,7 @@ public class XiaomiSettingsCoordinator extends WearableSettingCoordinator {
                 R.string.wear_device_contacts_settings,
                 R.string.wear_device_contacts_settings_summary,
                 R.drawable.wear_ic_settings_contacts,
-                "nodomain.freeyourgadget.gadgetbridge.activities.ConfigureContacts"
+                "xyz.tenseventyseven.fresh.wearable.activities.devicesettings.ContactsActivity"
         );
         setting.putExtra(GBDevice.EXTRA_DEVICE, device);
 
