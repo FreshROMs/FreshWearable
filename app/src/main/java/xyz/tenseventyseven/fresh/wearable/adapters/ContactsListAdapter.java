@@ -63,6 +63,7 @@ public class ContactsListAdapter extends SelectableListAdapter<Contact, Contacts
         holder.selector.setOnClickListener(null);
         holder.selector.setOnLongClickListener(null);
 
+        holder.selector.setSelectedAnimate(selectedItems.contains(contact));
         holder.selector.setOnClickListener(v -> {
             if (isEditMode) {
                 boolean selected = !selectedItems.contains(contact);

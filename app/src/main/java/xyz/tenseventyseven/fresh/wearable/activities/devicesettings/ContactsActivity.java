@@ -232,7 +232,10 @@ public class ContactsActivity extends AbstractNoActionBarActivity implements Men
             for (Contact contact : selectedItems) {
                 DBHelper.delete(contact);
             }
+            adapter.getItems().removeAll(selectedItems);
         }
+
+        sendContactsToDevice();
 
         binding.toolbar.endActionMode();
         binding.swipeRefreshLayout.setRefreshing(true);
