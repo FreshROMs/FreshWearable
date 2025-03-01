@@ -139,6 +139,7 @@ public class EqualizerPresetViewPreference extends ListPreference {
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
+        holder.seslSetViewHolderRecoilEffectEnabled(false);
 
         String value = getValue();
         int index = findIndexOfValue(value);

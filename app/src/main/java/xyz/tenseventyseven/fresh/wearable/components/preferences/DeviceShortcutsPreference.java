@@ -59,6 +59,7 @@ public class DeviceShortcutsPreference extends Preference {
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
+        holder.seslSetViewHolderRecoilEffectEnabled(false);
 
         layout = (GridLayout) holder.findViewById(R.id.dashboard_shortcuts);
         if (layout == null) {

@@ -100,6 +100,7 @@ public class BatteryHeaderPreference extends Preference {
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
+        holder.seslSetViewHolderRecoilEffectEnabled(false);
         if (isMultipleBatteries) {
             onBindViewHolderMultiple(holder);
         } else {
